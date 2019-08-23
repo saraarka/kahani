@@ -1,0 +1,115 @@
+a{
+    color:#333;
+    text-decoration: none;
+}
+a:focus, a:hover {
+    color: #23527c;
+    text-decoration: none;
+}
+    .bs-example{
+    	margin: 20px;
+    }
+    .panel-title .glyphicon{
+        font-size: 14px;
+    }
+    .main-content{
+      width:60%;
+      margin:0 auto;
+    }
+    @media screen and (max-width:1050px){
+        .main-content{
+          width:100%;
+          margin:0 auto;
+        }
+    }
+    header{
+  max-height:60px;
+  height:60px;
+  box-shadow: 0 1px 1px 1px rgba(0,0,0,0.1);
+  font-family: 'Muli', sans-serif;
+  font-size: 27px;
+  padding-top:11px;
+  box-sizing:border-box;
+}
+
+.header-logo{
+  margin-top:17px;
+}
+.login-but {
+    color: #3c8dbc;
+    cursor: pointer;
+    margin-right: 20px;
+    font-size: 0.8em;
+    float: right;
+    padding: 4px 7px 4px 7px;
+    border: 1px solid rgb(0,0,0,0.13);
+}  
+
+.footer{
+        bottom:40px;
+        right: 0;
+        left: 0;
+        width: 100%;
+        position: fixed;
+        height: 60px;
+        background: white;
+        box-shadow: 0 0 9px rgba(0,0,0,.1);
+        padding: 10px;
+        box-sizing:border-box;
+    }
+    .footer1{
+      bottom:0;
+      right: 0;
+      left: 0;
+      width: 100%;
+       position: fixed;
+        height: 40px;
+        background: white;
+        box-shadow: 0 0 9px rgba(0,0,0,.1);
+        box-sizing:border-box;
+        padding: 10px;
+    }
+    .socialbtns{
+        float:right;
+        font-size:25px;
+        margin-top: 7px;
+    }
+
+.sec-div{
+  background:rgba(243, 237, 237, 0.76);
+  display:flex;
+  flex-wrap:wrap;
+  padding-left: 5%;
+  padding-right: 5%;
+  margin-bottom: 80px;
+  justify-content:center;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+@media (max-width:598px){
+    .socialmedia{
+        display: none;
+    }
+    }
+    
+@media (max-width:459px){
+    .copyright{
+        display: none;
+    }
+    
+    .socialbtns{
+        float: none;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 401px){
+header {
+    font-size: 25px;
+    padding-top: 13px;
+}
+.login-but {
+    font-size: 0.7em;
+}
+}

@@ -1,0 +1,395 @@
+*{
+    -webkit-tap-highlight-color: transparent;
+}
+body{
+  margin: 0;
+  background: rgb(238, 238, 238);
+ }
+.write-nav{
+  width: 100%;
+  height: 60px;
+  z-index: 1000;
+  position: fixed;
+  background: #3c8dbc;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.logo1{
+    width: 170px;
+    /* height: 30px; */
+    margin-top: 15px;
+    margin-left: 15px;
+    display : inline-block;
+}
+
+.logo-small{
+    display : none;
+    margin: 11px 20px;
+    height: 38px;
+}
+
+
+.nav-items-write{
+  color: white;
+  float: right;
+  font-size: 15px;
+  display: flex;
+  margin-top: 10px;
+}
+
+.nav-items-write div {
+  margin-right: 25px;
+}
+
+.start-writing-btn, .writing-tips-btn {
+  border-radius : 5px;
+  border: 1px solid white;
+  padding :10px;
+  cursor: pointer;
+  color:#fff;
+
+}
+
+.start-writing-btn{
+  background: #00000c24;
+  font-size: 15px;
+}
+
+.writing-tips-btn{
+  background: #00000c24; 
+}
+
+.cancel-btn{
+  margin-top: 11px;
+}
+
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 6px 0 6px;
+  display: inline-block;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+  outline: none;
+  -webkit-appearance: none;
+}
+select{
+    background:none;
+    border: 1px solid #ccc;
+}
+.formgroup{
+    margin: 0px 0 24px;
+}
+.imagemaindiv{
+    max-width: 100%;
+}
+@media screen and (max-width:760px){
+    .logo1{
+        display : none;
+  }
+
+    .logo-small{
+       display : inline-block;
+  }
+}
+
+@media screen and (max-width:600px){
+   .writing-tips-btn {
+       display: none;
+   } 
+}
+
+@media screen and (max-width:480px){
+    .nav-items-write{
+        margin-top:14px;
+        font-size : 13px;
+    }
+    .start-writing-btn{
+        padding :7px;
+        font-size: 13px;
+    }
+    .cancel-btn{
+        margin-top: 8px;
+    }
+    .nav-items-write div {
+        margin-right: 15px;
+    }
+    label{
+        font-size:14px;
+    }
+    .textanonymous{
+        font-size: 0.7em;
+    }
+}
+
+@media screen and (max-width:580px){
+     .formbox{
+        width: 90%;
+        margin: 0;
+    }
+}
+
+.infocontainer{
+  display : flex;
+  flex-wrap : wrap;
+  margin : 0 auto;
+  justify-content: center;
+  padding-top: 100px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.imagebox{
+  width : 293px;
+  height : 280px;
+  background : white;
+  margin:0px 15px 15px 15px;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+  border-radius: 5px;
+  text-align: center;
+  color: #777;
+}
+.monetize{
+  width:293px;
+  height:112px;
+  margin: 15px;
+  max-width :100%;
+  background :white;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+  color: #444;
+}
+.hidden {
+  display:none;
+}
+.info{
+  width: 800px;
+  min-height: 407px;
+  max-width:95%;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+  padding: 30px 20px;
+  border-radius: 5px;
+  margin: 0px 15px 15px 15px;
+  box-sizing: border-box;
+  background: white;
+}
+.browseimg{
+    margin-top:-35px;
+    font-size: 12px;
+    line-height: 22px;
+    text-transform: uppercase;
+}
+.monitizediv {
+    line-height:30px;
+    border-bottom:1px solid #eeeeee;
+    font-size: 14px;
+    padding:0px 10px;
+}
+.bootstrap-tagsinput .tag {
+    background: #eff2f7 !important;
+    padding: 3px 5px;
+    border-radius: 2px;
+    color: #555 !important;
+    font-size: 14px;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 4px;
+    font-weight: 400;
+    line-height: 2em;
+}
+.bootstrap-tagsinput {
+    margin-top:5px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    display: inline-block;
+    padding: 4px 6px;
+    color: #555;
+    vertical-align: middle;
+    border-radius: 4px;
+    width: 98%;
+    line-height: 22px;
+    cursor: text;
+    max-height: 70px;
+    overflow-y: scroll;
+    
+}
+.imageThumb {
+    width: 293px;
+    height: 280px;
+}
+.removeimg {
+    background: #3c8dbc;
+    text-align: center;
+    width: 293px;
+    margin: 15px;
+    padding: 3px 0px;
+    color: #fff;
+}
+@media screen and (max-width: 1155px){
+    .info {
+        width: 750px;
+    } 
+}
+.anonymousname {
+    color:#7c7c7c; 
+    border: 1px solid #ddd; 
+    padding: 8px;
+    border-radius: 5px;
+    background: #eee;
+}
+span.text-danger {
+    color:red;
+}
+/* popup css start */
+.hide-body-scroll{
+    overflow-y: hidden;
+}
+.blur{
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+}
+.modal-wrapper{
+    width:100%;
+    height:100%;
+    z-index: 1005;
+    position:fixed;
+    font-family: arial,"sans-serif";
+    top:0; left:0;
+    background:rgba(0,0,0,0.5);
+    visibility:hidden;
+    opacity:0;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+}
+.modal-wrapper.open{
+    opacity:1;
+    visibility:visible;
+}
+.modal{
+    width:500px;
+    max-width : 90%;
+    border-radius: 5px;
+    max-height : 100%;
+    display:block;
+    position: absolute;
+    left: 50%;
+    top: 100px;
+    transform : translateX(-50%);
+    background:#fff;
+    opacity:0;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+.modal-wrapper.open .modal{
+    opacity:1;
+}
+.popup-head{
+    width:100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    height:45px;
+    font-size :17px;
+    overflow:hidden;
+    background:#01bce5;
+}
+
+.popup-headtext{
+    display : inline-block;
+    margin:13px;
+    color:white;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 70%;
+}
+.popup-btn-close{
+    width : 22px;
+    margin: 6px 8px 0px 0px;
+    float:right;
+}
+
+.popup-content{
+    padding: 10px;
+    font-size: 16px;
+    line-height: 25px;
+    max-height: 300px;
+    min-height: 100px;
+    overflow-y: scroll;
+}
+
+/* popup css end */
+
+/*snackbar css */
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30; /* 30px from the bottom */
+  transform: translateX(-50%);
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 10.5s;
+  animation: fadein 0.5s, fadeout 0.5s 10.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+/* spinner rotate */
+.spinner{
+  -webkit-animation: spinner 1s infinite linear;
+  animation: spinner 1s infinite linear;
+}
+
+@-webkit-keyframes spinner {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+@keyframes spinner {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+@media screen and (max-width:355px){
+    .popup-content{
+        max-height: 200px;
+    } 
+}

@@ -1,0 +1,61 @@
+
+a span.redvj {
+	border:1px solid red;
+	padding:10px 15px;
+	border-radius:5px;
+	color:red;
+}
+a:hover span.redvj{
+	border:1px solid red;
+	background:red;
+	padding:10px 15px;
+	border-radius:5px;
+	color:rgb(255, 255, 255);
+}
+/*.dropdown-menu>li>a {
+	color:#000 !important;
+}
+.dropdown-menu>li>a:hover {
+	color:rgb(255, 255, 255) !important;
+}*/
+.box{position:relative;border-radius:3px;background:rgb(255, 255, 255);border-top:3px solid #d2d6de;margin-bottom:0px;width:100%;box-shadow:0 1px 1px rgba(0,0,0,0.1)}
+.box-widget{border:none;position:relative}
+.box-body{border-top-left-radius:0;border-top-right-radius:0;border-bottom-right-radius:3px;border-bottom-left-radius:3px;padding:10px}
+.box-footer{border-top-left-radius:0;border-top-right-radius:0;border-bottom-right-radius:3px;border-bottom-left-radius:3px;border-top:1px solid #f4f4f4;padding:8px 10px;background-color:rgb(255, 255, 255);}
+.box-comments{background:#f7f7f7;height:50px;}
+.box-comments .comment-text{color:#555}
+.box-comments .username{padding-top:4px; color:#444;display:block;font-weight:600;font-size:17px; text-transform:uppercase; float:left;}
+.card-community{
+    width:293px;
+    height:250px;
+    margin:10px;
+}
+@media screen and (max-width:1050px){
+    .card-community{
+        width:276px!important;
+        height:250px;
+    }
+    .jcm{
+        justify-content:center!important;
+    }
+    .box-comments .username{
+        font-size:15px;
+    }
+}
+body{
+    padding:60px 10px;
+    background:#fff!important;
+}
+
+ul.cardv li:nth-child(n+6) {
+	display:block;
+}
+ul.cardv{
+    overflow-y:scroll;height:45vh;
+}
+.cardv-text:last-child{
+	margin-bottom:0;
+}
+.cardvmore > a {
+	color:#dd4b39;
+}

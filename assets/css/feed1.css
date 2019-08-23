@@ -1,0 +1,132 @@
+span.loadmorespan {
+    cursor: pointer;
+    color: #f00;
+}
+span.loadmorespantop {
+    cursor: pointer;
+    color: #f00;
+}		
+.box-comments {
+    background: rgb(255, 255, 255);
+}
+a span.redvj {
+	border:1px solid red; padding:10px 15px; border-radius:5px; color:red;
+}
+a:hover span.redvj{
+	border:1px solid red; background:red; padding:10px 15px; border-radius:5px; color:rgb(255, 255, 255);
+}
+.sideimg img{
+	border-radius:5px;
+	box-shadow: 0px 7px 11px rgba(35, 103, 142, 0.5);
+}
+.box-comments .comment-text{margin-left:0;}
+.sidebarvj{
+	background: rgb(255, 255, 255);
+	padding: 10px;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+	max-height:480px;
+	overflow:scroll;
+	overflow-x:hidden;
+}
+.tooltipv {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+	color:#000;
+}
+.tooltipv .tooltipvtext {
+    visibility: hidden;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+}
+.tooltipv:hover .tooltipvtext {
+    visibility: visible;
+}
+ul.card li:nth-child(n+6) {
+    display:none;
+}
+.img-v {
+	width:203px;
+	height:190px;
+}
+.dv1{
+	min-width: 19%;
+    float: right;
+    right: 0;
+    top: 24px;
+    left: 80%;
+    width: 10%;
+}
+.more {
+    word-break: break-word;
+}
+.media-heading{
+    max-height: 2.8em;
+    line-height: 1.4em;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+@media screen and (max-width:768px){
+    .img-v {
+        width: 120PX!important;
+        height: 120px!important;
+        border-radius: 5px;
+    }
+    
+}
+
+    .border-box{
+        border:1px solid #ddd;
+        padding:5px;
+        border-radius:5px;
+        margin:0 5px;
+    }
+
+
+@media screen and (max-width:649px){
+    .feed{
+        width:100%!important;
+        margin:0px!important;
+    }
+}
+@media screen and (min-width:650px) and (max-width:1050px){
+    
+    .feed{
+        width:635px!important;
+        margin:0 auto!important;
+    }
+}
+.mrg{
+ margin-right:0px;   
+}
+.feed{
+    width:635px; margin:0 auto;
+}
+.side-feed{
+    width:302px; margin:0 5px;
+}
+@media screen and (max-width: 370px){
+.nav-tabs-custom>.nav-tabs>li {
+    justify-content: center;
+    font-size: 10.5px;
+}}
+@media screen and (max-width:1050px){
+    body{
+        padding-left:10px;
+        padding-right:10px;
+    }
+}
+@media screen and (max-width:1270px){
+    .side-feed{
+        display:none!important;
+    }
+}
+.pt-0{
+    margin-left:0px;
+    margin-right:0px;
+}

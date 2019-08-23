@@ -1,0 +1,146 @@
+ul.cardv li:nth-child(n+6) {
+	display:block;
+}
+ul.cardv{
+    overflow-y:scroll;height:50vh;
+}
+.cardv-text:last-child{
+	margin-bottom:0;
+}
+.cardvmore > a {
+	color:#dd4b39;
+}
+.fa-2x {
+	font-size: 2em;
+}
+.sidebar-menu>li.avj5:hover>a{
+    color:rgb(255, 255, 255);
+    background-color: dimgrey;
+}
+.sticky {
+  position: fixed;
+  top:0px;
+  width: 230px;
+  transition: all .3s ease-in-out;
+   -webkit-transition: all .3s ease-in-out;
+}
+.sticky1 {
+  position: fixed;
+  top:-60px;
+  width: 230px;
+  transition: all .3s ease-in-out;
+   -webkit-transition: all .3s ease-in-out;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+@media screen and (max-width:1050px){
+    .hideside{
+        display:none!important;
+    }
+}
+
+.sidea{
+    padding: 12px 0;
+    vertical-align: middle;
+}
+
+/* sidebar */
+.treeview-menu{display:none;list-style:none;padding:0;margin:0;padding-left:5px}
+.treeview-menu .treeview-menu{padding-left:20px}
+.treeview-menu>li{margin:0}
+.treeview-menu>li>a{padding:5px 5px 5px 15px;display:block;font-size:14px}
+.treeview-menu>li>a>.fa,.treeview-menu>li>a>.glyphicon,.treeview-menu>li>a>.ion{width:20px}
+.treeview-menu>li>a>.pull-right-container>.fa-angle-left,.treeview-menu>li>a>.pull-right-container>.fa-angle-down,.treeview-menu>li>a>.fa-angle-left,.treeview-menu>li>a>.fa-angle-down{width:auto}
+
+.sidebar{padding-bottom:10px; background:#eeeeee; color:#000}
+.sidebar-menu{list-style:none;margin:0;padding:0}
+.sidebar-menu>li{position:relative;margin:0;padding:0}
+.sidebar-menu>li>a{padding:0px;display:block}
+.sidebar-menu>li>a>.fa,.sidebar-menu>li>a>.glyphicon,.sidebar-menu>li>a>.ion{width:20px}
+.sidebar-menu>li .label,.sidebar-menu>li .badge{margin-right:5px}
+.sidebar-menu>li .badge{margin-top:3px}
+.sidebar-menu li.header{padding:10px 25px 10px 15px;font-size:12px}
+.sidebar-menu li>a>.fa-angle-left,.sidebar-menu li>a>.pull-right-container>.fa-angle-left{width:auto;height:auto;padding:0;margin-right:10px;-webkit-transition:transform .5s ease;-o-transition:transform .5s ease;transition:transform .5s ease}
+.sidebar-menu li>a>.fa-angle-left{position:absolute;top:50%;right:10px;margin-top:-8px}
+.sidebar-menu .menu-open>a>.fa-angle-left,.sidebar-menu .menu-open>a>.pull-right-container>.fa-angle-left{-webkit-transform:rotate(-90deg);-ms-transform:rotate(-90deg);-o-transform:rotate(-90deg);transform:rotate(-90deg)}
+.sidebar-menu .active>.treeview-menu{display:block}
+
+.sidebar-menu li>a{position:relative}
+.sidebar-menu li>a>.pull-right-container{position:absolute;right:10px;top:50%;margin-top:-7px}
+
+
+.sidebar-menu>li a{
+	font-size:18px;
+}
+.sidebar-menu>li.avj:hover>a{
+    background:#3c8dbc;
+}
+.sidebar-menu>li.active.avj  a{
+    background:#3c8dbc;
+    color:rgb(255, 255, 255)!important;
+}
+.sidebar-menu>li.avj1:hover>a {
+    color: rgb(255, 255, 255)!important;
+    background: #4285f4!important;
+}
+.sidebar-menu>li.active.avj1  a{
+    /*background:#dd4b39;*/
+    background:#4285f4;
+    color:rgb(255, 255, 255)!important;
+}
+.sidebar-menu>li.avj2:hover>a {
+    color: rgb(255, 255, 255)!important;
+    background: #34a853!important;
+}
+.sidebar-menu>li.active.avj2  a{
+    background:#34a853;
+    color:rgb(255, 255, 255)!important;
+}
+.sidebar-menu>li.avj3:hover>a {
+    color: rgb(255, 255, 255)!important;
+    background: #d9b03a!important;
+}
+.sidebar-menu>li.active.avj3  a{
+    background:#d9b03a;
+    color:rgb(255, 255, 255)!important;
+}
+.sidebar-menu>li.avj4:hover>a {
+    color: rgb(255, 255, 255)!important;
+    /*background: #f39c12eb!important;*/
+    background: orangered!important;
+}
+.sidebar-menu>li.active.avj4  a{
+    background:orangered;
+    color:rgb(255, 255, 255)!important;
+}
+.sidebar p{
+	margin:0px;
+}
+.sidebar p a:hover{
+	color:#f39c12;
+}
+.sidebar-menu span i{
+	display: block;
+    height: 37px;
+    padding: 5px 0 0 18px;
+    width: 40px;
+    text-align: center;
+}
+
+/*.main-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 60px;
+    width: 230px;
+    z-index: 810;
+    -webkit-transition: -webkit-transform .3s ease-in-out,width .3s ease-in-out;
+    -moz-transition: -moz-transform .3s ease-in-out,width .3s ease-in-out;
+    -o-transition: -o-transform .3s ease-in-out,width .3s ease-in-out;
+    transition: transform .3s ease-in-out,width .3s ease-in-out;
+}*/
+
+/*.btn{border-radius:0px!important}*/
+.fixed .content-wrapper,.fixed .right-side{padding-top:0 !important}

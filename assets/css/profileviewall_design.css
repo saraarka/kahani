@@ -1,0 +1,343 @@
+blockquote {
+    padding: 0px 8px;
+    margin: 0 0 20px;
+    font-size: 14px;
+    border-left: 5px solid #eee;
+}
+.tooltipv {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+     color:#000;
+}
+.tooltipv .tooltipvtext {
+    visibility: hidden;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+}
+.tooltipv:hover .tooltipvtext {
+    visibility: visible;
+}
+.vjc {
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    border: 1px solid #999;
+}
+.box{
+   box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+}
+.border-right{
+    border-right:1px solid #00a65a;
+}
+.description-block {
+    display: block;
+    margin: 10px 0;
+    text-align: center;
+    text-transform:uppercase !important;
+    font-weight: 600;
+}
+.description-header {
+    font-weight: 600;
+}
+.book-typels{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing:border-box;
+      font-size: 14px;
+    line-height: 20px;
+    color: rgb(255, 255, 255);
+    padding: 3px 6px 0px;
+    background: #00a65a;
+    position: relative;
+    top: 0px;
+    z-index: 1;
+    font-weight: 300;
+    text-align:center;
+}
+.cardls {
+  background-color:white;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2)!important;
+  width: 210px;
+  margin: 8px;
+  box-sizing:border-box;
+  padding:5px;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.imagemels{
+    padding-bottom:5px;
+}
+.max-linesls {
+    color: #337ab7;
+    font-size: 16.2px;
+    font-family: 'Geneva', sans-serif;
+    max-height: 2.8em;
+    line-height: 1.4em;
+    font-weight: 600;
+    display: flex;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.episodesls {
+ color:#999;
+ font-size:13px;
+ 
+}
+
+.readls {
+ height:32px;
+ background-color:#f4f4f4;
+ color:black;
+ border: none;
+ border-radius: 4px;
+ padding: 0 10px;
+}
+
+.bynamels{
+   font-size:13.0px;
+   
+   color:#999;
+
+}
+
+.nameherels{
+    color:black;
+    font-size:12.5px;
+    padding:4px;
+    font-weight:600;
+}
+
+.plus-buttonls {
+ height:32px;
+ width:35px;
+ float:right;
+ color:black;
+ background-color:#f4f4f4;
+ border: none;
+ border-radius: 4px;
+}
+
+.imagemels{
+ width:100%;height:180px;
+ image-rendering:-webkit-optimize-contrast;
+}
+.flextestls{
+  margin-top: auto;
+}
+
+@media screen and (min-width: 318px) and (max-width: 357px){
+  .cardls {
+  min-width: 148px;
+  max-width: 148px;
+  margin: 1.5px;
+} 
+.card {
+  min-width: 148px;
+  max-width: 148px;
+  margin: 1.5px;
+}
+.episodesls {
+ font-size:10px;
+}
+.imagemels{
+ height:150px;
+}
+}
+@media screen and (min-width: 358px) and (max-width: 395px){
+  .cardls {
+  min-width: 165px;
+  max-width: 165px;
+  margin: 3px;
+}
+.card {
+  min-width: 165px;
+  max-width: 165px;
+  margin: 3px;
+}
+.episodesls {
+ font-size:10px;
+}
+.imagemels{
+ height:155px;
+}
+}
+@media screen and (min-width: 395px) and (max-width: 450px){
+.cardls {
+  min-width: 183px;
+  max-width: 183px;
+  margin: 3px;
+}
+.card {
+  min-width: 183px;
+  max-width: 183px;
+  margin: 3px;
+}
+.episodesls {
+ font-size:11.5px;
+}
+.imagemels{
+ height:160px;
+}
+}
+@media screen and (min-width: 590px) and (max-width: 655px){
+  .cardls {
+  min-width: 168px;
+  max-width: 168px;
+  margin: 3px;
+}  
+.card {
+  min-width: 168px;
+  max-width: 168px;
+  margin: 3px;
+}
+.episodesls {
+ font-size:11px;
+}
+.imagemels{
+ height:160px;
+}
+}
+@media screen and (min-width: 590px) and (max-width: 1030px){
+.cardls {
+  min-width: 200px;
+  max-width: 200px;
+  margin: 5px;
+}
+.imagemels{
+ height:175px;
+}
+.card{
+    min-width:200px;
+    max-width:200px;
+    margin:5px;
+}
+}
+@media screen and (max-width: 1030px){
+    .max-linesls {
+        font-weight:400;
+    }
+    
+    .nameherels{
+        font-weight:400;
+    }
+}
+@media screen and (max-width: 400px) {
+.book-typels{
+    font-size: 12px;
+    line-height: 18px;
+} 
+}
+@media screen and (max-width: 340px) {
+.book-typels{
+    font-size: 10px;
+    line-height: 16px;
+} 
+}
+@media (max-width:1199px){
+    .profile1{
+        display:none!important;
+    }
+    .profile2{
+        display:block!important;
+    }
+}
+@media (max-width:1250px){
+    .side1{
+        display:none!important;
+    }
+    .side2{
+        display:block!important;
+    }
+}
+.profile2{
+        display:none;
+    }
+.side1{
+    width:279px;
+}
+.side2{
+    width: 904px;
+    margin: 0 auto;
+}
+@media screen and (max-width:905px){
+    .side2{
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+@media screen and (min-width:484px) and (max-width:542px){
+    .btn-successv{
+        font-size:13px;
+        /*margin-top:-20px;*/
+        padding:5px;
+    }
+}
+@media screen and (min-width:416px) and (max-width:484px){
+    .btn-successv{
+        font-size:13px;
+        margin-top:-20px;
+        padding:6px;
+    }
+}
+@media screen and (min-width:355px) and (max-width:416px){
+    .btn-successv{
+        font-size:12px;
+        margin-top:-20px;
+        padding:7px;
+    }
+}
+@media screen and (max-width:355px){
+    .btn-successv{
+        font-size:10px;
+        margin-top:-16px;
+        padding:5px;
+    }
+}
+@media screen and (max-width:768px){
+    .pd-0{
+        padding:10px 0;
+    }
+}
+@media screen and (min-width:905px) and (max-width:1050px){
+
+    .main-container1{
+        width:904px!important;
+        margin:0 auto;
+    }
+}
+body{
+    padding:65px 0;
+}
+@media screen and (max-width:1050px){
+    .pd-l{
+        padding:0 10px;
+    }
+    .pv-0 {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    hr{
+        margin-left:10px;
+        margin-right:10px;
+    }
+}
+@media screen and (max-width:768px){
+    .pv-0{
+        margin-left:0px;
+        margin-right:0px;
+    }
+    hr{
+        margin-left:10px;
+        margin-right:10px;
+    }
+}
+.btn-successv {
+    background-color: #00a65a;
+    border-color: #008d4c;
+    color:rgb(255, 255, 255);
+}

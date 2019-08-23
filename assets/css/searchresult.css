@@ -1,0 +1,532 @@
+.namehere{
+    color:black;
+    font-size:12.5px;
+    /*padding:4px;*/
+    font-weight:600;
+}
+
+.imagemels{
+    padding-bottom:5px;
+}
+.content-wrapper{
+    margin-left:0;
+}
+.main-containerv{
+    width:904px;
+    margin:0 auto;
+}
+.writerc{
+    float:left;color:#fff;padding-top: 4px;    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+ul.list-inline li{
+    padding-left:0;  
+    padding-right:0;
+}
+
+.dropvk{
+   margin-top:-112px; float:right; position:relative;
+   padding-left:3px;
+}
+ul.dropvk li{
+    width:30.33%;
+}
+ul.dropvk li a{
+  text-align:center;
+}
+.dropvklife{
+   margin-top:-82px; left:30px; float:right; position:relative;
+   padding-left:3px;
+}
+ul.dropvklife li{
+    width:30.33%;
+}
+ul.dropvklife li a{
+  text-align:center;
+}
+
+@media screen and (max-width: 1050px){
+    .cenv{
+        padding-left:10px;
+        padding-right:10px;
+    }
+}
+@media screen and (max-width: 462px){
+    .cenv{
+        justify-content:center!important;
+        display:flex;
+    }
+    .search-box{
+        color:#000;
+    }
+    .nav>li>a {
+        position: relative;
+        display: block;
+        /*padding: 10px 8px;*/
+        padding: 4px;
+        font-weight:bold;
+    }
+}
+@media screen and (max-width: 350px){
+    .nav>li>a {
+        position: relative;
+        display: block;
+        padding: 4px;
+        font-size: 12px;
+        font-weight:bold;
+    }
+}
+@media screen and (max-width:904px){
+    .StoryCont1 {
+    width: 100% !important;
+    }
+    
+    .titlei{
+        font-size:20px!important;
+        line-height: 2;
+        text-transform: uppercase;
+    }
+    .view{
+        /*height: 34px;*/
+        padding: 11px 10px !important;
+        font-size:10px !important;
+        text-transform:uppercase;
+        background:#3c8dbc;
+        border-radius: 3px;
+    }
+    .row{
+        margin:0px;
+    }
+    .StoryContl1.StoryCont{
+        width: 100%;
+    }
+    .card1{
+        margin:0 6px 8px 0!important;
+    }
+    .main-containerv{
+        width:100%;
+        padding: 0px;
+    }
+    .pd-0{
+        padding-left:10px!important;
+        padding-right:10px!important;
+    }
+    .pt-0{
+        padding-left:0px!important;
+        padding-right:0px!important;
+    }
+    hr {
+        margin-top: 8px;
+        margin-bottom: 10px;
+        border: 0;
+        border-top: 1px solid #ddd;
+        margin-right:10px;
+        margin-left:10px;
+    }
+    .card1 {
+    background-color: white;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2)!important;
+    width: 276px;
+    margin-right: 8px;
+    box-sizing: border-box;
+    padding: 5px;
+    display: flex;
+    flex-flow: column nowrap;
+    margin-bottom: 8px;
+    }
+}
+    /*option{
+        padding:20px;
+        font-size:18px;
+    }
+    select option{
+        max-height:15px!important;
+        overflow:scroll;
+    }*/
+    .border-bottom {
+        border-bottom: 1px solid #777;
+        padding: 10px;
+    }
+    .border-bottom-none{
+        padding: 10px 10px 0;
+    }
+    .StoryCont {
+  width:864px;
+  overflow:hidden;
+  position: relative;
+  margin: 0 auto;
+  top: 0px;
+}
+.titlei{
+        font-size:32px;
+        color:#000;
+        text-transform:uppercase;
+        height: 34px;
+        text-align:left;
+    }
+    .view{
+        /*height: 34px;*/
+        padding: 8px 10px;
+        font-size:14px;
+        text-transform:uppercase;
+        background:#3c8dbc;
+        border-radius: 3px;
+    }
+    .view a{
+        color:rgb(255, 255, 255);
+    }
+/* Latest-series */
+.book-typels{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing:border-box;
+      font-size: 14px;
+    line-height: 20px;
+    color: rgb(255, 255, 255);
+    padding: 3px 6px 0px;
+    background: #00a65a;
+    position: relative;
+    top: 0px;
+    z-index: 1;
+    font-weight: 300;
+    text-align:center;
+}
+.card {
+  background-color: white;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2)!important;
+  width: 210px;
+  margin:8px;
+  box-sizing: border-box;
+  padding: 5px;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.cardls {
+  background-color:white;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2)!important;
+  width: 210px;
+  margin: 8px;
+  box-sizing:border-box;
+  padding:5px;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.max-linesls {
+    color: #337ab7;
+    font-size: 16.2px;
+    font-family: 'Geneva', sans-serif;
+    max-height: 2.8em;
+    line-height: 1.4em;
+    font-weight: 600;
+    display: flex;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.episodesls {
+ color:#999;
+ font-size:13px;
+ 
+}
+
+.readls {
+ height:32px;
+ background-color:#f4f4f4;
+ color:black;
+ border: none;
+ border-radius: 4px;
+ padding: 0 10px;
+}
+
+.bynamels{
+   font-size:13.0px;
+   
+   color:#999;
+
+}
+
+.nameherels{
+    color:black;
+    font-size:12.5px;
+    font-weight:600;
+}
+
+.plus-buttonls {
+ height:32px;
+ width:35px;
+ float:right;
+ color:black;
+ background-color:#f4f4f4;
+ border: none;
+ border-radius: 4px;
+}
+
+.imagemels{
+ width:100%;height:180px;
+ image-rendering:-webkit-optimize-contrast;
+}
+.flextestls{
+  margin-top: auto;
+}
+
+
+.visiblev{
+    display:none;
+}
+@media screen and (max-width:1000px) {
+    .visiblev{
+        display:block!important;
+    }
+}
+@media screen and (max-width:910px) {
+    .main-container1{
+        width:100% !important;
+    }
+}
+
+
+.mg-2{
+    margin-bottom:25px;
+}
+
+.hidden{
+        display:none;
+    }
+    .writers{
+        text-align: center;
+        justify-content: center;
+        /*display: flex;
+        flex-wrap: wrap;*/
+        margin-top:15px;
+    }
+
+    .border-lr{
+        border-left:1px solid #ddd;
+        border-right:1px solid #ddd;
+    }
+    .list-inlinev>li {
+    display: inline-block;
+    /*padding-right: 5px;
+    padding-left: 5px;
+    width: 88px;*/
+    width:80px;
+    font-size: 12px;
+    font-weight:bold;
+    text-align: center;
+}
+.circle-image {
+    margin-top: 3px;
+    width: 52px;
+    border-radius: 50%;
+    float: left;
+    image-rendering: -webkit-optimize-contrast;
+}
+.name-nanostories {
+    color: black;
+    padding-left: 10px;
+    font-family: 'Arimo', sans-serif;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 14px 0;
+}
+.card1 {
+    background-color: white;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2)!important;
+    min-width: 276px;
+    max-width: 276px;
+    margin: 6px;
+    box-sizing: border-box;
+    padding: 5px;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+
+.StoryCont1 {
+    width: 904px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    top: 0px;
+}
+.story-slider {
+    display: flex;
+}
+.book-type {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+      font-size: 14px;
+    line-height: 20px;
+    color: rgb(255, 255, 255);
+    padding: 3px 6px 0px;
+    background: #00a65a;
+    position: relative;
+    top: 0px;
+    z-index: 1;
+    font-weight: 300;
+    text-align: center;
+    text-transform: uppercase;
+}
+.imageme {
+    width: 100%;
+    height: 180px;
+    image-rendering: -webkit-optimize-contrast;
+}
+.max-lines {
+    color: #337ab7;
+    font-size: 16.2px;
+    font-family: 'Geneva', sans-serif;
+    max-height: 2.8em;
+    line-height: 1.4em;
+    font-weight: 600;
+    display: flex;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.flextest {
+    margin-top: auto;
+}
+.byname {
+    font-size: 13.0px;
+    
+    color: #999;
+}
+.episodes {
+    color: #999;
+    font-size: 12px;
+    
+}
+
+.read {
+ height:30px;
+ background-color:#f4f4f4;
+ color:black;
+ border: none;
+ border-radius: 4px;
+ padding: 0 10px;
+}
+
+.readdone {
+    height: 30px;
+    background-color: #3c8dbc;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 4px;
+    padding: 0 10px;
+}
+
+
+
+/* Lifeevents */
+.lifeEvents-text {
+    color: black;
+    font-size: 12px;
+    max-height: 5em;
+    line-height: 1.6em;
+    display: flex;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.imageme1 {
+    width: 100%;
+    height: 165px;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+@media screen and (min-width: 318px) and (max-width: 357px){
+  .card {
+  width: 148px!important;
+  margin: 1.5px;
+}
+.episodes {
+ font-size:10px;
+}
+.imageme{
+ height:150px;
+}
+}
+@media screen and (min-width: 358px) and (max-width: 395px){
+  .card {
+  width: 165px!important;
+  margin: 3px;
+}
+.episodes {
+ font-size:10px;
+}
+.imageme{
+ height:155px;
+}
+}
+@media screen and (min-width: 395px) and (max-width: 450px){
+.card {
+  width: 183px!important;
+  margin: 3px;
+}
+.episodes {
+ font-size:11.5px;
+}
+.imageme{
+ height:160px;
+}
+}
+@media screen and (min-width: 590px) and (max-width: 655px){
+  .card {
+  width: 168px!important;
+  margin: 3px;
+}
+.episodes {
+ font-size:11px;
+}
+.imageme{
+ height:160px;
+}
+}
+@media screen and (min-width: 590px) and (max-width: 1030px){
+.cardls {
+  width: 200px!important;
+  margin: 5px;
+}
+.imagemels{
+ height:175px;
+}
+}
+@media screen and (max-width: 1030px){
+    .max-linesls {
+        font-weight:400;
+    }
+    
+    .nameherels{
+        font-weight:400;
+    }
+    .namehere{
+        font-weight:400;
+    }
+}
+@media screen and (max-width: 400px) {
+.book-typels{
+    font-size: 12px;
+    line-height: 18px;
+} 
+}
+@media screen and (max-width: 340px) {
+.book-typels{
+    font-size: 10px;
+    line-height: 16px;
+} 
+}
+
+.pd-5v{
+    margin:7px 0;
+}

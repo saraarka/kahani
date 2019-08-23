@@ -1,0 +1,78 @@
+body{
+    padding-bottom:10px;
+}
+    .main-container{
+        width:689px;
+        margin:0 auto;
+    }
+
+hr {
+    margin-top: 8px!important;
+    margin-bottom:8px!important;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+.nav-tabs-custom>.nav-tabs>li>a, .nav-tabs-custom>.nav-tabs>li>a:hover {
+    background: transparent;
+    margin: 0;
+    color: rgb(255, 255, 255);
+}
+.nav-tabs-custom>.nav-tabs>li {
+    border-top: 3px solid transparent;
+    margin-bottom: -2px;
+    margin-right: 0px;
+}
+
+.mgt{
+        margin-top:50px;
+    }
+@media screen and (max-width:1050px){
+    .nav>li>a {
+        position: relative;
+        display: block;
+        padding: 10px 13px;
+        font-size: 12px;
+    }
+    .mg-0{
+        margin-right:0;
+        margin-left:0;
+    }
+    .mgt{
+        margin-top:25px;
+    }
+}
+@media screen and (max-width:350px){
+    .nav>li>a {
+        position: relative;
+        display: block;
+        padding: 10px 8px;
+    }
+}
+.user-block .user-blockvi{
+    width: 50px; border-radius: 50%;height:50px;   
+}
+.user-block .username{
+    font-size: 12px;font-weight: none; padding-top:10px;
+}
+.user-block .username, .user-block .description, .user-block .comment{
+    margin-left:60px;
+}
+
+@media screen and (max-width:688px){
+    body{
+        padding:65px 10px;
+    }
+    .main-container{
+        width:100%;
+        margin:0 auto;
+    }
+    .user-block .description {
+    color: #999;
+    font-size: 9px;
+    }
+    .user-block .username {
+    font-size: 11px;
+    font-weight: none;
+    padding-top: 10px;
+    }
+}

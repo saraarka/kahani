@@ -1,0 +1,302 @@
+
+/* popup */
+
+.modal {
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background:rgba(0, 0, 0, 0.48);
+}
+/* Modal Content */
+.modal-content1 {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+}
+
+.modal-contentv {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 5px;
+  border: 1px solid rgb(136, 136, 136);
+  /*width: 25%;*/
+  min-width:320px;
+  max-width:358px;
+  border-radius: 5px;
+  height:auto;
+}
+@media screen and (max-width:500px){
+    /* Modal Content */
+.modal-content1 {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid rgb(136, 136, 136);
+  width: 90%;
+  min-width:0;
+  border-radius: 5px;
+  height:auto;
+}
+.modal-contentv {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0px;
+  border: 1px solid rgb(136, 136, 136);
+  /*width: 25%;*/
+  min-width:0px;
+  width:100%;
+  border-radius: 5px;
+  height:auto;
+}
+}
+.login-logo{
+    height: 2.55em;
+    border-bottom: 1px solid rgb(221, 221, 221);
+    margin-bottom:10px;
+}
+.headsvj{
+    font-family: 'Nunito', sans-serif;
+    font-size:22px;
+}
+.heads{
+    font-family: 'Nunito', sans-serif;
+    font-size:22px;
+}
+.input-container{
+    display:flex;
+    flex-wrap:no-wrap;
+}
+.input-field{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /*padding: 16px 10px;*/
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 5px;
+    /*margin-bottom:8px;*/
+    height:34px;
+    width:100%;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-left:none;
+    box-sizing: border-box;
+    color:#000;
+}
+.icon{
+ width: 34px;
+ height: 34px;
+ padding:8.5px;
+ border:1px solid #ddd;
+ border-radius:5px;
+ margin-bottom:8px;
+ /*height:15px;*/
+ border-right:none;
+ border-top-right-radius: 0px;
+ border-bottom-right-radius: 0px;
+}
+.bg-green{
+    background: green;
+    padding: 10px;
+    border: none;
+    color: rgb(255, 255, 255);
+    width: 40%;
+    border-radius: 5px!important;
+    text-transform:uppercase;
+}
+.bg-fb{
+    background: rgb(17, 83, 184);
+    padding: 10px;
+    border: none;
+    color: rgb(255, 255, 255);
+    width: 40%;
+    border-radius: 5px!important;
+    text-transform:uppercase;
+	font-size:14px;
+}
+.bg-google{
+    background: rgb(206, 12, 12);
+    padding: 10px;
+    border: none;
+    color: rgb(255, 255, 255);
+    width: 40%;
+    border-radius: 5px!important;
+    text-transform:uppercase;
+	font-size:14px;
+}
+
+.text-centervv{
+    font-family: 'Nunito', sans-serif;
+    font-size:0.7em;
+}
+a{
+    text-decoration:none;
+}
+.text-centerv{
+    font-family: 'Nunito', sans-serif;
+    font-size:15px;
+}
+/* The Close Button */
+.close {
+    color: #000;
+    float: right;
+    font-size: 22px;
+    font-weight: bold;
+    border: none;
+    background: transparent;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+  a:hover .community-btn{
+     background:#3c8dbc;
+     color:rgb(255, 255, 255);
+ }
+.modal-contentvl {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid rgb(136, 136, 136);
+    width: 53%;
+    min-width: 532px;
+    max-width: 600px;
+    border-radius: 5px;
+    height: auto;
+}
+ .community-btn{
+    overflow: hidden;
+    text-align: center;
+    width: 30%;
+    line-height:40px;
+    min-width: 154px;
+   height: 58px;
+    padding:6px 0;
+    background: #eee;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    color: #000;
+    margin: 1%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-transform:uppercase;
+    font-family:'Nunito', sans-serif;
+ }
+  .community-btn-selected{
+     min-height:13px;
+     overflow:hidden;
+     padding:10px;
+     text-align:center;
+     width:163px;
+     background:#3c8dbc;
+     border-radius:5px;
+     border:none;
+     cursor:pointer;
+     color:rgb(255, 255, 255);
+     margin:8px;
+     white-space: nowrap;
+     text-overflow: ellipsis;
+     font-family:'Nunito', sans-serif;
+ } 
+a.community-btn-selected:hover{
+     color:rgb(255, 255, 255);
+ }
+ .btn-next{
+     min-height:13px;
+     overflow:hidden;
+     padding:10px 20px;
+     text-align:center;
+     width:163px;
+     background:#3c8dbc;
+     border-radius:5px;
+     border:none;
+     cursor:pointer;
+     color:rgb(255, 255, 255);
+     font-family:'Nunito', sans-serif;
+     margin:8px;
+     white-space: nowrap;
+     text-overflow: ellipsis;
+ }
+ 
+
+  @media screen and (max-width:600px){
+     .modal-dialog{
+        width:90%;
+        margin:0 auto;
+     }
+     .modal-dialog1{
+        width:95%;
+        margin:0 auto;
+     }
+     .modal-content1{
+         width:90%;
+         min-width:0;
+     }
+     .modal-contentvl{
+         width:100%;
+         min-width:0;
+     }
+    .community-btn{
+     min-height:13px;
+     overflow:hidden;
+     padding:10px 0;
+     text-align:center;
+     width:45%;
+     min-width:0;
+     background:#eee;
+     border-radius:5px;
+     border:none;
+     cursor:pointer;
+     color:#000;
+     white-space: nowrap;
+     text-overflow: ellipsis;
+ }
+.heads{
+    font-family: 'Nunito', sans-serif;
+    font-size:0.7em!important;
+}
+ }
+ @media screen and (max-width:355px){
+     .modal {
+    padding-top: 50px !important;
+     }
+    #choosecommunitypedit {
+        padding:35px 0;
+    }
+    /*#chooselanguagepedit{*/
+    /*    padding:30px 10px 0px 5px;*/
+    /*}*/
+    /* #chooselanguage{ */
+        /* padding:30px 0; */
+    /* } */
+    #nanoedit {
+        padding: 0px 10px 0px 5px;
+    }
+    #modal-default {
+        padding: 40px 10px 0px 5px;
+    }
+    /*.modal,.fade,.in {
+        padding: 30px 0;
+    }*/
+    .modal-content{
+        margin: 5px 0 0 -3px;
+    }
+    /*#writeapp {
+        padding: 30px 0;
+    }*/
+    #soc {
+        padding:30px 10px 0px 5px;
+    }
+    /* #choosecommunity { */
+        /* padding:35px 0; */
+    /* } */
+}
+ 

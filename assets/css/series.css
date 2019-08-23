@@ -1,0 +1,232 @@
+body{
+    padding-bottom:0px;
+}
+.content {
+	padding: 16px;
+}
+
+.clrvk{
+	color:rgb(255, 255, 255);
+}
+
+ol, ul {
+    margin-top: 0;
+    margin-bottom: -2px;
+}
+.products-list>.item{padding:5px 0 0 0; background:rgb(255, 255, 255)}
+
+#upload-file-selector {
+	display:none;   
+}
+#upload-file-selector .btn-default :hover {
+	background:none;   
+}
+.box-title .h5 {
+	display: inline-block;
+	font-size: 15px;
+	margin: 0;
+	line-height: 1;
+}
+.col-sm-1.es {
+    top: 5px;
+    margin-left: -21px;
+}
+.imageThumb {
+	cursor: pointer;
+	width: 293px;
+	height:280px;
+}
+.pip {
+	display: inline-block;
+	border-radius: 5px
+}
+.remove {
+    display: block;
+    background: #23678e;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 0px;
+}
+.rotateImage
+{
+    background-image: url(download.png); 
+}
+
+.navbar-static-top{
+    padding-top:60px;
+    z-index:1;
+    height:110px;
+    transition: all .3s ease-in-out;
+   -webkit-transition: all .3s ease-in-out;
+}
+.navbar-nav>li>a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.sticky {
+  position: fixed;
+  padding-top:60px;
+  width: 100%;
+  height:110px;
+  transition: all .3s ease-in-out;
+   -webkit-transition: all .3s ease-in-out;
+}
+		.sticky1 {
+  position: fixed;
+  padding-top:0px;
+  width: 100%;
+  height:50px;
+  transition: all .3s ease-in-out;
+   -webkit-transition: all .3s ease-in-out;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+
+.bootstrap-tagsinput{
+    height: 70px;
+    overflow-y: scroll;
+}
+.bootstrap-tagsinput .tag {
+    background: #09F;
+    padding: 4px;
+    border-radius: 4px;
+}
+.nav-up {
+    top: 0px;
+}
+
+.tops{
+    margin-top:50px;
+}
+
+.custom-select {
+  position: relative;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element:*/
+}
+
+.select-selected {
+  background-color: rgb(255, 255, 255);
+  border:1px solid #ccc;
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #000 transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #000 transparent;
+  top: 7px;
+}
+.select-items{
+    overflow-y:scroll;
+    max-height:160px;
+    min-height:50px;
+}
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected {
+  color: #000;
+  padding: 8px 16px;
+  /*border: 1px solid #ccc;*/
+  /*border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;*/
+  cursor: pointer;
+  user-select: none;
+}
+
+/*style items (options):*/
+.select-items {
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  color:#777;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+}
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+label{font-size:14px!important;}
+    .bootstrap-tagsinput {line-height:40px;display:block!important;}
+    /*.bootstrap-tagsinput .tag {background:#09F;padding:4px;border-radius:4px;*/
+.bootstrap-tagsinput .tag {
+    background:#eff2f7 !important;
+    padding: 3px 5px;
+    border-radius:2px;
+    color: #555 !important;
+    font-size: 14px;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 4px;
+    font-weight: 400;
+}
+
+.editor-series{
+    padding:0 25px 25px; height:416px;
+}
+.contentseries1{
+    display:none;
+}
+.side-ed{
+    width:800px;
+}
+@media screen and (max-width:1175px){
+    .side-ed{
+        width:750px;
+    }
+}
+@media screen and (max-width:1125px){
+    
+    .hidec{
+       display:none; 
+    }
+    .navbar-inverse{
+        margin-top:0!important;
+    }
+}
+@media screen and (max-width:800px){
+    .contentseries1{
+        display:block;
+    }
+    .contentseries{
+        display:none;
+    }
+}
+@media screen and (max-width:1050px) and (min-width:1180px){
+    .navbar-static-top{
+        top:-100px!important;
+        z-index:1;
+        padding-top: 70px;
+    }
+    .sticky1 {
+      position: fixed;
+      top:-100px!important;
+      width: 100%;
+      transition: all .3s ease-in-out;
+      -webkit-transition: all .3s ease-in-out;
+      z-index:9999;
+          padding-top: 10px;
+    }
+}
