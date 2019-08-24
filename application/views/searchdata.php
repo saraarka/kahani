@@ -387,6 +387,7 @@
                         </div>
                     </div>
                 </div>
+                <?php if(isset($_GET['searchtext']) && !empty($_GET['searchtext'])){ ?>
                 <div class="hidden-md hidden-lg" style="margin-bottom:20px;">
         	        <center>
             	        <div style="margin:10.8% auto">
@@ -397,6 +398,7 @@
             	        </div>
             	    </center>
         	    </div>
+                <?php } ?>
             <?php } ?>
         </div>
     </section>
