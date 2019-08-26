@@ -844,7 +844,6 @@
      * @returns {object|jQuery}
      */
     Tokenize2.prototype.dropdownItemFormat = function(item){
-    console.log('ghb');
         if(item.hasOwnProperty('text')){
             var $display = '';
             if(this.options.searchHighlight){
