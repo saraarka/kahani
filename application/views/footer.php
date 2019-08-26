@@ -748,8 +748,10 @@
 	
 	//Sign up choose language
 	function chooselanguage(){
-	    $('.btnlangspin').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
 	    var choselanguage = $('#cslang').val();
+	    if(choselanguage){
+	    	$('.btnlangspin').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
+	    }
 	    var userid = $('#userid').val();
 		$.ajax({
 			url: "<?php echo base_url();?>welcome/chooselanguage",
@@ -908,6 +910,8 @@
 	/* Favorite Button status favorite */
 	function favorite(id){
 	    var favcount = parseInt($('.favcount').text());
+	    $('.favbtn').css('color','#ff0000');
+		$('i.fa.fa-heart-o.favbtn').addClass('fa-heart').removeClass('fa-heart-o');
 		$.ajax({
 			type :'POST',
 			url :'<?php echo base_url(); ?>welcome/readlater',
@@ -915,14 +919,14 @@
 			dataType :"json",
 			success:function(data){
 			    if(data == 1){
-			        $('.favbtn').css('color','#ff0000');
-			        $('i.fa.fa-heart-o.favbtn').addClass('fa-heart').removeClass('fa-heart-o');
 			        $('span.favbtn'+id).attr('onclick','unfavorite('+id+')');
 			        favocount = favcount+1;
 			        $('.favcount').html(favocount);
                     $('#snackbar').text('Story added to your library.').addClass('show');
     				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
 			    }else{
+			    	$('.favbtn').css('color','#333');
+			    	$('i.fa.fa-heart.favbtn').addClass('fa-heart-o').removeClass('fa-heart');
 			        $('#snackbar').text('Failed to add your library.').addClass('show');
     				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
 			    }
@@ -931,6 +935,8 @@
 	}
 	function unfavorite(id){
 	    var favcount = parseInt($('.favcount').text());
+	    $('.favbtn').css('color','#333');
+		$('i.fa.fa-heart.favbtn').addClass('fa-heart-o fa-2x').removeClass('fa-heart');
 		$.ajax({
 			type :'POST',
 			url :'<?php echo base_url(); ?>welcome/readlater',
@@ -938,8 +944,6 @@
 			dataType :"json",
 			success:function(data){
 			    if(data == 2){
-			        $('.favbtn').css('color','#333');
-			        $('i.fa.fa-heart.favbtn').addClass('fa-heart-o fa-2x').removeClass('fa-heart');
 			        $('span.favbtn'+id).attr('onclick','favorite('+id+')');
 			        favocount = favcount-1;
 			        $('.favcount').html(favocount);
@@ -947,7 +951,8 @@
                     $('#snackbar').text('Story removed from your library.').addClass('show');
     				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
 			    }else{
-			        //console.log('Unfavorite Fail');
+			    	$('.favbtn').css('color','#ff0000');
+					$('i.fa.fa-heart-o.favbtn').addClass('fa-heart').removeClass('fa-heart-o fa-2x');
 			        $('#snackbar').text('Failed to remove from your library.').addClass('show');
     				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
 			    }
@@ -1272,7 +1277,7 @@ $(function() {
                     $('#groupsuggest').removeClass('in');
                     $('#groupsuggest').css('display', 'block');
     			}else if(data) {
-    			    $('.storysuggesttogroup').html(data);	
+    			    $('.storysuggesttogroup').html(data);
                 	$('#groupsuggest').modal('show');
               	}
             }
