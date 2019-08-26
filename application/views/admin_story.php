@@ -35,7 +35,7 @@
                 <a onclick="mobilestoryedit(<?php echo $row->sid; ?>)" data-toggle="modal" data-target="#writeapp" id="notloginmodal"><i class="fa fa-edit"></i> EDIT </a>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
                 <ul class="dropdown-menu pull-right"  style="right:10px;">
                     <li onclick="groupsuggest(<?php echo $row->sid;?>);">
 						<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users pr-10"></i>COMMUNITY</a>
@@ -88,7 +88,7 @@
 								    <center>
 										<div class="col-sm-12">
         									<?php if(($row->writing_style == 'anonymous') && ($row->type == 'life')){ ?>
-        									    <a href="#" style="color:#000"><h4><b>Anonymous</b></h4></a>
+        									    <a href="javascript:void(0);" style="color:#000"><h4><b>Anonymous</b></h4></a>
         									<?php } else { ?>
         									    <a href="<?php echo base_url().$row->profile_name; ?>" style="color:#000"><h4><b><?php echo $row->name; ?></b></h4></a>
         									<?php } ?>
@@ -534,7 +534,7 @@
                                                                 </span>
                                                             <?php } else if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){ ?>
                                                                 <span class="dropdown" style="float:right;">
-                                                                    <a href="#" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="false">
+                                                                    <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="false">
                                                                         <i class="fa fa-ellipsis-v pull-right"></i>
                                                                     </a>
                                                                     <ul class="dropdown-menu dv1">
