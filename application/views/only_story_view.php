@@ -101,13 +101,13 @@
                         <?php } ?>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color:#23678e;"><i class="fa fa-share-alt"></i></a>
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:#23678e;"><i class="fa fa-share-alt"></i></a>
                         <ul class="dropdown-menu pull-right">
-                            <li onclick="groupsuggest(<?php echo $row->sid; ?>);">
-                                <a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users pr-10"></i>COMMUNITY</a>
+                            <li onclick="groupsuggest(<?php echo $row->sid;?>);">
+                                <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users pr-10"></i>COMMUNITY</a>
                             </li>
                             <li onclick="friend(<?php echo $row->sid;?>);">
-                                <a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user pr-10"></i>SUGGEST</a>
+                                <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user pr-10"></i>SUGGEST</a>
                             </li>
                             <li onclick="socialshare(<?php echo $row->sid;?>, 'story');">
                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#soc" title="SOCIAL"><i class="fa fa-share-alt pr-10"></i>SOCIAL</a>
@@ -455,10 +455,10 @@
                                             </button>
                                             <ul class="dropdown-menu list-inline dropvk">
                                                 <li onclick="groupsuggest(<?php echo $recentstory->sid; ?>);">
-                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                                    <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
                                                 </li>
                                                 <li onclick="friend(<?php echo $recentstory->sid;?>);">
-                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+                                                    <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
                                                 </li>
                                                 <li onclick="socialshare(<?php echo $recentstory->sid;?>, 'story');">
                                                     <a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
@@ -522,10 +522,10 @@
                                             </button>
                                             <ul class="dropdown-menu list-inline dropvklife">
                                                 <li onclick="groupsuggest(<?php echo $recentlife->sid; ?>);">
-                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                                    <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
                                                 </li>
                                                 <li onclick="friend(<?php echo $recentlife->sid;?>);">
-                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+                                                    <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
                                                 </li>
                                                 <li onclick="socialshare(<?php echo $recentlife->sid;?>, 'story');">
                                                     <a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
@@ -938,7 +938,7 @@
 <script type="text/javascript">
 	$( "form#commentsend" ).submit(function( event ) {
 		event.preventDefault();
-		$('.btnspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
+		$('.btn.btn-success.btn-flat.btnspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 		$('#comment').empty();
 		$('#comments').empty();
 	    var comment = $('#comment').val();
@@ -948,13 +948,13 @@
 	    var storyid = $('#storyid').val();
 		if(comment.length > 0){
     		$.post("<?php echo base_url(); ?>welcome/comment",{'comment':comment,'storyid':storyid},function(output,status){
-    		    $('.btnspinner').html('POST');
+    		    $('.btn.btn-success.btn-flat.btnspinner').html('POST');
     			$("li#postcmt").prepend(output);
     			$("#comment").val('');
     			$("#comments").val('');
     		});
 		}else{
-		    $('.btnspinner').html('POST');
+		    $('.btn.btn-success.btn-flat.btnspinner').html('POST');
 		    $('#snackbar').text('Enter Comment text.').addClass('show');
     		setTimeout(function(){ $('#snackbar').removeClass('show'); }, 5000);
 		}
