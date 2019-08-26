@@ -830,8 +830,10 @@
 	
 	//Sign up choose language
 	function chooselanguage(){
-	    $('.btnlangspin').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
 	    var choselanguage = $('#cslang').val();
+        if(choselanguage){
+            $('.btnlangspin').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
+        }
 	    var userid = $('#userid').val();
 		$.ajax({
 			url: "<?php echo base_url();?>welcome/chooselanguage",
