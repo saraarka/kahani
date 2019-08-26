@@ -1144,9 +1144,9 @@ function addreplycomment(commentid){
                                         '<i class="fa fa-ellipsis-v"></i></a>'+
                                     '<ul class="dropdown-menu pull-right">'+
                                         '<li><a href="javascript:void(0);"><span onclick="editpro_comment('+datares.response[0].cid+');">'+
-                                            '<i class="fa fa-pencil"></i> Edit</span></a></li>'+
+                                            '<i class="fa fa-pencil"></i> EDIT</span></a></li>'+
                                         '<li><a href="javascript:void(0);"><span onclick="deletepro_comment('+datares.response[0].cid+');">'+
-                                            '<i class="fa fa-trash"></i> Delete</span></a></li>'+
+                                            '<i class="fa fa-trash"></i> DELETE</span></a></li>'+
                                     '</ul>'+                
                                 '</span><div style="color:#777; font-size:11px;margin-top:-4px;">1 minute ago</div>'+
                                 '<p style="margin: 8px 0px 2px 0px;" class="pcomment'+datares.response[0].cid+'">'+datares.response[0].pro_comment+'</p></div>'+
