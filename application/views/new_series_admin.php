@@ -22,7 +22,7 @@
     	<div class="navbar-collapse pd-4">
     		<ul class="nav navbar-nav" style="display: inline-block;">
     		    <li class="dropdown se-vj">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color:transparent; max-width: 300px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:transparent; max-width: 300px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
                         <i class="fa fa-bars"></i> 
                         <span class="hidden-xs hidden-sm">
                             <?php $seriesftitles = ''; if(isset($seriesftitle) && ($seriesftitle->num_rows() == 1)){
@@ -65,7 +65,7 @@
                     </ul>
                 </li>
             </ul>
-    		<ul class="nav navbar-nav pull-right" style="display: -webkit-box;">
+    		<!--<ul class="nav navbar-nav pull-right" style="display: -webkit-box;">
     		    <?php foreach($admin_story_view->result() as $adminrow) {
     		        if(isset($lastepisode) && ($lastepisode->num_rows() > 0) && isset($this->session->userdata['logged_in']['user_id']) && 
     		        ($this->session->userdata['logged_in']['user_id'] == $adminrow->user_id)){  ?>
@@ -140,7 +140,69 @@
                         </li>
                     <?php } ?>
                 <?php } ?>
-    		</ul>
+    		</ul> -->
+            <ul class="nav navbar-nav pull-right" style="display: -webkit-box;">
+                <?php foreach($admin_story_view->result() as $adminrow) {
+
+                if(isset($lastepisode) && ($lastepisode->num_rows() > 0) && isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $adminrow->user_id)){  ?>
+                    <li class="dropdown write-d">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:transparent;"><i class="fa fa-edit"></i> EDIT</a>
+                        <ul class="dropdown-menu pull-right" style="right:10px;">
+                            <li><a href="<?php echo base_url();?>series_edit/<?php echo $adminrow->sid; ?>"><i class="fa fa-edit pr-10"></i>STORY</a></li>
+                            <li><a href="<?php echo base_url();?>story_info/<?php echo $adminrow->sid; ?>"><i class="fa fa-edit pr-10"></i>INFO</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown write-m">
+                        <a href="javascript:void(0);" data-toggle="modal" data-target="#writeapp"><i class="fa fa-edit"></i> EDIT</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:transparent;"><i class="fa fa-share-alt"></i></a>
+                        <ul class="dropdown-menu pull-right" style="margin-right:15px;">
+                            <li onclick="groupsuggest(<?php echo $adminrow->sid; ?>);">
+                                <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users pr-10"></i>COMMUNITY</a>
+                            </li>
+                            <li onclick="friend(<?php echo $adminrow->sid;?>);">
+                                <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user pr-10"></i>SUGGEST</a>
+                            </li>
+                            <li onclick="socialshare(<?php echo $adminrow->sid;?>, 'series');">
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#soc" title="SOCIAL"><i class="fa fa-share-alt pr-10"></i>SOCIAL</a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php } elseif(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $adminrow->user_id)){ ?>
+                    <li class="write-d">
+                        <a href="<?php echo base_url();?>episode/<?php echo $this->uri->segment(3).'/'.$this->uri->segment(3);?>" style="border-radius:2px; margin: 9px 15px 7px; border-radius:4px; padding:6px; border:1px solid #3c8dbc;"> ADD EPISODE</a>
+                    </li>
+                    <li class="dropdown write-d">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="color:#fff;background-color:transparent;"><i class="fa fa-edit"></i> EDIT</a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="<?php echo base_url();?>series_edit/<?php echo $adminrow->sid; ?>"><i class="fa fa-edit pr-10"></i>STORY EDIT</a></li>
+                            <li><a href="<?php echo base_url();?>story_info/<?php echo $adminrow->sid; ?>"><i class="fa fa-edit pr-10"></i> INFO EDIT</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown write-m">
+                        <a onclick="mobileaddepisode()" data-toggle="modal" data-target="#writeapp" style="border-radius:2px; margin: 9px 15px 7px; border-radius:4px; padding:6px; border:1px solid #3c8dbc;">ADD EPISODE</a>
+                    </li>
+                    <li class="dropdown write-m">
+                        <a onclick="mobilestoryedit(<?php echo $adminrow->sid; ?>)" data-toggle="modal" data-target="#writeapp"><i class="fa fa-edit"></i> EDIT</a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:transparent;"><i class="fa fa-share-alt"></i></a>
+                        <ul class="dropdown-menu pull-right" style="margin-right:15px;">
+                            <li onclick="groupsuggest(<?php echo $adminrow->sid; ?>);">
+                                <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users pr-10"></i>COMMUNITY</a>
+                            </li>
+                            <li onclick="friend(<?php echo $adminrow->sid;?>);">
+                                <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user pr-10"></i>SUGGEST</a>
+                            </li>
+                            <li onclick="socialshare(<?php echo $adminrow->sid;?>, 'series');">
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#soc" title="SOCIAL"><i class="fa fa-share-alt pr-10"></i>SOCIAL</a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php } } ?>
+            </ul>
     	</div>
     </div>
     <div class="clear-fix"></div>
@@ -382,15 +444,13 @@
 					                    		</button>
 					                    		<ul class="dropdown-menu list-inline dropvk">
 					                    			<li onclick="groupsuggest(<?php echo $recentstory->sid; ?>);">
-					                    				<a data-toggle="modal" data-target="#groupsuggest"href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+					                    				<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
 					                    			</li>
 					                    			<li onclick="friend(<?php echo $recentstory->sid;?>);">
-					                    				<a data-toggle="modal" data-target="#friendsuggest"href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+					                    				<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
 					                    			</li>
 					                    			<li onclick="socialshare(<?php echo $recentstory->sid;?>, 'series');">
-                    									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-                    										<i class="fa fa-share-alt"></i>
-                    									</a>
+                    									<a href="javascript:void(0);" data-toggle="modal" data-target="#soc" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
                     								</li>
 					                    		</ul>
 					                    	</div>
@@ -629,7 +689,7 @@
 </div>
 
 <!-- group suggest popup code ---- -->
-<div class="modal fade" id="groupsuggest" role="dialog">
+<div class="modal fade" id="groupsuggest" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 		    <div class="storysuggesttogroup"></div>
