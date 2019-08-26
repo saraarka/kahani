@@ -1224,7 +1224,7 @@ function editpro_comment(commentid){
                     		        '<div class="media"><div class="media-left" style="padding-right:5px;">'+
                                     '<img src="<?php echo base_url();?>assets/images/'+profile_image+'" style="border-radius: 50%;width:30px !important;height: 30px !important;" alt="'+datares.response[0].name+'">'+
                                     '</div><div class="media-body" style="background-color:#ddd; padding-left:8px; border-radius: 10px;">'+
-                                    '<b>'+datares.response[0].name+'</b><span class="dropdown" style="float:right;">'+
+                                    '<b><div class="namers"><a href="">'+datares.response[0].name+'</a></div></b><span class="dropdown" style="float:right;">'+
                                         '<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
                                             '<i class="fa fa-ellipsis-v"></i></a>'+
                                         '<ul class="dropdown-menu pull-right">'+
