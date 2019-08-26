@@ -891,8 +891,8 @@ $("#profilecomments").submit(function(event) {
                         '<div class="" style="float:left;><a href="<?php echo base_url();?>'+result.response[0].profile_name+'">'+
                         '<img src="<?php echo base_url();?>assets/images/'+profile_image+'" style="border-radius: 50%;width:40px !important;height: 40px !important;margin-right: 10px;" alt="'+result.response[0].name+'">'+
                         '</a></div><div class="comment_right clearfix"><div class="comment_info" style="padding-left:10px;">'+
-                        '<a href="<?php echo base_url();?>'+result.response[0].profile_name+'">'+result.response[0].name+'</a>'+
-                        '<span class="dropdown" style="float:right;"><a href="#" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
+                        '<div class="namers1"><a href="<?php echo base_url();?>'+result.response[0].profile_name+'">'+result.response[0].name+'</a></div>'+
+                        '<span class="dropdown" style="float:right;"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
                         '<i class="fa fa-ellipsis-v"></i></a> <ul class="dropdown-menu pull-right">'+
                         '<li><a href="javascript:void(0);"><span onClick="editpro_comment('+result.response[0].cid+');"><i class="fa fa-pencil"></i> EDIT</span></a></li>'+
                         '<li><a href="javascript:void(0);"><span onClick="deletepro_comment('+result.response[0].cid+');"><i class="fa fa-trash"></i> DELETE</span></a></li></ul></span>'+
