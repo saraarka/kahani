@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '103.21.59.15',
 	'username' => 'storyark_carry',
 	'password' => 'carry@123',
 	'database' => 'storyark_carry',

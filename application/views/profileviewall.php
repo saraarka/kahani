@@ -286,9 +286,9 @@
         	                    		<div class="book-typels"><?php echo $vaseriesrow->gener;?></div>
         	                    		<a href="<?php echo base_url('series/'.preg_replace("~[^\p{M}\w]+~u",'-', $vaseriesrow->title).'-'.$vaseriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $vaseriesrow->title).'-'.$vaseriesrow->story_id);?>" class="imagesls-style">
         	                    			<?php if(isset($vaseriesrow->image) && !empty($vaseriesrow->image)) { ?>
-        	                    			    <img src="<?php echo base_url();?>assets/images/<?php echo $vaseriesrow->image; ?>" alt="<?php echo ($vaseriesrow->title);?>" class="imagemels">
+        	                    			    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $vaseriesrow->image; ?>" alt="<?php echo ($vaseriesrow->title);?>" class="imagemels lazy">
         	                    			<?php }else{ ?>
-        	                    				<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo ($vaseriesrow->title);?>" class="imagemels">
+        	                    				<img  src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo ($vaseriesrow->title);?>" class="imagemels">
         	                    			<?php } ?>
         	                    		</a>
         	                    		<div>
@@ -365,9 +365,9 @@
     				                    	<div class="book-type"><?php echo $vastorysrow->gener;?></div>
     				                    	<a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u",'-', $vastorysrow->title).'-'.$vastorysrow->sid);?>" class="imagesls-style">
     				                    		<?php if(isset($vastorysrow->image) && !empty($vastorysrow->image)) { ?>
-    				                    		    <img src="<?php echo base_url();?>assets/images/<?php echo $vastorysrow->image; ?>" alt="<?php echo ($vastorysrow->title);?>" class="imageme">
+    				                    		    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $vastorysrow->image; ?>" alt="<?php echo ($vastorysrow->title);?>" class="imageme lazy">
     				                    		<?php }else{ ?>
-    				                    			<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo ($vastorysrow->title);?>" class="imageme">
+    				                    			<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo ($vastorysrow->title);?>" class="imageme lazy">
     				                    		<?php } ?>
     				                    	</a>
     				                    	<div>
@@ -456,9 +456,9 @@
                         			    <div class="card1">
                 							<a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u",'-', $valiferow->title).'-'.$valiferow->sid);?>" class="imagelife-style">
                     							<?php if(isset($valiferow->image) && !empty($valiferow->image)) { ?>
-                    								<img src="<?php echo base_url();?>assets/images/<?php echo $valiferow->image; ?>" alt="<?php echo $valiferow->title;?>" class="imageme1">
+                    								<img src="<?php echo base_url();?>assets/images/lazy-d266-j.jpg"  data-src="<?php echo base_url();?>assets/images/<?php echo $valiferow->image; ?>" alt="<?php echo $valiferow->title;?>" class="imageme1 lazy">
                     							<?php }else{ ?>
-                    								<img src="<?php echo base_url();?>assets/default/life.jpg" alt="<?php echo $valiferow->title;?>" class="imageme1">
+                    								<img src="<?php echo base_url();?>assets/images/lazy-d266-j.jpg" data-src="<?php echo base_url();?>assets/default/life.jpg" alt="<?php echo $valiferow->title;?>" class="imageme1 lazy">
                     							<?php } ?>
                 							</a>
                 							<div>
@@ -1358,3 +1358,8 @@ function copylinkshare(element) {
         });
     });
 </script>
+ <script>
+   var lazyLoadInstance = new LazyLoad({
+    elements_selector: ".lazy"
+   });
+  </script>

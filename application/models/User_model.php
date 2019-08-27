@@ -183,7 +183,7 @@ class User_model extends CI_model {
 	        'Content-type: text/html'."\r\n".
 	        'X-Mailer: PHP/' . phpversion();
         $status = mail($to_email,$subject,$message,$headers);*/
-        if(is_array($to_email)){  $status = '';
+        /*if(is_array($to_email)){  $status = '';
             foreach($to_email as $toemail){
                 $this->email->from(ADMIN_EMAIL, ADMIN_NAME);
         		$this->email->to($toemail);     
@@ -208,7 +208,7 @@ class User_model extends CI_model {
             } else { 
                 return false;
             }
-        }
+        }*/
 	}
 	public function getuseremail($userid){
 	    $query = $this->db->select('email')->from('signup')->where('user_id',$userid)->limit(1)->get()->result();

@@ -319,9 +319,9 @@
         			                    		<!--<a href="<?php echo base_url('new_series?id='.$wseriesrow->sid.'&story_id='.$wseriesrow->story_id);?>"> -->
         			                    		<a href="<?php echo base_url('series/'.preg_replace("~[^\p{M}\w]+~u",'-', $wseriesrow->title).'-'.$wseriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $wseriesrow->title).'-'.$wseriesrow->story_id);?>" class="imagess-style">
         			                    			<?php if(isset($wseriesrow->cover_image) && !empty($wseriesrow->cover_image)) { ?>
-        			                    			    <img src="<?php echo base_url();?>assets/images/<?php echo $wseriesrow->cover_image; ?>" alt="<?php echo $wseriesrow->title;?>" class="imageme">
+        			                    			    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $wseriesrow->cover_image; ?>" alt="<?php echo $wseriesrow->title;?>" class="imageme lazy">
         			                    			<?php }else{ ?>
-        			                    				<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $wseriesrow->title;?>" class="imageme">
+        			                    				<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $wseriesrow->title;?>" class="imageme lazy">
         			                    			<?php } ?>
         			                    		</a>
         			                    		<div>
@@ -403,9 +403,9 @@
     				                    		<div class="book-type"><?php echo $wstoryrow->gener;?></div>
     			                    			<a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u",'-', $wstoryrow->title).'-'.$wstoryrow->sid);?>" class="imagess-style">
         			                    			<?php if(isset($wstoryrow->cover_image) && !empty($wstoryrow->cover_image)) { ?>
-        			                    			    <img src="<?php echo base_url();?>assets/images/<?php echo $wstoryrow->cover_image; ?>" alt="<?php echo $wstoryrow->title;?>" class="imageme">
+        			                    			    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/images/<?php echo $wstoryrow->cover_image; ?>" alt="<?php echo $wstoryrow->title;?>" class="imageme lazy">
         			                    			<?php }else{ ?>
-        			                    				<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $wstoryrow->title;?>" class="imageme">
+        			                    				<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $wstoryrow->title;?>" class="imageme lazy">
         			                    			<?php } ?>
     			                    			</a>
     				                    		<div>
@@ -497,9 +497,9 @@
 		                        			<div class="card1">
 		                        			    <a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u",'-', $liferow->title).'-'.$liferow->sid);?>" class="imagelife-style">
     		                        				<?php if(isset($liferow->cover_image) && !empty($liferow->cover_image)) { ?>
-    		                        					<img src="<?php echo base_url();?>assets/images/<?php echo $liferow->cover_image; ?>" alt="<?php echo $liferow->title;?>" class="imageme1">
+    		                        					<img src="<?php echo base_url();?>assets/images/lazy-d266-j.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $liferow->cover_image; ?>" alt="<?php echo $liferow->title;?>" class="imageme1 lazy">
     		                        				<?php }else{ ?>
-    		                        					<img src="<?php echo base_url();?>assets/default/life.jpg" alt="<?php echo $liferow->title;?>" class="imageme1">
+    		                        					<img src="<?php echo base_url();?>assets/images/lazy-d266-j.jpg"  data-src="<?php echo base_url();?>assets/default/life.jpg" alt="<?php echo $liferow->title;?>" class="imageme1 lazy">
     		                        				<?php } ?>
 		                        				</a>
 		                        				<div>
@@ -1583,3 +1583,8 @@ function copylinkshare(element) {
         });
     });
 </script>
+<script>
+   var lazyLoadInstance = new LazyLoad({
+    elements_selector: ".lazy"
+   });
+  </script>

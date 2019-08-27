@@ -53,9 +53,9 @@
     						    <div class="book-type"><?php echo $seriesrow->gener;?></div>
     							<a href="<?php echo base_url('series/'.preg_replace("~[^\p{M}\w]+~u",'-', $seriesrow->title).'-'.$seriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $seriesrow->title).'-'.$seriesrow->story_id);?>" class="imagess-style">
         							<?php if(isset($seriesrow->image) && !empty($seriesrow->image)) { ?>
-        							    <img src="<?php echo base_url();?>assets/images/<?php echo $seriesrow->image; ?>" alt="<?php echo ($seriesrow->title);?>" class="imageme">
+        							    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $seriesrow->image; ?>" alt="<?php echo ($seriesrow->title);?>" class="imageme lazy">
         							<?php }else{ ?>
-        								<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo ($seriesrow->title);?>" class="imageme">
+        								<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo ($seriesrow->title);?>" class="imageme lazy">
         							<?php } ?>
     							</a>
         						<div>
@@ -117,7 +117,7 @@
         	    <!-- Stories Start -->
         	    <?php if(isset($get_storys) && ($get_storys->num_rows() > 0)){ $pagestoriescount = $pagestoriescount+$get_storys->num_rows(); ?>
         		<div class="pd-0">
-    		        <span class="titlei">STories</span>
+    		        <span class="titlei">Stories</span>
     		        <?php if($get_storys->num_rows() > 4){ ?>
     		        <a href="<?php echo base_url();?>searchresult?type=story&searchtext=<?php if(isset($searchtext)){echo $searchtext;} ?>" class="view pull-right">
     		            <span class="pull-right">VIEW MORE</span>
@@ -132,9 +132,9 @@
         						<div class="book-type"><?php echo $storysrow->gener;?></div>
         						<a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u",'-', $storysrow->title).'-'.$storysrow->sid);?>" class="imagess-style">
         							<?php if(isset($storysrow->image) && !empty($storysrow->image)) { ?>
-        							<img src="<?php echo base_url();?>assets/images/<?php echo $storysrow->image; ?>" alt="<?php echo ($storysrow->title);?>" class="imageme">
+        							<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $storysrow->image; ?>" alt="<?php echo ($storysrow->title);?>" class="imageme lazy">
         							<?php }else{ ?>
-        								<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo ($storysrow->title);?>" class="imageme">
+        								<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo ($storysrow->title);?>" class="imageme lazy">
         							<?php } ?>
         						</a>
         						<div>
@@ -223,9 +223,9 @@
                     			<div class="card1">
                     			    <a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u",'-', $liferow->title).'-'.$liferow->sid);?>" class="imagelife-style">
                         				<?php if(isset($liferow->image) && !empty($liferow->image)) { ?>
-                        					<img src="<?php echo base_url();?>assets/images/<?php echo $liferow->image; ?>" alt="<?php echo $liferow->title;?>" class="imageme1">
+                        					<img src="<?php echo base_url();?>assets/images/lazy-d266-j.jpg"  data-src="<?php echo base_url();?>assets/images/<?php echo $liferow->image; ?>" alt="<?php echo $liferow->title;?>" class="imageme1 lazy">
                         				<?php }else{ ?>
-                        					<img src="<?php echo base_url();?>assets/default/life.jpg" alt="<?php echo $liferow->title;?>" class="imageme1">
+                        					<img src="<?php echo base_url();?>assets/images/lazy-d266-j.jpg" data-src="<?php echo base_url();?>assets/default/life.jpg" alt="<?php echo $liferow->title;?>" class="imageme1 lazy">
                         				<?php } ?>
                     			    </a>		
                     				<div>
@@ -304,7 +304,7 @@
                         	 <?php foreach($get_writer->result() as $writerrow) { ?>
                         	    <div class="card1" style="height:215px">
     	            		    <?php if(isset($writerrow->pbanner_image) && !empty($writerrow->pbanner_image)){ ?>
-    					        <div class="imageme1" style="height:115px; background-position:center; background:url(<?php echo base_url();?>assets/images/<?php echo $writerrow->pbanner_image; ?>) center center; background-size:cover">
+    					        <div class="imageme1 lazy" style="height:115px;" data-bg="url(<?php echo base_url();?>assets/images/<?php echo $writerrow->pbanner_image; ?>)">
     						        <div style="padding:9px; background:rgba(0, 0, 0, 0.64);height:115px;">
     						            <a href="<?php echo base_url($writerrow->profile_name);?>">
         						            <?php if(isset($writerrow->profile_image) && !empty($writerrow->profile_image)) { ?>
@@ -616,3 +616,8 @@ carousel2("#right-btnw", "#left-btnw", "#StoryContw", "#story-sliderw", "story-s
         setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     }
 </script>
+ <script>
+   var lazyLoadInstance = new LazyLoad({
+    elements_selector: ".lazy"
+   });
+  </script>

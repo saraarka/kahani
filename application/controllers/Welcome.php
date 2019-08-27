@@ -3764,7 +3764,7 @@ class Welcome extends CI_Controller {
             $res = $this->User_model->updateprofile($inputdata,$profileid);
 			if($res){
 			    $_SESSION['logged_in']['profile_image'] = '';
-			    $this->session->set_flashdata('editmsg', '<span class="text-success">Profile Image Deleted Successfully</span>');
+			    //$this->session->set_flashdata('editmsg', '<span class="text-success">Profile Image Deleted Successfully</span>');
 			}
 			//redirect(base_url().$profilename);
 			redirect(base_url().'my_profile/'.$profileid);
