@@ -47,10 +47,10 @@
 				</button>
 				<ul class="dropdown-menu list-inline dropvk">
 					<li onclick="groupsuggest(<?php echo $seriesrow->sid; ?>);">
-						<a data-toggle="modal" data-target="#groupsuggest" href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+						<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
 					</li>
 					<li onclick="friend(<?php echo $seriesrow->sid;?>);">
-						<a data-toggle="modal" data-target="#friendsuggest" href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+						<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
 					</li>
 					<li onclick="socialshare(<?php echo $seriesrow->sid;?>, 'series');">
 						<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -121,10 +121,10 @@
 					</button>
 					<ul class="dropdown-menu list-inline dropvk">
 						<li onclick="groupsuggest(<?php echo $storyrow->sid; ?>);">
-							<a data-toggle="modal" data-target="#groupsuggest" href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+							<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
 						</li>
 						<li onclick="friend(<?php echo $storyrow->sid;?>);">
-							<a data-toggle="modal" data-target="#friendsuggest" href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+							<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
 						</li>
 						<li onclick="socialshare(<?php echo $storyrow->sid;?>, 'story');">
 							<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -180,10 +180,10 @@
 					</button>
 					<ul class="dropdown-menu list-inline dropvklife">
 						<li onclick="groupsuggest(<?php echo $liferow->sid; ?>);">
-							<a data-toggle="modal" data-target="#groupsuggest" href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+							<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
 						</li>
 						<li onclick="friend(<?php echo $liferow->sid;?>);">
-							<a data-toggle="modal" data-target="#friendsuggest" href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+							<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
 						</li>
 						<li onclick="socialshare(<?php echo $liferow->sid;?>, 'story');">
 							<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
