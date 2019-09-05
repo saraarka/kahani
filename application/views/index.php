@@ -5,26 +5,26 @@
 <!--<script src="<?php echo base_url();?>assets/js/index.js"></script>-->
 <style>
 @supports (-webkit-overflow-scrolling: touch) {
-.dropvk {
-margin-top: -80px !important;
-float: right;
-position: relative;
-padding-left: 3px;
-}
+    .dropvk {
+        margin-top: -80px !important;
+        float: right;
+        position: relative;
+        padding-left: 3px;
+    }
 }
 
 @supports not (-webkit-overflow-scrolling: touch) {
-.dropvk {
-margin-top: -112px;
-float: right;
-position: relative;
-padding-left: 3px;
-}
+    .dropvk {
+        margin-top: -112px;
+        float: right;
+        position: relative;
+        padding-left: 3px;
+    }
 }
 
 </style>
 <script>
-    $(document).ready(function(){ 
+    $(document).ready(function(){
         $("#home").addClass("active");
     });
 </script>
@@ -135,15 +135,13 @@ padding-left: 3px;
     							</button>
     							<ul class="dropdown-menu list-inline dropvk">
     								<li onclick="groupsuggest(<?php echo $adminchoice->sid; ?>);">
-    									<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+    									<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
     								</li>
     								<li onclick="friend(<?php echo $adminchoice->sid;?>);">
-    									<a data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+    									<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     								</li>
     								<li onclick="socialshare(<?php echo $adminchoice->sid;?>, 'story');">
-    									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-    										<i class="fa fa-share-alt"></i>
-    									</a>
+    									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
     								</li>
     							</ul>
     						</div>
@@ -232,15 +230,13 @@ padding-left: 3px;
     							</button>
     							<ul class="dropdown-menu list-inline dropvk">
     								<li onclick="groupsuggest(<?php echo $yournetwork->sid; ?>);">
-    									<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+    									<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
     								</li>
     								<li onclick="friend(<?php echo $yournetwork->sid;?>);">
-    									<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+    									<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     								</li>
     								<li onclick="socialshare(<?php echo $yournetwork->sid;?>, 'story');">
-    									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-    										<i class="fa fa-share-alt"></i>
-    									</a>
+    									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
     								</li>
     							</ul>
     						</div>
@@ -322,15 +318,13 @@ padding-left: 3px;
         							</button>
         							<ul class="dropdown-menu list-inline  dropvk">
         								<li onclick="groupsuggest(<?php echo $topseriesrow->sid; ?>);">
-        									<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+        									<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
         								</li>
         								<li onclick="friend(<?php echo $topseriesrow->sid;?>);">
-        									<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+        									<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
         								</li>
         								<li onclick="socialshare(<?php echo $topseriesrow->sid;?>, 'series');">
-        									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-        										<i class="fa fa-share-alt"></i>
-        									</a>
+        									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
         								</li>
         							</ul>
         						</div>
@@ -411,15 +405,13 @@ padding-left: 3px;
     								</button>
     								<ul class="dropdown-menu list-inline  dropvk">
     									<li onclick="groupsuggest(<?php echo $seriesrow->sid; ?>);">
-    										<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+    										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
     									</li>
     									<li onclick="friend(<?php echo $seriesrow->sid;?>);">
-    										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+    										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     									</li>
     									<li onclick="socialshare(<?php echo $seriesrow->sid;?>, 'series');">
-    										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-    											<i class="fa fa-share-alt"></i>
-    										</a>
+    										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
     									</li>
     								</ul>
     							</div>
@@ -511,15 +503,13 @@ padding-left: 3px;
 								</button>
 								<ul class="dropdown-menu list-inline  dropvk">
 									<li onclick="groupsuggest(<?php echo $topstorysrow->sid; ?>);">
-										<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
 									</li>
 									<li onclick="friend(<?php echo $topstorysrow->sid;?>);">
-										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
 									</li>
 									<li onclick="socialshare(<?php echo $topstorysrow->sid;?>, 'story');">
-										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-											<i class="fa fa-share-alt"></i>
-										</a>
+										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
 									</li>
 								</ul>
 							</div>
@@ -612,15 +602,13 @@ padding-left: 3px;
     							</button>
     							<ul class="dropdown-menu list-inline  dropvk">
     								<li onclick="groupsuggest(<?php echo $storysrow->sid; ?>);">
-    									<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+    									<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
     								</li>
     								<li onclick="friend(<?php echo $storysrow->sid;?>);">
-    									<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+    									<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     								</li>
     								<li onclick="socialshare(<?php echo $storysrow->sid;?>, 'story');">
-    									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-    										<i class="fa fa-share-alt"></i>
-    									</a>
+    									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
     								</li>
     							</ul>
     						</div>
@@ -699,15 +687,13 @@ padding-left: 3px;
 								</button>
 								<ul class="dropdown-menu list-inline dropvklife">
 									<li onclick="groupsuggest(<?php echo $topliferow->sid; ?>);">
-										<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
 									</li>
 									<li onclick="friend(<?php echo $topliferow->sid;?>);">
-										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
 									</li>
 									<li onclick="socialshare(<?php echo $topliferow->sid;?>, 'story');">
-										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-											<i class="fa fa-share-alt"></i>
-										</a>
+										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
 									</li>
 								</ul>
 							</div>
@@ -787,15 +773,13 @@ padding-left: 3px;
 								</button>
 								<ul class="dropdown-menu list-inline dropvklife">
 									<li onclick="groupsuggest(<?php echo $liferow->sid; ?>);">
-										<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
 									</li>
 									<li onclick="friend(<?php echo $liferow->sid;?>);">
-										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
 									</li>
 									<li onclick="socialshare(<?php echo $liferow->sid;?>, 'story');">
-										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-											<i class="fa fa-share-alt"></i>
-										</a>
+										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
 									</li>
 								</ul>
 							</div>
@@ -879,10 +863,10 @@ padding-left: 3px;
 									</a>
 									<ul class="dropdown-menu list-inline dropvknano">
     									<li onclick="groupsuggest(<?php echo $nanorow->sid; ?>);">
-    										<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest"><i class="fa fa-users"></i></a>
+    										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
     									</li>
     									<li onclick="friend(<?php echo $nanorow->sid;?>);">
-    										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest"><i class="fa fa-user"></i></a>
+    										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     									</li>
 										<li onclick="socialshare(<?php echo $nanorow->sid;?>, 'nano');">
 											<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
@@ -958,10 +942,10 @@ padding-left: 3px;
                                 	<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
                                     <ul class="dropdown-menu list-inline dropvknano1">
                                         <li onclick="groupsuggest(<?php echo $nanomodalrow->sid; ?>);">
-										    <a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest"><i class="fa fa-users"></i></a>
+										    <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
     									</li>
     									<li onclick="friend(<?php echo $nanomodalrow->sid;?>);">
-    										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest"><i class="fa fa-user"></i></a>
+    										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     									</li>
 										<li onclick="socialshare(<?php echo $nanomodalrow->sid;?>, 'nano');">
 											<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
