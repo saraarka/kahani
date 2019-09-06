@@ -1274,8 +1274,8 @@ $(function() {
             success: function(data) {
                 if(data == 'notlogin'){
                     $('#notloginmodal').trigger('click');
-                    $('#groupsuggest').removeClass('in');
-                    $('#groupsuggest').css('display', 'block');
+                    //$('#groupsuggest').removeClass('in');
+                    //$('#groupsuggest').css('display', 'block');
     			}else if(data) {
     			    $('.storysuggesttogroup').html(data);
                 	$('#groupsuggest').modal('show');
@@ -1292,8 +1292,8 @@ $(function() {
             success: function(data) {
                 if(data == 'notlogin'){
                     $('#notloginmodal').trigger('click');
-                    $('#friendsuggest').removeClass('in');
-                    $('#friendsuggest').css('display', 'block');
+                    //$('#friendsuggest').removeClass('in');
+                    //$('#friendsuggest').css('display', 'block');
     			}else if(data) {
                 	$('.storysuggesttofriend').html(data);
                 	$('#friendsuggest').modal('show');
