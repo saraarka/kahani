@@ -287,7 +287,8 @@ class User_model extends CI_model {
 	}
 	public function addstory($data, $id, $predraftseriespub = false){
 		$update = $this->db->where('sid',$id)->update('stories',$data);
-		$type = ''; $title = '';
+		$stitle = $this->db->select('title')->where('sid',$id)->limit(1)->get('stories')->result();
+		$type = ''; $title = $stitle[0]->title;
 		if(isset($predraftseriespub) && ($predraftseriespub == 'predraftseriespub')){
 		    $series_storyid = $this->db->select('title, story_id, type')->from('stories')->where('sid',$id)->limit(1)->get()->result();
 		    if(isset($series_storyid[0]->story_id) && !empty($series_storyid[0]->story_id)){
@@ -310,9 +311,9 @@ class User_model extends CI_model {
     				'from_id' => $userid,
     				'to_name' => $follow->name,
     				'to_id' => $follow->user_id,
-    				'title' => '',
+    				'title' => $title,
     				'title_id' => $id,
-    				'redirect_uri' => 'story/'.preg_replace('/\s+/', '-', $title)."-".$id,
+    				'redirect_uri' => 'story/'.preg_replace("~[^\p{M}\w]+~u",'-', $title)."-".$id,
     				'created_at' => Date('Y-m-d H:i:s'),
     			);
     			$this->db->insert('notifications',$notification);
@@ -408,7 +409,7 @@ class User_model extends CI_model {
 	   if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){
     		$user_id = $this->session->userdata['logged_in']['user_id'];
     		$notseennotifys = $this->db->select('notifications.*, signup.name as sname, signup.profile_image, signup.profile_name, 
-    		 signup.user_id as suserid, stories.title as stitle')->from('notifications')
+    		 signup.user_id as suserid, stories.title as stitle, stories.language as storylang')->from('notifications')
     	        ->join('signup','signup.user_id = notifications.from_id','left outer')
     	        ->join('stories','stories.sid = notifications.title_id','left outer')
                 ->where('(notifications.type = "writerfollow" OR notifications.type = "comment" 
@@ -424,7 +425,7 @@ class User_model extends CI_model {
             }else{
                 $limit =  5 - $notseennotifys->num_rows();
                 $seennotifys = $this->db->select('notifications.*, signup.name as sname, signup.profile_image, signup.user_id as suserid,
-    	        signup.profile_name, stories.title as stitle')->from('notifications')
+    	        signup.profile_name, stories.title as stitle, stories.language as storylang')->from('notifications')
     	        ->join('signup','signup.user_id = notifications.from_id','left outer')
     	        ->join('stories','stories.sid = notifications.title_id','left outer')
                 ->where('(notifications.type = "writerfollow" OR notifications.type = "comment" 
@@ -443,7 +444,7 @@ class User_model extends CI_model {
 	    $user_id = $this->session->userdata['logged_in']['user_id'];
 	    $this->db->where('to_id',$user_id)->update('notifications', array('status' => 'viewed'));
 	    $generalnotifys = $this->db->select('notifications.*, signup.name as sname, signup.profile_image, signup.user_id as suserid,
-	        signup.profile_name, stories.title as stitle')->from('notifications')
+	        signup.profile_name, stories.title as stitle, stories.language as storylang')->from('notifications')
 	        ->join('signup','signup.user_id = notifications.from_id','left outer')
 	        ->join('stories','stories.sid = notifications.title_id','left outer')
             ->where('(notifications.type = "writerfollow" OR notifications.type = "comment" 
@@ -3172,7 +3173,7 @@ class User_model extends CI_model {
         return $this->db->query($query);
 	}
 	public function editnano($nanosid){
-	    return $this->db->select('story, language as nanolang')->from('stories')->where('type','nano')->where('sid',$nanosid)->get();
+	    return $this->db->select('sid, story, language as nanolang')->from('stories')->where('type','nano')->where('sid',$nanosid)->get();
 	}
 	public function updatenano($story, $nanosid){
 	    return $this->db->where('sid',$nanosid)->where('type','nano')->update('stories', array('story' => $story));

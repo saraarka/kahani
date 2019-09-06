@@ -8,7 +8,7 @@
                     if(!empty($row->aboutus)){ $about = $row->aboutus; }
                     $readingliststatus = $row->readinglist; $email = $row->email; $phone = $row->phone; 
                     $uemailstatus = $row->uemailstatus; $uphonestatus = $row->uphonestatus;  ?>
-                <div class= pd-0"col-md-12">
+                <div class= "pd-0 col-md-12">
                     <div class="box box-widget widget-user-2 ovv">
                         <?php if(isset($row->banner_image) && !empty($row->banner_image)) { ?>
                         <div class="widget-user-header ovv  profile1 bgvv" style="padding:0px; background: url('<?php echo base_url();?>assets/images/<?php echo $row->banner_image; ?>')center center;background-repeat: no-repeat;background-size: cover;">
@@ -903,6 +903,7 @@ $("#profilecomments").submit(function(event) {
                         '<span class="text-danger addreplaycmt'+result.response[0].cid+'"></span><div class="box-comment replycommentslist">'+
                         '<ul id="replycommentresults'+result.response[0].cid+'" style="padding-left:10px;list-style:none;"></ul><span class="viewmore'+result.response[0].cid+'"></span>'+
                         '</div></div></li><hr>');
+                        $('.commentslist.pcmtfwidth .col-md-12').html('');
                     }
                 }
             });
@@ -1311,6 +1312,7 @@ $( "form#reportprocomment" ).submit(function( event ) {
                         '<span class="text-danger addreplaycmt'+result.response[0].cid+'"></span><div class="box-comment replycommentslist">'+
                         '<ul id="replycommentresults'+result.response[0].cid+'" style="padding-left:10px;list-style:none;"></ul><span class="viewmore'+result.response[0].cid+'"></span>'+
                         '</div></div></li>');
+                        $('.commentslist.pcmtmwidth .col-md-12').html('');
                     }
                 }
             });

@@ -952,6 +952,7 @@
     			$("li#postcmt").prepend(output);
     			$("#comment").val('');
     			$("#comments").val('');
+                $("#load_data_message").html('');
     		});
 		}else{
 		    $('.btn.btn-success.btn-flat.btnspinner').html('POST');

@@ -820,6 +820,7 @@ $( "form#commentsend" ).submit(function( event ) {
 		$("li#postcmt").prepend(output);
 		$("#comment").val('');
 		$("#comments").val('');
+        $("#load_data_message").html('');
 	});
 });
 </script>

@@ -552,7 +552,7 @@
 			                        					<?php if(isset($wnanorow->profile_image) && !empty($wnanorow->profile_image)) { ?>
 			                        						<img src="<?php echo base_url();?>assets/images/<?php echo $wnanorow->profile_image; ?>" alt="<?php echo $wnanorow->name;?>" class="circle-image" style="height:50px;">
 			                        					<?php }else{ ?>
-			                        						<img src="<?php echo base_url();?>assets/dist/img/photo1.png" alt="<?php echo $wnanorow->name;?>" class="circle-image" style="height:50px;">
+			                        						<img src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $wnanorow->name;?>" class="circle-image" style="height:50px;">
 			                        					<?php } ?>
 			                        					<h3 class="name-nanostories">
 			                        					    <a href="<?php echo base_url($wnanorow->profile_name);?>" style="color:#000;"><?php echo $wnanorow->name;?></a>
@@ -562,7 +562,8 @@
 			                        		                        <i class="fa fa-ellipsis-v" style="font-size:14px;"></i>
 			                        		                    </a>
 			                        		                    <ul class="dropdown-menu pull-right">
-			                        		                        <li><a href="javascript:void(0);" onClick="editnano(<?php echo $wnanorow->sid;?>);"><i class="fa fa-edit pr-10"></i> EDIT</a></li>
+	                                                               <li><a href="<?php echo base_url();?>editnano/<?php echo $wnanorow->sid;?>"><i class="fa fa-edit pr-10"></i> EDIT</a>
+                                                                    <!--<a href="javascript:void(0);" onClick="editnano(<?php echo $wnanorow->sid;?>);"><i class="fa fa-edit pr-10"></i> EDIT</a>--></li>
 			                        		                        <li><a href="javascript:void(0);" onClick="deletenano(<?php echo $wnanorow->sid;?>);"><i class="fa fa-trash pr-10"></i> DELETE</a></li>
 			                        		                    </ul>
 			                        		                </span>
@@ -644,7 +645,7 @@
 		                        				    <?php if(isset($wmnanorow->profile_image) && !empty($wmnanorow->profile_image)) { ?>
                     									<img src="<?php echo base_url();?>assets/images/<?php echo $wmnanorow->profile_image; ?>" class="user-image img-circle" style="height:50px;" alt="<?php echo $wmnanorow->name;?>">
                     								<?php }else{ ?>
-                    									<img src="<?php echo base_url();?>assets/dist/img/user2-160x160.jpg" class="user-image img-circle" style="height:50px;" alt="<?php echo $wmnanorow->name;?>">
+                    									<img src="<?php echo base_url();?>assets/images/2.png" class="user-image img-circle" style="height:50px;" alt="<?php echo $wmnanorow->name;?>">
                     								<?php } ?>
 		                        				    <h3 class="name-nanostories" style="margin-top: -40px; margin-left: 50px;padding-left:10px;">
                         							    <a href="<?php echo base_url($wmnanorow->profile_name);?>" style="color:#000"><?php echo $wmnanorow->name;?></a>
@@ -997,6 +998,7 @@ $("#profilecomments").submit(function(event) {
                         '<span class="text-danger addreplaycmt'+result.response[0].cid+'"></span><div class="box-comment replycommentslist">'+
                         '<ul id="replycommentresults'+result.response[0].cid+'" style="padding-left:10px;list-style:none;"></ul><span class="viewmore'+result.response[0].cid+'"></span>'+
                         '</div></div></li><hr style="margin-top:5px; margin-bottom:8px;">');
+                        $('.commentslist.pcmtfwidth .col-md-12').html('');
                     }
                 }
             });
@@ -1045,6 +1047,7 @@ $("#profilecomments").submit(function(event) {
                         '<span class="text-danger addreplaycmt'+result.response[0].cid+'"></span><div class="box-comment replycommentslist">'+
                         '<ul id="replycommentresults'+result.response[0].cid+'" style="padding-left:10px;list-style:none;margin-top:5px;"></ul><span class="viewmore'+result.response[0].cid+'"></span>'+
                         '</div></div></li><hr>');
+                        $('.commentslist.pcmtmwidth .col-md-12').html('');
                     }
                 }
             });

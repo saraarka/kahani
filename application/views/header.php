@@ -428,9 +428,14 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'comment')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'comment')) {
+                                        $segmenturi = '';
+                                        $segmentlang = get_langfullname($notseennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($notseennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -446,9 +451,13 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'replycomment')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'replycomment')) {    $segmenturi = '';
+                                        $segmentlang = get_langfullname($notseennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($notseennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -464,9 +473,14 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'rating')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'rating')) { 
+                                        $segmenturi = '';
+                                        $segmentlang = get_langfullname($notseennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($notseennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -482,9 +496,14 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'nanolike')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'nanolike')) {
+                                        $segmenturi = '';
+                                        $segmentlang = get_langfullname($notseennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        } ?>
 									<li>
-										<a href="<?php echo base_url().$notseennotify->profile_name;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$notseennotify->profile_name;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($notseennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -499,9 +518,14 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'seriessubscribe')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'seriessubscribe')) { 
+                                        $segmenturi = '';
+                                        $segmentlang = get_langfullname($notseennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($notseennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -517,9 +541,13 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'seriesepisode')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'seriesepisode')) { $segmenturi = '';
+                                        $segmentlang = get_langfullname($notseennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($notseennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -543,9 +571,13 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'startseries')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'startseries')) { $segmenturi = '';
+                                        $segmentlang = get_langfullname($notseennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($notseennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -561,9 +593,14 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'newstory')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'newstory')) {
+                                        $segmenturi = '';
+                                        $segmentlang = get_langfullname($notseennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     											<?php if(!empty($notseennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -579,9 +616,14 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'newnano')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'newnano')) { 
+                                        $segmenturi = '';
+                                        $segmentlang = get_langfullname($notseennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$notseennotify->profile_name;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$notseennotify->profile_name;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($notseennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -597,9 +639,14 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'favorite')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'favorite')) {
+                                        $segmenturi = '';
+                                        $segmentlang = get_langfullname($notseennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($notseennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -649,9 +696,13 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'groupsuggestion')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'groupsuggestion')) {$segmenturi = '';
+                                        $segmentlang = get_langfullname($notseennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($notseennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -714,9 +765,13 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'comment')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'comment')) { $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$seennotify->redirect_uri;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($seennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -732,9 +787,13 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'replycomment')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'replycomment')) { $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$seennotify->redirect_uri;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($seennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -750,9 +809,14 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'rating')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'rating')) { 
+                                        $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        } ?>
 									<li>
-										<a href="<?php echo base_url().$seennotify->redirect_uri;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     											<?php if(!empty($seennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>"> 
@@ -784,9 +848,13 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'seriessubscribe')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'seriessubscribe')) { $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$seennotify->redirect_uri;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($seennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>"> 
@@ -802,9 +870,13 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'seriesepisode')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'seriesepisode')) { $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$seennotify->redirect_uri;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($seennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -829,9 +901,13 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'startseries')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'startseries')) { $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$seennotify->redirect_uri;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($seennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -847,9 +923,14 @@ padding-left: 3px;
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'newstory')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'newstory')) { 
+                                        $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$seennotify->redirect_uri;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($seennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -865,9 +946,14 @@ padding-left: 3px;
     									</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'newnano')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'newnano')) { 
+                                        $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$seennotify->redirect_uri;?>" style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($seennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -883,9 +969,14 @@ padding-left: 3px;
     									</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'favorite')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'favorite')) { 
+                                        $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$seennotify->redirect_uri;?>"  style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>"  style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($seennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -935,9 +1026,13 @@ padding-left: 3px;
     									</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'groupsuggestion')) { ?>
+									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'groupsuggestion')) { $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
 									<li>
-										<a href="<?php echo base_url().$seennotify->redirect_uri;?>"   style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>"   style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($seennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">

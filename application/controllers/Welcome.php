@@ -1996,6 +1996,7 @@ class Welcome extends CI_Controller {
     	    redirect(base_url().'english');
 		}
 	}
+
 	public function life() {
 		if($this->session->userdata('logged_in')==NULL) redirect(base_url());
 		$header['gener'] = $this->User_model->gener();
@@ -3924,7 +3925,7 @@ class Welcome extends CI_Controller {
 	        echo $response;
 	    }
 	}
-	public function editnano($nanosid){
+	/*public function editnano($nanosid){
         $result = $this->User_model->editnano($nanosid);
         $data['story'] = ''; $data['nanolang'] = '';
         if($result->num_rows() > 0){ foreach($result->result() as $result){
@@ -3940,6 +3941,22 @@ class Welcome extends CI_Controller {
                 echo 1;
             }else{
                 echo 0;
+            }
+        }
+    }*/
+    public function editnano($nanosid){
+    	$data['languages'] = $this->User_model->language();
+        $data['story'] = $this->User_model->editnano($nanosid);
+        $this->load->view('editnano.php',$data);
+    }
+    public function updatenano(){
+        if(isset($_POST['story']) && isset($_POST['nanosid'])){
+            $result = $this->User_model->updatenano($_POST['story'] , $_POST['nanosid']);
+            if($result){
+                //redirect($_SERVER['HTTP_REFERER']);
+                redirect(base_url().'english');
+            }else{
+            	redirect($_SERVER['HTTP_REFERER']);
             }
         }
     }

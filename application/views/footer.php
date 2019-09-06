@@ -1032,8 +1032,8 @@
     			    var followcount = parseInt(follcount)+1;
     			    $('#follcount'+writer_id).text(followcount);
     			    //console.log('writerfollow success');
-    			    $('#snackbar').text('Follow success').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    			    //$('#snackbar').text('Follow success').addClass('show');
+    				//setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     			}else{
     				//console.log('writerfollow fail');
     				$('#snackbar').text('Follow fail').addClass('show');
@@ -1058,8 +1058,8 @@
     			    var followcount = parseInt(follcount)-1;
     			    $('#follcount'+writer_id).text(followcount);
     			    //console.log('writerunfollow success');
-    				$('#snackbar').text('Unfollow success').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    				//$('#snackbar').text('Unfollow success').addClass('show');
+    				//setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     			}else{
     				//console.log('writerunfollow fail');
     				$('#snackbar').text('Unfollow fail').addClass('show');
