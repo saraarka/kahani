@@ -1266,7 +1266,7 @@ $(function() {
 
 <!-- Suggest story to group for reading -->
 <script type="text/javascript">
-    function groupsuggest(id){
+    /*function groupsuggest(id){
         $.ajax({
             type: "POST",
             url: "<?php echo base_url();?>welcome/get_story_groupdata",
@@ -1300,29 +1300,54 @@ $(function() {
               	}
             }
     	});
-    	/*window.addEventListener('wheel', function(e) {  // suggest friend modal popup close event lisener start
-            if (e.deltaY < 0) {
-                didScroll = true;
-                hasScrolled();
-                if($('#friendsuggest').css('display') == 'block') {
-                    $('#sidebarv').addClass('sticky1');
-                }else{
-                    $('aside').removeClass('sticky1').addClass('sticky');
-                    $('#navbarv').removeClass('sticky1').addClass('sticky');
-                }
-            }
-            if (e.deltaY > 0) {
-                didScroll = false;
-                hasScrolled();
-                if($('#friendsuggest').css('display') == 'block') {
-                    $('#sidebarv').addClass('sticky1');
-                }else{
-                    $('aside').removeClass('sticky').addClass('sticky1');
-                    $('#navbarv').removeClass('sticky').addClass('sticky1');
-                }
-            }
-        }); // suggest friend modal popup close event lisener end */
+    }*/
+    function groupsuggest(id){
+    	var loggedinuid = $('#loggedinuid').val();
+    	if(loggedinuid){
+    		$('#groupsuggest').modal('show');
+			$.ajax({
+				type: "POST",
+				url: "<?php echo base_url();?>welcome/get_story_groupdata",
+				data: {'id': id},
+				success: function(data) {
+				    if(data == 'notlogin'){
+				        $('#notloginmodal').trigger('click');
+				        //$('#groupsuggest').removeClass('in');
+				        //$('#groupsuggest').css('display', 'block');
+					}else if(data) {
+					    $('.storysuggesttogroup').html(data);
+				    	//$('#groupsuggest').modal('show');
+				  	}
+				}
+			});
+		}else{
+			$('#notloginmodal').trigger('click');
+		}
     }
+    
+    function friend(id){
+    	var loggedinuid = $('#loggedinuid').val();
+    	if(loggedinuid){
+    		$('#friendsuggest').modal('show');
+			$.ajax({
+				type: "POST",
+				url: "<?php echo base_url();?>welcome/get_story_data",
+				data: {'id':id},
+				success: function(data) {
+				    if(data == 'notlogin'){
+				        $('#notloginmodal').trigger('click');
+				        //$('#friendsuggest').removeClass('in');
+				        //$('#friendsuggest').css('display', 'block');
+					}else if(data) {
+				    	$('.storysuggesttofriend').html(data);
+				    	//$('#friendsuggest').modal('show');
+				  	}
+				}
+			});
+		}else{
+			$('#notloginmodal').trigger('click');
+		}
+	}
     
     function socialshare(id, seristorytype) {
         var seurl = '';

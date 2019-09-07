@@ -289,6 +289,14 @@ padding-left: 3px;
 }
 
 </style>
+<style type="text/css">
+    div#friendsuggest div.modal-content {
+        min-height: 200px;
+    }
+    div#groupsuggest div.modal-content {
+        min-height: 200px;
+    }
+</style>
     
     <?php if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){
 	    $profilename = get_profilename($this->session->userdata['logged_in']['user_id']); ?>
@@ -1265,3 +1273,20 @@ padding-left: 3px;
 </script>
 <script src="<?php echo base_url();?>assets/js/header.js"></script>
 
+
+
+<input type="hidden" id="loggedinuid" value="<?php if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){ echo $this->session->userdata['logged_in']['user_id']; } ?>">
+<!-- Page reload scroll position -->
+<script type="text/javascript">
+    /*function refreshPage () {
+        var page_y = document.getElementsByTagName("body")[0].scrollTop;
+        window.location.href = window.location.href.split('?')[0] + '?page_y=' + page_y;
+    }*/
+    window.onload = function () {
+        //setTimeout(refreshPage, 35000);
+        if ( window.location.href.indexOf('page_y') != -1 ) {
+            var match = window.location.href.split('?')[1].split("&")[0].split("=");
+            document.getElementsByTagName("body")[0].scrollTop = match[1];
+        }
+    }
+</script>

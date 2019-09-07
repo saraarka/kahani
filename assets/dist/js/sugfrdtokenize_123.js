@@ -698,7 +698,8 @@
     Tokenize2.prototype.dropdownHide = function(){
 
         if(this.isDropdownOpen()){
-            $(window).off('resize scroll');
+            //$(window).off('resize scroll'); // saraswathi
+            $(window).off('resize'); //insted above line added it for headnav
             this.dropdown.remove();
             this.dropdown = undefined;
             this.trigger('tokenize:dropdown:hidden');
