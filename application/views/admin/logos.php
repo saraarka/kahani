@@ -6,7 +6,7 @@
         <form class="form-horizontal" action="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/logos/<?php echo $editrow->id;?>" method="POST">
             
             <div class="form-group">
-                <label class="control-label col-sm-2" for="gener">Logos: </label>
+                <label class="control-label col-sm-2" for="type">Logo For: </label>
                 <div class="col-sm-10">
                     <select type="text" name="type" class="form-control">
                         <option value="landing_logo"> Landing Page Logo</option>
@@ -19,10 +19,10 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="gener">Gener: </label>
+                <label class="control-label col-sm-2" for="logo">Logo: </label>
                 <div class="col-sm-10">
-                    <input type="text" name="gener" class="form-control" placeholder="Enter Gener name" value="<?php echo $editrow->gener;?>">
-                    <span class="text-danger"><?php echo form_error('gener');?></span>
+                    <input type="file" name="logo" class="form-control" placeholder="Choose Logo">
+                    <span class="text-danger"><?php echo form_error('logo');?></span>
                 </div>
             </div>
             
@@ -34,8 +34,21 @@
             
         </form>
         <?php } }else{ ?>
-        <form class="form-horizontal" action="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/geners" method="POST">
+        <form class="form-horizontal" action="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/logos" method="POST">
             
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="type">Logo For: </label>
+                <div class="col-sm-10">
+                    <select type="text" name="type" class="form-control">
+                        <option value="landing_logo"> Landing Page Logo</option>
+                        <option value="landing_mlogo"> Landing Page Mobile Logo</option>
+                        <option value="site_logo"> Site Logo</option>
+                        <option value="site_mlogo"> Site Mobile Logo</option>
+                    </select>
+                    <span class="text-danger"><?php echo form_error('type');?></span>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label class="control-label col-sm-2" for="gener">Gener: </label>
                 <div class="col-sm-10">
