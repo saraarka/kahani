@@ -511,6 +511,14 @@ class Aenglish extends CI_Controller {
             //redirect(base_url().'index.php/aenglish/storieslist');
 	    }
 	}
+	public function removeadminchoice($sid){
+		$response = $this->Admin_model->removeadminchoice($sid);
+	    if($response){
+	        echo 1;
+	    }else{
+	    	echo 0;
+	    }
+	}
 	public function storiessearch(){
 	    $language = 'en';
 	    $data['storiessearch'] = $this->Admin_model->storiessearch($language, $_POST);
@@ -1421,5 +1429,28 @@ class Aenglish extends CI_Controller {
 	}
 	/* static pages text end */
 	
+
+	/* Blocked Profiles start */
+	public function blockedprofiles(){
+		$language = 'en';
+		$data['bprofiles'] = $this->Admin_model->blockedprofiles($language);
+		$this->load->view('admin/blockedprofiles', $data);
+	}
+	/* Blocked Profiles end */
+	
+	/* Blocked Stories start */
+	public function blockedstories(){
+		$language = 'en';
+		$data['bstories'] = $this->Admin_model->blockedstories($language);
+		$this->load->view('admin/blockedstories', $data);
+	}
+	/* Blocked Stories end */
+
+	/* Website logos start */
+	public function logos(){
+		$data['logos'] = $this->Admin_model->logos();
+		$this->load->view('admin/logos', $data);
+	}
+	/* Website logos  end */
 	
 }

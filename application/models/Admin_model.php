@@ -284,7 +284,10 @@ class Admin_model extends CI_model {
 	    return $query;
 	}
 	public function adminchoice($sid){
-	    return $this->db->where('sid',$sid)->where('type','story')->update('stories', array('admin_choice' => 2));
+	    return $this->db->where('sid',$sid)->where('type','story')->where('draft !=','draft')->where('status','active')->update('stories', array('admin_choice' => 2));
+	}
+	public function removeadminchoice($sid){
+	    return $this->db->where('sid',$sid)->where('type','story')->update('stories', array('admin_choice' => 1));
 	}
 	public function storiessearch($language, $data){
 	    $query = "SELECT stories.*, COUNT(story_views.id) as uniqueviews, gener.gener, signup.name, signup.lastname, 
@@ -690,4 +693,27 @@ class Admin_model extends CI_model {
 	    return $this->db->where('id',$id)->where('language',$language)->from('staticpages')->delete();
 	}
 	/* static pages text end */
+
+	/* Blocked Profiles start */
+	public function blockedprofiles($language){
+		$query = "SELECT signup.*, stories.sid FROM signup LEFT JOIN stories ON signup.user_id = stories.user_id WHERE signup.user_id = stories.user_id AND stories.language = '$language' AND signup.admin_status != 'unblock' GROUP BY signup.user_id ORDER BY signup.user_id DESC";
+        return $this->db->query($query);
+	}
+	/* Blocked Profiles end */
+
+	/* Blocked Stories start */
+	public function blockedstories($language){
+		return $this->db->select('stories.*, signup.name as writerfname, signup.lastname as writerlname')->from('stories')
+    	    ->join('signup','stories.user_id = signup.user_id','left')->where('stories.language',$language)->where('stories.status !=','active')
+    	    ->get();
+	}
+	/* Blocked Stories end */
+
+	/* Website logos start */
+	public function logos(){
+		return $this->db->from('banner')->where('type','landing_logo')
+			->or_where('type','landing_mlogo')->or_where('type','site_logo')
+			->or_where('type','site_mlogo')->get();
+	}
+	/* Website logos  end */
 }

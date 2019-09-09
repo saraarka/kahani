@@ -83,9 +83,32 @@
     		url:'<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/adminchoice/'+sid,
     		method: 'POST',
     		success:function(data){
-    		    if(data == 1){
-    		        console.log('success');
-    		    }
+                if(data == 1){
+                    console.log('success');
+                    $('#snackbar').text('Admin Choice added success').addClass('show');
+                    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+                    setTimeout(function(){ location.reload(); },3500);
+                }else{
+                    $('#snackbar').text('Failed to add Admin Choice').addClass('show');
+                    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+                }
+            } 
+        });
+    }
+    function removeadminchoice(sid){
+        $.ajax({
+            url:'<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/removeadminchoice/'+sid,
+            method: 'POST',
+            success:function(data){
+                if(data == 1){
+                    console.log('success');
+                    $('#snackbar').text('Admin Choice removed success').addClass('show');
+                    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+                    setTimeout(function(){ location.reload(); },3500);
+                }else{
+                    $('#snackbar').text('Failed to remove Admin Choice').addClass('show');
+                    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+                }
             } 
         });
     }

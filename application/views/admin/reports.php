@@ -1,4 +1,10 @@
     <?php $this->load->view('admin/header.php'); ?>
+    <style type="text/css">
+        table {
+            table-layout: fixed;
+            word-wrap: break-word;
+        }
+    </style>
     <div class="main">
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <h3> Reports List 
@@ -37,11 +43,11 @@
                             }elseif(isset($reportrow->type) && ($reportrow->type == 'series')){
                                  $redirecturl = base_url().'index.php/'.$this->uri->segment(1).'/new_series/'.$reportrow->story_id;
                             }else{ $redirecturl = '#'; } ?>
-                        <td><a href="<?php echo $redirecturl;?>" target="_blank"><?php echo $reportrow->title;?></a></td>
+                        <td><a href="<?php echo $redirecturl;?>" target="_blank" style="word-break: break-word;"><?php echo $reportrow->title;?></a></td>
                         <td><?php echo $reportrow->postedtoname.' '.$reportrow->postedtolastname;?></td>
                         <td><?php echo $reportrow->reported_by;?></td>
                         <td><?php echo $reportrow->type;?></td>
-                        <td><?php echo $reportrow->report_msg;?></td>
+                        <td style="word-break: break-word;"><?php echo $reportrow->report_msg;?></td>
                         <td><?php echo substr($reportrow->created_at,0,10);?></td>
                         <td>
                         <?php if(isset($reportrow->type) && ($reportrow->type == 'story')){ ?>

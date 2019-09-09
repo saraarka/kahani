@@ -76,7 +76,7 @@
                         <td>#<?php echo $i;?></td>
                         <?php $storyurl = '#';   if(($storyrow->type == 'story') || ($storyrow->type == 'life')){
                             $storyurl = base_url().'index.php/'.$this->uri->segment(1).'/only_story_view?id='.$storyrow->sid; } ?>
-                        <td><a href="<?php echo $storyurl; ?>" target="_blank"><?php echo $storyrow->title;?></a></td>
+                        <td><a href="<?php echo $storyurl; ?>" target="_blank" style="word-break: break-word;"><?php echo $storyrow->title;?></a></td>
                         <td><?php echo $storyrow->name.' '.$storyrow->lastname;?></td>
                         <td><?php echo $storyrow->type;?></td>
                         <td><?php echo $storyrow->gener;?></td>
@@ -87,8 +87,10 @@
                         <td><?php echo $storyrow->pay_story;?></td>
                         <td><?php echo substr($storyrow->date,0,10);?></td>
                         <td>
-                            <?php if($storyrow->type == 'story'){ ?>
-                            <a href="javascript:void(0);" onClick="adminchoice(<?php echo $storyrow->sid;?>);"> Admin Choice </a>
+                            <?php if(($storyrow->type == 'story') && ($storyrow->admin_choice == 2)){ ?>
+                                <a href="javascript:void(0);" onClick="removeadminchoice(<?php echo $storyrow->sid;?>);">Remove Admin Choice</a>
+                            <?php } else if(($storyrow->type == 'story') && ($storyrow->admin_choice != 2)){ ?>
+                                <a href="javascript:void(0);" onClick="adminchoice(<?php echo $storyrow->sid;?>);"> Admin Choice </a>
                             <?php } ?>
                             <!--<a href="javascript:void(0);" onClick="storyreports(<?php echo $storyrow->sid;?>);"> Report </a> -->
                             <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/deletestory/<?php echo $storyrow->sid;?>" onclick="return confirm('Are you sure? Do you want to Delete?')"> Delete </a>
