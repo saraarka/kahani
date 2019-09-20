@@ -1691,6 +1691,80 @@ class Welcome extends CI_Controller {
     	    echo 0;
     	}
     }
+
+    public function searchimage(){
+    	if(isset($_POST['searchimage']) && !empty($_POST['searchimage'])){
+			$searchimages = $this->User_model->searchdimages($_POST['searchimage']);
+			if($searchimages->num_rows() > 0){
+				echo json_encode($searchimages->result());
+			}
+    	}
+
+    }
+    public function loadmoredimages(){
+    	if(isset($_POST['start'], $_POST['limit']) && !empty($_POST['start']) && !empty($_POST['limit'])){
+    		$searchimages = $this->User_model->loadmoredimages($_POST['start'], $_POST['limit']);
+			if($searchimages->num_rows() > 0){
+				echo json_encode($searchimages->result());
+			}
+    	}
+    }
+    public function localimage(){
+		if(isset($_FILES['file']['name']) && !empty($_FILES['file']['name'])){
+			$picture1 = ''; $image = '';
+			$config['upload_path'] = 'assets/images/';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['max_size']     = '2048';
+            $config['encrypt_name'] = TRUE;
+            $this->load->library('upload',$config);
+            $this->upload->initialize($config);
+            if($this->upload->do_upload('file')){
+                $uploadData = $this->upload->data();
+                $config['image_library'] = 'gd2';
+                $config['source_image'] = 'assets/images/'.$uploadData['file_name'];
+                $config['create_thumb'] = FALSE;
+                $config['maintain_ratio'] = FALSE;
+                $config['quality'] = '85%';
+                $config['width'] = 293;
+                $config['height'] = 280;
+                $this->load->library('image_lib', $config);
+                $this->image_lib->resize();
+                $picture1 = $uploadData['file_name'];
+
+                $validExtensions = array('.jpg', '.jpeg', '.gif', '.png'); //// array of valid extensions
+                $fileExtension = strrchr($_FILES['file']['name'], "."); //// get extension of the uploaded file
+                // check if file Extension is on the list of allowed ones
+                //if (in_array($fileExtension, $validExtensions)) {
+                    $date = strtotime(date('Y-m-d h:i:s'));
+                    $newNamePrefix = $date.'_';
+                    $manipulator = new ImageManipulator($_FILES['file']['tmp_name']);
+                    if($_POST['type'] == 'life'){
+                    	$newImage = $manipulator->resample(266, 165, FALSE);
+                    }else{
+                    	$newImage = $manipulator->resample(200, 180, FALSE);
+                	}
+                    $image = $newNamePrefix.$_FILES['file']['name'];
+                    // saving file to uploads folder
+                    $manipulator->save('assets/images/'.$newNamePrefix.$_FILES['file']['name']);
+                //}
+            }
+            $data['picture1'] = $picture1;
+            $data['image'] = $image;
+            echo json_encode($data);
+        }
+            /*$location = 'assets/images/'.$filename;
+			$file_extension = pathinfo($location, PATHINFO_EXTENSION);
+			$file_extension = strtolower($file_extension);
+			$image_ext = array("jpg","png","jpeg","gif");
+			$response = 0;
+			if(in_array($file_extension,$image_ext)){
+				if(move_uploaded_file($_FILES['file']['tmp_name'],$location)){
+					$response = $location;
+				}
+			}
+			echo base_url().$response;*/
+    }
+
     public function uploadstoryimg(){
         /*if(isset($_POST['file']) && !empty($_POST['file'])){
 		    $base = $_POST['file'];
@@ -1823,6 +1897,7 @@ class Welcome extends CI_Controller {
 		if($this->session->userdata('logged_in')==NULL) redirect(base_url());
 		$header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$this->load->view('story.php', $header);
 	}
 	public function story_story_uplode() {
@@ -1880,6 +1955,90 @@ class Welcome extends CI_Controller {
                     }else{
                         $this->load->view('story.php', $header);
                     }
+                }
+                if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+                	$serverimageurl = explode('/', $_POST['cover_image']);
+                	$serverimage = end($serverimageurl);
+					$imageextension = explode('.',$serverimage);
+					$filename = $_POST['cover_image'];
+					list($width, $height) = getimagesize($filename);
+					$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+					$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+					$targ_w=293;$targ_h=280;   $itarg_w=200;$itarg_h=180;
+					switch($imageextension[1]) {
+					    case 'gif' :
+					        $type ="gif";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'GIF' :
+					        $type ="GIF";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'png' :
+					        $type ="png";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'PNG' :
+					        $type ="PNG";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'jpg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPG' :
+					        $type ="JPG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'jpeg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPEG' :
+					        $type ="JPEG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    default : 
+					        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+					        break;
+					}
+					$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+					$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+					/*imagecopyresampled($dst_r,$img,0,0,0,0,$targ_w,$targ_h,$targ_w,$targ_h);
+					imagecopyresampled($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h,$itarg_w,$itarg_h);*/
+					imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+					imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+
+					if($type=="gif" || $type=="GIF")
+					{
+					    imagegif($dst_r, $pnewimagepath);
+					    imagegif($idst_r, $inewimagepath);
+					}
+					elseif($type=="jpg" || $type=="JPG")
+					{
+					    imagejpeg($dst_r, $pnewimagepath);
+					    imagejpeg($idst_r, $inewimagepath);
+					}
+					elseif($type=="png" || $type=="PNG")
+					{
+					    imagepng($dst_r, $pnewimagepath);
+					    imagepng($idst_r, $inewimagepath);
+					}
+					elseif($type=="bmp" || $type=="BMP" || $type=="jpeg")
+					{
+					    imagewbmp($dst_r, $pnewimagepath);
+					    imagewbmp($idst_r, $inewimagepath);
+					}
+					//print_r($pnewimagepath); print_r($inewimagepath); exit();
+					$urlpicture1 = explode('/', $pnewimagepath);
+					$picture1 = end($urlpicture1);
+					$urlimage = explode('/', $inewimagepath);
+					$image = end($urlimage);
+                }
+                if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+                	$picture1 = $_POST['cover_imagelocalp'];
+                }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+                	$image = $_POST['cover_imagelocali'];
                 }
                 $inputdata = array(
                     'title' => $this->input->post('title'),
@@ -5067,6 +5226,40 @@ class Welcome extends CI_Controller {
 	    }else{
 	        echo 0;
 	    }
+	}
+
+	public function adminlogin(){
+		if(isset($_POST) && !empty($_POST)){
+			$this->form_validation->set_rules('aemail', 'Email', 'trim|required');
+			$this->form_validation->set_rules('apassword', 'Password', 'trim|required|md5'); 
+			if ($this->form_validation->run() == FALSE) {
+				$data['validations'] = $this->form_validation->error_array();
+				$data['status']=-1;
+				echo json_encode($data);
+			} else {
+				$inputdata = array(
+					'email' => $this->input->post('aemail'),
+					'password' => $this->input->post('apassword'),
+				);
+				$result = $this->User_model->adminlogin($inputdata);
+				if(isset($result) && ($result->num_rows() > 0)) {
+					$response = $result->result();
+					$admin_login = array('aemail' => $response[0]->email);
+					$this->session->set_userdata('alogin', $admin_login);
+					$data['status'] = 1;
+					$data['response'] = 'success';
+					echo json_encode($data);
+				} else {
+					$data['status'] = 2;
+					$data['response'] = 'fail';
+					echo json_encode($data);
+				}
+			}
+		}else if(isset($this->session->userdata['alogin']['aemail']) && !empty($this->session->userdata['alogin']['aemail'])){
+			redirect(base_url().'aenglish/index');
+		}else{
+			$this->load->view('adminlogin');
+		}
 	}
 	
 	
