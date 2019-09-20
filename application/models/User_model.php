@@ -112,6 +112,17 @@ class User_model extends CI_model {
 		}
 		return $this->db->get();
 	}
+
+	public function defaultimages(){
+		//return $this->db->from('defaultimages')->limit(6)->get();
+	}
+	public function searchdimages($keyword){
+		return $this->db->from('defaultimages')
+			->like('search_keywords',$keyword, 'both')->get();
+	}
+	public function loadmoredimages($start=false, $limit=false){
+		return $this->db->from('defaultimages')->limit($limit, $start)->get();
+	}
 	public function series_story_uplode($data) {
 		$this->db->insert('stories',$data);
 		$insert_id = $this->db->insert_id();
@@ -1680,6 +1691,10 @@ class User_model extends CI_model {
 	}
 	public function viewsupdate($sid = false){
 		if(isset($sid) && !empty($sid)){
+			$datetime = Date('Y-m-d H:i:s');
+			$this->db->where('sid',$sid)->set('week_views','week_views + 1',FALSE)->set('updated_at', $datetime)->update('stories');
+			$this->db->where('sid',$sid)->set('month_views','month_views + 1',FALSE)->set('updated_at', $datetime)->update('stories');
+			$this->db->where('sid',$sid)->set('year_views','year_views + 1',FALSE)->set('updated_at', $datetime)->update('stories');
 		    return $this->db->where('sid',$sid)->set('views','views + 1',FALSE)->update('stories');
 		}
    	}
@@ -2774,6 +2789,10 @@ class User_model extends CI_model {
         return $query;
 	}
 	public function popupview($data,$id){
+		$datetime = Date('Y-m-d H:i:s');
+		$this->db->where('sid',$sid)->set('week_views','week_views + 1',FALSE)->set('updated_at', $datetime)->update('stories');
+		$this->db->where('sid',$sid)->set('month_views','month_views + 1',FALSE)->set('updated_at', $datetime)->update('stories');
+		$this->db->where('sid',$sid)->set('year_views','year_views + 1',FALSE)->set('updated_at', $datetime)->update('stories');
 	  	$this->db->where('sid',$id)->set('views','views + 1',FALSE)->update('stories');
 	}
 	public function nextepisode($id,$story_id) {
@@ -3347,7 +3366,7 @@ class User_model extends CI_model {
 	    //$reqamount = $this->db->select('tobe_payamount')->from('signup')->where('user_id',$userid)->get()->result();
 	    $reqamount = $this->db->select('signup.tobe_payamount')->from('signup')
 	        ->join('payments','signup.user_id = payments.user_id','left')
-	        ->where('signup.admin_status','unblock')->where('signup.monetisation','yes')
+	        ->where('signup.admin_status','unblock')->where('signup.monetisation','yes')->where('signup.user_id', $userid)
 	        ->where('signup.tobe_payamount >=','payments.amount')->get()->result();
         $reqcheck = $this->db->from('payments')->where('user_id',$userid)->where('status','requested')->get();
         if(isset($reqamount[0]->tobe_payamount) && ($reqamount[0]->tobe_payamount >= 100) && ($reqcheck->num_rows() < 1)){
@@ -3835,4 +3854,9 @@ class User_model extends CI_model {
     }
     /* Navigation other language data end here */
     
+    /* Admin Login start */
+    public function adminlogin($data){
+    	return $this->db->from('admin')->where($data)->limit(1)->get();
+    }
+    /* Admin Login end */
 }	
