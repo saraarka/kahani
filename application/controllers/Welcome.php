@@ -663,6 +663,7 @@ class Welcome extends CI_Controller {
 	public function series(){
 	    $header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$this->load->view('series.php', $header);;
 	}
 	public function series_story_uplode() {
@@ -721,6 +722,87 @@ class Welcome extends CI_Controller {
                 		$this->load->view('series.php', $header);
                     }
                 }
+                if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+                	$serverimageurl = explode('/', $_POST['cover_image']);
+                	$serverimage = end($serverimageurl);
+					$imageextension = explode('.',$serverimage);
+					$filename = $_POST['cover_image'];
+					list($width, $height) = getimagesize($filename);
+					$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+					$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+					$targ_w=293;$targ_h=280;   $itarg_w=200;$itarg_h=180;
+					switch($imageextension[1]) {
+					    case 'gif' :
+					        $type ="gif";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'GIF' :
+					        $type ="GIF";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'png' :
+					        $type ="png";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'PNG' :
+					        $type ="PNG";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'jpg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPG' :
+					        $type ="JPG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'jpeg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPEG' :
+					        $type ="JPEG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    default : 
+					        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+					        break;
+					}
+					$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+					$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+					imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+					imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+
+					if($type=="gif" || $type=="GIF")
+					{
+					    imagegif($dst_r, $pnewimagepath);
+					    imagegif($idst_r, $inewimagepath);
+					}
+					elseif($type=="jpg" || $type=="JPG")
+					{
+					    imagejpeg($dst_r, $pnewimagepath);
+					    imagejpeg($idst_r, $inewimagepath);
+					}
+					elseif($type=="png" || $type=="PNG")
+					{
+					    imagepng($dst_r, $pnewimagepath);
+					    imagepng($idst_r, $inewimagepath);
+					}
+					elseif($type=="bmp" || $type=="BMP" || $type=="jpeg")
+					{
+					    imagewbmp($dst_r, $pnewimagepath);
+					    imagewbmp($idst_r, $inewimagepath);
+					}
+					$urlpicture1 = explode('/', $pnewimagepath);
+					$picture1 = end($urlpicture1);
+					$urlimage = explode('/', $inewimagepath);
+					$image = end($urlimage);
+                }
+                if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+                	$picture1 = $_POST['cover_imagelocalp'];
+                }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+                	$image = $_POST['cover_imagelocali'];
+                }
                 $data = array(
                     'title' => $this->input->post('title'),
                     'etitle' => $this->input->post('etitle'),
@@ -744,6 +826,7 @@ class Welcome extends CI_Controller {
 	public function series_priview($lid) {
         if($this->session->userdata('logged_in')==NULL) redirect(base_url());
 		$header['res'] = $this->User_model->edit_story($lid);
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$this->load->view('series_priview.php',$header);
   	}
   	public function addseriesepisode($series_id){
@@ -803,6 +886,82 @@ class Welcome extends CI_Controller {
                     $manipulator->save('assets/images/'.$newNamePrefix.$_FILES['cover_image']['name']);
                 }
             }
+
+            if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+            	$serverimageurl = explode('/', $_POST['cover_image']);
+            	$serverimage = end($serverimageurl);
+				$imageextension = explode('.',$serverimage);
+				$filename = $_POST['cover_image'];
+				list($width, $height) = getimagesize($filename);
+				$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+				$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+				$targ_w=293;$targ_h=280;   $itarg_w=200;$itarg_h=180;
+				switch($imageextension[1]) {
+				    case 'gif' :
+				        $type ="gif";
+				        $img = imagecreatefromgif($filename);
+				        break;
+				    case 'GIF' :
+				        $type ="GIF";
+				        $img = imagecreatefromgif($filename);
+				        break;
+				    case 'png' :
+				        $type ="png";
+				        $img = imagecreatefrompng($filename);
+				        break;
+				    case 'PNG' :
+				        $type ="PNG";
+				        $img = imagecreatefrompng($filename);
+				        break;
+				    case 'jpg' :
+				        $type ="jpg";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'JPG' :
+				        $type ="JPG";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'jpeg' :
+				        $type ="jpg";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'JPEG' :
+				        $type ="JPEG";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    default : 
+				        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+				        break;
+				}
+				$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+				$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+				imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+				imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+				if($type=="gif" || $type=="GIF")
+				{
+				    imagegif($dst_r, $pnewimagepath);
+				    imagegif($idst_r, $inewimagepath);
+				}elseif($type=="jpg" || $type=="JPG"){
+				    imagejpeg($dst_r, $pnewimagepath);
+				    imagejpeg($idst_r, $inewimagepath);
+				}elseif($type=="png" || $type=="PNG"){
+				    imagepng($dst_r, $pnewimagepath);
+				    imagepng($idst_r, $inewimagepath);
+				}elseif($type=="bmp" || $type=="BMP" || $type=="jpeg"){
+				    imagewbmp($dst_r, $pnewimagepath);
+				    imagewbmp($idst_r, $inewimagepath);
+				}
+				$urlpicture1 = explode('/', $pnewimagepath);
+				$picture1 = end($urlpicture1);
+				$urlimage = explode('/', $inewimagepath);
+				$image = end($urlimage);
+            }
+            if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+            	$picture1 = $_POST['cover_imagelocalp'];
+            }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+            	$image = $_POST['cover_imagelocali'];
+            }
+
             $title = preg_replace('/\s+/', '', $_POST['title']);
 			$inputdata = array(
 				'story' => $this->input->post('story'),
@@ -1029,6 +1188,7 @@ class Welcome extends CI_Controller {
 		$header['new_episode'] = $this->User_model->new_episode($s_storyid);
 		$header['seriesftitle'] = $this->User_model->seriesftitle($s_storyid);
 		$header['story_id'] = $s_storyid;
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 	    $this->load->view('newepisode.php',$header);
 	}
 	public function addepisodeimage(){
@@ -1086,6 +1246,97 @@ class Welcome extends CI_Controller {
             }else{
                 echo 0;
             }
+        }else if(isset($_POST['imagepath'], $_POST['seriesid']) && !empty($_POST['imagepath']) && !empty($_POST['seriesid'])) {
+			$serverimageurl = explode('/', $_POST['imagepath']);
+        	$serverimage = end($serverimageurl);
+			$imageextension = explode('.',$serverimage);
+			$filename = $_POST['imagepath'];
+			list($width, $height) = getimagesize($filename);
+			$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+			$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+			$targ_w=293;$targ_h=280;   $itarg_w=200;$itarg_h=180;
+			switch($imageextension[1]) {
+			    case 'gif' :
+			        $type ="gif";
+			        $img = imagecreatefromgif($filename);
+			        break;
+			    case 'GIF' :
+			        $type ="GIF";
+			        $img = imagecreatefromgif($filename);
+			        break;
+			    case 'png' :
+			        $type ="png";
+			        $img = imagecreatefrompng($filename);
+			        break;
+			    case 'PNG' :
+			        $type ="PNG";
+			        $img = imagecreatefrompng($filename);
+			        break;
+			    case 'jpg' :
+			        $type ="jpg";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'JPG' :
+			        $type ="JPG";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'jpeg' :
+			        $type ="jpg";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'JPEG' :
+			        $type ="JPEG";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    default : 
+			        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+			        break;
+			}
+			$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+			$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+			imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+			imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+			if($type=="gif" || $type=="GIF"){
+			    imagegif($dst_r, $pnewimagepath);
+			    imagegif($idst_r, $inewimagepath);
+			}elseif($type=="jpg" || $type=="JPG"){
+			    imagejpeg($dst_r, $pnewimagepath);
+			    imagejpeg($idst_r, $inewimagepath);
+			}elseif($type=="png" || $type=="PNG"){
+			    imagepng($dst_r, $pnewimagepath);
+			    imagepng($idst_r, $inewimagepath);
+			}elseif($type=="bmp" || $type=="BMP" || $type=="jpeg"){
+			    imagewbmp($dst_r, $pnewimagepath);
+			    imagewbmp($idst_r, $inewimagepath);
+			}
+			$urlpicture1 = explode('/', $pnewimagepath);
+			$picture1 = end($urlpicture1);
+			$urlimage = explode('/', $inewimagepath);
+			$image = end($urlimage);
+
+			$data = array('cover_image' => $picture1, 'image' => $image);
+                $returndata = array();
+                $returndata['picture'] = $picture1;
+                if(isset($_POST['seimage_sid']) && !empty($_POST['seimage_sid'])){
+                    $response = $this->User_model->uploaddraftimage($_POST['seimage_sid'], $data);
+                    echo json_encode($returndata);
+                }else{
+                    $siddata = array(
+                        'story_id' => $_POST['seriesid'],
+                        'user_id' => $this->session->userdata['logged_in']['user_id'],
+                        'draft' => 'draft',
+                        'type' => 'series',
+                    );
+                    $sidresponse = $this->User_model->addseriesepisode($siddata);
+                    if(!empty($sidresponse)){
+                        $response = $this->User_model->uploaddraftimage($sidresponse, $data);
+                        $returndata['sid'] = $sidresponse;
+                        echo json_encode($returndata);
+                    }else{
+                        echo 0;
+                    }
+                }
+
         }else{
             echo 0;
         }
@@ -1168,6 +1419,7 @@ class Welcome extends CI_Controller {
 		$header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
 		$header['story_info'] = $this->User_model->story_info($sid);
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$header['sid'] = $sid;
 		if(isset($header['story_info']) && $header['story_info']->num_rows() == 1){
 		    $result = $header['story_info']->result();
@@ -1309,6 +1561,80 @@ class Welcome extends CI_Controller {
                         $manipulator->save('assets/images/'.$newNamePrefix.$_FILES['cover_image']['name']);
                     }
                 }
+                if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+	            	$serverimageurl = explode('/', $_POST['cover_image']);
+	            	$serverimage = end($serverimageurl);
+					$imageextension = explode('.',$serverimage);
+					$filename = $_POST['cover_image'];
+					list($width, $height) = getimagesize($filename);
+					$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+					$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+					$targ_w=293;$targ_h=280;   $itarg_w=200;$itarg_h=180;
+					switch($imageextension[1]) {
+					    case 'gif' :
+					        $type ="gif";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'GIF' :
+					        $type ="GIF";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'png' :
+					        $type ="png";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'PNG' :
+					        $type ="PNG";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'jpg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPG' :
+					        $type ="JPG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'jpeg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPEG' :
+					        $type ="JPEG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    default : 
+					        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+					        break;
+					}
+					$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+					$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+					imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+					imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+					if($type=="gif" || $type=="GIF")
+					{
+					    imagegif($dst_r, $pnewimagepath);
+					    imagegif($idst_r, $inewimagepath);
+					}elseif($type=="jpg" || $type=="JPG"){
+					    imagejpeg($dst_r, $pnewimagepath);
+					    imagejpeg($idst_r, $inewimagepath);
+					}elseif($type=="png" || $type=="PNG"){
+					    imagepng($dst_r, $pnewimagepath);
+					    imagepng($idst_r, $inewimagepath);
+					}elseif($type=="bmp" || $type=="BMP" || $type=="jpeg"){
+					    imagewbmp($dst_r, $pnewimagepath);
+					    imagewbmp($idst_r, $inewimagepath);
+					}
+					$urlpicture1 = explode('/', $pnewimagepath);
+					$picture1 = end($urlpicture1);
+					$urlimage = explode('/', $inewimagepath);
+					$image = end($urlimage);
+	            }
+	            if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+	            	$picture1 = $_POST['cover_imagelocalp'];
+	            }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+	            	$image = $_POST['cover_imagelocali'];
+	            }
                 $updatedata = array(
                     'title' => $this->input->post('title'),
                     'etitle' => $this->input->post('etitle'),
@@ -1379,6 +1705,80 @@ class Welcome extends CI_Controller {
                         $manipulator->save('assets/images/'.$newNamePrefix.$_FILES['cover_image']['name']);
                     }
                 }
+                if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+	            	$serverimageurl = explode('/', $_POST['cover_image']);
+	            	$serverimage = end($serverimageurl);
+					$imageextension = explode('.',$serverimage);
+					$filename = $_POST['cover_image'];
+					list($width, $height) = getimagesize($filename);
+					$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+					$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+					$targ_w=293;$targ_h=280;   $itarg_w=266;$itarg_h=165;
+					switch($imageextension[1]) {
+					    case 'gif' :
+					        $type ="gif";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'GIF' :
+					        $type ="GIF";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'png' :
+					        $type ="png";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'PNG' :
+					        $type ="PNG";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'jpg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPG' :
+					        $type ="JPG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'jpeg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPEG' :
+					        $type ="JPEG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    default : 
+					        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+					        break;
+					}
+					$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+					$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+					imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+					imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+
+					if($type=="gif" || $type=="GIF"){
+					    imagegif($dst_r, $pnewimagepath);
+					    imagegif($idst_r, $inewimagepath);
+					}elseif($type=="jpg" || $type=="JPG"){
+					    imagejpeg($dst_r, $pnewimagepath);
+					    imagejpeg($idst_r, $inewimagepath);
+					}elseif($type=="png" || $type=="PNG"){
+					    imagepng($dst_r, $pnewimagepath);
+					    imagepng($idst_r, $inewimagepath);
+					}elseif($type=="bmp" || $type=="BMP" || $type=="jpeg"){
+					    imagewbmp($dst_r, $pnewimagepath);
+					    imagewbmp($idst_r, $inewimagepath);
+					}
+					$urlpicture1 = explode('/', $pnewimagepath);
+					$picture1 = end($urlpicture1);
+					$urlimage = explode('/', $inewimagepath);
+					$image = end($urlimage);
+	            }
+	            if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+	            	$picture1 = $_POST['cover_imagelocalp'];
+	            }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+	            	$image = $_POST['cover_imagelocali'];
+	            }
                 $updatedata = array(
                     'title' => $this->input->post('title'),
                     'etitle' => $this->input->post('etitle'),
@@ -1395,7 +1795,7 @@ class Welcome extends CI_Controller {
                 if(isset($image) && !empty($image)){
                     $updatedata['image'] = $image;
                 }
-                $result  = $this->User_model->updatelife_info($sid,$updatedata, $keywords);
+                $result = $this->User_model->updatelife_info($sid,$updatedata, $keywords);
                 if($result){
                     redirect(base_url('admin-story/'.preg_replace('/\s+/', '-',$this->input->post('title')).'-'.$sid));
                 }else{
@@ -1554,6 +1954,92 @@ class Welcome extends CI_Controller {
                 $this->session->set_flashdata('errmsg', 'The Upload Image size should be less than 2MB.');
                 redirect(base_url().'admin_story_view/'.$storyid);
             }
+		}
+		if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+        	$serverimageurl = explode('/', $_POST['cover_image']);
+        	$serverimage = end($serverimageurl);
+			$imageextension = explode('.',$serverimage);
+			$filename = $_POST['cover_image'];
+			list($width, $height) = getimagesize($filename);
+			$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+			$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+			$targ_w=293;$targ_h=280;   
+			if(isset($_POST['type']) && ($_POST['type'] == 'life')){
+				$itarg_w=266;$itarg_h=165;
+			}else{
+				$itarg_w=200;$itarg_h=180;
+			}
+			switch($imageextension[1]) {
+			    case 'gif' :
+			        $type ="gif";
+			        $img = imagecreatefromgif($filename);
+			        break;
+			    case 'GIF' :
+			        $type ="GIF";
+			        $img = imagecreatefromgif($filename);
+			        break;
+			    case 'png' :
+			        $type ="png";
+			        $img = imagecreatefrompng($filename);
+			        break;
+			    case 'PNG' :
+			        $type ="PNG";
+			        $img = imagecreatefrompng($filename);
+			        break;
+			    case 'jpg' :
+			        $type ="jpg";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'JPG' :
+			        $type ="JPG";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'jpeg' :
+			        $type ="jpg";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'JPEG' :
+			        $type ="JPEG";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    default : 
+			        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+			        break;
+			}
+			$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+			$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+			imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+			imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+
+			if($type=="gif" || $type=="GIF")
+			{
+			    imagegif($dst_r, $pnewimagepath);
+			    imagegif($idst_r, $inewimagepath);
+			}
+			elseif($type=="jpg" || $type=="JPG")
+			{
+			    imagejpeg($dst_r, $pnewimagepath);
+			    imagejpeg($idst_r, $inewimagepath);
+			}
+			elseif($type=="png" || $type=="PNG")
+			{
+			    imagepng($dst_r, $pnewimagepath);
+			    imagepng($idst_r, $inewimagepath);
+			}
+			elseif($type=="bmp" || $type=="BMP" || $type=="jpeg")
+			{
+			    imagewbmp($dst_r, $pnewimagepath);
+			    imagewbmp($idst_r, $inewimagepath);
+			}
+			$urlpicture1 = explode('/', $pnewimagepath);
+			$picture1 = end($urlpicture1);
+			$urlimage = explode('/', $inewimagepath);
+			$image = end($urlimage);
+        }
+        if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+        	$picture1 = $_POST['cover_imagelocalp'];
+        }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+        	$image = $_POST['cover_imagelocali'];
         }
 	    $inputdata = array(
 			'story' => $this->input->post('story'),
@@ -1763,6 +2249,102 @@ class Welcome extends CI_Controller {
 				}
 			}
 			echo base_url().$response;*/
+    }
+
+    public function urldraftimage(){
+    	if(isset($_POST['picture1'], $_POST['image'], $_POST['story_id']) && !empty($_POST['picture1']) && !empty($_POST['story_id'])){
+			$data = array('cover_image' => $_POST['picture1'], 'image' => $_POST['image']);
+			$response = $this->User_model->uploaddraftimage($_POST['story_id'], $data);
+			if($response == 1){
+			    echo 1;
+			}else{
+			    echo 0;
+			}
+    	}
+    }
+
+    public function serverurldraftimage(){
+    	if(isset($_POST['url'], $_POST['story_id']) && !empty($_POST['url']) && !empty($_POST['story_id'])){
+        	$serverimageurl = explode('/', $_POST['url']);
+        	$serverimage = end($serverimageurl);
+			$imageextension = explode('.',$serverimage);
+			$filename = $_POST['url'];
+			list($width, $height) = getimagesize($filename);
+			$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+			$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+			$targ_w=293;$targ_h=280;
+			if(isset($_POST['type']) && ($_POST['type'] == 'life')){
+				$itarg_w=266; $itarg_h=165;
+			}else{
+				$itarg_w=200; $itarg_h=180;
+			}
+			switch($imageextension[1]) {
+			    case 'gif' :
+			        $type ="gif";
+			        $img = imagecreatefromgif($filename);
+			        break;
+			    case 'GIF' :
+			        $type ="GIF";
+			        $img = imagecreatefromgif($filename);
+			        break;
+			    case 'png' :
+			        $type ="png";
+			        $img = imagecreatefrompng($filename);
+			        break;
+			    case 'PNG' :
+			        $type ="PNG";
+			        $img = imagecreatefrompng($filename);
+			        break;
+			    case 'jpg' :
+			        $type ="jpg";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'JPG' :
+			        $type ="JPG";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'jpeg' :
+			        $type ="jpg";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'JPEG' :
+			        $type ="JPEG";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    default : 
+			        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+			        break;
+			}
+			$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+			$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+			imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+			imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+
+			if($type=="gif" || $type=="GIF"){
+			    imagegif($dst_r, $pnewimagepath);
+			    imagegif($idst_r, $inewimagepath);
+			}elseif($type=="jpg" || $type=="JPG"){
+			    imagejpeg($dst_r, $pnewimagepath);
+			    imagejpeg($idst_r, $inewimagepath);
+			}elseif($type=="png" || $type=="PNG"){
+			    imagepng($dst_r, $pnewimagepath);
+			    imagepng($idst_r, $inewimagepath);
+			}elseif($type=="bmp" || $type=="BMP" || $type=="jpeg"){
+			    imagewbmp($dst_r, $pnewimagepath);
+			    imagewbmp($idst_r, $inewimagepath);
+			}
+			$urlpicture1 = explode('/', $pnewimagepath);
+			$picture1 = end($urlpicture1);
+			$urlimage = explode('/', $inewimagepath);
+			$image = end($urlimage);
+			$data = array('cover_image' => $picture1, 'image' => $image);
+			$response = $this->User_model->uploaddraftimage($_POST['story_id'], $data);
+			if($response == 1){
+			    echo 1;
+			}else{
+			    echo 0;
+			}
+    	}
     }
 
     public function uploadstoryimg(){
@@ -2065,12 +2647,14 @@ class Welcome extends CI_Controller {
 	public function series_story($lid) {
 		if($this->session->userdata('logged_in')==NULL) redirect(base_url());
         $data['res']  = $this->User_model->edit_story($lid);
+        $data['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$this->load->view('series_story.php',$data);
 	}
 	public function admin_story_view($sid){
 	    $header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
 	    $header['editstory'] = $this->User_model->editstory($sid);
+	    $header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
         $this->load->view('admin_story_view.php',$header);
     }
 	public function series_series($lid) {
@@ -2161,6 +2745,7 @@ class Welcome extends CI_Controller {
 		$header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
 		$header['tagslist'] = $this->User_model->lifetagslist();
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$this->load->view('life.php',$header);
 	}
     public function lifetagssearch(){
@@ -2231,6 +2816,80 @@ class Welcome extends CI_Controller {
                     $header['error'] = $this->upload->display_errors();
                     $this->load->view('life.php', $header);
                 }
+            }
+        	if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+            	$serverimageurl = explode('/', $_POST['cover_image']);
+            	$serverimage = end($serverimageurl);
+				$imageextension = explode('.',$serverimage);
+				$filename = $_POST['cover_image'];
+				list($width, $height) = getimagesize($filename);
+				$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+				$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+				$targ_w=293;$targ_h=280;   $itarg_w=266;$itarg_h=165;
+				switch($imageextension[1]) {
+				    case 'gif' :
+				        $type ="gif";
+				        $img = imagecreatefromgif($filename);
+				        break;
+				    case 'GIF' :
+				        $type ="GIF";
+				        $img = imagecreatefromgif($filename);
+				        break;
+				    case 'png' :
+				        $type ="png";
+				        $img = imagecreatefrompng($filename);
+				        break;
+				    case 'PNG' :
+				        $type ="PNG";
+				        $img = imagecreatefrompng($filename);
+				        break;
+				    case 'jpg' :
+				        $type ="jpg";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'JPG' :
+				        $type ="JPG";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'jpeg' :
+				        $type ="jpg";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'JPEG' :
+				        $type ="JPEG";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    default : 
+				        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+				        break;
+				}
+				$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+				$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+				imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+				imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+
+				if($type=="gif" || $type=="GIF"){
+				    imagegif($dst_r, $pnewimagepath);
+				    imagegif($idst_r, $inewimagepath);
+				}elseif($type=="jpg" || $type=="JPG"){
+				    imagejpeg($dst_r, $pnewimagepath);
+				    imagejpeg($idst_r, $inewimagepath);
+				}elseif($type=="png" || $type=="PNG"){
+				    imagepng($dst_r, $pnewimagepath);
+				    imagepng($idst_r, $inewimagepath);
+				}elseif($type=="bmp" || $type=="BMP" || $type=="jpeg"){
+				    imagewbmp($dst_r, $pnewimagepath);
+				    imagewbmp($idst_r, $inewimagepath);
+				}
+				$urlpicture1 = explode('/', $pnewimagepath);
+				$picture1 = end($urlpicture1);
+				$urlimage = explode('/', $inewimagepath);
+				$image = end($urlimage);
+            }
+            if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+            	$picture1 = $_POST['cover_imagelocalp'];
+            }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+            	$image = $_POST['cover_imagelocali'];
             }
             $keywords = '';
             if(isset($_POST['keywords']) && count($_POST['keywords']) > 0){
