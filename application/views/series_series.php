@@ -364,7 +364,8 @@
                             </div>
                         </a>
                     <?php }else{ ?>
-                        <a href="<?php echo base_url('admin-series/'.preg_replace("~[^\p{M}\w]+~u", '-', $row->title).'-'.$row->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $row->title).'-'.$row->story_id);?>" style="display:flex;font-family: Arial, sans-serif;">
+                        <!--<a href="<?php echo base_url('admin-series/'.preg_replace("~[^\p{M}\w]+~u", '-', $row->title).'-'.$row->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $row->title).'-'.$row->story_id);?>" style="display:flex;font-family: Arial, sans-serif;"> -->
+                        <a href="<?php echo base_url('admin-series/'.preg_replace("~[^\p{M}\w]+~u", '-', $row->title).'-'.$row->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $seriesftitles).'-'.$prefaceid);?>" style="display:flex;font-family: Arial, sans-serif;">
                             <div class="episode-div"><?php echo $i; ?></div>     
                             <div style="padding: 0px 8px;">
                                 <div class="episode-name"><?php echo ucfirst($row->title); ?></div> 
