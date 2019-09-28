@@ -26,7 +26,7 @@
     <tr>
         <td>#<?php echo $j;?></td>
         <?php $storyurl = base_url().'index.php/'.$this->uri->segment(1).'/new_series?id='.$storysearch->sid.'&story_id='.$storysearch->sid; ?>
-        <td><a href="<?php echo $storyurl; ?>" target="_blank"><?php echo $storysearch->title;?></a></td>
+        <td><a href="<?php echo $storyurl; ?>" target="_blank" style="word-break: break-word;"><?php echo $storysearch->title;?></a></td>
         <td><?php echo $storysearch->name.' '.$storysearch->lastname;?></td>
         <td><?php echo $storysearch->type;?></td>
         <td><?php echo $storysearch->gener;?></td>
@@ -51,9 +51,11 @@
         <td>#<?php echo $j;?></td>
         <?php $storyurl = '#';   if(($storysearch->type == 'story') || ($storysearch->type == 'life')){
             $storyurl = base_url().'index.php/'.$this->uri->segment(1).'/only_story_view?id='.$storysearch->sid; } ?>
-        <td><a href="<?php echo $storyurl; ?>" target="_blank"><?php echo $storysearch->title;?></a></td>
+        <td><a href="<?php echo $storyurl; ?>" target="_blank" style="word-break: break-word;"><?php echo $storysearch->title;?></a></td>
         <td><?php echo $storysearch->name.' '.$storysearch->lastname;?></td>
-        <td><?php echo $storysearch->type;?></td>
+        <td><?php if($storysearch->type == 'nano') { ?>
+            <a href="<?php echo base_url().'welcome/nano_view/'.$storysearch->sid; ?>" target="_blank"><?php echo $storysearch->type;?></a></td>
+        <?php }else{ echo $storysearch->type; } ?>
         <td><?php echo $storysearch->gener;?></td>
         <td><?php echo $storysearch->language;?></td>
         <td><?php echo $storysearch->views;?></td>

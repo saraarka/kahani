@@ -1,6 +1,10 @@
-    <?php if(isset($usersearch) && ($usersearch->num_rows() > 0)){ $j = 1; foreach($usersearch->result() as $usersearchrow){ ?>
+    <?php file_put_contents("assets/images/emaillist.txt", "");
+            $myfile = fopen("assets/images/emaillist.txt", "w");
+            $emaillist = array(); 
+            if(isset($usersearch) && ($usersearch->num_rows() > 0)){ $j = 1; foreach($usersearch->result() as $usersearchrow){ 
+                array_push($emaillist, $usersearchrow->email); ?>
         <tr>
-            <td>#<?php echo $j;?></td>
+            <td><?php echo $j;?></td>
             <td><a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/profilestories/<?php echo $usersearchrow->user_id;?>" target="_blank"><?php echo $usersearchrow->profile_name;?></a></td>
             <td><?php echo $usersearchrow->name.' '.$usersearchrow->lastname;?></td>
             <td><?php echo $usersearchrow->email;?></td>
@@ -21,6 +25,8 @@
                 <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/notverifyprofile/<?php echo $usersearchrow->user_id;?>"> Verified </a>
                 <?php } ?>
                 <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/deleteprofile/<?php echo $usersearchrow->user_id;?>"  onclick="return confirm('Are you sure? Do you want to Delete the User?')"> Delete </a>
+                <a href="javascript:void(0);" onclick="addearnings(<?php echo $usersearchrow->user_id;?>);"> Add Earnings </a>
             </td>
         </tr>
-    <?php $j++; } } ?>
+    <?php $j++; } } $emaillistdata = implode(',', $emaillist);
+                    fwrite($myfile, $emaillistdata);    fclose($myfile); ?>

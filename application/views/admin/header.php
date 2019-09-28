@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 <style>
     .sidenav {
       height: 100%;
@@ -80,7 +81,8 @@
         <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/addleftmenu">Add Left Side Navbar</a>
         <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/profilemenulist">My Profile </a>
         <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/addprofilemenu">Add My Profile </a>
-        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/userslist">Users List</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/userslist">Writers List</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/auserslist">Users List</a>
         <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/storieslist">Stories List</a>
         <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/homeslides">Home Banners</a>
         <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/addhomeslide">Add Home Banner</a>
@@ -100,9 +102,19 @@
         <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/disablestoriesmonetize">Disable Stories Monetizsation</a>
         <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/removestoriesmonetize">Remove Stories Monetizsation</a>
         <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/transreqs">Transaction Requests</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/paidtrans">Paid Transactions</a>
         <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/landingpage">Landing Page Content</a>
         <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/addlandingpage">Add Landing Page Content</a>
         <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/staticpages">Static Pages</a>
         <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/addstaticpage">Add Static Page</a>
         <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/typewrites">Type Writes</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/blockedprofiles">Blocked Profiles</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/blockedstories">Blocked Stories</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/logos">Logo's</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/defaultimages">Default Images</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/customnotifies">Admin Notifications</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/faqs">Faq's</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/paymentdetails">User Payment details</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/mailfromadmin">Webmail</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/allstories">All Stories Count</a>
     </div>

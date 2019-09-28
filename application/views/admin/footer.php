@@ -2,6 +2,16 @@
 <footer>
     
 </footer>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#tblpagination').DataTable( {
+            "pagingType": "full_numbers",
+            "bFilter": false,
+            "bInfo": false
+        } );
+    } );
+</script>
 <script>
     // userslist.php
     $(document).ready(function(){
@@ -34,6 +44,38 @@
         });
         
     });
+
+    //// auserslist.php
+    $(document).ready(function(){
+        $("#ausersearchsort").bind("change keyup", function(event){
+           var search = $('#asearch').val();
+           var language = $('#alanguage option:selected').val();
+           var emailverify = $('#aemailverify option:selected').val();
+           var monetisation = $('#amonetisation option:selected').val();
+           var gener = $('#ageners option:selected').val();
+           var ausertype = $('#ausertype option:selected').val();
+           if(ausertype == 'writers'){
+                $.ajax({
+                    url: "<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/usersearch",
+                    type: "POST",
+                    data: {'search':search, 'language':language, 'emailverify':emailverify, 'monetisation':monetisation},
+                    success: function(result){
+                        $("#ausersearchsortresult").html(result);
+                    }
+                });
+           }else{
+                $.ajax({
+                    url: "<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/ausersearch",
+                    type: "POST",
+                    data: {'search':search, 'language':language, 'emailverify':emailverify, 'monetisation':monetisation, 'gener':gener},
+                    success: function(result){
+                        $("#ausersearchsortresult").html(result);
+                    }
+                });
+            }
+        });
+    });
+
     function addearnings(userid){
         $('#userid').val(userid);
         $('#addearnings').modal('show');
@@ -114,15 +156,16 @@
     }
     
     $(document).ready(function(){ // search
-        $("#storiessearch").bind("change", function(event){
-           var type = $('#type option:selected').val();
-           var geners = $('#geners option:selected').val();
-           var publishedstatus = $('#publishedstatus option:selected').val();
-           var monetisation = $('#monetisation option:selected').val();
+        $("#storiessearch").bind("change keyup", function(event){
+            var search = $('#searchstory').val();
+            var type = $('#type option:selected').val();
+            var geners = $('#geners option:selected').val();
+            var publishedstatus = $('#publishedstatus option:selected').val();
+            var monetisation = $('#monetisation option:selected').val();
             $.ajax({
                 url: "<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/storiessearch",
                 type: "POST",
-                data: {'type':type, 'geners':geners, 'publishedstatus':publishedstatus, 'monetisation':monetisation},
+                data: {'type':type, 'geners':geners, 'publishedstatus':publishedstatus,'monetisation':monetisation,'search':search},
                 success: function(result){
                     $("#storiessearchresults").html(result);
                 }

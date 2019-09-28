@@ -2,7 +2,7 @@
     <div class="main">
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <h3> Stories Disable Monetisation List </h3>
-        <table class="table table-striped table-hover">
+        <table id="tblpagination" class="display table table-condensed table-striped table-hover">
             <thead>
                 <tr>
                     <th>S.No.</th>
@@ -23,7 +23,7 @@
                 <?php if(isset($disablemstories) && ($disablemstories->num_rows() > 0)){ $i = 1; 
                     foreach($disablemstories->result() as $mstory){ if(($mstory->pay_story == 'Y') && (($mstory->smonetisation == 'yes'))){ ?>
                     <tr>
-                        <td>#<?php echo $i;?></td>
+                        <td><?php echo $i;?></td>
                         <td><a href="<?php echo base_url().'index.php/'.$this->uri->segment(1).'/only_story_view?id='.$mstory->sid; ?>" target="_blank"><?php echo $mstory->title;?></a></td>
                         <td><?php echo $mstory->name.' '.$mstory->lastname;?></td>
                         <td><?php echo $mstory->type;?></td>

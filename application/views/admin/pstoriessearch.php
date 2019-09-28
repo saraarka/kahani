@@ -23,7 +23,7 @@
 <?php if(isset($pstoriessearch) && ($pstoriessearch->num_rows() > 0)){ $j = 1; foreach($pstoriessearch->result() as $pstorysearch){ 
     if(($pstorysearch->type == 'series') && ($pstorysearch->sid == $pstorysearch->story_id)){ ?>
     <tr>
-        <td>#<?php echo $j;?></td>
+        <td><?php echo $j;?></td>
         <?php $storyurl = base_url().'index.php/'.$this->uri->segment(1).'/new_series?id='.$pstorysearch->sid.'&story_id='.$pstorysearch->sid; ?>
         <td><a href="<?php echo $storyurl; ?>" target="_blank"><?php echo $pstorysearch->title;?></a></td>
         <td><?php echo $pstorysearch->name.' '.$pstorysearch->lastname;?></td>
@@ -45,7 +45,7 @@
 <?php $j++; }else if(($pstorysearch->type == 'series') && ($pstorysearch->sid != $pstorysearch->story_id)){ ?>
 <?php } else{ ?>
     <tr>
-        <td>#<?php echo $j;?></td>
+        <td><?php echo $j;?></td>
         <?php $storyurl = '#';   if(($pstorysearch->type == 'story') || ($pstorysearch->type == 'life')){
             $storyurl = base_url().'index.php/'.$this->uri->segment(1).'/only_story_view?id='.$pstorysearch->sid; } ?>
         <td><a href="<?php echo $storyurl; ?>" target="_blank"><?php echo $pstorysearch->title;?></a></td>

@@ -2,7 +2,7 @@
     <div class="main">
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <h3> Communities Reports List </h3>
-        <table class="table table-condensed table-striped table-hover">
+        <table id="tblpagination" class="display table table-condensed table-striped table-hover">
             <thead>
                 <tr>
                     <th>S.No.</th>
@@ -18,7 +18,7 @@
             <tbody id="reportssearchresults">
                 <?php if(isset($commreports) && ($commreports->num_rows() > 0)){ $i = 1; foreach($commreports->result() as $commreport){ ?>
                     <tr>
-                        <td>#<?php echo $i;?></td>
+                        <td><?php echo $i;?></td>
                         <?php $redirecturl = '#'; ?>
                         <td><?php echo $commreport->gener;?></td>
                         <td><a href="<?php echo $redirecturl;?>">

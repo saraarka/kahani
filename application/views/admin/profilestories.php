@@ -13,7 +13,7 @@
                 <input type="hidden" id="userid" value="<?php echo $this->uri->segment(3); ?>">
             </span>
         </h3>
-        <table class="table table-condensed table-striped table-hover">
+        <table id="tblpagination" class="display table table-condensed table-striped table-hover">
             <thead>
                 <tr>
                     <th>S.No.</th>
@@ -35,7 +35,7 @@
                     foreach($profilestories->result() as $profilestory){ 
                     if(($profilestory->type == 'series') && ($profilestory->sid == $profilestory->story_id)){ ?>
                     <tr>
-                        <td>#<?php echo $i;?></td>
+                        <td><?php echo $i;?></td>
                         <?php $storyurl = base_url().'index.php/'.$this->uri->segment(1).'/new_series?id='.$profilestory->sid.'&story_id='.$profilestory->sid; ?>
                         <td><a href="<?php echo $storyurl; ?>" target="_blank"><?php echo $profilestory->title;?></a></td>
                         <td><?php echo $profilestory->name.' '.$profilestory->lastname;?></td>

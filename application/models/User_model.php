@@ -297,6 +297,13 @@ class User_model extends CI_model {
 		return $this->db->from('stories')->where('sid',$lid)->where('user_id',$userid)->where('stories.status','active')->get();
 	}
 	public function addstory($data, $id, $predraftseriespub = false){
+		$query = $this->db->select('cover_image, image')->from('stories')->where('sid',$id)->get()->row_array();
+		if(isset($data['cover_image'], $query['cover_image']) && !empty($data['cover_image']) && !empty($query['cover_image'])){
+			unlink('assets/images/'.$query['cover_image']);
+		}
+		if(isset($data['image'], $query['image']) && !empty($data['image']) && !empty($query['image'])){
+		    unlink('assets/images/'.$query['image']);
+		}
 		$update = $this->db->where('sid',$id)->update('stories',$data);
 		$stitle = $this->db->select('title')->where('sid',$id)->limit(1)->get('stories')->result();
 		$type = ''; $title = $stitle[0]->title;
@@ -414,7 +421,14 @@ class User_model extends CI_model {
 	    return $update;
 	}
 	public function uploaddraftimage($story_id, $data){
-	    return $this->db->where('sid',$story_id)->update('stories',$data);
+		$query = $this->db->select('cover_image, image')->from('stories')->where('sid',$story_id)->get()->row_array();
+		if(isset($data['cover_image'], $query['cover_image']) && !empty($data['cover_image']) && !empty($query['cover_image'])){
+			unlink('assets/images/'.$query['cover_image']);
+		}
+		if(isset($data['image'], $query['image']) && !empty($query['image']) && !empty($data['image'])){
+		    unlink('assets/images/'.$query['image']);
+		}
+		return $this->db->where('sid',$story_id)->update('stories',$data);
 	}
 	public function notifications() {
 	   if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){
@@ -887,6 +901,13 @@ class User_model extends CI_model {
 		return $this->db->from('stories')->where('sid',$sid)->get();
 	}*/
 	public function updatestory($data,$id){
+		$query = $this->db->select('cover_image, image')->from('stories')->where('sid',$id)->get()->row_array();
+		if(isset($data['cover_image'], $query['cover_image']) && !empty($data['cover_image']) && !empty($query['cover_image'])){
+			unlink('assets/images/'.$query['cover_image']);
+		}
+		if(isset($data['image'], $query['image']) && !empty($data['image']) && !empty($query['image'])){
+		    unlink('assets/images/'.$query['image']);
+		}
         return $this->db->where('sid',$id)->update('stories',$data);
 	}
 	
@@ -1243,6 +1264,12 @@ class User_model extends CI_model {
             $this->db->insert('stories',$data);
             return $this->db->insert_id();
         }
+    }
+    public function prefacetitle($sid){
+    	$query = $this->db->select('title')->from('stories')->where('sid', $sid)->where('story_id', $sid)->get()->row_array();
+    	if(isset($query['title']) && !empty($query['title'])){
+    		return $query['title'];
+    	}
     }
     public function prefaceautosave($data, $sid){
         return $this->db->where('sid', $sid)->update('stories',$data);
@@ -2624,6 +2651,13 @@ class User_model extends CI_model {
 		}
     }
     public function update_info($sid,$updatedata){
+    	$query = $this->db->select('cover_image, image')->from('stories')->where('sid',$sid)->get()->row_array();
+		if(isset($updatedata['cover_image'], $query['cover_image']) && !empty($updatedata['cover_image']) && !empty($query['cover_image'])){
+			unlink('assets/images/'.$query['cover_image']);
+		}
+		if(isset($updatedata['image'], $query['image']) && !empty($updatedata['image']) && !empty($query['image'])){
+		    unlink('assets/images/'.$query['image']);
+		}
         return $this->db->where('sid',$sid)->update('stories', $updatedata);
     }
     public function updatelife_info($sid,$updatedata, $keywords){
@@ -2639,6 +2673,13 @@ class User_model extends CI_model {
             }   
             $updatedata['keywords'] = implode(',',$keywords);    
         }
+        $queryimg = $this->db->select('cover_image, image')->from('stories')->where('sid',$sid)->get()->row_array();
+		if(isset($updatedata['cover_image'], $queryimg['cover_image']) && !empty($updatedata['cover_image']) && !empty($queryimg['cover_image'])){
+			unlink('assets/images/'.$queryimg['cover_image']);
+		}
+		if(isset($updatedata['image'], $queryimg['image']) && !empty($updatedata['image']) && !empty($queryimg['image'])){
+		    unlink('assets/images/'.$queryimg['image']);
+		}
         return $this->db->where('sid',$sid)->update('stories', $updatedata);
     }
     public function story_info_uplode($sid,$data){

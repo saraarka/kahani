@@ -1,7 +1,7 @@
     <?php $this->load->view('admin/header.php'); ?>
     <div class="main">
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
-        <h3> Users List 
+        <h3> Writers List 
             <span class="pull-right" id="usersearchsort">
                 Search : <input type="text" class="form-control" id="search">
                 Filter: <select class="form-control" id="language"> 
@@ -22,7 +22,7 @@
                         </select>
             </span>
         </h3>
-        <table class="table table-condensed table-striped table-hover">
+        <table id="tblpagination" class="display table table-condensed table-striped table-hover">
             <thead>
                 <tr>
                     <th>S.No.</th>
@@ -40,9 +40,12 @@
             <tbody id="usersearchsortresult">
                 <?php if(isset($userslist) && ($userslist->num_rows() > 0)){ $i = 1; foreach($userslist->result() as $userrow){ ?>
                     <tr>
-                        <td>#<?php echo $i;?></td>
-                        <td><a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/profilestories/<?php echo $userrow->user_id;?>" target="_blank"><?php echo $userrow->profile_name;?></a></td>
-                        <td><?php echo $userrow->name.' '.$userrow->lastname;?></td>
+                        <td><?php echo $i;?></td>
+                        <td><a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/profilestories/<?php echo $userrow->user_id;?>" target="_blank"><?php echo $userrow->profile_name; if($userrow->user_activation == 1){ ?>
+                                <span class="glyphicon glyphicon-ok-circle" title="Verified"></span>
+                            <?php } ?></a></td>
+                        <td><?php echo $userrow->name.' '.$userrow->lastname; ?>
+                        </td>
                         <td><?php echo $userrow->email;?></td>
                         <td><?php echo $userrow->phone;?></td>
                         <td><?php echo $userrow->writer_language;?></td>

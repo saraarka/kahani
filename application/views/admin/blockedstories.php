@@ -13,7 +13,7 @@
                         </select>
             </span> -->
         </h3>
-        <table class="table table-condensed table-striped table-hover">
+        <table id="tblpagination" class="display table table-condensed table-striped table-hover"
             <thead>
                 <tr>
                     <th>S.No.</th>
@@ -29,7 +29,7 @@
             <tbody id="reportssearchresults">
                 <?php if(isset($bstories) && ($bstories->num_rows() > 0)){ $i = 1; foreach($bstories->result() as $bstory){ ?>
                     <tr>
-                        <td>#<?php echo $i;?></td>
+                        <td><?php echo $i;?></td>
                         <?php if(isset($bstory->type) && (($bstory->type == 'story') || ($bstory->type == 'life'))){
                                 $redirecturl = base_url().'index.php/'.$this->uri->segment(1).'/only_story_view?id='.$bstory->story_id;
                             }elseif(isset($bstory->type) && ($bstory->type == 'series')){

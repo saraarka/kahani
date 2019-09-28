@@ -235,6 +235,29 @@ class Admin_model extends CI_model {
 	        return false;
 	    }
 	}
+
+	public function auserslist($language){
+        return $this->db->from('signup')->order_by('user_id')->get();
+	}
+	public function ausersearch($language, $data){
+		$condition = array(); $generjoin ='';
+		$query = "SELECT signup.* FROM signup ";
+        if(isset($data['search']) && !empty($data['search'])){
+            array_push($condition, " signup.name LIKE '%".$data['search']."%' ");
+        }if(isset($data['language']) && !empty($data['language'])){
+            array_push($condition, " signup.writer_language ='".$data['language']."' ");
+        }if(isset($data['emailverify']) && !empty($data['emailverify'])){
+            array_push($condition, " signup.user_activation =".$data['emailverify']);
+        }if(isset($data['monetisation']) && !empty($data['monetisation'])){
+            array_push($condition, " signup.monetisation ='".$data['monetisation']."' ");
+        }if(isset($data['gener']) && !empty($data['gener'])){
+        	$generjoin = " LEFT JOIN communities ON (communities.gener = '".$data['gener']."' AND communities.joincomm_lang='".$language."') LEFT JOIN communities_join ON (communities_join.user_id = signup.user_id AND communities_join.gener = '".$data['gener']."' AND communities.id = communities_join.comm_id) ";
+        	array_push($condition, " communities_join.gener = '".$data['gener']."' ");
+        }
+        $query1 = " GROUP BY signup.user_id ORDER BY signup.user_id DESC";
+        $finalquery = $query.$generjoin.' WHERE '.implode(' AND ', $condition).$query1;
+        return $this->db->query($finalquery);
+	}
 	/*Users List End*/
 	
 	/*Stories List Start*/
@@ -310,6 +333,9 @@ class Admin_model extends CI_model {
         }if(isset($data['monetisation']) && !empty($data['monetisation'])){
             $monetisation = $data['monetisation'];
             $query.=" AND stories.pay_story ='".$monetisation."' ";
+        }if(isset($data['search']) && !empty($data['search'])){
+        	$search = $data['search'];
+        	$query.=" AND (stories.title LIKE '%".$search."%' OR stories.etitle LIKE '%".$search."%')";
         }
         $query.=" GROUP BY stories.sid ORDER BY stories.sid DESC";
 	    return $this->db->query($query);
@@ -619,7 +645,7 @@ class Admin_model extends CI_model {
 	
 	/* transactions requests monetisation start */
 	public function transreqs($language){
-	    return $this->db->from('payments')->join('signup','payments.user_id = signup.user_id','left')
+	    return $this->db->select('payments.*, signup.profile_name, signup.name, signup.lastname, signup.email, signup.phone, signup.paytmphone, signup.total_earnings, signup.paid_amount, signup.accountno, signup.ifsccode, signup.bankname, signup.accounteename, signup.paytmphone, signup.googlepayphone')->from('payments')->join('signup','payments.user_id = signup.user_id','left')
 	        ->where('payments.status','requested')->where('signup.admin_status','unblock')
 	        ->where('signup.monetisation','yes')->get();
 	}
@@ -628,6 +654,13 @@ class Admin_model extends CI_model {
 	        signup.paid_amount = signup.paid_amount+signup.tobe_payamount, signup.tobe_payamount = 0 WHERE payments.id = '.$id;
 	    $this->db->query($signupupdate);
 	    return $this->db->where('payments.id',$id)->update('payments', array('status' => 'paid'));
+	}
+	public function paidtrans($language){
+		return $this->db->select('payments.*, signup.profile_name, signup.name, signup.lastname, signup.email, signup.phone, signup.paytmphone, signup.total_earnings, signup.paid_amount, signup.accountno, signup.ifsccode, signup.bankname, signup.accounteename, signup.paytmphone, signup.googlepayphone')->from('payments')
+			->join('signup','payments.user_id = signup.user_id','left')
+			->where('payments.status','paid')
+			->where('signup.admin_status','unblock')
+			->where('signup.monetisation','yes')->get();
 	}
 	/* transactions requests monetisation end */
 	
@@ -715,5 +748,252 @@ class Admin_model extends CI_model {
 			->or_where('type','landing_mlogo')->or_where('type','site_logo')
 			->or_where('type','site_mlogo')->get();
 	}
+	public function logoinsert($data){
+		$query = $this->db->from('banner')->where('type',$data['type'])->limit(1)->get()->result();
+		if(isset($query[0]->slideimage) && !empty($query[0]->slideimage)){
+			return $this->db->where('type',$data['type'])->update('banner', array('slideimage' => $data['slideimage']));
+		}else{
+			return $this->db->insert('banner', $data);
+		}
+	}
+	public function logoedit($logoid){
+		return $this->db->from('banner')->where('type','landing_logo')
+			->or_where('type','landing_mlogo')->or_where('type','site_logo')
+			->or_where('type','site_mlogo')->where('id',$logoid)->get();
+	}
+	public function logoupdate($data, $logoid){
+		$query = $this->db->from('banner')->where('type',$data['type'])
+			->where('id !=', $logoid)->get();
+		if($query->num_rows() > 0){
+		}else{
+			return $this->db->where('id', $logoid)->update('banner', $data);
+		}
+	}
+	public function deletelogo($logoid){
+		$queryrow=$this->db->from('banner')->where('id', $logoid)->get()->result();
+		if(isset($queryrow[0]->slideimage) && !empty($queryrow[0]->slideimage)){
+		    unlink('assets/images/'.$queryrow[0]->slideimage);
+		}
+		return $this->db->where('id', $logoid)->delete('banner');
+	}
 	/* Website logos  end */
+
+	/* Default images start */
+	public function defaultimages(){
+		return $this->db->from('defaultimages')->where('type','storyimage')->get();
+	}
+	public function insertimages($data){
+		return $this->db->insert('defaultimages', $data);
+		/*foreach ($data as $defaultimage) {
+			$this->db->insert('defaultimages', array('dimage' => $defaultimage, 'type' => $type));
+		}
+		return true;*/
+	}
+	public function edit_dimage($id){
+		return $this->db->from('defaultimages')->where('type','storyimage')->where('id',$id)->get();
+	}
+	public function updateimages($data, $id){
+		return $this->db->where('id',$id)->update('defaultimages', $data);
+	}
+	public function delete_dimage($dimgid){
+		$queryrow = $this->db->from('defaultimages')->where('id', $dimgid)->get()->result();
+		if(isset($queryrow[0]->dimage) && !empty($queryrow[0]->dimage)){
+			unlink('assets/images/'.$queryrow[0]->dimage);
+		}
+    	return $this->db->where('id', $dimgid)->delete('defaultimages');
+	}
+	/* Default images end */
+
+	/* Custom notifications to users start */
+	public function customnotifies(){
+		return $this->db->from('notifications')->where('type', 'admin_notify')->group_by('title, description')->get();
+	}
+	public function userslistnotify(){
+		return $this->db->select('user_id, name')->from('signup')->where('admin_status', 'unblock')->where('admin_status', 'unblock')->get();
+	}
+	public function insert_notifies($data){
+		$users = $this->userslistnotify();
+		if(isset($users) && ($users->num_rows() > 0)){
+			foreach ($users->result() as $userrow) { 
+				if(!empty($userrow->name) && !empty($userrow->user_id)){
+					$data['to_name'] = $userrow->name;
+					$data['to_id'] = $userrow->user_id;
+					$this->db->insert('notifications', $data);
+				}
+			}
+			return true;
+		}else{
+			return false;
+		}
+	}
+	public function deletenotify($id){
+		$query = $this->db->from('notifications')->where('id', $id)->where('type', 'admin_notify')->get()->row_array();
+		if(isset($query['title'], $query['description']) && !empty($query['title']) && !empty($query['description'])){
+			return $this->db->where('title', $query['title'])->where('description', $query['description'])->delete('notifications');
+		}
+	}
+	/* Custom notifications to users end.*/
+
+	/* Faqs start */
+	public function faqs(){
+		return $this->db->from('banner')->where('type','faq')->get();
+	}
+	public function insertfaq($data){
+		return $this->db->insert('banner', $data);
+	}
+	public function editfaqs($id){
+		return $this->db->from('banner')->where('type','faq')->where('id',$id)->get();
+	}
+	public function updatefaq($data, $id){
+		return $this->db->where('type','faq')->where('id',$id)->update('banner', $data);
+	}
+	public function deletefaq($id){
+		return $this->db->where('type','faq')->where('id',$id)->delete('banner');
+	}
+	/* Faqs end */
+
+	/* Webmail start */
+	public function sentmaillist(){
+		return $this->db->from('sendwebmail')->get();
+	}
+	public function insertmail($data){
+		$this->email->from(ADMIN_EMAIL, ADMIN_NAME);
+		$this->email->to($data['email']);     
+		$this->email->subject($data['subject']);
+		$this->email->message($data['message']);
+		$this->email->set_mailtype('html');
+		$status = $this->email->send();
+		if($status) { 
+			//return $status;
+			return $this->db->insert('sendwebmail', $data);
+		} else { 
+			return false;
+		}
+	}
+	/* Webmail end */
+
+
+
+
+
+
+public function testbrowseimage(){
+	return $this->db->select('cover_image as image')->from('stories')->limit(9)->get();
+}
+
+
+
+	/* Analytics Start */
+	public function allstories($language = false){
+		$this->db->select('COUNT(sid) as storiescount, (SELECT COUNT(sid) FROM stories WHERE type="series" AND draft != "draft" AND status = "active" AND sid=story_id) as seriescount, type');
+		$this->db->from('stories');
+		$this->db->where('draft != ','draft');
+		$this->db->where('status', 'active');
+		$this->db->where('type !=', '');
+		if(isset($language) && !empty($language)){
+			$this->db->where('language', $language);
+		}
+		$this->db->group_by('type');
+		return $this->db->get()->result_array();
+	}
+
+	public function allgenre($type){
+		$this->db->select('COUNT(sid) as storiescount, type, genre');
+		$this->db->from('stories');
+		$this->db->where('draft != ','draft');
+		$this->db->where('status', 'active');
+		$this->db->where('type', $type);
+		if($type == 'series'){
+			$this->db->where('sid = story_id');
+		}
+		$this->db->group_by('genre');
+		return $this->db->get()->result_array();
+	}
+	public function allprofiles(){
+		return $this->db->select('COUNT(user_id) as pcount')->from('signup')->where('admin_status','unblock')->get()->result_array();
+	}
+	public function tagscount(){
+		return $this->db->select('COUNT(id) as tagscount')->from('tags')->where('type','life')->get()->result_array();
+	}
+	public function mostviewedstories($timing, $type = false){
+		$todaydate = date('Y-m-d H:i:s');
+		$date = strtotime($todaydate);
+		$from_date = strtotime("-".$timing." day", $date);
+		$fromdate = date('Y-m-d H:i:s', $from_date);
+		if (isset($type) && ($type == 'series')) {
+			return $this->db->select('title, sid, week_views')->from('stories')->where('updated_at <="'.$todaydate.'" AND updated_at >="'.$fromdate.'"')->where('type', 'series')->where('sid', 'story_id')->order_by('week_views','DESC')->get()->result_array();
+		}else{
+			return $this->db->select('title, sid, week_views')->from('stories')->where('updated_at <="'.$todaydate.'" AND updated_at >="'.$fromdate.'"')->where('type !=', '')->group_by('type')->order_by('week_views','DESC')->get()->result_array();
+		}
+	}
+	public function monetizedprofiles(){
+		return $this->db->select('COUNT(user_id) as mpcount')->from('signup')->where('monetisation', 'yes')->where('mstatus','monitize')->where('admin_status','unblock')->get()->result_array();
+	}
+	public function monetizedstories($type){
+		if($type == 'story'){
+			return $this->db->select('type, COUNT(sid) as mscount')->from('stories')->where('pay_story','Y')->where('smonetisation','yes')->where('status','active')->where('type','story')->get()->result_array();
+		}else if($type == 'series'){
+			return $this->db->select('type, COUNT(sid) as msecount')->from('stories')->where('pay_story','Y')->where('smonetisation','yes')->where('status','active')->where('type', 'series')->where('sid=story_id')->get()->result_array();
+		}
+	}
+	public function storiescount($timing, $type = false){
+		$todaydate = date('Y-m-d H:i:s');
+		$date = strtotime($todaydate);
+		$from_date = strtotime("-".$timing." day", $date);
+		$fromdate = date('Y-m-d H:i:s', $from_date);
+		if (isset($type) && ($type == 'series')) {
+			return $this->db->select('type, COUNT(sid) as secount')->from('stories')->where('date <="'.$todaydate.'" AND date >="'.$fromdate.'"')->where('type', 'series')->where('sid=story_id')->get()->result_array();
+		}else{
+			return $this->db->select('type, COUNT(sid) as scount')->from('stories')->where('date <="'.$todaydate.'" AND date >="'.$fromdate.'"')->where('type !=', '')->group_by('type')->get()->result_array();
+		}
+	}
+	public function userscount($timing){
+		$todaydate = date('Y-m-d H:i:s');
+		$date = strtotime($todaydate);
+		$from_date = strtotime("-".$timing." day", $date);
+		$fromdate = date('Y-m-d H:i:s', $from_date);
+		return $this->db->select('COUNT(user_id) as pcount')->from('signup')->where('created_at <="'.$todaydate.'" AND created_at >="'.$fromdate.'"')->where('admin_status','unblock')->get()->result_array();
+	}
+	public function genersusercount($language){
+		$data = array();
+		$query = $this->db->select('id, gener')->from('communities')->where('joincomm_lang', $language)->group_by('gener')->get()->result_array();
+		if(!empty($query)){ $i = 0; foreach ($query as $row) {
+			$query2 = $this->db->select('COUNT(id) as gucount')->from('communities_join')->where('comm_id', $row['id'])->group_by('gener')->get()->row_array();
+			if(isset($query2['gucount'])){
+				$data[$i]['gener'] = $row['gener'];
+				$data[$i]['gucount'] = $query2['gucount'];
+			}
+		$i++;}	}
+		return $data;
+	}
+	public function emailverifiedcount(){
+		return $this->db->select('COUNT(user_id) as evcount')->from('signup')->where('user_activation',1)->get()->row_array();
+	}
+	public function totalviewscount($language){
+		return $this->db->select('type, SUM(views) as totalviewcount')->from('stories')->where('type !=','')->where('draft !=','draft')->where('status', 'active')->where('language', $language)->group_by('type')->get()->result_array();
+	}
+	public function uniqueviewscount($language){
+		return $this->db->select('stories.type, COUNT(story_views.id) as uniqueviewcount')->from('stories')
+			->join('story_views', 'story_views.story_id = stories.sid','left')
+			->where('stories.type !=','')->where('stories.draft !=','draft')
+			->where('stories.status', 'active')
+			->where('stories.language', $language)->group_by('stories.type')
+			->get()->result_array();
+	}
+	public function numberoflangs(){
+		return $this->db->select('COUNT(id) as langcount')->from('language')->get()->row_array();
+	}
+	public function numberofblogs($language){
+		return $this->db->select('COUNT(id) as blogcount')->from('banner')->where('language',$language)->where('type', 'blog')->where('status','active')->get()->row_array();
+	}
+	public function noofgenderusers(){
+		return $this->db->select('gender, COUNT(user_id) as usercount')->from('signup')->group_by('gender')->get()->result_array();
+	}
+	public function sentamountmoni(){
+		//return $this->db->select('user_id,paid_amount')->from('signup')->get()->result_array();
+		return $this->db->select('SUM(paid_amount) as paidamount, SUM(tobe_payamount) as tobepay')->from('signup')->get()->row_array();
+	}
+	/* Analytics end */
+
+
 }

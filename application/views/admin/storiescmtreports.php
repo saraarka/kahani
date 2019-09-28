@@ -13,7 +13,7 @@
                         </select>
             </span>
         </h3>
-        <table class="table table-condensed table-striped table-hover">
+        <table id="tblpagination" class="display table table-condensed table-striped table-hover">
             <thead>
                 <tr>
                     <th>S.No.</th>
@@ -30,7 +30,7 @@
                 <?php if(isset($storiescmtreports) && ($storiescmtreports->num_rows() > 0)){ $i = 1; 
                     foreach($storiescmtreports->result() as $storiescmtreport){ ?>
                     <tr>
-                        <td>#<?php echo $i;?></td>
+                        <td><?php echo $i;?></td>
                         <?php if(isset($storiescmtreport->type) && (($storiescmtreport->type == 'story') || ($storiescmtreport->type == 'life'))){
                                 $redirecturl = base_url().'index.php/'.$this->uri->segment(1).'/only_story_view?id='.$storiescmtreport->story_id;
                             }elseif(isset($storiescmtreport->type) && ($storiescmtreport->type == 'series')){

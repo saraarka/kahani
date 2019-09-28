@@ -846,6 +846,7 @@ class Welcome extends CI_Controller {
 	    $header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
 		$data['res']  = $this->User_model->edit_story($lid);
+		$data['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$this->form_validation->set_rules('story', 'story', 'trim|required');
 		$this->form_validation->set_rules('story_id', 'story_id', 'trim|required');
 		$this->form_validation->set_rules('draft', 'Draft', 'trim');
@@ -962,7 +963,8 @@ class Welcome extends CI_Controller {
             	$image = $_POST['cover_imagelocali'];
             }
 
-            $title = preg_replace('/\s+/', '', $_POST['title']);
+            //$title = preg_replace('/\s+/', '', $_POST['title']);
+            $title = preg_replace("~[^\p{M}\w]+~u", '-', $_POST['title']);
 			$inputdata = array(
 				'story' => $this->input->post('story'),
 				'story_id' => $this->input->post('story_id'),
@@ -1444,10 +1446,11 @@ class Welcome extends CI_Controller {
         $header['gener'] = $this->User_model->gener();
         $header['languages'] = $this->User_model->language();
         $header['story_info'] = $this->User_model->story_info($sid);
+        $header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
         $header['sid'] = $sid;
         if(isset($_POST['editstorytype']) && ($_POST['editstorytype'] == 'seriespreface')){
-            $this->form_validation->set_rules('title', 'title', 'trim|required');
-            $this->form_validation->set_rules('genre', 'Gener', 'trim|required');
+            $this->form_validation->set_rules('title','Title', 'trim|required');
+            $this->form_validation->set_rules('genre','Gener', 'trim|required');
             $this->form_validation->set_rules('copyrights', 'copyrights', 'trim|required');
             $this->form_validation->set_rules('keywords', 'keywords', 'trim|required');
             $this->form_validation->set_rules('pay_story', 'Monitization', 'trim|required');
@@ -1488,6 +1491,80 @@ class Welcome extends CI_Controller {
                         $manipulator->save('assets/images/'.$newNamePrefix.$_FILES['cover_image']['name']);
                     }
                 }
+                if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+	            	$serverimageurl = explode('/', $_POST['cover_image']);
+	            	$serverimage = end($serverimageurl);
+					$imageextension = explode('.',$serverimage);
+					$filename = $_POST['cover_image'];
+					list($width, $height) = getimagesize($filename);
+					$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+					$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+					$targ_w=293;$targ_h=280;   $itarg_w=200;$itarg_h=180;
+					switch($imageextension[1]) {
+					    case 'gif' :
+					        $type ="gif";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'GIF' :
+					        $type ="GIF";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'png' :
+					        $type ="png";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'PNG' :
+					        $type ="PNG";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'jpg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPG' :
+					        $type ="JPG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'jpeg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPEG' :
+					        $type ="JPEG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    default : 
+					        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+					        break;
+					}
+					$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+					$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+					imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+					imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+					if($type=="gif" || $type=="GIF")
+					{
+					    imagegif($dst_r, $pnewimagepath);
+					    imagegif($idst_r, $inewimagepath);
+					}elseif($type=="jpg" || $type=="JPG"){
+					    imagejpeg($dst_r, $pnewimagepath);
+					    imagejpeg($idst_r, $inewimagepath);
+					}elseif($type=="png" || $type=="PNG"){
+					    imagepng($dst_r, $pnewimagepath);
+					    imagepng($idst_r, $inewimagepath);
+					}elseif($type=="bmp" || $type=="BMP" || $type=="jpeg"){
+					    imagewbmp($dst_r, $pnewimagepath);
+					    imagewbmp($idst_r, $inewimagepath);
+					}
+					$urlpicture1 = explode('/', $pnewimagepath);
+					$picture1 = end($urlpicture1);
+					$urlimage = explode('/', $inewimagepath);
+					$image = end($urlimage);
+	            }
+	            if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+	            	$picture1 = $_POST['cover_imagelocalp'];
+	            }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+	            	$image = $_POST['cover_imagelocali'];
+	            }
                 $updatedata = array(
                     'title' => $this->input->post('title'),
                     'etitle' => $this->input->post('etitle'),
@@ -1504,7 +1581,7 @@ class Welcome extends CI_Controller {
                 }
                 $result  = $this->User_model->update_info($sid,$updatedata);
                 if($result){
-                    redirect(base_url('admin-series/'.preg_replace('/\s+/', '-',$this->input->post('title')).'-'.$sid.'/'.preg_replace('/\s+/', '-',$this->input->post('title')).'-'.$sid));
+                    redirect(base_url('admin-series/'.preg_replace("~[^\p{M}\w]+~u", '-',$this->input->post('title')).'-'.$sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-',$this->input->post('title')).'-'.$sid));
                 }else{
                     $header['preface'] = 'preface';
                     $this->load->view('editseries_info.php',$header);
@@ -1518,10 +1595,11 @@ class Welcome extends CI_Controller {
 	    $header['gener'] = $this->User_model->gener();
         $header['languages'] = $this->User_model->language();
         $header['story_info'] = $this->User_model->story_info($sid);
+        $header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
         $header['sid'] = $sid;
         if(isset($_POST) && !empty($_POST)){
-            $this->form_validation->set_rules('title', 'title', 'trim|required');
-            $this->form_validation->set_rules('genre', 'Gener', 'trim|required');
+            $this->form_validation->set_rules('title','Title', 'trim|required');
+            $this->form_validation->set_rules('genre','Gener', 'trim|required');
             $this->form_validation->set_rules('copyrights', 'copyrights', 'trim|required');
             $this->form_validation->set_rules('keywords', 'keywords', 'trim|required');
             $this->form_validation->set_rules('pay_story', 'Monitization', 'trim|required');
@@ -1651,7 +1729,7 @@ class Welcome extends CI_Controller {
                 }
                 $result  = $this->User_model->update_info($sid,$updatedata);
                 if($result){
-                    redirect(base_url('admin-story/'.preg_replace('/\s+/', '-',$this->input->post('title')).'-'.$sid));
+                    redirect(base_url('admin-story/'.preg_replace("~[^\p{M}\w]+~u", '-',$this->input->post('title')).'-'.$sid));
                 }else{
                     $this->load->view('editstory_info.php',$header);
                 }
@@ -1797,7 +1875,7 @@ class Welcome extends CI_Controller {
                 }
                 $result = $this->User_model->updatelife_info($sid,$updatedata, $keywords);
                 if($result){
-                    redirect(base_url('admin-story/'.preg_replace('/\s+/', '-',$this->input->post('title')).'-'.$sid));
+                    redirect(base_url('admin-story/'.preg_replace("~[^\p{M}\w]+~u", '-',$this->input->post('title')).'-'.$sid));
                 }else{
                     $this->load->view('editlife_info.php',$header);
                 }
@@ -1837,14 +1915,15 @@ class Welcome extends CI_Controller {
         }
         $data  = $this->User_model->story_info_uplode($sid,$updata);
         if($type == 'series'){
-      	    redirect(base_url('admin-series/'.preg_replace('/\s+/', '-',$title).'-'.$sid.'/'.preg_replace('/\s+/', '-',$title).'-'.$story_id));
+      	    redirect(base_url('admin-series/'.preg_replace("~[^\p{M}\w]+~u", '-',$title).'-'.$sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-',$title).'-'.$story_id));
       	} else {
-            redirect(base_url('admin-story/'.preg_replace('/\s+/', '-', $title).'-'.$sid));
+            redirect(base_url('admin-story/'.preg_replace("~[^\p{M}\w]+~u", '-', $title).'-'.$sid));
         }
     }*/
     public function series_edit($sid){
 	 	if($this->session->userdata('logged_in')==NULL) redirect(base_url());
 		$header['series_edit'] = $this->User_model->series_edit($sid);
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
         $this->load->view('series_edit.php',$header);
 	}
 	public function updatestory() {
@@ -1861,7 +1940,10 @@ class Welcome extends CI_Controller {
     		$this->load->view('series_edit.php',$data); //admin_story_view.php
             $this->load->view('footer.php');*/
         } else {
-            $title = preg_replace('/\s+/', '-',$_POST['title']);
+            $title = preg_replace("~[^\p{M}\w]+~u", '-',$_POST['title']);
+            $ptitle = $title;
+            $pretitle = $this->User_model->prefacetitle($_POST['story_id']);
+            $ptitle = preg_replace("~[^\p{M}\w]+~u", '-',$pretitle);
         	$picture1 =''; $image ='';
 			if(!empty($_FILES['cover_image']['name'])) {
                 $config['upload_path'] = 'assets/images/';
@@ -1893,6 +1975,79 @@ class Welcome extends CI_Controller {
                     $manipulator->save('assets/images/'.$newNamePrefix.$_FILES['cover_image']['name']);
                 }
             }
+	        if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+	        	$serverimageurl = explode('/', $_POST['cover_image']);
+	        	$serverimage = end($serverimageurl);
+				$imageextension = explode('.',$serverimage);
+				$filename = $_POST['cover_image'];
+				list($width, $height) = getimagesize($filename);
+				$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+				$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+				$targ_w=293;$targ_h=280;   $itarg_w=266;$itarg_h=165;
+				switch($imageextension[1]) {
+				    case 'gif' :
+				        $type ="gif";
+				        $img = imagecreatefromgif($filename);
+				        break;
+				    case 'GIF' :
+				        $type ="GIF";
+				        $img = imagecreatefromgif($filename);
+				        break;
+				    case 'png' :
+				        $type ="png";
+				        $img = imagecreatefrompng($filename);
+				        break;
+				    case 'PNG' :
+				        $type ="PNG";
+				        $img = imagecreatefrompng($filename);
+				        break;
+				    case 'jpg' :
+				        $type ="jpg";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'JPG' :
+				        $type ="JPG";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'jpeg' :
+				        $type ="jpg";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'JPEG' :
+				        $type ="JPEG";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    default : 
+				        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+				        break;
+				}
+				$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+				$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+				imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+				imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+				if($type=="gif" || $type=="GIF"){
+				    imagegif($dst_r, $pnewimagepath);
+				    imagegif($idst_r, $inewimagepath);
+				}elseif($type=="jpg" || $type=="JPG"){
+				    imagejpeg($dst_r, $pnewimagepath);
+				    imagejpeg($idst_r, $inewimagepath);
+				}elseif($type=="png" || $type=="PNG"){
+				    imagepng($dst_r, $pnewimagepath);
+				    imagepng($idst_r, $inewimagepath);
+				}elseif($type=="bmp" || $type=="BMP" || $type=="jpeg"){
+				    imagewbmp($dst_r, $pnewimagepath);
+				    imagewbmp($idst_r, $inewimagepath);
+				}
+				$urlpicture1 = explode('/', $pnewimagepath);
+				$picture1 = end($urlpicture1);
+				$urlimage = explode('/', $inewimagepath);
+				$image = end($urlimage);
+	        }
+	        if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+	        	$picture1 = $_POST['cover_imagelocalp'];
+	        }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+	        	$image = $_POST['cover_imagelocali'];
+	        }
     		$id = $this->input->post('hidden');
             $story = $this->input->post('story');	
             $story_id = $this->input->post('story_id');	
@@ -1911,7 +2066,7 @@ class Welcome extends CI_Controller {
 				$inputdata['image'] = $image;
 			}
 			$res = $this->User_model->updatestory($inputdata,$id);
-			redirect(base_url('admin-series/'.$title.'-'.$id.'/'.$title.'-'.$story_id));
+			redirect(base_url('admin-series/'.$title.'-'.$id.'/'.$ptitle.'-'.$story_id));
     	}
 	}
 	public function saveupdatestory($storyid){
@@ -2053,7 +2208,7 @@ class Welcome extends CI_Controller {
 		}
 		$res = $this->User_model->updatestory($inputdata, $storyid);
 		if($res){
-		    redirect(base_url().'admin-story/'.preg_replace('/\s+/', '-',$title).'-'.$storyid);
+		    redirect(base_url().'admin-story/'.preg_replace("~[^\p{M}\w]+~u", '-',$title).'-'.$storyid);
 		}else{
 		    redirect(base_url().'admin_story_view/'.$storyid);
 		}
@@ -2662,6 +2817,7 @@ class Welcome extends CI_Controller {
         $data['res']  = $this->User_model->edit_story($lid);
         $data['new_episode'] = $this->User_model->new_episode_show($lid);
         $data['seriesftitle'] = $this->User_model->seriesftitle($lid);
+        $data['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$this->load->view('series_series.php',$data);
 	}
 	public function addstory($lid){
@@ -2671,6 +2827,7 @@ class Welcome extends CI_Controller {
 		$this->form_validation->set_rules('story', 'story', 'trim|required');
 		$this->form_validation->set_rules('story_id', 'story_id', 'trim|required');
 		if ($this->form_validation->run() == FALSE) {
+			$data['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		    $this->load->view('header.php', $header);
     		$this->load->view('series_story.php',$data);
             $this->load->view('footer.php');
@@ -2768,6 +2925,7 @@ class Welcome extends CI_Controller {
 	    $header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
 		$header['tagslist'] = $this->User_model->lifetagslist();
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 	    $this->form_validation->set_rules('language', 'Language','trim|required');
 		$this->form_validation->set_rules('title', 'Title', 'trim|required');
 		if(isset($_POST['language']) && ($_POST['language'] != 'en')){
@@ -2985,7 +3143,7 @@ class Welcome extends CI_Controller {
         	$title = $this->input->post('title');
         	$sid = $this->input->post('sid');
         	$to_idtext = $this->input->post('to_idtext');
-        	$redirect_uri = 'story/'.preg_replace('/\s+/', '-',$title)."-".$sid;
+        	$redirect_uri = 'story/'.preg_replace("~[^\p{M}\w]+~u", '-',$title)."-".$sid;
         	if(isset($_POST['url']) && !empty($_POST['url'])){
         	    $redirect_uri = $this->input->post('url');
         	}
@@ -3321,7 +3479,7 @@ class Welcome extends CI_Controller {
         		'status' => 'joined'
         	);
         	$response = $this->User_model->communities_join($data);
-        	redirect(base_url('community/'.preg_replace('/\s+/','-',$gener)));
+        	redirect(base_url('community/'.preg_replace("~[^\p{M}\w]+~u", '-',$gener)));
         }else{
             redirect($_SERVER['HTTP_REFERER']);
         }

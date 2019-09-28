@@ -1,7 +1,7 @@
     <?php $this->load->view('admin/header.php'); ?>
     <div class="main">
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
-        <table class="table table-condensed">
+        <table id="tblpagination" class="display table table-condensed table-striped table-hover">
             <thead>
                 <tr>
                     <th>S.No.</th>
@@ -29,3 +29,4 @@
             </tbody>
         </table>
     </div>
+<?php $this->load->view('admin/footer.php'); ?>

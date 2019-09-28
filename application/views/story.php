@@ -155,8 +155,6 @@
             <div class="infocontainer">
                 
                 <div class="imagemaindiv">
-
-
                     <div class="imagebox">
                         <label for="upload-file-selector">
                             <input type="hidden" name="cover_image" id="upload-file-selectorserver" style="display:none;">

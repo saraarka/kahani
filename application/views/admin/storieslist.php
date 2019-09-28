@@ -3,6 +3,7 @@
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <h3> Stories List 
         <span class="pull-right" id="storiessearch">
+            Search : <input type="text" class="form-control" id="searchstory">
             Filter: <select class="form-control" id="type"> 
                         <option value=""> -- Select Type -- </option>
                         <option value="story"> Stories </option>
@@ -28,7 +29,7 @@
                     </select>
         </span>
         </h3>
-        <table class="table table-condensed table-striped table-hover">
+        <table id="tblpagination" class="display table table-condensed table-striped table-hover">
             <thead>
                 <tr>
                     <th>S.No.</th>
@@ -49,9 +50,9 @@
                 <?php if(isset($storieslist) && ($storieslist->num_rows() > 0)){ $i = 1;  foreach($storieslist->result() as $storyrow){ 
                     if(($storyrow->type == 'series') && ($storyrow->sid == $storyrow->story_id)){ ?>
                     <tr>
-                        <td>#<?php echo $i;?></td>
+                        <td><?php echo $i;?></td>
                         <?php $storyurl = base_url().'index.php/'.$this->uri->segment(1).'/new_series?id='.$storyrow->sid.'&story_id='.$storyrow->sid; ?>
-                        <td><a href="<?php echo $storyurl; ?>" target="_blank"><?php echo $storyrow->title;?></a></td>
+                        <td><a href="<?php echo $storyurl; ?>" target="_blank" style="word-break: break-word;"><?php echo $storyrow->title;?></a></td>
                         <td><?php echo $storyrow->name.' '.$storyrow->lastname;?></td>
                         <td><?php echo $storyrow->type;?></td>
                         <td><?php echo $storyrow->gener;?></td>
@@ -73,12 +74,16 @@
                 <?php $i++; }else if(($storyrow->type == 'series') && ($storyrow->sid != $storyrow->story_id)){ ?>
                 <?php } else{ ?>
                     <tr>
-                        <td>#<?php echo $i;?></td>
+                        <td><?php echo $i;?></td>
                         <?php $storyurl = '#';   if(($storyrow->type == 'story') || ($storyrow->type == 'life')){
                             $storyurl = base_url().'index.php/'.$this->uri->segment(1).'/only_story_view?id='.$storyrow->sid; } ?>
                         <td><a href="<?php echo $storyurl; ?>" target="_blank" style="word-break: break-word;"><?php echo $storyrow->title;?></a></td>
                         <td><?php echo $storyrow->name.' '.$storyrow->lastname;?></td>
-                        <td><?php echo $storyrow->type;?></td>
+                        <td>
+                            <?php if($storyrow->type == 'nano') { ?>
+                                <a href="<?php echo base_url().'welcome/nano_view/'.$storyrow->sid; ?>" target="_blank"><?php echo $storyrow->type;?></a>
+                            <?php }else{ echo $storyrow->type; } ?>
+                        </td>
                         <td><?php echo $storyrow->gener;?></td>
                         <td><?php echo $storyrow->language;?></td>
                         <td><?php echo $storyrow->views;?></td>

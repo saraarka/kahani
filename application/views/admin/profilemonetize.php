@@ -2,7 +2,7 @@
     <div class="main">
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <h3> Profile Monetisation Requests </h3>
-        <table class="table table-condensed table-striped table-hover">
+        <table id="tblpagination" class="display table table-condensed table-striped table-hover">
             <thead>
                 <tr>
                     <th>S.No.</th>
@@ -18,7 +18,7 @@
             <tbody id="usersearchsortresult">
                 <?php if(isset($mprofiles) && ($mprofiles->num_rows() > 0)){ $i = 1; foreach($mprofiles->result() as $mprofile){ ?>
                     <tr>
-                        <td>#<?php echo $i;?></td>
+                        <td><?php echo $i;?></td>
                         <td><a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/profilestories/<?php echo $mprofile->user_id;?>" target="_blank"><?php echo $mprofile->profile_name;?></a></td>
                         <td><?php echo $mprofile->name.' '.$mprofile->lastname;?></td>
                         <td><?php echo $mprofile->email;?></td>

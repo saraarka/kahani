@@ -40,7 +40,7 @@
         <?php } ?>
     </div>
     <div class="main">
-        <table class="table table-striped table-hover">
+        <table id="tblpagination" class="display table table-condensed table-striped table-hover">
             <thead>
                 <tr>
                     <th>S.No.</th>
@@ -62,3 +62,4 @@
             </tbody>
         </table>
     </div>
+<?php $this->load->view('admin/footer.php'); ?>

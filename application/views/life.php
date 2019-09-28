@@ -10,20 +10,6 @@
         <link href="<?php echo base_url();?>assets/dist/js/js/tokenize2.css" rel="stylesheet" />
     </head>
     <style>
-        /*body {
-          background: #0000004f;
-        }
-
-        .default-image-popup {
-         width: 445px;
-         position: absolute;
-         max-width: 100%;
-         background: white;
-         top: 50%;
-         left: 50%;
-         transform: translate(-50%, -50%);
-        }*/
-
         .top-div-image-popup {
           height: 57px;
           box-shadow: 0 3px 2px -2px rgba(200,200,200,0.2);
