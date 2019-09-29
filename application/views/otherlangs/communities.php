@@ -14,9 +14,9 @@
                 				<div class="box-body" style="padding:0px;">
                 				    <a href="<?php echo base_url().$this->uri->segment(1);?>/community/<?php echo preg_replace("~[^\p{M}\w]+~u", '-', $row->gener);?>">
                 				        <?php if(!empty($row->comm_image)){ ?>
-                					    <img class="img-responsive" src="<?php echo base_url();?>assets/images/<?php echo $row->comm_image; ?>" alt="<?php echo $row->gener; ?>" style="height:200px; border-radius:5px 5px 0 0;">
+                					    <img  src="<?php echo base_url();?>assets/images/293-l.jpg" class="img-responsive lazy" data-src="<?php echo base_url();?>assets/images/<?php echo $row->comm_image; ?>" alt="<?php echo $row->gener; ?>" style="height:200px; border-radius:5px 5px 0 0;">
                 					    <?php } else{ ?>
-                					    <img class="img-responsive" src="<?php echo base_url();?>assets/images/1.jpg" alt="<?php echo $row->gener; ?>" style="height:200px; border-radius:5px 5px 0 0;">
+                					    <img  src="<?php echo base_url();?>assets/images/293-l.jpg" class="img-responsive lazy" data-src="<?php echo base_url();?>assets/images/1.jpg" alt="<?php echo $row->gener; ?>" style="height:200px; border-radius:5px 5px 0 0;">
                 					    <?php } ?>
                 					</a> 
                 				</div>
@@ -50,9 +50,9 @@
                 			<div class="box box-widget" style="border-radius:5px;">
                 				<div class="box-body" style="padding:0px;">
             				        <?php if(!empty($row->comm_image)){ ?>
-            					    <img class="img-responsive" src="<?php echo base_url();?>assets/images/<?php echo $row->comm_image; ?>" alt="<?php echo $row->gener; ?>" style="height:200px; width:100%; border-radius:5px 5px 0 0;">
-            					    <?php } else{ ?>
-            					    <img class="img-responsive" src="<?php echo base_url();?>assets/images/1.jpg" alt="<?php echo $row->gener; ?>" style="height:200px; border-radius:5px 5px 0 0;">
+            					    <img  src="<?php echo base_url();?>assets/images/293-l.jpg" class="img-responsive lazy" data-src="<?php echo base_url();?>assets/images/<?php echo $row->comm_image; ?>" alt="<?php echo $row->gener; ?>" style="height:200px; width:100%; border-radius:5px 5px 0 0;">
+                                    <?php } else{ ?>
+                                    <img  src="<?php echo base_url();?>assets/images/293-l.jpg" class="img-responsive lazy" data-src="<?php echo base_url();?>assets/images/1.jpg" alt="<?php echo $row->gener; ?>" style="height:200px; border-radius:5px 5px 0 0;">
             					    <?php } ?>
                 				</div>
                 				<div class="box-footer box-comments" style="border-radius:0 0 5px 5px;">
@@ -95,9 +95,9 @@
                 			<div class="box box-widget" style="border-radius:5px;">
                 				<div class="box-body" style="padding:0px;">
                 					<?php if(!empty($row->comm_image)){ ?>
-            					    <img class="img-responsive" src="<?php echo base_url();?>assets/images/<?php echo $row->comm_image; ?>" alt="<?php echo $row->gener; ?>" style="height:200px; width:100%; border-radius:5px 5px 0 0;">
-            					    <?php } else { ?>
-            					    <img class="img-responsive" src="<?php echo base_url();?>assets/images/1.jpg" alt="<?php echo $row->gener; ?>" style="height:200px; border-radius:5px 5px 0 0;">
+            					    <img class="img-responsive lazy"  src="<?php echo base_url();?>assets/images/293-l.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $row->comm_image; ?>" alt="<?php echo $row->gener; ?>" style="height:200px; width:100%; border-radius:5px 5px 0 0;">
+                                    <?php } else { ?>
+                                    <img  src="<?php echo base_url();?>assets/images/293-l.jpg" class="img-responsive lazy" data-src="<?php echo base_url();?>assets/images/1.jpg" alt="<?php echo $row->gener; ?>" style="height:200px; border-radius:5px 5px 0 0;">
             					    <?php } ?>
                 				</div>
                 				<div class="box-footer box-comments" style="border-radius:0 0 5px 5px;">
@@ -278,5 +278,10 @@ function commuunjoin(comm_id, gener) { // community unjoin button
                 setTimeout(function(){jload_country_data(jlimit, jstart);}, 500);
             }
         });
+    });
+</script>
+<script>
+    var lazyLoadInstance = new LazyLoad({
+        elements_selector: ".lazy"
     });
 </script>

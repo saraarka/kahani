@@ -96,13 +96,12 @@
     font-family: Arial, sans-serif;
     line-height: 37px;
 }
-
 </style>
 <div id="snackbar"></div>
 
 <!-- Login Modal popup start -->      
 <div id="loginmodal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" style="padding-left: 0px;">
-	<div class="modal-dialog ">
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="login-logo">
@@ -130,12 +129,12 @@
 						</div>
 					</form>
 					
-					<div class="" > 
+					<div class=""> 
 						<center><p class="text-centerv" style="margin:3px;"> - or - </p></center>
 						<div class="flex">
-						    <div style="float:left; width:49%"><button onclick="fbLogin()" id="fbLink" class=" bg-fb" style="width:100%;cursor:pointer;">facebook</button></div>
+						    <div style="float:left; width:49%"><button onclick="fbLogin()" id="fbLink" class="bg-fb" style="width:100%;cursor:pointer;">facebook</button></div>
 						    <div style="width:2%"></div>
-						    <div style="float:right; width:49%"><button data-onsuccess="onSignIn" class="g-signin2  bg-google" style="width:100%;cursor:pointer;">google</button></div>
+						    <div style="float:right; width:49%"><button data-onsuccess="onSignIn" class="g-signin2 bg-google" style="width:100%;cursor:pointer;">google</button></div>
 						</div>
 						<div style="margin-top:48px; border-top:1px solid rgba(221, 221, 221, 1);"></div>
 					</div>
@@ -434,13 +433,11 @@
         <div class="modal-content" style="padding:0">
             <div class="modal-header" style="padding: 15px">
                 <div class=" deletemessage">Are You Sure? Do you want to Delete?</div>
-            </div>
-           
+            </div>           
             <div class="modal-footer">
                 <center>
-                          <button type="button" data-dismiss="modal" class="btn delcancelled">Cancel</button>
+                    <button type="button" data-dismiss="modal" class="btn delcancelled">Cancel</button>
                     <button type="button" data-dismiss="modal" class="btn btn-primary" id="delconfirmed">Delete</button>
-              
                 </center>
             </div>
         </div>
@@ -1425,7 +1422,6 @@ $(function() {
     		dataType :"json",
     		success:function(data){
     		    if(data == 2){
-    		        
     		        $('.nanolikecount'+storyid).text(parseInt(nanolikecount)-1);
     		        $('.nanolike'+storyid).removeAttr('onclick').attr('onclick','nanolike('+storyid+')');
     			    $('#snackbar').text('Unliked Nano story.').addClass('show');

@@ -1,14 +1,101 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/modal.css">
-<style>		
-.heads {		
-    text-transform: uppercase;		
-    font-size: 1em;		
-    font-family: 'Nunito', sans-serif;		
-}		
-.community-btn{		
-    font-size:16px;		
-    font-weight:200;		
-}		
+<style>
+.heads {
+    text-transform: uppercase;
+    font-size: 1em;
+    font-family: 'Nunito', sans-serif;
+}
+.community-btn{
+    font-size:16px;
+    font-weight:200;
+	
+}
+
+.login-but{
+    cursor: pointer; 
+    margin-left: 23px;
+    padding: 2px 7px 2px 7px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(0, 0, 0, 0.13);
+    }
+
+.download-text{
+    font-family: 'Nunito', sans-serif;
+    color:black;
+    font-size: 1.3em;
+    background: linear-gradient(to right, #ffffff 0%, #daef93 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* popup */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1050; /* Sit on top */
+  padding-top:100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background:rgba(0, 0, 0, 0.48);
+  -webkit-overflow-scrolling:touch;
+  outline:0;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+   padding: 17px 20px;
+  border: 1px solid #888;
+      border-radius: 5px;
+}
+
+.modal-contentv {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid rgb(136, 136, 136);
+  width: 25%;
+  min-width:320px;
+  max-width:358px;
+  border-radius: 5px;
+  height:auto;
+}
+.close{float:right;font-size:21px;font-weight:700;line-height:1;color:#000;text-shadow:0 1px 0 rgb(255, 255, 255);filter:alpha(opacity=20);}
+.close:focus,.close:hover{color:#000;text-decoration:none;cursor:pointer;filter:alpha(opacity=50);opacity:.5}
+
+.modal.fade .modal-dialog{
+    -webkit-transition:-webkit-transform .3s ease-out;
+    -o-transition:-o-transform .3s ease-out;transition:transform .3s ease-out;
+    -webkit-transform:translate(0,-25%);
+    -ms-transform:translate(0,-25%);
+    -o-transform:translate(0,-25%);
+    transform:translate(0,-25%);
+   margin: auto;
+  
+  min-width:300px;
+  max-width:358px;
+	
+  height:auto;
+}
+.modal.in .modal-dialog{-webkit-transform:translate(0,0);-ms-transform:translate(0,0);-o-transform:translate(0,0);transform:translate(0,0)}
+.modal-open .modal{overflow-x:hidden;overflow-y:auto}
+.abcRioButtonLightBlue {
+    background-color: #ce0c0c !important;
+    color: #fefefe !important;
+    height: 37px !important;
+}
+.abcRioButtonContents:after {
+    content: 'Google';
+    font-size: 14px;
+    font-weight: 400;
+    font-family: Arial, sans-serif;
+    line-height: 37px;
+}
 </style>
 <div id="snackbar"></div>
 
@@ -27,37 +114,37 @@
 					<form id="loginform" action="#" method="POST" style="margin-bottom: 0;">
 					    <div class="input-container has-feedback">
                             <img src="<?php echo base_url();?>assets/landing/svg/email.svg" class="icon">
-                            <input class="input-field" type="email" placeholder="Email" name="email" autocomplete="off">
+                            <input class="input-field" type="text" placeholder="Email" name="email" autocomplete="off">
                         </div>
                         <span class="text-danger email" style="color:red;"></span>
-                        <div class="input-container has-feedback">
+                        <div class="input-container has-feedback" style="margin-top:2px;">
                             <img src="<?php echo base_url();?>assets/landing/svg/lock.svg" class="icon">
                             <input class="input-field" type="password" placeholder="Password" name="password" autocomplete="off">
                         </div>
                         <span class="text-danger password" style="color:red;"></span>
-						<div class="row">
+						<div class="row" style="margin-top:2px;">
 							<div class="col-xs-12">
-								<center> <button type="submit" class="btn bg-green btnspinner" style="cursor:pointer;">Sign In</button></center>
+								<center> <button type="submit" class=" bg-green btnspinner" style="cursor:pointer;">Sign In</button></center>
 							</div>
 						</div>
 					</form>
 					
-					<div class="" style="margin-bottom:5px;"> 
-						<center><p class="text-centerv" style="margin:5px;"> - or - </p></center>
+					<div class=""> 
+						<center><p class="text-centerv" style="margin:3px;"> - or - </p></center>
 						<div class="flex">
-						    <div style="float:left; width:49%"><button onclick="fbLogin()" id="fbLink" class="btn bg-fb" style="width:100%;cursor:pointer;">facebook</button></div>
+						    <div style="float:left; width:49%"><button onclick="fbLogin()" id="fbLink" class=" bg-fb" style="width:100%;cursor:pointer;">facebook</button></div>
 						    <div style="width:2%"></div>
-						    <div style="float:right; width:49%"><button data-onsuccess="onSignIn" class="g-signin2 btn bg-google" style="width:100%;cursor:pointer;">google</button></div>
+						    <div style="float:right; width:49%"><button data-onsuccess="onSignIn" class="g-signin2 bg-google" style="width:100%;cursor:pointer;">google</button></div>
 						</div>
-						<div style="margin-top:55px; border-top:1px solid rgba(221, 221, 221, 1);"></div>
+						<div style="margin-top:48px; border-top:1px solid rgba(221, 221, 221, 1);"></div>
 					</div>
 					<div class="">
 					    <center>
-					        <p class="text-centerv" style="margin:5px;">Don't have an account? 
+					        <p class="text-centerv" style="margin:3px 3px 1px 3px;">Don't have an account? 
 					            <a href="#signupmodal" data-toggle="modal" class="signupvj" data-target="#signupmodal" data-dismiss="modal" style="color:#0e92af;">Sign Up</a>
 					        </p>
-					        <p class="text-centerv" style="margin:5px;">or</p>
-					        <p  class="text-centerv" style="margin:5px;">
+					        <p class="text-centerv" style="margin-bottom:1px;">or</p>
+					        <p  class="text-centerv" style="margin-bottom:5px;" >
 					            <a href="#forgotpassmodal" data-toggle="modal" class="signupvj" data-target="#forgotpassmodal" data-dismiss="modal" style="color:#0e92af;"> FORGOT PASSWORD</a>
 					        </p>
 					    </center>
@@ -72,7 +159,7 @@
 <!-- Signup Modal popup start -->
 <div class="modal fade modal-signup" id="signupmodal" role="dialog" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog">
-		<div class="modal-content modal-contentv">
+		<div class="modal-content">
 			<div class="modal-body">
 				<div class="login-logo">
 					<span class="headsvj"><b>SIGN UP</b>
@@ -88,44 +175,44 @@
                         </div>
                         <span class="text-danger name" style="color:red;font-family:sans-serif;font-size:14px;"></span>
                         
-					    <div class="input-container has-feedback" style="margin-top:5px;">
+					    <div class="input-container has-feedback" style="margin-top:2px;">
                             <img src="<?php echo base_url();?>assets/landing/svg/email.svg" class="icon" alt="Email">
                             <input class="input-field" type="email" placeholder="Email" name="email">
                         </div>
                         <span class="text-danger email" style="color:red;font-family:sans-serif;font-size:14px;"></span>
                         
-                        <div class="input-container has-feedback" style="margin-top:6px;">
+                        <div class="input-container has-feedback" style="margin-top:2px;">
                             <img src="<?php echo base_url();?>assets/landing/svg/lock.svg" class="icon" alt="Password">
                             <input class="input-field" type="password" placeholder="Password" name="password">
                         </div>
                         <span class="text-danger password" style="color:red;font-family:sans-serif;font-size:14px;"></span>
-                        <div class="row" style="margin-top:5px;">
+                        <div class="row" style="margin-top:2px;">
 							<div class="col-xs-12">
-								<center><button type="submit" class="btn bg-green btnsignupspinner" style="cursor:pointer;">Sign Up</button></center>
+								<center><button type="submit" class="bg-green btnsignupspinner" style="cursor:pointer;">Sign Up</button></center>
 							</div>
 						</div>
 					</form>
 					
-					<div class="" style="margin-bottom:5px;"> 
-						<center><p class="text-centerv" style="margin:5px;"> - or - </p></center>
-						<div class="flex">
+					<div class="" style="margin-bottom:2px;"> 
+						<center><p class="text-centerv" style="margin:2px;"> - or - </p></center>
+						<div class="flex" style="margin-top:5px">
 						    <div style="float:left; width:49%">
-						        <button onclick="fbLogin()" id="fbLink" class="btn bg-fb" style="cursor:pointer;width:100%;">Facebook</button>
+						        <button onclick="fbLogin()" id="fbLink" class="bg-fb" style="cursor:pointer;width:100%;">Facebook</button>
 						    </div>
 						    <div style="width:2%"></div>
 						    <div style="float:right; width:49%">
-						        <button data-onsuccess="onSignIn" class="g-signin2 btn bg-google" style="cursor:pointer;width:100%;"> Google</button>
+						        <button data-onsuccess="onSignIn" class="g-signin2 bg-google" style="cursor:pointer;width:100%;"> Google</button>
 						    </div>
 						</div>
 		                <center style="margin-top:50px;">
-		                    <p class="text-centervv" style="margin-bottom:0;">By signing up, you agree to our <a href="<?php echo base_url();?>terms-conditions" style="color:#0e92af">Terms of Use</a> and <a href="<?php echo base_url();?>privacy-policy" style="color:#0e92af">Privacy Policy</a>.</p>
+		                    <p class="text-centervv" style="margin-bottom:0;font-size:0.8em;line-height:12px">By signing up, you agree to our <a href="<?php echo base_url();?>terms-conditions" style="color:#0e92af">Terms of Use</a> and <a href="<?php echo base_url();?>privacy-policy" style="color:#0e92af">Privacy Policy</a>.</p>
 		                </center>
-		                <div style="margin-top:5px; border-top:1px solid rgba(221, 221, 221, 1);"></div>
+		                <div style=" margin-top:6px; border-top:1px solid rgba(221, 221, 221, 1); margin-bottom:10px;"></div>
 					</div>
 					<!--<hr style="margin-top:-10px; border:1px solid rgba(221, 221, 221, 1);">-->
 					<div class="">
 					    <center>
-					        <p class="text-centerv" style="margin-bottom:0">Already have an account? <a href="#loginmodal" data-toggle="modal" data-target="#loginmodal" data-dismiss="modal" style="color:#0e92af">Sign In</a></p>
+					        <p class="text-centerv" style="margin-bottom:0;margin-top:13px;">Already have an account? <a href="#loginmodal" data-toggle="modal" data-target="#loginmodal" data-dismiss="modal" style="color:#0e92af">Sign In</a></p>
 					    </center>
 					</div>
 				</div>
@@ -224,7 +311,7 @@
 					    </span>
 					</center>
 				</div>
-				<div class="login-box-body" style="margin-top:20px; max-height:256px; margin-top:20px;">
+				<div class="login-box-body" style="margin-top:20px; max-height:256px; overflow-y:scroll;">
 					<form id="lang" action="#" method="POST" style="margin-bottom: 0;">
 					    <div class="pt10" style="display:flex;flex-wrap:wrap;justify-content:center;">
 					        <?php if(isset($languages) && ($languages->num_rows() >0)) { 
@@ -342,12 +429,14 @@
 <!-- Delete confirm popup start -->
 <div class="modal fade" id="confirmdelpopup" role="dialog" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" style="width: 300px;max-width: 90%;">
-        <div class="modal-content">
-            <div class="modal-body deletemessage">Are You Sure? Do you want to Delete?</div>
+        <div class="modal-content" style="padding:0">
+            <div class="modal-header" style="padding: 15px">
+            	<div class=" deletemessage">Are You Sure? Do you want to Delete?</div>
+            </div>
             <div class="modal-footer">
                 <center>
-                    <button type="button" data-dismiss="modal" class="btn btn-primary" id="delconfirmed">Delete</button>
                     <button type="button" data-dismiss="modal" class="btn delcancelled">Cancel</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-primary" id="delconfirmed">Delete</button>
                 </center>
             </div>
         </div>
@@ -358,7 +447,7 @@
 <!-- Write Modal popup start -->      
 <div id="writeapp" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog">
-		<div class="modal-contentv">
+		<div class="modal-content">
 			<div class="modal-body">
 				<div class="login-logo">
 					<span class="headsvj"><b>TO START WRITING</b>
@@ -383,7 +472,7 @@
 
 <div id="modalRegister" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog">
-		<div class="modal-contentv">
+		<div class="modal-content">
 			<div class="modal-body">
 			    <div class="login-logo">
 					<span class="headsvj"><b> WRITE </b>
@@ -517,6 +606,7 @@
 			}else if((result.status == 1) && (result.response.res == 'nocommunities') && (result.response.userid)){
 			    $('.btnspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
 			    $('#userid').val(result.response.userid);
+			    $('#cslang').val(result.response.writerlang);
 			    $('#choosecommunity').modal('show');
 			}else{
 				$('.lerror').text('Incorrect Email id or Password.');
@@ -618,8 +708,10 @@
 	
 	//Sign up choose language
 	function chooselanguage(){
-	    $('.btnlangspin').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
 	    var choselanguage = $('#cslang').val();
+	    if(choselanguage){		
+	    	$('.btnlangspin').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');	
+	    }
 	    var userid = $('#userid').val();
 		$.ajax({
 			url: "<?php echo base_url().$this->uri->segment(1);?>/chooselanguage",
@@ -709,7 +801,7 @@
 </script>
 
 
-<?php if(!isset($this->session->userdata['logged_in']['user_id'])){ ?>
+<?php if(!isset($this->session->userdata['logged_in']['user_id']) || empty($this->session->userdata['logged_in']['user_id'])){ ?>
 <script>
     $(document).ready(function(){
         $(".notloginmodal").click(function(){
@@ -736,14 +828,17 @@
                 if(data == 1){
     		        //$('a.readlaterbtn'+id).removeClass('read').addClass('readdone');
     		        //$('button.readlaterbtnatr'+id).removeClass('read').addClass('readdone');
+    		        $('button.readlaterbtnatr'+id).removeClass('read').addClass('readdone');
+    		        $('button.readbtnremove').removeClass('read').removeClass('readdone');
+
     		        $('button.readlaterbtnatr'+id).attr('onclick','unreadlater('+id+')');
     		        $('.faicon'+id).removeClass('fa-bookmark').addClass('fa-check');
     		        $('#snackbar').text('Story added to your library.').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
+    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                 }else{
                     //console.log(' Read Later Fail.');
                     //$('#snackbar').text('Failed to add Read later.').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
+    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                 }
 			}
 		});
@@ -758,6 +853,9 @@
                 if(data == 2){
     		        //$('a.readlaterbtn'+id).removeClass('readdone').addClass('read');
     		        //$('button.readlaterbtnatr'+id).removeClass('readdone').addClass('read');
+    		        $('button.readlaterbtnatr'+id).removeClass('readdone').addClass('read');
+    		        $('button.readbtnremove').removeClass('read').removeClass('readdone');
+
     		        $('button.readlaterbtnatr'+id).attr('onclick','readlater('+id+')');
     		        $('.faicon'+id).removeClass('fa-check').addClass('fa-bookmark');
     		        $('#snackbar').text('Successfully removed from Read later.').addClass('show');
@@ -774,6 +872,8 @@
 	/* Favorite Button status favorite */
 	function favorite(id){
 	    var favcount = parseInt($('.favcount').text());
+	    $('.favbtn').css('color','#ff0000');
+		$('i.fa.fa-heart-o.favbtn').addClass('fa-heart').removeClass('fa-heart-o');
 		$.ajax({
 			type :'POST',
 			url :'<?php echo base_url().$this->uri->segment(1); ?>/readlater',
@@ -781,16 +881,14 @@
 			dataType :"json",
 			success:function(data){
 			    if(data == 1){
-			        $('.favbtn').css('color','#ff0000');
-			        $('i.fa.fa-heart-o.favbtn').addClass('fa-heart').removeClass('fa-heart-o');
 			        $('span.favbtn'+id).attr('onclick','unfavorite('+id+')');
 			        favocount = favcount+1;
 			        $('.favcount').html(favocount);
-                    //console.log('Favorite Success');
                     $('#snackbar').text('Story added to your library.').addClass('show');
     				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
 			    }else{
-			        //console.log('Favorite Fail');
+			        $('.favbtn').css('color','#333');
+			    	$('i.fa.fa-heart.favbtn').addClass('fa-heart-o').removeClass('fa-heart');
 			        $('#snackbar').text('Failed to add your library.').addClass('show');
     				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
 			    }
@@ -799,6 +897,8 @@
 	}
 	function unfavorite(id){
 	    var favcount = parseInt($('.favcount').text());
+	    $('.favbtn').css('color','#333');
+		$('i.fa.fa-heart.favbtn').addClass('fa-heart-o fa-2x').removeClass('fa-heart');
 		$.ajax({
 			type :'POST',
 			url :'<?php echo base_url().$this->uri->segment(1); ?>/readlater',
@@ -806,16 +906,25 @@
 			dataType :"json",
 			success:function(data){
 			    if(data == 2){
-			        $('.favbtn').css('color','#333');
+			        /*$('.favbtn').css('color','#333');
 			        $('i.fa.fa-heart.favbtn').addClass('fa-heart-o fa-2x').removeClass('fa-heart');
 			        $('span.favbtn'+id).attr('onclick','favorite('+id+')');
 			        favocount = favcount-1;
 			        $('.favcount').html(favocount);
                     //console.log('Unfavorite Success');
                     $('#snackbar').text('Story removed from your library.').addClass('show');
+    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);*/
+    				$('span.favbtn'+id).attr('onclick','favorite('+id+')');
+			        favocount = favcount-1;
+			        $('.favcount').html(favocount);
+                    $('#snackbar').text('Story removed from your library.').addClass('show');
     				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
 			    }else{
-			        //console.log('Unfavorite Fail');
+			        /*//console.log('Unfavorite Fail');
+			        $('#snackbar').text('Failed to remove from your library.').addClass('show');
+    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);*/
+    				$('.favbtn').css('color','#ff0000');
+					$('i.fa.fa-heart-o.favbtn').addClass('fa-heart').removeClass('fa-heart-o fa-2x');
 			        $('#snackbar').text('Failed to remove from your library.').addClass('show');
     				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
 			    }
@@ -895,12 +1004,12 @@
     			    var followcount = parseInt(follcount)+1;
     			    $('#follcount'+writer_id).text(followcount);
     			    //console.log('writerfollow success');
-    			    $('#snackbar').text('Follow success').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    			    //$('#snackbar').text('Follow success').addClass('show');
+    				//setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     			}else{
     				//console.log('writerfollow fail');
-    				$('#snackbar').text('Follow fail').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    				//$('#snackbar').text('Follow fail').addClass('show');
+    				//setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     			}
     		}
     	});
@@ -921,12 +1030,12 @@
     			    var followcount = parseInt(follcount)-1;
     			    $('#follcount'+writer_id).text(followcount);
     			    //console.log('writerunfollow success');
-    				$('#snackbar').text('Unfollow success').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    				//$('#snackbar').text('Unfollow success').addClass('show');
+    				//setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     			}else{
     				//console.log('writerunfollow fail');
-    				$('#snackbar').text('Unfollow fail').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    				//$('#snackbar').text('Unfollow fail').addClass('show');
+    				//setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     			}
     		}
     	});
@@ -1180,6 +1289,16 @@ $(function() {
         $('.twittershare').attr('onClick',"javascript:genericSocialShare('http://twitter.com/share?text="+encodeURIComponent(seurl)+"')");
         $('#copylinkshare').val(seurl);
     }
+    function commusocialshare(commpostid, communityname) {
+        var seurl = "<?php echo base_url();?>";
+        if(commpostid && communityname) {
+            seurl = "<?php echo base_url();?>community-story/"+communityname+"/"+commpostid;
+        }
+        $('.facebookshare').attr('onClick',"javascript:genericSocialShare('http://www.facebook.com/sharer.php?u="+encodeURIComponent(seurl)+"')");
+        $('.whatsappshare').attr('onClick',"javascript:genericSocialShare('https://api.whatsapp.com/send?text="+encodeURIComponent(seurl)+"')");
+        $('.twittershare').attr('onClick',"javascript:genericSocialShare('http://twitter.com/share?text="+encodeURIComponent(seurl)+"')");
+        $('#copylinkshare').val(seurl);
+    }
 </script>
 
 <script>
@@ -1202,19 +1321,21 @@ $(function() {
     
     function nanolike(storyid){ // Nano story likes
         var nanolikecount = $('.nanolikecount'+storyid).first().text();
+        $('.favbtn'+storyid).removeClass('fa-heart-o').addClass('fa-heart');
         $.ajax({
     		type :'POST',
     		url :'<?php echo base_url().$this->uri->segment(1); ?>/nanolike/'+storyid,
     		dataType :"json",
     		success:function(data){
     		    if(data == 1){
-    		        $('.favbtn'+storyid).removeClass('fa-heart-o').addClass('fa-heart');
+    		        //$('.favbtn'+storyid).removeClass('fa-heart-o').addClass('fa-heart');
     		        $('.nanolikecount'+storyid).text(parseInt(nanolikecount)+1);
     		        $('.nanolike'+storyid).removeAttr('onclick');
     		        $('.nanolike'+storyid).attr('onclick','nanodislike('+storyid+')');
     			    $('#snackbar').text('Liked Nano story.').addClass('show');
     				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     			}else{
+    				$('.favbtn'+storyid).removeClass('fa-heart').addClass('fa-heart-o');
     			    $('#snackbar').text('You cannot like your own nano-story.').addClass('show');
     				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 5000);
     			}
@@ -1223,13 +1344,14 @@ $(function() {
     }
     function nanodislike(storyid) { // Nano story unlike
         var nanolikecount = $('.nanolikecount'+storyid).first().text();
+        $('.favbtn'+storyid).removeClass('fa-heart').addClass('fa-heart-o');
         $.ajax({
     		type :'POST',
     		url :'<?php echo base_url().$this->uri->segment(1); ?>/nanolike/'+storyid,
     		dataType :"json",
     		success:function(data){
     		    if(data == 2){
-    		        $('.favbtn'+storyid).removeClass('fa-heart').addClass('fa-heart-o');
+    		        //$('.favbtn'+storyid).removeClass('fa-heart').addClass('fa-heart-o');
     		        $('.nanolikecount'+storyid).text(parseInt(nanolikecount)-1);
     		        $('.nanolike'+storyid).removeAttr('onclick');
     		        $('.nanolike'+storyid).attr('onclick','nanolike('+storyid+')');

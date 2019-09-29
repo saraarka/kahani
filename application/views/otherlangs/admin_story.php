@@ -35,18 +35,16 @@
                 <a onclick="mobilestoryedit(<?php echo $row->sid; ?>)" data-toggle="modal" data-target="#writeapp" id="notloginmodal"><i class="fa fa-edit"></i> EDIT </a>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
                 <ul class="dropdown-menu pull-right"  style="right:10px;">
                     <li onclick="groupsuggest(<?php echo $row->sid;?>);">
-						<a href="" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users pr-10"></i>COMMUNITY</a>
+						<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users pr-10"></i>COMMUNITY</a>
 					</li>
 					<li onclick="friend(<?php echo $row->sid;?>);">
-						<a href="" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user pr-10"></i>SUGGEST</a>
+						<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user pr-10"></i>SUGGEST</a>
 					</li>
 					<li onclick="socialshare(<?php echo $row->sid;?>, 'story');">
-						<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-							<i class="fa fa-share-alt pr-10"></i>SOCIAL
-						</a>
+						<a href="javascript:void(0);" data-toggle="modal" data-target="#soc" title="SOCIAL"><i class="fa fa-share-alt pr-10"></i>SOCIAL</a>
 					</li>
                 </ul>
             </li>
@@ -87,14 +85,14 @@
 							</center>
 							<div class="box-footer" style="padding-top:0; border-top:1px solid #cac8c885;border-radius:5px;">
 								<div class="row pt-0">
-								    <center>
+									<center>
 										<div class="col-sm-12">
-        									<?php if(($row->writing_style == 'anonymous') && ($row->type == 'life')){ ?>
-        									    <a href="#" style="color:#000"><h4><b>Anonymous</b></h4></a>
-        									<?php } else { ?>
-        									    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$row->profile_name; ?>" style="color:#000"><h4><b><?php echo $row->name; ?></b></h4></a>
-        									<?php } ?>
-        								</div>
+											<?php if(($row->writing_style == 'anonymous') && ($row->type == 'life')){ ?>
+											    <a href="javascript:void(0);" style="color:#000"><h4><b>Anonymous</b></h4></a>
+											<?php } else { ?>
+											    <a href="<?php echo base_url().$this->uri->segment(1).$row->profile_name; ?>" style="color:#000"><h4><b><?php echo $row->name; ?></b></h4></a>
+											<?php } ?>
+										</div>
 									</center>
 									<div class="col-sm-12"></div>
 								</div>
@@ -233,7 +231,7 @@
                                     <i class="fa fa-star-o"></i>
                                 </div>
                                 <span class="ratings" style="font-size:14px; float:right;">RATING : &nbsp; </span>
-                            </div>
+							</div>
 							<div class="col-md-8 favoritemsg text-danger"></div><div class="col-md-4"></div>
 						</div>
 					</div>
@@ -277,7 +275,7 @@
 			                    			</a>
 			                    		</font> 
 			                    	</div>
-			                    	<div class="flextest">
+                                    <div class="flextest">
                                         <font class="byname">By
                                             <font class="namehere">
                                                 <a href="<?php echo base_url($this->uri->segment(1).'/'.$recentstory->profile_name);?>" style="color:#000"><?php echo $recentstory->name;?></a>
@@ -318,19 +316,17 @@
                                         <button type="button" class="btn read dropdown-toggle pull-right" data-toggle="dropdown">
                                         	<span class=""><i class="fa fa-plus"></i></span>
                                         </button>
-                                        <ul class="dropdown-menu list-inline dropvk">
-                                        	<li onclick="groupsuggest(<?php echo $recentstory->sid; ?>);">
-                                        		<a data-toggle="modal" data-target="#groupsuggest"><i class="fa fa-users"></i></a>
-                                        	</li>
-                                        	<li onclick="friend(<?php echo $recentstory->sid;?>);">
-                                        		<a data-toggle="modal" data-target="#friendsuggest"><i class="fa fa-user"></i></a>
-                                        	</li>
-                                        	<li onclick="socialshare(<?php echo $recentstory->sid;?>, 'story');">
-                                        		<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-                                        			<i class="fa fa-share-alt"></i>
-                                        		</a>
-                                        	</li>
-                                        </ul>
+										<ul class="dropdown-menu list-inline dropvk">
+											<li onclick="groupsuggest(<?php echo $recentstory->sid; ?>);">
+												<a href="javascript:void(0);"><i class="fa fa-users"></i></a>
+											</li>
+											<li onclick="friend(<?php echo $recentstory->sid;?>);">
+												<a href="javascript:void(0);"><i class="fa fa-user"></i></a>
+											</li>
+											<li onclick="socialshare(<?php echo $recentstory->sid;?>, 'story');">
+												<a href="javascript:void(0);"data-toggle="modal" data-target="#soc" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
+											</li>
+										</ul>
                                     </div>
                                 </div>
 					        <?php } ?>
@@ -388,26 +384,24 @@
                                     	<button type="button" class="btn read dropdown-toggle pull-right" data-toggle="dropdown">
                                     		<span class=""><i class="fa fa-plus"></i></span>
                                     	</button>
-                                    	<ul class="dropdown-menu list-inline dropvklife">
-                                    		<li onclick="groupsuggest(<?php echo $recentlife->sid; ?>);">
-                                    			<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
-                                    		</li>
-                                    		<li onclick="friend(<?php echo $recentlife->sid;?>);">
-                                    			<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
-                                    		</li>
-                                    		<li onclick="socialshare(<?php echo $recentlife->sid;?>, 'story');">
-                                    			<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-                                    				<i class="fa fa-share-alt"></i>
-                                    			</a>
-                                    		</li>
-                                    	</ul>
+										<ul class="dropdown-menu list-inline dropvklife">
+											<li onclick="groupsuggest(<?php echo $recentlife->sid; ?>);">
+												<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+											</li>
+											<li onclick="friend(<?php echo $recentlife->sid;?>);">
+												<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+											</li>
+											<li onclick="socialshare(<?php echo $recentlife->sid;?>, 'story');">
+												<a href="javascript:void(0);"data-toggle="modal" data-target="#soc" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
+											</li>
+										</ul>
                                     </div>
                                 </div>
 					        <?php } ?>
 				            </div>
 				        </div>
 				    <?php } ?>
-                    </div>
+				    </div>
 					<div class="clearfix"></div><br>
 					<?php $sesslang = get_langshortname($this->uri->segment(1)); ?>
                         <input type="hidden" id="languageto" value="<?php if(isset($sesslang) && !empty($sesslang)){ echo $sesslang;}else{ echo 'en';} ?>">
@@ -540,7 +534,7 @@
                                                                 </span>
                                                             <?php } else if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){ ?>
                                                                 <span class="dropdown" style="float:right;">
-                                                                    <a href="#" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="false">
+                                                                    <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="false">
                                                                         <i class="fa fa-ellipsis-v pull-right"></i>
                                                                     </a>
                                                                     <ul class="dropdown-menu dv1">
@@ -565,7 +559,7 @@
                                                         <div style="margin-bottom:5px;" class="input-group postreplycomment<?php echo $comment->cid;?>"></div>
                                                     </div>
                                                 </div>
-                                            
+
                                                 <!-- SUB COMMENTS -->
                                                 <div class="subcomments" style="margin-bottom:0px;" id="mysublist<?php echo $comment->story_id, $comment->cid;?>">
                                                     <?php $replaycomments = get_replaycomments($comment->story_id, $comment->cid); ?>
@@ -697,7 +691,7 @@
 				<div class="row">
 					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
 						<a href="javascript:void(0);" class="facebookshare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/><p class="socialsharepopupspan">Facebook</p></a>
+						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px; margin-top:-10px;"/> <p class="socialsharepopupspan">Facebook</p></a>
 					</div>
 					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
 					    <a href="javascript:void(0);" class="whatsappshare socsh">
@@ -739,7 +733,6 @@
 	</div>
 </div>
 <!--frind popup end ------------->
-
 
 <!--report stories popup end ------------->
 <div class="modal fade" id="reportstories" role="dialog" aria-hidden="true">
@@ -785,10 +778,11 @@
 	    var storyid = $('#storyid').val();
 		if(comment.length > 0){
     		$.post("<?php echo base_url().$this->uri->segment(1); ?>/comment",{'comment':comment,'storyid':storyid},function(output,status){
-    			$('.btnspinner').html('POST');
+    		    $('.btnspinner').html('POST');
     			$("li#postcmt").prepend(output);
     			$("#comment").val('');
     			$("#comments").val('');
+    			$("#load_data_message").html('');
     		});
 		}else{
 		    $('.btnspinner').html('POST');
@@ -1029,7 +1023,7 @@ $( "#down" ).on( "click", function() {
                             $('#load_data_message').html("<center> Loading ...</center>");
                             action = "inactive";
                         }
-                        if(numcomments < 1){		
+                        if(numcomments < 1){
                             $('#load_data_message').html("<center> No comments yet!</center>");
                         }
                     }

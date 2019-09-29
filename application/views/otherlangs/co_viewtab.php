@@ -168,7 +168,7 @@
 						<input type="text" name="tcomment" placeholder="Type Comment Message ..." class="form-control" required="">
 						<input type="hidden" name="tcomm_id" value="<?php echo $commuid; ?>">
 						<span class="input-group-btn">
-							<button type="submit" class="btn btn-success btn-flat" onclick="tpostscomm_comments(<?php echo $key->id;?>)"> Comment </button>
+							<button type="submit" class="btn btn-success btn-flat btnspinner<?php echo $key->id;?>" onclick="tpostscomm_comments(<?php echo $key->id;?>)"> Comment </button>
 						</span>
 					</div>
 				</div>

@@ -85,14 +85,14 @@
 							</center>
 							<div class="box-footer" style="padding-top:0; border-top:1px solid #cac8c885;border-radius:5px;">
 								<div class="row pt-0">
-								    <center>
+									<center>
 										<div class="col-sm-12">
-        									<?php if(($row->writing_style == 'anonymous') && ($row->type == 'life')){ ?>
-        									    <a href="javascript:void(0);" style="color:#000"><h4><b>Anonymous</b></h4></a>
-        									<?php } else { ?>
-        									    <a href="<?php echo base_url().$row->profile_name; ?>" style="color:#000"><h4><b><?php echo $row->name; ?></b></h4></a>
-        									<?php } ?>
-        								</div>
+											<?php if(($row->writing_style == 'anonymous') && ($row->type == 'life')){ ?>
+											    <a href="javascript:void(0);" style="color:#000"><h4><b>Anonymous</b></h4></a>
+											<?php } else { ?>
+											    <a href="<?php echo base_url().$row->profile_name; ?>" style="color:#000"><h4><b><?php echo $row->name; ?></b></h4></a>
+											<?php } ?>
+										</div>
 									</center>
 									<div class="col-sm-12"></div>
 								</div>
@@ -316,17 +316,17 @@
                                         <button type="button" class="btn read dropdown-toggle pull-right" data-toggle="dropdown">
                                         	<span class=""><i class="fa fa-plus"></i></span>
                                         </button>
-                                        <ul class="dropdown-menu list-inline dropvk">
-                                        	<li onclick="groupsuggest(<?php echo $recentstory->sid; ?>);">
-                                        		<a href="javascript:void(0);"><i class="fa fa-users"></i></a>
-                                        	</li>
-                                        	<li onclick="friend(<?php echo $recentstory->sid;?>);">
-                                        		<a href="javascript:void(0);"><i class="fa fa-user"></i></a>
-                                        	</li>
-                                        	<li onclick="socialshare(<?php echo $recentstory->sid;?>, 'story');">
-                                        		<a href="javascript:void(0);"data-toggle="modal" data-target="#soc" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
-                                        	</li>
-                                        </ul>
+										<ul class="dropdown-menu list-inline dropvk">
+											<li onclick="groupsuggest(<?php echo $recentstory->sid; ?>);">
+												<a href="javascript:void(0);"><i class="fa fa-users"></i></a>
+											</li>
+											<li onclick="friend(<?php echo $recentstory->sid;?>);">
+												<a href="javascript:void(0);"><i class="fa fa-user"></i></a>
+											</li>
+											<li onclick="socialshare(<?php echo $recentstory->sid;?>, 'story');">
+												<a href="javascript:void(0);"data-toggle="modal" data-target="#soc" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
+											</li>
+										</ul>
                                     </div>
                                 </div>
 					        <?php } ?>
@@ -384,17 +384,17 @@
                                     	<button type="button" class="btn read dropdown-toggle pull-right" data-toggle="dropdown">
                                     		<span class=""><i class="fa fa-plus"></i></span>
                                     	</button>
-                                    	<ul class="dropdown-menu list-inline dropvklife">
-                                    		<li onclick="groupsuggest(<?php echo $recentlife->sid; ?>);">
-                                    			<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
-                                    		</li>
-                                    		<li onclick="friend(<?php echo $recentlife->sid;?>);">
-                                    			<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
-                                    		</li>
-                                    		<li onclick="socialshare(<?php echo $recentlife->sid;?>, 'story');">
-                                    			<a href="javascript:void(0);"data-toggle="modal" data-target="#soc" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
-                                    		</li>
-                                    	</ul>
+										<ul class="dropdown-menu list-inline dropvklife">
+											<li onclick="groupsuggest(<?php echo $recentlife->sid; ?>);">
+												<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+											</li>
+											<li onclick="friend(<?php echo $recentlife->sid;?>);">
+												<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+											</li>
+											<li onclick="socialshare(<?php echo $recentlife->sid;?>, 'story');">
+												<a href="javascript:void(0);"data-toggle="modal" data-target="#soc" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
+											</li>
+										</ul>
                                     </div>
                                 </div>
 					        <?php } ?>
@@ -559,7 +559,7 @@
                                                         <div style="margin-bottom:5px;" class="input-group postreplycomment<?php echo $comment->cid;?>"></div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <!-- SUB COMMENTS -->
                                                 <div class="subcomments" style="margin-bottom:0px;" id="mysublist<?php echo $comment->story_id, $comment->cid;?>">
                                                     <?php $replaycomments = get_replaycomments($comment->story_id, $comment->cid); ?>
@@ -677,6 +677,7 @@
 		</div>
 	</div>
 </div>
+
 <!-- Social Popup ---- -->
 <div class="modal fade" id="soc">
 	<div class="modal-dialog">
@@ -690,7 +691,7 @@
 				<div class="row">
 					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
 						<a href="javascript:void(0);" class="facebookshare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Facebook</p></a>
+						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px; margin-top:-10px;"/> <p class="socialsharepopupspan">Facebook</p></a>
 					</div>
 					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
 					    <a href="javascript:void(0);" class="whatsappshare socsh">

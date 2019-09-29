@@ -69,7 +69,7 @@
                 <?php } ?>
             </div>
         </div>
-        <div id="load_data_message"></div>
+        <div id="load_data_message" style="margin:10px 0;"></div>
         <?php } ?>
     </div>
 </div>
@@ -88,10 +88,10 @@
 <div class="footer1">
     <div style="font-size:14px;color:black;font-family: 'Varela Round', sans-serif;">
         <center>
-            <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url();?>about">ABOUT</a></font>
-            <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url();?>contact">CONTACT</a></font>
-            <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url();?>terms-conditions">TERMS</a></font>
-            <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url();?>privacy-policy">PRIVACY</a></font>
+            <font  class="hover-tems"><a href="<?php echo base_url();?>about">ABOUT</a></font>
+            <font  class="hover-tems"><a href="<?php echo base_url();?>contact">CONTACT</a></font>
+            <font  class="hover-tems"><a href="<?php echo base_url();?>terms-conditions">TERMS</a></font>
+            <font  class="hover-tems"><a href="<?php echo base_url();?>privacy-policy">PRIVACY</a></font>
         </center>
     </div>
 </div>

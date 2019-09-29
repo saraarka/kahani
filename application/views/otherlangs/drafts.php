@@ -65,7 +65,7 @@
                     <?php } ?>
                 </div>
                 <div id="load_data_message"></div>
-                <?php } else{ ?>		
+                <?php } else{ ?>
                     <center><div class="row" style="padding: 10px;"> No Stories were found in Drafts.</div></center>
                 <?php } ?>
             </div>

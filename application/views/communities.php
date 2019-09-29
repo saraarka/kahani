@@ -14,7 +14,7 @@
                 				<div class="box-body" style="padding:0px;">
                 				    <a href="<?php echo base_url();?>community/<?php echo preg_replace("~[^\p{M}\w]+~u", '-', $row->gener);?>">
                 				        <?php if(!empty($row->comm_image)){ ?>
-                					    <img  src="<?php echo base_url();?>assets/images/293-l.jpg"  class="img-responsive lazy" data-src="<?php echo base_url();?>assets/images/<?php echo $row->comm_image; ?>" alt="<?php echo $row->gener; ?>" style="height:200px; border-radius:5px 5px 0 0;">
+                					    <img  src="<?php echo base_url();?>assets/images/293-l.jpg" class="img-responsive lazy" data-src="<?php echo base_url();?>assets/images/<?php echo $row->comm_image; ?>" alt="<?php echo $row->gener; ?>" style="height:200px; border-radius:5px 5px 0 0;">
                 					    <?php } else{ ?>
                 					    <img  src="<?php echo base_url();?>assets/images/293-l.jpg" class="img-responsive lazy" data-src="<?php echo base_url();?>assets/images/1.jpg" alt="<?php echo $row->gener; ?>" style="height:200px; border-radius:5px 5px 0 0;">
                 					    <?php } ?>
@@ -297,8 +297,8 @@ function commuunjoin(comm_id, gener) { // community unjoin button
         });
     });
 </script>
- <script>
-   var lazyLoadInstance = new LazyLoad({
-    elements_selector: ".lazy"
-   });
-  </script>
+<script>
+    var lazyLoadInstance = new LazyLoad({
+        elements_selector: ".lazy"
+    });
+</script>

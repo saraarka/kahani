@@ -151,27 +151,50 @@ label {
 }
 
 
-    /*Small devices (landscape phones, less than 768px)*/
+/*Small devices (landscape phones, less than 768px)*/
 @media (max-width: 767px) {
     .pos_ab{
-        position: absolute;
-        top: 70px;
-        left: 70px;
-        padding: 3px 6px;
-        border-radius: 50%;
+    position: absolute;
+    top: 62px;
+    left: 80px;
+    padding: 2px 6px;
+    border-radius: 50%;
     }
 }
 .pos_ab{
     position: absolute;
-    top: 70px;
-    left: 70px;
-    padding: 3px 6px;
+    top: 62px;
+    left: 80px;
+    padding: 2px 6px;
     border-radius: 50%;
 }
 
 #mobile-upload-file-profile{
     display: none;
     cursor: pointer;
+}
+.modal.fade .modal-dialog {
+    -webkit-transition: -webkit-transform .3s ease-out;
+    -o-transition: -o-transform .3s ease-out;
+    transition: transform .3s ease-out;
+    -webkit-transform: translate(0,-25%);
+    -ms-transform: translate(0,-25%);
+    -o-transform: translate(0,-25%);
+    transform: translate(0,-25%);
+    margin: auto;
+    min-width: 300px;
+    max-width: 50% !important;
+    height: auto;
+}
+.modal-footer {
+     padding: 0px;
+    text-align: right;
+border-top: 0px solid #e5e5e5 !important;
+}
+.modal-header {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e5e5e5;
 }
 </style>
 <?php $writerlanguage = ''; if(isset($editprofile) && ($editprofile->num_rows()>0)){ foreach($editprofile->result() as $row){
@@ -189,71 +212,79 @@ label {
             							<div class="widget-user-image" style="float:left;">
                 							<?php if(isset($row->profile_image) && !empty($row->profile_image)) {
                 							    $profileimage = $row->profile_image; } else{ $profileimage =  '2.png'; } ?>
-                                            <label class="hidden-xs" style="background:none; color:#fff;" for="upload-file-profile">
-                                                <img class="img-circle" src="<?php echo base_url();?>assets/images/<?php echo $profileimage; ?>" style="width:75px;height:75px;" alt="<?php echo $row->name; ?>">
-                                                <input id="upload-file-profile" name="profile_image" type="file">
-                                                <span style="padding:8px; border:1px solid #ddd; cursor:pointer;float:right;margin-top:17px;margin-left:12px;" class="btnspinner"><i class="fa fa-image"></i> Profile Photo</span>
-                                            </label>
-                                            <label class="hidden-sm hidden-lg hidden-md" style="background:none; color:#fff;" for="mobile-upload-file-profile">
-                                                <img class="img-circle" src="<?php echo base_url();?>assets/images/<?php echo $profileimage; ?>" style="width:75px;height:75px;" alt="<?php echo $row->name; ?>">
-                                                <input id="mobile-upload-file-profile" name="profile_image" type="file">
-                                                <span style="padding:8px; border:1px solid #ddd; cursor:pointer;float:right;margin-top:17px;margin-left:12px;" class="btnspinner"><i class="fa fa-image"></i> Profile Photo</span>
-                                            </label>
-                                            <div class="clearfix"></div>
-                                            <label class="pull-left">
-                                                <a href="<?php echo base_url().$this->uri->segment(1);?>/removeprofilepic/<?php echo $row->user_id;?>" class="btn btn-default pos_ab" title="Delete"><i class="fa fa-camera" aria-hidden="true"></i></a>
-                                            </label>
-                                        </div>
-                                            
-                                        <label class="" style="background:none!important; color:#fff; float:right; margin-top: 35px;" for="upload-file-selector">
-                                        	<input id="upload-file-selector" name="banner_image" type="file">
-                                        	<span style="padding:10px; border:1px solid #ddd; cursor:pointer;" class="btnspinnerc"><i class="fa fa-image"></i> Cover Photo</span>
-                                        	<a href="<?php echo base_url().$this->uri->segment(1);?>/removeprofilecover/<?php echo $row->user_id;?>" class="btn btn-default" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                        </label>
+                                  <label class="hidden-xs" style="background:none; color:#fff;" for="upload-file-profile">
+                                      <img class="img-circle" src="<?php echo base_url();?>assets/images/<?php echo $profileimage; ?>" style="width:75px;height:75px;" alt="<?php echo $row->name; ?>">
+                                      <input id="upload-file-profile" name="profile_image" type="file">
+                                      <span style="padding:8px; border:1px solid #ddd; cursor:pointer;float:right;margin-top:17px;margin-left:12px;z-index:2000;" class="btnspinner"><i class="fa fa-image"></i> Profile Photo</span>
+                                  </label>
+                                  <label class="hidden-sm hidden-lg hidden-md" style="background:none; color:#fff;" for="mobile-upload-file-profile">
+                                      <img class="img-circle" src="<?php echo base_url();?>assets/images/<?php echo $profileimage; ?>" style="width:75px;height:75px;" alt="<?php echo $row->name; ?>">
+                                      <input id="mobile-upload-file-profile" name="profile_image" type="file">
+                                      <span style="padding:8px; border:1px solid #ddd; cursor:pointer;float:right;margin-top:17px;margin-left:12px;z-index:2000;" class="btnspinner"><i class="fa fa-image"></i> Profile Photo</span>
+                                  </label>
+                                  <div class="clearfix"></div>
+                                  <?php if(isset($row->profile_image) && !empty($row->profile_image)){ ?>
+                                  <label class="pull-left">
+                                      <a href="<?php echo base_url().$this->uri->segment(1);?>/removeprofilepic/<?php echo $row->user_id;?>" class="btn btn-default pos_ab" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                  </label>
+                                  <?php } ?>
+                              </div>
+                                  
+                              <label class="" style="background:none!important; color:#fff; float:right; margin-top: 35px;" for="upload-file-selector">
+                              	<input id="upload-file-selector" name="banner_image" type="file">
+                              	<span style="padding:10px; border:1px solid #ddd; cursor:pointer;" class="btnspinnerc"><i class="fa fa-image"></i> Cover Photo</span>
+                                <?php if(isset($row->banner_image) && !empty($row->banner_image)){ ?>
+                              	<a style="color: #fff;background-color: rgba(255, 255, 255, 0.03);border-color: #ccc;padding:8.5px 8px;border-radius: 0;margin-top: -3px;margin-left: -4px;border-left: 0;" href="<?php echo base_url().$this->uri->segment(1);?>/removeprofilecover/<?php echo $row->user_id;?>" class="btn btn-default" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                <?php } ?>
+                              </label>
                                         
         					        </div>
     					        </div>
     					        <?php } else{ ?>
     					        <div class="widget-user-header" style="padding:0; background: linear-gradient(-60deg,RoyalBlue,brown); background-repeat: no-repeat; background-size: auto;  background-size: cover;" id="blah">
-                                    <div style="height:250px; background-color:rgba(0, 0, 0, 0.55); background-repeat: no-repeat;background-size: cover; padding: 60px 30px;">
-                                        <div class="widget-user-image" style="float:left;">
-                                        	<?php if(isset($row->profile_image) && !empty($row->profile_image)) {
-                                        	    $profileimage = $row->profile_image; } else{ $profileimage =  '2.png'; } ?>
-                                        	<label class="hidden-xs" style="background:none; color:#fff;" for="upload-file-profile">
-                                        		<img class="img-circle" src="<?php echo base_url();?>assets/images/<?php echo $profileimage; ?>" style="width:75px;height:75px;" alt="<?php echo $row->name; ?>">
-                                        	    <input id="upload-file-profile" name="profile_image" type="file">
-                                        	    <span style="padding:10px; border:1px solid #ddd; cursor:pointer;float:right;margin-top:17px;margin-left:12px;" class="btnspinner"><i class="fa fa-image"></i> Profile Photo</span>
-                                        	</label>
-                                        	<label class="hidden-sm hidden-lg hidden-md" style="background:none; color:#fff;" for="mobile-upload-file-profile">
-                                                <img class="img-circle" src="<?php echo base_url();?>assets/images/<?php echo $profileimage; ?>" style="width:75px;height:75px;" alt="<?php echo $row->name; ?>">
-                                                <input id="mobile-upload-file-profile" name="profile_image" type="file">
-                                                <span style="padding:8px; border:1px solid #ddd; cursor:pointer;float:right;margin-top:17px;margin-left:12px;" class="btnspinner"><i class="fa fa-image"></i> Profile Photo</span>
-                                            </label>
-                                            <label class="pull-left">
-                                                <a href="<?php echo base_url().$this->uri->segment(1);?>/removeprofilepic/<?php echo $row->user_id;?>" class="btn btn-default pos_ab" title="Delete"><i class="fa fa-camera" aria-hidden="true"></i></a>
-                                            </label>
-                                        </div>
-                                        <label class="" style="background:none!important; color:#fff; float:right; margin-top: 35px;" for="upload-file-selector">
-                                        	<input id="upload-file-selector" name="banner_image" type="file">
-                                            <span style="padding:10px; border:1px solid #ddd; cursor:pointer;" class="btnspinnerc"><i class="fa fa-image"></i> Cover Photo</span>
-            								<a href="<?php echo base_url().$this->uri->segment(1);?>/removeprofilecover/<?php echo $row->user_id;?>" class="btn btn-default" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
-            							</label>
-                                    </div>
-                                </div>
+                          <div style="height:250px; background-color:rgba(0, 0, 0, 0.55); background-repeat: no-repeat;background-size: cover; padding: 60px 30px;">
+                              <div class="widget-user-image" style="float:left;">
+                              	<?php if(isset($row->profile_image) && !empty($row->profile_image)) {
+                              	    $profileimage = $row->profile_image; } else{ $profileimage =  '2.png'; } ?>
+                              	<label class="hidden-xs" style="background:none; color:#fff;" for="upload-file-profile">
+                              		<img class="img-circle" src="<?php echo base_url();?>assets/images/<?php echo $profileimage; ?>" style="width:75px;height:75px;" alt="<?php echo $row->name; ?>">
+                              	    <input id="upload-file-profile" name="profile_image" type="file">
+                              	    <span style="padding:10px; border:1px solid #ddd; cursor:pointer;float:right;margin-top:17px;margin-left:12px;z-index:2000;" class="btnspinner"><i class="fa fa-image"></i> Profile Photo</span>
+                              	</label>
+                              	<label class="hidden-sm hidden-lg hidden-md" style="background:none; color:#fff;" for="mobile-upload-file-profile">
+                                      <img class="img-circle" src="<?php echo base_url();?>assets/images/<?php echo $profileimage; ?>" style="width:75px;height:75px;" alt="<?php echo $row->name; ?>">
+                                      <input id="mobile-upload-file-profile" name="profile_image" type="file">
+                                      <span style="padding:8px; border:1px solid #ddd; cursor:pointer;float:right;margin-top:17px;margin-left:12px;z-index:2000;" class="btnspinner"><i class="fa fa-image"></i> Profile Photo</span>
+                                  </label>
+                                  <?php if(isset($row->profile_image) && !empty($row->profile_image)){ ?>
+                                  <label class="pull-left">
+                                      <a href="<?php echo base_url().$this->uri->segment(1);?>/removeprofilepic/<?php echo $row->user_id;?>" class="btn btn-default pos_ab" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                  </label>
+                                  <?php } ?>
+                              </div>
+                              <label class="" style="background:none!important; color:#fff; float:right; margin-top: 35px;" for="upload-file-selector">
+                              	<input id="upload-file-selector" name="banner_image" type="file">
+                                  <span style="padding:10px; border:1px solid #ddd; cursor:pointer;" class="btnspinnerc"><i class="fa fa-image"></i> Cover Photo</span>
+                                  <?php if(isset($row->banner_image) && !empty($row->banner_image)){ ?>
+                                  <a style="color: #fff;background-color: rgba(255, 255, 255, 0.03);border-color: #ccc;padding:8.5px 8px;border-radius: 0;margin-top: -3px;margin-left: -4px;border-left: 0;" href="<?php echo base_url().$this->uri->segment(1);?>/removeprofilecover/<?php echo $row->user_id;?>" class="btn btn-default" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+  						                    <?php } ?>
+                              </label>
+                          </div>
+                      </div>
     					        <?php } ?>
     				        </div>
-                            <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-sm-10 col-xs-10 col-md-10">
-                                        <center><?php echo $this->session->flashdata('editmsg');?></center>
-                                        </div>
-                                	<div class="col-sm-2 col-xs-2 col-md-2">
-                                		<div class="description-block" style="float:right">
-                                		    <button type='submit' name='edit' class='btn btn-primary'> Update profile </button>
-                                		</div>
-                                	</div>
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-sm-10 col-xs-10 col-md-10">
+                                <center><?php echo $this->session->flashdata('editmsg');?></center>
                                 </div>
-                            </div>
+                        	<div class="col-sm-2 col-xs-2 col-md-2">
+                        		<div class="description-block" style="float:right">
+                        		    <button type='submit' name='edit' class='btn btn-primary'> Update profile </button>
+                        		</div>
+                        	</div>
+                        </div>
+                    </div>
     				    </div>
     			    </div><br>
     	        </section>
@@ -406,13 +437,13 @@ label {
 
 <div class="modal fade" id="choosecommunitypedit">
     <div class="modal-dialog modalv">
-        <div class="modal-content">
+        <div class="modal-content" style="padding:0">
             <div class="modal-header">
                 <h5 class="h5titile">PREFERRED GENRES
-                <span class="pull-right"><button type="button" class="close" data-dismiss="modal">&times;</button></span>
+                <span class="pull-right"><button style="margin-top: 0;" type="button" class="close" data-dismiss="modal">&times;</button></span>
                 </h5>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="padding: 15px;">
                 <div class="row" style="padding: 0px;">
                     <center>
                         <form id="choosecommupedit" method="POST">
@@ -421,11 +452,11 @@ label {
                                 <div class="col-md-4">
                                     <?php if(in_array($gener->gener, $usercomms)){ ?>
             				        <label class="btn btn-primary btn-block choosecomm" style="padding: 10px 5px 10px 0px; font-size:17px;margin-bottom:5px;" id="<?php echo $gener->id;?>">
-                                        <input type="checkbox" class="checkbox<?php echo $gener->id;?>" name="choosecomm[]" value="<?php echo $gener->id;?>" style="height:0px;" checked="checked"><?php echo $gener->gener; ?>
+                                        <input type="checkbox" class="checkbox<?php echo $gener->id;?>" name="choosecomm[]" value="<?php echo $gener->id;?>" style="height:0px;visibility: hidden;" checked="checked"><?php echo $gener->gener; ?>
                                     </label>
                                     <?php } else{ ?>
                                     <label class="btn btn-default btn-block choosecomm" style="padding: 10px 5px 10px 0px; font-size:17px;margin-bottom:5px;" id="<?php echo $gener->id;?>">
-                                        <input type="checkbox" class="checkbox<?php echo $gener->id;?>" name="choosecomm[]" value="<?php echo $gener->id;?>" style="height:0px;"><?php echo $gener->gener; ?>
+                                        <input type="checkbox" class="checkbox<?php echo $gener->id;?>" name="choosecomm[]" value="<?php echo $gener->id;?>" style="height:0px;visibility: hidden;"><?php echo $gener->gener; ?>
                                     </label>
                                     <?php } ?>
             				    </div>
@@ -444,14 +475,14 @@ label {
 
 
 <div class="modal fade" id="chooselanguagepedit">
-	<div class="modal-dialog modalv">
-		<div class="modal-content">
+	<div class="modal-dialog modalv" style="max-width:50%">
+		<div class="modal-content" style="padding: 0px;">
 		    <div class="modal-header">
                 <h5 class="h5titile">PREFERRED LANGUAGE
-                <span class="pull-right"><button type="button" class="close" data-dismiss="modal">&times;</button></span>
+                <span class="pull-right"><button type="button" class="close" style="margin-top: 0;" data-dismiss="modal">&times;</button></span>
                 </h5>
             </div>
-			<div class="modal-body">
+			<div class="modal-body" style="padding: 15px;">
 			    <div class="row" style="padding: 0px;">
 			        <center>
         			    <form id="chooselangpedit" action="#" method="POST">
@@ -483,10 +514,9 @@ label {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Upload Profile Image (You Can Crop)</h4>
+                <h4 class="modal-title">Click on image and Drag to Crop</h4>
             </div>
             <div class="modal-body" id="cropboxmodaldiv"> </div>
-            <div class="modal-footer"> </div>
         </div>
     </div>
 </div>
@@ -751,26 +781,31 @@ label {
 </script>
 
 <script type="text/javascript">
-	$("#upload-file-profile").change(function() {
+  $(".btnspinner").click(function() {
+      $('.btnspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
+  });
+
+  $("#upload-file-profile").on('change click', function() {
 	    $('.btnspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
         var $formData = new FormData();
         $formData.append('profileimg', $("#upload-file-profile").get(0).files[0]);
         $.ajax({
-			url: "<?php echo base_url().$this->uri->segment(1);?>/upload_profileimg",
-			type: 'POST',
-			data: $formData,
-			processData: false,
-            contentType: false,
-			success: function (resultdata) {
-			    if(resultdata){
-			       $('#cropboxmodaldiv').html(resultdata);
-			        //$('#cropbox').removeAttr('src');
-			        //$('#cropbox').attr('src',resultdata);
-			        $('#upload_profileimg').modal('show');
-			    }else{
-			        $('#upload_profileimg').modal('show');
-			    }
-			}
+    			url: "<?php echo base_url().$this->uri->segment(1);?>/upload_profileimg",
+    			type: 'POST',
+    			data: $formData,
+    			processData: false,
+          contentType: false,
+    			success: function (resultdata) {
+    			    if(resultdata){
+    			       $('#cropboxmodaldiv').html(resultdata);
+    			        //$('#cropbox').removeAttr('src');
+    			        //$('#cropbox').attr('src',resultdata);
+    			        $('#upload_profileimg').modal('show');
+    			    }else{
+    			        $('#upload_profileimg').modal('show');
+    			    }
+              $('.btnspinner').html('Profile Image');
+    			}
         });
     });
     
@@ -779,6 +814,14 @@ label {
         var bannerimage = $("#upload-file-selector").get(0).files[0];
         if(bannerimage.name){
             $('#updateform').submit();
+        }
+    });
+    $("#mobile-upload-file-profile").change(function() {
+        var $formData = new FormData();
+        var bannerimage = $("#mobile-upload-file-profile").get(0).files[0];
+        if(bannerimage.name){
+            $('#updateform').submit();
+            //setTimeout(function(){ location.reload(); }, 1000);
         }
     });
 </script>

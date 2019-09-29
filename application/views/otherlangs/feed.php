@@ -139,7 +139,7 @@
 												<input type="text" name="comment" placeholder="Type Comment Message ..." class="form-control" required="">
 												<input type="hidden" name="comm_id" value="<?php echo $key->id; ?>">
 												<span class="input-group-btn">
-													<button type="submit" class="btn btn-success btn-flat" onclick="comm_comments(<?php echo $key->id;?>)"> Comment </button>
+													<button type="submit" class="btn btn-success btn-flat btnspinner<?php echo $key->id;?>" onclick="comm_comments(<?php echo $key->id;?>)"> Comment </button>
 												</span>
 											</div>
 										</div>
@@ -160,7 +160,8 @@
 														<div class="comment-text">
 															<span class="username" style="padding-top:6px;">&nbsp; 
 															    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$comment->profile_name; ?>">
-															        <p class="namers"><?php echo ucfirst($comment->name);?></p></a>
+															        <p class="namers"><?php echo ucfirst($comment->name);?></p>
+															    </a>
 																<span class="dropdown" style="float:right;">
                                                                     <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true">
                                                                      <i class="fa fa-ellipsis-v"></i> </a> 
@@ -618,10 +619,13 @@ function displayreplies(commentid, comm_id, story_id){
 function comm_comments(story_id){ //Comments post submit
 	var inputdata = $('#community_commentpost'+story_id+' :input').serialize();
 	var old_cmtcount = $('#old_cmt'+story_id).text();
+	$('.btnspinner'+story_id).html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 	$.post("<?php echo base_url().$this->uri->segment(1);?>/communities_comments",inputdata,function(resultdata, status) {
 		var result=JSON.parse(resultdata);
+		$('.btnspinner'+story_id).html('Comment');
 		if(result.status == -1){
-			alert('Please Enter Comments Message.');
+			$('#snackbar').text('Enter Comments.').addClass('show');		
+    	    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
 		}else if(result.status == 1){
 		    //console.log(result);
 			$("#community_commentpost"+story_id).find('input[name="comment" ]').val('');
@@ -646,7 +650,8 @@ function comm_comments(story_id){ //Comments post submit
     		        '<div class="subcomments" style="margin-left:10px;" id="mysubList'+result.response.story_id+'_'+result.response.id+'"></div>'+'</div>');
     		    $('#old_cmt'+story_id).html(parseInt(old_cmtcount)+1);
 		}else{
-			alert('Failed to Post Comment.');
+			$('#snackbar').text('Failed to Post Comment.').addClass('show');		
+    	    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
 		}
 	});
 }
@@ -663,10 +668,13 @@ $(document).ready(function(){
 function tpostscomm_comments(story_id){ //top posts Comments post submit
 	var inputdata = $('#tpostscommunity_commentpost'+story_id+' :input').serialize();
 	var topoldcmtcount = $('#told_cmt'+story_id).text();
+	$('.btnspinner'+story_id).html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 	$.post("<?php echo base_url().$this->uri->segment(1);?>/communities_comments",inputdata,function(resultdata, status) {
 		var result=JSON.parse(resultdata);
+		$('.btnspinner'+story_id).html('Comment');
 		if(result.status == -1){
-			alert('Please Enter Comments Message.');
+			$('#snackbar').text('Enter Comments.').addClass('show');		
+    	    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
 		}else if(result.status == 1){
 			$("#tpostscommunity_commentpost"+story_id).find('input[name="tcomment" ]').val('');
 			$('.tajaxcomment'+story_id).css('display','block');
@@ -697,7 +705,8 @@ function tpostscomm_comments(story_id){ //top posts Comments post submit
 			$('.tajaxcomment'+story_id).prepend(yourfeedcommenthtml);
 			$('#told_cmt'+story_id).text(parseInt(topoldcmtcount)+1);
 		}else{
-			alert('Failed to Post Comment.');
+			$('#snackbar').text('Failed to Post Comment.').addClass('show');		
+    	    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
 		}
 	});
 }
@@ -744,61 +753,62 @@ function commuunjoin(comm_id, gener) { // community unjoin button
 </script>
 
 <script>
-    $( "form#updatecomm_post" ).submit(function( event ) {
-        event.preventDefault();
-        var ptextid = $("form#updatecomm_post").serializeArray()[0].value;
-        var ptext = $("form#updatecomm_post").serializeArray()[1].value;
-        var pquotes = '';
-        if($("form#updatecomm_post").serializeArray().length > 2) {
-            pquotes = $("form#updatecomm_post").serializeArray()[2].value;
-        }
-        $.post("<?php echo base_url().$this->uri->segment(1);?>/updatecomm_post",$("form#updatecomm_post").serialize(),function(resultdata, status) {
-            $('span.text-danger').empty();
-            var result=JSON.parse(resultdata);
-            console.log(result);
-            if(result.status == -1){
-            	$.each(result.validations,function (p,q){
-            		$('span.'+p).text(q);
-            	});
-            }else if((result.status == 1) && (result.response == 'success')){
-                if(pquotes == 'quotes'){
-                    $('.edittext'+ptextid).html(ptext);
-                }else{
-            	    $('.edittext'+ptextid).text(ptext.mb_substr(0, 100));
-                }
-            	    $('#editcomm_post').modal('hide');
-            }else{
-            }
-        });
-    });
-    $( "form#reportcommpost" ).submit(function( event ) {
-        event.preventDefault();
-        $.post("<?php echo base_url().$this->uri->segment(1);?>/reportcomm_post",$("form#reportcommpost").serialize(),function(resultdata, status) {
-            $('span.text-danger').empty();
-            var result=JSON.parse(resultdata);
-            if(result.status == -1){
-            	$.each(result.validations,function (p,q){
-            		$('span.'+p).text(q);
-            	});
-            }else if((result.status == 1) && (result.response == 'success')){
-                $('#reportcomm_post').modal('hide');
-            }else{
-            	alert('Failed to report.');
-            }
-        });
-    });
+	$( "form#updatecomm_post" ).submit(function( event ) {
+		event.preventDefault();
+		var ptextid = $("form#updatecomm_post").serializeArray()[0].value;
+		var ptext = $("form#updatecomm_post").serializeArray()[1].value;
+		var pquotes = '';
+		if($("form#updatecomm_post").serializeArray().length > 2) {
+			pquotes = $("form#updatecomm_post").serializeArray()[2].value;
+		}
+		$.post("<?php echo base_url().$this->uri->segment(1);?>/updatecomm_post",$("form#updatecomm_post").serialize(),function(resultdata, status) {
+			$('span.text-danger').empty();
+			var result=JSON.parse(resultdata);
+			//console.log(result);
+			if(result.status == -1){
+				$.each(result.validations,function (p,q){
+					$('span.'+p).text(q);
+				});
+			}else if((result.status == 1) && (result.response == 'success')){
+				if(pquotes == 'quotes'){
+					$('.edittext'+ptextid).html(ptext);
+				}else{
+					$('.edittext'+ptextid).text(ptext.mb_substr(0, 100));
+				}
+				$('#editcomm_post').modal('hide');
+			}else{
+			}
+		});
+	});
+	$( "form#reportcommpost" ).submit(function( event ) {
+		event.preventDefault();
+		$.post("<?php echo base_url().$this->uri->segment(1);?>/reportcomm_post",$("form#reportcommpost").serialize(),function(resultdata, status) {
+			$('span.text-danger').empty();
+			var result=JSON.parse(resultdata);
+			if(result.status == -1){
+				$.each(result.validations,function (p,q){
+					$('span.'+p).text(q);
+				});
+			}else if((result.status == 1) && (result.response == 'success')){
+				$('#reportcomm_post').modal('hide');
+			}else{
+				alert('Failed to report.');
+			}
+		});
+	});
 
-    function postReplycomment(commentid, comm_id, story_id){
-        $('div.postreplycomment'+commentid).html('<input type="text" id="replycmts'+commentid+'" value="" class="form-control" placeholder="Reply Comment..." required>'+
-        '<span class="text-danger addreplaycmt'+commentid+'"></span><span class="input-group-btn">'+
-        '<button type="submit" class="btn btn-success btn-flat" onclick="addreplycomment('+commentid+','+comm_id+','+story_id+')">POST</button></span>');
-        $('#mysubList'+story_id+'_'+commentid).css('display','block');
-        setTimeout(function(){ $('#spinnertab'+commentid).html(' '); }, 50);
-    }
+	function postReplycomment(commentid, comm_id, story_id){
+	    $('div.postreplycomment'+commentid).html('<input type="text" id="replycmts'+commentid+'" value="" class="form-control" placeholder="Reply Comment..." required>'+
+	    '<span class="text-danger addreplaycmt'+commentid+'"></span><span class="input-group-btn">'+
+	    '<button type="submit" class="btn btn-success btn-flat btnspinner'+commentid+'" onclick="addreplycomment('+commentid+','+comm_id+','+story_id+')">POST</button></span>');
+	    $('#mysubList'+story_id+'_'+commentid).css('display','block');
+	    setTimeout(function(){ $('#spinnertab'+commentid).html(' '); }, 50);
+	}
     function addreplycomment(commentid, comm_id, story_id){
         var comments = $('#replycmts'+commentid).val();
         //var old_cmtcount = $('#old_cmt'+story_id).text();
         var old_subcmtcount = $('.old_subcmtcount'+commentid).text();
+         $('.btnspinner'+commentid).html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
         if(comments){
             $.ajax({
         		url:'<?php echo base_url().$this->uri->segment(1);?>/communities_comments',
@@ -806,9 +816,12 @@ function commuunjoin(comm_id, gener) { // community unjoin button
         		data: {'comment_id': commentid, 'comm_id': comm_id, 'story_id': story_id,'comment':comments},
         		dataType: "json",
         		success:function(data){
+        			$('.btnspinner'+commentid).html('POST');
                     $('#replycmts'+commentid).val('');
         		    if(data.status == 2){
-                        $('.addreplaycmt'+commentid).text('Enter your Comments.');
+                        //$('.addreplaycmt'+commentid).text('Enter your Comments.');
+                        $('#snackbar').text('Enter Comments.').addClass('show');
+    	                setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     }else if(data.status == 1){
                         $.ajax({
                             url: "<?php echo base_url($this->uri->segment(1).'/communities_commentslast'); ?>",
@@ -845,12 +858,17 @@ function commuunjoin(comm_id, gener) { // community unjoin button
                             }
                         });
                     }else{
-                        $('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                        //$('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                        $('#snackbar').text('Failed to Post your Comments.').addClass('show');
+    	                setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     }
                 }
             });
         }else{
-            $('.addreplaycmt'+commentid).text('Enter your Comments.');
+            //$('.addreplaycmt'+commentid).text('Enter your Comments.');
+            $('.btnspinner'+commentid).html('POST');
+	        $('#snackbar').text('Enter Comments.').addClass('show');
+    	    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
         }
     }
     function commloadmore(storyid, commentid){
@@ -988,7 +1006,7 @@ function commuunjoin(comm_id, gener) { // community unjoin button
     function toppostReplycomment(commentid, comm_id, story_id){
         $('div.toppostreplycomment'+commentid).html('<input type="text" id="topreplycmts'+commentid+'" value="" class="form-control" placeholder="Reply Comment..." required>'+
         '<span class="text-danger addreplaycmt'+commentid+'"></span><span class="input-group-btn">'+
-        '<button type="submit" class="btn btn-success btn-flat" onclick="topaddreplycomment('+commentid+','+comm_id+','+story_id+')">POST</button></span>');
+        '<button type="submit" class="btn btn-success btn-flat btnspinner'+commentid+'" onclick="topaddreplycomment('+commentid+','+comm_id+','+story_id+')">POST</button></span>');
     
         $('#topmysubList'+story_id+'_'+commentid).css('display','block');
         setTimeout(function(){ $('#topspinnertab'+commentid).html(' '); }, 50);
@@ -1001,6 +1019,7 @@ function commuunjoin(comm_id, gener) { // community unjoin button
         var comments = $('#topreplycmts'+commentid).val();
         var topsubcmtcount = $('.told_subcmtcount'+commentid).text();
         //var topoldcmtcount = $('#told_cmt'+story_id).text();
+        $('.btnspinner'+commentid).html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
         if(comments){
             $.ajax({
         		url:'<?php echo base_url().$this->uri->segment(1);?>/communities_comments',
@@ -1008,9 +1027,12 @@ function commuunjoin(comm_id, gener) { // community unjoin button
         		data: {'comment_id': commentid, 'comm_id': comm_id, 'story_id': story_id,'comment':comments},
         		dataType: "json",
         		success:function(data){
+        			$('.btnspinner'+commentid).html('POST');
                     $('#topreplycmts'+commentid).val('');
         		    if(data.status == 2){
-                        $('.topaddreplaycmt'+commentid).text('Enter your Comments.');
+                        //$('.topaddreplaycmt'+commentid).text('Enter your Comments.');
+                        $('#snackbar').text('Enter Comments.').addClass('show');
+        	            setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     }else if(data.status == 1){
                         $.ajax({
                             url: "<?php echo base_url($this->uri->segment(1).'/communities_commentslast'); ?>",
@@ -1043,12 +1065,17 @@ function commuunjoin(comm_id, gener) { // community unjoin button
                             }
                         });
                     }else{
-                        $('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                        //$('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                        $('#snackbar').text('Failed to Post your Comments.').addClass('show');
+        	            setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     }
                 }
             });
         }else{
-            $('.addreplaycmt'+commentid).text('Enter your Comments.');
+        	$('.btnspinner'+commentid).html('POST');
+	        $('#snackbar').text('Enter Comments.').addClass('show');
+        	setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+            //$('.addreplaycmt'+commentid).text('Enter your Comments.');
         }
     }
     function tcomments(story_id){

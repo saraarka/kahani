@@ -147,13 +147,12 @@
                     <div class="imagemaindiv">
                         <div class="imagebox">
                             <label for="upload-file-selector">
+                                <input type="hidden" name="cover_image" id="upload-file-selectorserver" style="display:none;">
                                 <?php if(isset($liferow->cover_image) && !empty($liferow->cover_image)) { ?>
-                                    <input type="hidden" name="cover_image" id="upload-file-selectorserver" style="display:none;">
                                     <span class="upload-file-selector">
                                         <img src="<?php echo base_url();?>assets/images/<?php echo $liferow->cover_image;?>" alt="<?php echo $liferow->title;?>">
                                     </span>
                                 <?php } else { ?>
-                                    <input type="hidden" name="cover_image" id="upload-file-selectorserver" style="display:none;">
                                     <span class="upload-file-selector">
                                         <img src="<?php echo base_url();?>assets/images/flat.png" style="cursor:pointer;padding:124px;"/>
                                         <p class="browseimg">Image SIZE should be smaller than 2MB.</p>

@@ -25,74 +25,74 @@
         <?php } ?>
     </header>
 
-    <div class="top-div"> 
-        <div >
-            <h1 style="text-align:center;color:black;font-family:arial;" class="about">About Us</h1>
-        </div>
-        <div class="intro-txt">We all have stories to tell and we don't want <br>stories to end, there are many ways to continue<br> stories and this platform is one of them.</div>
-    </div>
-    <div style="font-family: 'Muli', sans-serif; text-align: center">
+<div class="top-div"> 
+  <div >
+<h1 style="text-align:center;color:black;font-family:arial;" class="about">About Us</h1>
+  </div>
+<div class="intro-txt">We all have stories to tell and we don't want <br>stories to end, there are many ways to continue<br> stories and this platform is one of them.</div>
+</div>
+<div style="font-family: 'Muli', sans-serif; text-align: center">
         <h2 class="things">Things you can do in here</h2>
-    </div>
+        </div>
 
 <div class="sec-div">
-    <div class="apps">
-        <div>
-            <button style="background:linear-gradient(-60deg, RoyalBlue,aqua);" class="but"><img src="<?php echo base_url();?>assets/images/book-reader-solid.svg" />
-            </button>
-        </div>
-        <font class="title">READ</font>
-    </div> 
-  
-    <div class="apps">
-        <div>
-            <button style="background:linear-gradient(-60deg, yellow,red);" class="but"><img src="<?php echo base_url();?>assets/images/pen-fancy-solid.svg" />
-            </button>
-        </div>
-        <font class="title">WRITE</font>
-    </div> 
 
-    <div class="apps">
-        <div>
-            <button style="background:linear-gradient(-60deg, rgb(47, 68, 52),red);" class="but"><img src="<?php echo base_url();?>assets/images/book-solid.svg" />
-            </button>
-        </div>
-        <font class="title">STORIES</font>
-    </div> 
+ <div class="apps">
+<div>
+  <button style="background:linear-gradient(-60deg, RoyalBlue,aqua);" class="but"><img src="<?php echo base_url();?>assets/images/book-reader-solid.svg" />
+  </button>
+</div>
+<font class="title">READ</font>
+</div> 
+  
+  <div class="apps">
+<div>
+  <button style="background:linear-gradient(-60deg, yellow,red);" class="but"><img src="<?php echo base_url();?>assets/images/pen-fancy-solid.svg" />
+  </button>
+</div>
+<font class="title">WRITE</font>
+</div> 
+
+<div class="apps">
+<div>
+  <button style="background:linear-gradient(-60deg, rgb(47, 68, 52),red);" class="but"><img src="<?php echo base_url();?>assets/images/book-solid.svg" />
+ </button>
+ </div>
+ <font class="title">STORIES</font>
+</div> 
     
     <div class="apps">
-        <div>
-            <button style="background:linear-gradient(-60deg, green,pink);" class="but"><img src="<?php echo base_url();?>assets/images/hiking-solid.svg" />
-            </button>
-        </div>
-        <font class="title">LIFE INCIDENTS</font>
-    </div> 
+<div>
+  <button style="background:linear-gradient(-60deg, green,pink);" class="but"><img src="<?php echo base_url();?>assets/images/hiking-solid.svg" />
+  </button>
+</div>
+<font class="title">LIFE INCIDENTS</font>
+</div> 
     
     <div class="apps">
-        <div>
-            <button style="background:linear-gradient(-60deg, RoyalBlue,brown);" class="but"><img src="<?php echo base_url();?>assets/images/eye-slash-solid.svg" />
-            </button>
-        </div>
-        <font class="title">BE ANONYMOUS</font>
-    </div> 
+<div>
+  <button style="background:linear-gradient(-60deg, RoyalBlue,brown);" class="but"><img src="<?php echo base_url();?>assets/images/eye-slash-solid.svg" />
+  </button>
+</div>
+<font class="title">BE ANONYMOUS</font>
+</div> 
     
     <div class="apps">
-        <div>
-            <button style="background:linear-gradient(-60deg, grey,aqua);" class="but"><img src="<?php echo base_url();?>assets/images/users-solid.svg" />
-            </button>
-        </div>
-        <font class="title">CONNECT</font>
-    </div> 
+<div>
+  <button style="background:linear-gradient(-60deg, grey,aqua);" class="but"><img src="<?php echo base_url();?>assets/images/users-solid.svg" />
+  </button>
+</div>
+<font class="title">CONNECT</font>
+</div> 
     
     
     <div class="apps">
-        <div>
-            <button style="background:linear-gradient(-45deg, brown,grey);" class="but">
-                <img src="<?php echo base_url();?>assets/images/coins-solid.svg" />
-            </button>
-        </div>
-        <font class="title">EARN</font>
-    </div> 
+<div>
+  <button style="background:linear-gradient(-45deg, brown,grey);" class="but"><img src="<?php echo base_url();?>assets/images/coins-solid.svg" />
+  </button>
+</div>
+<font class="title">EARN</font>
+</div> 
 </div>
 
 <div class="final-div"> 
@@ -114,27 +114,27 @@
 </div>
 
 <style>
-.swap-on-hover {
-    position: relative;	
-	margin:  0 auto;
-	max-width: 400px;
+    .swap-on-hover {
+  position: relative;   
+    margin:  0 auto;
+    max-width: 400px;
 }
 .swap-on-hover img {
-    position: absolute;
-    top:0;
-    left:0;
-	overflow: hidden;
-	/* Sets the width and height for the images*/
-	width: 400px;
-	height: 400px;
+  position: absolute;
+  top:0;
+  left:0;
+    overflow: hidden;
+    /* Sets the width and height for the images*/
+    width: 400px;
+    height: 400px;
 }
 .swap-on-hover .swap-on-hover__front-image {
-    z-index: 9999;
-    transition: opacity .5s linear;
-    cursor: pointer;
+  z-index: 9999;
+  transition: opacity .5s linear;
+  cursor: pointer;
 }
 .swap-on-hover:hover > .swap-on-hover__front-image{
-    opacity: 0;
+  opacity: 0;
 }
 </style>
 
@@ -153,10 +153,10 @@
 <div class="footer1">
     <div style="font-size:14px;color:black;font-family: 'Varela Round', sans-serif;">
         <center>
-            <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url();?>blog">BLOG</a></font>
-            <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url();?>contact">CONTACT</a></font>
-            <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url();?>terms-conditions">TERMS</a></font>
-            <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url();?>privacy-policy">PRIVACY</a></font>
+            <font  class="hover-tems"><a href="<?php echo base_url();?>blog">BLOG</a></font>
+            <font  class="hover-tems"><a href="<?php echo base_url();?>contact">CONTACT</a></font>
+            <font  class="hover-tems"><a href="<?php echo base_url();?>terms-conditions">TERMS</a></font>
+            <font  class="hover-tems"><a href="<?php echo base_url();?>privacy-policy">PRIVACY</a></font>
         </center>
     </div>
 </div>

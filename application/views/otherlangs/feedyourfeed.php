@@ -120,7 +120,7 @@
     					<input type="text" name="tcomment" placeholder="Type Comment Message ..." class="form-control" required="">
     					<input type="hidden" name="tcomm_id" value="<?php echo $yourfeed->comm_id; ?>">
     					<span class="input-group-btn">
-    						<button type="submit" class="btn btn-success btn-flat" onclick="tpostscomm_comments(<?php echo $yourfeed->id;?>)"> Comment </button>
+    						<button type="submit" class="btn btn-success btn-flat btnspinner<?php echo $yourfeed->id;?>" onclick="tpostscomm_comments(<?php echo $yourfeed->id;?>)"> Comment </button>
     					</span>
     				</div>
     			</div>

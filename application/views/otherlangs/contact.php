@@ -42,7 +42,7 @@
                 <input class="in" type="email" name="email" placeholder="Email" required="required"/>
                 <input class="in" type="text" name="link" placeholder="Link"/>
                 <textarea placeholder="Description" name="descr" required="required"></textarea>
-                <input name="file" type="file" accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" class="filer">
+                <input style="margin-top:10px" name="file" type="file" accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" class="filer">
                 <div class="submit-button">
                     <button type="submit" name="submit">SUBMIT</button>
                 </div>

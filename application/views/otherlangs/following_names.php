@@ -1,7 +1,7 @@
 <div class="box-header with-border">
+    <?php if(isset($following_names) && ($following_names->num_rows() > 0)) { ?>
     <div class="row" style="margin:0 -10px;" id="fingloadmore">
-        <?php if(isset($following_names) && ($following_names->num_rows() > 0)) {
-        foreach($following_names->result() as $followingkey) { ?>
+        <?php foreach($following_names->result() as $followingkey) { ?>
     		<div class="user-block" style="padding:0 10px; display:flex;">
     		    <span style="width:15%;">
     			    <?php if(isset($followingkey->profile_image) && !empty($followingkey->profile_image)) { ?>
@@ -26,11 +26,12 @@
                     <?php } ?>
     		    </span>
     		</div> <hr style="margin-bottom:8px;">
-        <?php } } else { ?>
-            <center> <h3> You do not following anyone </h3></center>
-           <?php } ?>
-    </div>
-    <div id="fingload_data_message"></div>
+        <?php } ?>
+        </div>
+        <div id="fingload_data_message"></div>
+    <?php }else{ ?>
+        <div class="text-center h3" style="position:absolute;top: 65px;padding: 0% 5%;">You do not following anyone</div>
+    <?php } ?>
 </div>
 
 <script>
@@ -48,10 +49,10 @@
                 success:function(data){
                     $('#fingloadmore').append(data);
                     if(data == '') {
-                        $('#fingload_data_message').html("<center><div class='col-md-12' style='padding-bottom:20px;'> No More Results!</div></center>");
+                        $('#fingload_data_message').html("<center><div class='col-md-12' style='padding-bottom:10px;'> No More Results!</div></center>");
                         fingaction = 'active';
                     }else{
-                        $('#fingload_data_message').html("<center><div class='col-md-12' style='padding-bottom:20px;'> Loading ...</div></center>");
+                        $('#fingload_data_message').html("<center><div class='col-md-12' style='padding-bottom:10px;'> Loading ...</div></center>");
                         fingaction = "inactive";
                     }
                 }
