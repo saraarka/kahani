@@ -32,7 +32,7 @@
                                 <?php foreach($rlseries->result() as $rlseriesrow){ ?>
                                 <div class="cardls" id="rllibdel<?php echo $rlseriesrow->sid;?>">
             					    <div class="book-typels"><?php echo $rlseriesrow->gener;?></div>
-        			    	        <a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $rlseriesrow->title).'-'.$rlseriesrow->sid.'/'.preg_replace('/\s+/', '-', $rlseriesrow->title).'-'.$rlseriesrow->story_id);?>" class="imagesls-style">
+        			    	        <a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u", '-', $rlseriesrow->title).'-'.$rlseriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $rlseriesrow->title).'-'.$rlseriesrow->story_id);?>" class="imagesls-style">
         			    	            <?php if(isset($rlseriesrow->image) && !empty($rlseriesrow->image)) { ?>
         			    	                <img src="<?php echo base_url();?>assets/images/<?php echo $rlseriesrow->image; ?>" alt="<?php echo $rlseriesrow->title;?>" class="imagemels">
         			    	            <?php }else{ ?>
@@ -46,7 +46,7 @@
     			    	            <div class="clear-fix"></div>
             					    <div style="margin-top:-18px;">
     			    	            	<font class="max-linesls">
-    			    	            		<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $rlseriesrow->title).'-'.$rlseriesrow->sid.'/'.preg_replace('/\s+/', '-', $rlseriesrow->title).'-'.$rlseriesrow->story_id);?>">
+    			    	            		<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u", '-', $rlseriesrow->title).'-'.$rlseriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $rlseriesrow->title).'-'.$rlseriesrow->story_id);?>">
     			    	            			<?php echo $rlseriesrow->title;?>
     			    	            		</a>
     			    	            	</font> 
@@ -64,7 +64,7 @@
     									</font><br>
             						</div>
     					            <div class="flextestls" style="padding-top:6px">
-                                        <a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $rlseriesrow->title).'-'.$rlseriesrow->sid.'/'.preg_replace('/\s+/', '-', $rlseriesrow->title).'-'.$rlseriesrow->story_id);?>">
+                                        <a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u", '-', $rlseriesrow->title).'-'.$rlseriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $rlseriesrow->title).'-'.$rlseriesrow->story_id);?>">
 							                <button class="readdone"><i class="fa fa-book"></i> Read Now </button>
 			                            </a>
     		                	        <button type="button" class="btn read dropdown-toggle pull-right" data-toggle="dropdown">
@@ -72,10 +72,10 @@
     		                			</button>
     		                			<ul class="dropdown-menu list-inline dropvk">
     		                				<li onclick="groupsuggest(<?php echo $rlseriesrow->sid; ?>);">
-    		                					<a href="javascript:void(0)" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+    		                					<a href="javascript:void(0)" title="COMMUNITY"><i class="fa fa-users"></i></a>
     		                				</li>
     		                				<li onclick="friend(<?php echo $rlseriesrow->sid;?>);">
-    		                					<a href="javascript:void(0)" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+    		                					<a href="javascript:void(0)" title="SUGGEST"><i class="fa fa-user"></i></a>
     		                				</li>
     		                				<li onclick="socialshare(<?php echo $rlseriesrow->sid;?>, 'series');">
     		                					<a data-toggle="modal" data-target="#soc" href="javascript:void(0)" title="SOCIAL">
@@ -100,7 +100,7 @@
                             <?php foreach($rlstories->result() as $rlstoryrow) { ?>
                     		    <div class="cardls" id="rllibdel<?php echo $rlstoryrow->sid;?>">
 							        <div class="book-type"><?php echo $rlstoryrow->gener;?></div>
-    								<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $rlstoryrow->title).'-'.$rlstoryrow->sid);?>" class="imagesls-style">
+    								<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $rlstoryrow->title).'-'.$rlstoryrow->sid);?>" class="imagesls-style">
         								<?php if(isset($rlstoryrow->image) && !empty($rlstoryrow->image)) { ?>
         							        <img src="<?php echo base_url();?>assets/images/<?php echo $rlstoryrow->image; ?>" alt="<?php echo $rlstoryrow->title;?>" class="imagemels">
         							    <?php }else{ ?>
@@ -114,7 +114,7 @@
 					    	        <div class="clear-fix"></div>
                         			<div style="margin-top:-18px;">
         								<font class="max-lines">
-        									<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $rlstoryrow->title).'-'.$rlstoryrow->sid);?>" class="product-title">
+        									<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $rlstoryrow->title).'-'.$rlstoryrow->sid);?>" class="product-title">
         									    <?php echo $rlstoryrow->title;?>
         									</a>
         								</font> 
@@ -141,7 +141,7 @@
         								</font><br>
         							</div>
 							        <div class="flextest" style="padding-top:6px">
-							            <a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $rlstoryrow->title).'-'.$rlstoryrow->sid);?>">
+							            <a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $rlstoryrow->title).'-'.$rlstoryrow->sid);?>">
 							                <button class="readdone"><i class="fa fa-book"></i> Read Now </button>
 			                            </a>
         								<button type="button" class="btn read dropdown-toggle pull-right" data-toggle="dropdown">
@@ -149,10 +149,10 @@
         								</button>
         								<ul class="dropdown-menu list-inline dropvk">
         									<li onclick="groupsuggest(<?php echo $rlstoryrow->sid; ?>);">
-        										<a href="javascript:void(0)" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+        										<a href="javascript:void(0)" title="COMMUNITY"><i class="fa fa-users"></i></a>
         									</li>
         									<li onclick="friend(<?php echo $rlstoryrow->sid;?>);">
-        										<a href="javascript:void(0)" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+        										<a href="javascript:void(0)" title="SUGGEST"><i class="fa fa-user"></i></a>
         									</li>
         									<li onclick="socialshare(<?php echo $rlstoryrow->sid;?>, 'story');">
         										<a data-toggle="modal" data-target="#soc" href="javascript:void(0)" title="SOCIAL">
@@ -177,7 +177,7 @@
             		    <div class="jc-m" style="display:flex; flex-wrap:wrap; margin-bottom:25px;">
                             <?php foreach($rllife->result() as $rlliferow) { ?>
                                 <div class="card1" style="margin-top:10px" id="rllibdel<?php echo $rlliferow->sid;?>">
-        							<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $rlliferow->title).'-'.$rlliferow->sid);?>" class="imagelife-style">
+        							<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $rlliferow->title).'-'.$rlliferow->sid);?>" class="imagelife-style">
             							<?php if(isset($rlliferow->image) && !empty($rlliferow->image)) { ?>
             								<img src="<?php echo base_url();?>assets/images/<?php echo $rlliferow->image; ?>" alt="<?php echo $rlliferow->title;?>" class="imageme1">
             							<?php }else{ ?>
@@ -191,7 +191,7 @@
 					    	        <div class="clear-fix"></div>
         							<div style="margin-top:-22px;">
             							<font class="max-lines">
-            								<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $rlliferow->title).'-'.$rlliferow->sid);?>"><?php echo $rlliferow->title;?></a>
+            								<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $rlliferow->title).'-'.$rlliferow->sid);?>"><?php echo $rlliferow->title;?></a>
             							</font> 
         							</div>
         							<div class="flextest">
@@ -206,7 +206,7 @@
         								<font class="lifeEvents-text"><?php echo mb_substr(strip_tags($rlliferow->story),0,150);?> </font>
         							</div>
     							    <div class="flextest" style="padding-top:6px">
-    							        <a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $rlliferow->title).'-'.$rlliferow->sid);?>">
+    							        <a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $rlliferow->title).'-'.$rlliferow->sid);?>">
 							                <button class="readdone"><i class="fa fa-book"></i> Read Now </button>
 							            </a>
         								<button type="button" class="btn read dropdown-toggle pull-right" data-toggle="dropdown">
@@ -214,10 +214,10 @@
         								</button>
         								<ul class="dropdown-menu list-inline dropvklife">
         									<li onclick="groupsuggest(<?php echo $rlliferow->sid; ?>);">
-        										<a href="javascript:void(0)" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+        										<a href="javascript:void(0)" title="COMMUNITY"><i class="fa fa-users"></i></a>
         									</li>
         									<li onclick="friend(<?php echo $rlliferow->sid;?>);">
-        										<a href="javascript:void(0)" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+        										<a href="javascript:void(0)" title="SUGGEST"><i class="fa fa-user"></i></a>
         									</li>
         									<li onclick="socialshare(<?php echo $rlliferow->sid;?>, 'story');">
         										<a data-toggle="modal" data-target="#soc" href="javascript:void(0)" title="SOCIAL">
@@ -275,32 +275,32 @@
 <!-- Social Popup ---- -->
 <div class="modal fade" id="soc">
 	<div class="modal-dialog">
-		<div class="modal-content socv ">
+		<div class="modal-content socv">
 			<div class="modal-header" style="padding:8px 15px;">
-				<button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px;margin-bottom:-2px;" data-dismiss="modal" aria-label="Close">
+				<button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px; margin-bottom:-2px;" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span></button>
 				<h5 class="modal-title text-center" style="color:#808182;">SOCIAL MEDIA SHARE</h5>
 			</div>
 			<div class="" style="padding-top:10px;">
 				<div class="row">
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
-						<a href="javascript:void(0);" class="facebookshare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/><p class="socialsharepopupspan">Facebook</p></a>
-					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
-					    <a href="javascript:void(0);" class="whatsappshare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-10px;"/><p class="socialsharepopupspan">Whatsapp</p></a>
-					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
-						<a href="javascript:void(0);" class="twittershare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Twitter</p></a>
-					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;">
-						<a href="javascript:void(0);" onclick="copylinkshare('#copylinkshare')" class="socsh">
-						    <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px;height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Copy to link</p></a>
-					    <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">
-					</div>
-				</div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+                        <a href="javascript:void(0);" class="facebookshare socsh">
+                            <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Facebook</p></a>
+                    </div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+                        <a href="javascript:void(0);" class="whatsappshare socsh">
+                            <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Whatsapp</p></a>
+                    </div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+                        <a href="javascript:void(0);" class="twittershare socsh">
+                            <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Twitter</p></a>
+                    </div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;">
+                        <a href="javascript:void(0);" onclick="copylinkshare('#copylinkshare')" class="socsh">
+                            <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Copy to link</p></a>
+                        <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">
+                    </div>
+                </div>
 			</div>
 		</div>
 	<!-- /.modal-content -->

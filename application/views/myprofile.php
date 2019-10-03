@@ -19,8 +19,7 @@
                                               <img class="img-circle" src="<?php echo base_url();?>assets/images/2.png" style="width:85px; height:80px;" alt="<?php echo $row->name;?>">
                                         <?php } ?>
                                     </div>
-    					             <h3 class="widget-user-username clrvk" style="color:#fff; margin-left:100px;"><b>
-    					                 <?php echo $row->name;?> </b></h3>
+    					             <h3 class="widget-user-username clrvk" style="color:#fff; margin-left:100px;"><b><?php echo $row->name;?> </b></h3>
     					             <?php if($row->user_activation == 1){ ?>
     					                 
     			                     <?php } ?>
@@ -52,8 +51,7 @@
                                               <img class="img-circle" src="<?php echo base_url();?>assets/images/2.png" style="width:85px; height:80px;" alt="<?php echo $row->name;?>">
                                         <?php } ?>
                                     </div>
-    					             <h3 class="widget-user-username clrvk" style="color:#fff; margin-left:100px;"><b>
-    					                 <?php echo $row->name;?></b></h3>
+    					             <h3 class="widget-user-username clrvk" style="color:#fff; margin-left:100px;"><b><?php echo $row->name;?></b></h3>
     					             <?php if($row->user_activation == 1){ ?>
     					                 
     			                     <?php } ?>
@@ -120,9 +118,9 @@
     											</ul>
     											<div class="tab-content modal-bodyv">
 										            <div class="tab-pane active" id="tab_1">
-											            <div class="box-header with-border">
-												            <?php if(isset($followers_names) && ($followers_names->num_rows() > 0)){ ?>
-												                <div class="row" style="margin:0 -10px;" id="fersloadmore">
+                                                        <div class="box-header with-border">
+                                                            <?php if(isset($followers_names) && ($followers_names->num_rows() > 0)){ ?>
+                                                                <div class="row" style="margin:0 -10px;" id="fersloadmore">
                                                                     <?php foreach($followers_names->result() as $followerskey) { ?>
                                                                         <div class="user-block" style="padding:0 10px; display:flex;">
                                                                             <span style="width:15%;">
@@ -143,7 +141,7 @@
                                                                                 <?php if(isset($following) && in_array($followerskey->user_id, $following)) { ?>
                                                                                     <button  class="pull-right vjw btn btn-primary notloginmodal unfollow-font unfollow<?php echo $followerskey->user_id;?>" onclick="writerunfollow(<?php echo $followerskey->user_id;?>,'<?php echo $followerskey->name;?>')"> FOLLOWING </button>
                                                                                 <?php } else { ?>
-                                                                                    <button  class="pull-right vjw btn btn-success notloginmodal follow-font follow<?php echo $followerskey->user_id;?>" onclick="writerfollow(<?php echo $followerskey->user_id;?>,'<?php echo $followerskey->name;?>')"> FOLLOW </button>
+                                                                                    <button class="pull-right vjw btn btn-success notloginmodal follow-font follow<?php echo $followerskey->user_id;?>" onclick="writerfollow(<?php echo $followerskey->user_id;?>,'<?php echo $followerskey->name;?>')"> FOLLOW </button>
                                                                                 <?php } ?>
                                                                                 <?php } ?>
                                                                             </span>
@@ -152,9 +150,9 @@
                                                                 </div>
                                                                 <div id="fersload_data_message"></div>
                                                             <?php } else { ?>
-											                    <div class="text-center h3" style="position:absolute;top:55px;">This user is not following anyone. </div>
-       									                    <?php } ?>
-											            </div>
+                                                                <div class="text-center h3" style="position:absolute;top:55px;">This user is not following anyone. </div>
+                                                            <?php } ?>
+                                                        </div>
 										            </div>
 										            <div class="tab-pane" id="tab_2">
 										                <div id="tabreadingg" style="margin-top:40px;">
@@ -190,7 +188,7 @@
 		            </div>
 	            </div>
             </section>
-        <?php }  }  ?>
+        <?php }  } ?>
         <section class="content pv-0" style="padding-top: 30px;">
             <div class="" style="display:flex; flex-wrap:wrap; text-justify:center;">
         		<div class="sidebar side1">
@@ -217,7 +215,7 @@
                                            <input type="hidden" name="profile_id" id="profile_id" value="<?php echo $userid; ?>">
                                            <input type="hidden" name="comment_id" id="comment_id" value="">
                                         </div>
-                                        <div class=""  style="padding-left:10px;">
+                                        <div class="" style="padding-left:10px;">
                                             <button class="btn btn-success" style="margin-top: 8px;"><i class="fa fa-envelope" aria-hidden="true"></i></button>
                                         </div>
                                     </div>
@@ -513,7 +511,7 @@
 		                        							<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
 		                        						</li>
 		                        						<li onclick="friend(<?php echo $liferow->sid;?>);">
-		                        							<a data-toggle="modal" data-target="#friendsuggest" href="javascript:void(0);"  title="SUGGEST"><i class="fa fa-user"></i></a>
+		                        							<a href="javascript:void(0);"  title="SUGGEST"><i class="fa fa-user"></i></a>
 		                        						</li>
 		                        						<li onclick="socialshare(<?php echo $liferow->sid;?>, 'story');">
 		                        							<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -661,44 +659,41 @@
                         						<font class="text-in-nanostory-p" style="border-left:none; overflow-y:scroll;"><?php echo $wmnanorow->story;?></font>
                         					</div>
                         					<div class="modal-footer">
-                        						<ul class="list-inline">
+                                                <ul class="list-inline">
                                                     <li class="text-muted pull-left" style="display:flex;">
                                                         <?php if(isset($this->session->userdata['logged_in']['user_id'])){
                                                             if(isset($nanolikes) && in_array($wmnanorow->sid,$nanolikes)) { ?>
-                                                        	  
                                                         	    <a href="javascript:void(0);" onclick="nanodislike(<?php echo $wmnanorow->sid;?>);" class="nanolike<?php echo $wmnanorow->sid;?>" title="Unlike">
                                                         			<i class="fa fa-heart favbtn<?php echo $wmnanorow->sid;?>" style="color:#f00; padding-left:3px;font-size:20px;"></i>
                                                         		</a> &nbsp;
                                                         		  <span class="nanolikecount<?php echo $wmnanorow->sid;?>"><?php echo $wmnanorow->nanolikecount;?></span>
                                                         	<?php } else { ?>
-                                                        	
                                                         	    <a href="javascript:void(0);" onclick="nanolike(<?php echo $wmnanorow->sid;?>);" class="nanolike<?php echo $wmnanorow->sid;?>" title="like">
                                                         			<i class="fa fa-heart-o favbtn<?php echo $wmnanorow->sid;?>" style="color:#f00; padding-left:3px;font-size:20px;"></i>
                                                         		</a> &nbsp;
                                                         			<span class="nanolikecount<?php echo $wmnanorow->sid;?>"><?php echo $wmnanorow->nanolikecount;?></span>
                                                         <?php } } else{ ?>
-                                                           
                                                             <a href="javascript:void(0);" class="notloginmodal" title="like">
                                                         		<i class="fa fa-heart-o favbtn<?php echo $wmnanorow->sid;?>" style="color:#f00; padding-left:3px;font-size:20px;"></i>
                                                         	</a> &nbsp;
                                                         	 <span class="nanolikecount<?php echo $wmnanorow->sid;?>"><?php echo $wmnanorow->nanolikecount;?></span>
                                                         <?php } ?>
                                                     </li>
-                        							<li class="pull-right">
-                        								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
+                                                	<li class="pull-right">
+                                                		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
                                                         <ul class="dropdown-menu list-inline dropvknano1" style="margin-top:2px;">
                                                             <li onclick="groupsuggest(<?php echo $wmnanorow->sid; ?>);">
-		                        								<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
-		                        							</li>
-		                        							<li onclick="friend(<?php echo $wmnanorow->sid;?>);">
-		                        								<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
-		                        							</li>
-		                        							<li onclick="socialshare(<?php echo $wmnanorow->sid;?>, 'nano');">
-                    											<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
-                    										</li>
+                                                				<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                                			</li>
+                                                			<li onclick="friend(<?php echo $wmnanorow->sid;?>);">
+                                                				<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+                                                			</li>
+                                                			<li onclick="socialshare(<?php echo $wmnanorow->sid;?>, 'nano');">
+                                                				<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
+                                                			</li>
                                                         </ul>
-                        							</li>
-                        						</ul>
+                                                	</li>
+                                                </ul>
                         					</div>
                         				</div> <!-- /.modal-content -->
                         			</div> <!-- /.modal-dialog -->
@@ -731,7 +726,7 @@
                         </div> <!-- tab 1 -->
 
                        <!--  ------------------------------------------------------ -->
-                       <div class="clearfix"></div>
+                        <div class="clearfix"></div>
                         <div class="tab-pane" id="tab_reading">
                             <div class="pull-right" style="padding-top:10px;">
         			            <span> Reading List : &nbsp; </span> 
@@ -799,7 +794,7 @@
 <!-- Social Popup ---- -->
 <div class="modal fade" id="soc">
 	<div class="modal-dialog">
-		<div class="modal-content socv ">
+		<div class="modal-content socv">
 			<div class="modal-header" style="padding:8px 15px;">
 				<button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px; margin-bottom:-2px;" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span></button>
@@ -1235,7 +1230,7 @@ function editpro_comment(commentid){
                                                 '<i class="fa fa-pencil"></i> EDIT</span></a></li>'+
                                             '<li><a href="javascript:void(0);"><span onclick="deletepro_comment('+datares.response[0].cid+');">'+
                                                 '<i class="fa fa-trash"></i> DELETE</span></a></li>'+
-                                        '</ul>'+                
+                                        '</ul>'+
                                     '</span><div style="color:#777; font-size:11px;margin-top:-4px;">1 minute ago</div>'+
                                     '<p class="pcomment'+datares.response[0].cid+'">'+datares.response[0].pro_comment+'</p></div>'+
                                     '</div></li>';
@@ -1676,6 +1671,6 @@ function copylinkshare(element) {
 </script>
 <script>
    var lazyLoadInstance = new LazyLoad({
-    elements_selector: ".lazy"
+        elements_selector: ".lazy"
    });
-  </script>
+</script>

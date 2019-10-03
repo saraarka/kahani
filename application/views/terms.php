@@ -19,15 +19,15 @@
 </head>
 <body>
 <header>
-        <font style="background: linear-gradient(to right, green 0%, #5658ae 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;margin-left:15px;color: white"><a href="<?php echo base_url();?>">StoryCarry.com</a></font>
-        <?php if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){ ?>
-            <font class="login-but"><a href="<?php echo base_url();?>">HOME</a></font>
-        <?php } else{ ?>
-            <font class="login-but pull-right" style="float:right;"><a href="<?php echo base_url();?>">SIGN UP</a></font>
-        <?php } ?>
-    </header>
+    <font style="background: linear-gradient(to right, green 0%, #5658ae 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;margin-left:15px;color: white"><a href="<?php echo base_url();?>">StoryCarry.com</a></font>
+    <?php if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){ ?>
+        <font class="login-but"><a href="<?php echo base_url();?>">HOME</a></font>
+    <?php } else{ ?>
+        <font class="login-but pull-right" style="float:right;"><a href="<?php echo base_url();?>">SIGN UP</a></font>
+    <?php } ?>
+</header>
 
 <div class="main-content"> 
     <div class="body-padding">
@@ -69,10 +69,10 @@
     <div class="footer1">
         <div style="font-size:14px;color:black;font-family:'Varela Round',sans-serif;">
             <center>
-                <font  class="hover-tems"><a href="<?php echo base_url();?>about">ABOUT</a></font>
-                <font  class="hover-tems"><a href="<?php echo base_url();?>blog">BLOG</a></font>
-                <font  class="hover-tems"><a href="<?php echo base_url();?>contact">CONTACT</a></font>
-                <font  class="hover-tems"><a href="<?php echo base_url();?>privacy-policy">PRIVACY</a></font>
+                <font class="hover-tems"><a href="<?php echo base_url();?>about">ABOUT</a></font>
+                <font class="hover-tems"><a href="<?php echo base_url();?>blog">BLOG</a></font>
+                <font class="hover-tems"><a href="<?php echo base_url();?>contact">CONTACT</a></font>
+                <font class="hover-tems"><a href="<?php echo base_url();?>privacy-policy">PRIVACY</a></font>
             </center>
         </div>
     </div>

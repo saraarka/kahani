@@ -50,10 +50,10 @@ if(isset($rlseries) && ($rlseries->num_rows() > 0)){ ?>
     			</button>
     			<ul class="dropdown-menu list-inline dropvk">
     				<li onclick="groupsuggest(<?php echo $rlseriesrow->sid; ?>);">
-    					<a data-toggle="modal" data-target="#groupsuggest" href="javascript:void(0);"  title="COMMUNITY"><i class="fa fa-users"></i></a>
-    				</li>
-    				<li onclick="friend(<?php echo $rlseriesrow->sid;?>);">
-    					<a data-toggle="modal" data-target="#friendsuggest" href="javascript:void(0);"  title="SUGGEST"><i class="fa fa-user"></i></a>
+    					<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                    </li>
+                    <li onclick="friend(<?php echo $rlseriesrow->sid;?>);">
+                        <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     				</li>
     				<li onclick="socialshare(<?php echo $rlseriesrow->sid;?>,'series');">
     					<a data-toggle="modal" data-target="#soc"  href="javascript:void(0);"  title="SOCIAL">
@@ -129,10 +129,10 @@ if(isset($rlseries) && ($rlseries->num_rows() > 0)){ ?>
         		</button>
         		<ul class="dropdown-menu list-inline dropvk">
         			<li onclick="groupsuggest(<?php echo $rlstoryrow->sid; ?>);">
-        				<a data-toggle="modal" data-target="#groupsuggest" href="javascript:void(0);"  title="COMMUNITY"><i class="fa fa-users"></i></a>
-        			</li>
-        			<li onclick="friend(<?php echo $rlstoryrow->sid;?>);">
-        				<a data-toggle="modal" data-target="#friendsuggest" href="javascript:void(0);"  title="SUGGEST"><i class="fa fa-user"></i></a>
+        				<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                    </li>
+                    <li onclick="friend(<?php echo $rlstoryrow->sid;?>);">
+                        <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
         			</li>
         			<li onclick="socialshare(<?php echo $rlstoryrow->sid;?>, 'story');">
         				<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -194,10 +194,10 @@ if(isset($rlseries) && ($rlseries->num_rows() > 0)){ ?>
     			</button>
     			<ul class="dropdown-menu list-inline dropvklife">
     				<li onclick="groupsuggest(<?php echo $rlliferow->sid; ?>);">
-    					<a data-toggle="modal" data-target="#groupsuggest"  href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
-    				</li>
-    				<li onclick="friend(<?php echo $rlliferow->sid;?>);">
-    					<a data-toggle="modal" data-target="#friendsuggest"  href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+    					<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                    </li>
+                    <li onclick="friend(<?php echo $rlliferow->sid;?>);">
+                        <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     				</li>
     				<li onclick="socialshare(<?php echo $rlliferow->sid;?>, 'story');">
     					<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">

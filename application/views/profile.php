@@ -8,7 +8,7 @@
                     if(!empty($row->aboutus)){ $about = $row->aboutus; }
                     $readingliststatus = $row->readinglist; $email = $row->email; $phone = $row->phone; 
                     $uemailstatus = $row->uemailstatus; $uphonestatus = $row->uphonestatus;  ?>
-                <div class= "pd-0 col-md-12">
+                <div class="pd-0 col-md-12">
                     <div class="box box-widget widget-user-2 ovv">
                         <?php if(isset($row->banner_image) && !empty($row->banner_image)) { ?>
                         <div class="widget-user-header ovv  profile1 bgvv" style="padding:0px; background: url('<?php echo base_url();?>assets/images/<?php echo $row->banner_image; ?>')center center;background-repeat: no-repeat;background-size: cover;">
@@ -99,7 +99,7 @@
     							</div>
                                 <div class="modal fade" id="fmodal-defaultf"> <!-- Modelpop up -->
                                     <div class="modal-dialog">
-                                        <div class="modal-content  modalf" style="padding:0">
+                                        <div class="modal-content modalf" style="padding:0">
                                             <div class="modal-body" style="padding:0">
                                                 <ul class="nav nav-tabs" style="border-bottom:1px #ddd;">
                                                     <li class="active"><a href="#tab_1" data-toggle="tab"><b>FOLLOWERS</b></a></li>
@@ -132,9 +132,9 @@
                                                                                     <button class="vjw btn btn-success pull-right" onclick="yoursfollow()" > FOLLOW </button>
                                                                                 <?php } else { ?>
                                                                                 <?php if(isset($following) && in_array($followerskey->user_id, $following)) { ?>
-                                                                                    <button  class="pull-right vjw btn btn-primary unfollow-font notloginmodal unfollow<?php echo $followerskey->user_id;?>" onclick="writerunfollow(<?php echo $followerskey->user_id;?>,'<?php echo $followerskey->name;?>')"> FOLLOWING </button>
+                                                                                    <button class="pull-right vjw btn btn-primary unfollow-font notloginmodal unfollow<?php echo $followerskey->user_id;?>" onclick="writerunfollow(<?php echo $followerskey->user_id;?>,'<?php echo $followerskey->name;?>')"> FOLLOWING </button>
                                                                                 <?php } else { ?>
-                                                                                    <button  class="pull-right vjw btn btn-success  follow-font notloginmodal follow<?php echo $followerskey->user_id;?>" onclick="writerfollow(<?php echo $followerskey->user_id;?>,'<?php echo $followerskey->name;?>')"> FOLLOW </button>
+                                                                                    <button class="pull-right vjw btn btn-success follow-font notloginmodal follow<?php echo $followerskey->user_id;?>" onclick="writerfollow(<?php echo $followerskey->user_id;?>,'<?php echo $followerskey->name;?>')"> FOLLOW </button>
                                                                                 <?php } ?>
                                                                                 <?php } ?>
                                                                             </span>
@@ -169,9 +169,9 @@
                                         <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $row->user_id)){ ?>
                                         <?php } else { ?>
                                             <?php if(isset($following) && in_array($row->user_id, $following)) { ?>
-                                                <button style=" padding:6px 12px;" class="btn btn-primary unfollow-font notloginmodal unfollow<?php echo $row->user_id;?>" onclick="writerunfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOWING </button>
+                                                <button style="padding:6px 12px;" class="btn btn-primary unfollow-font notloginmodal unfollow<?php echo $row->user_id;?>" onclick="writerunfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOWING </button>
                                             <?php } else { ?>
-                                                <button style=" padding:6px 12px;" class="btn btn-success follow-font notloginmodal follow<?php echo $row->user_id;?>" onclick="writerfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOW </button>
+                                                <button style="padding:6px 12px;" class="btn btn-success follow-font notloginmodal follow<?php echo $row->user_id;?>" onclick="writerfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOW </button>
                                             <?php } ?>
                                         <?php } ?>
                                     </div><!-- /.description-block -->
@@ -598,7 +598,6 @@
                         								<?php if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){
                         								    if(isset($nanolikes) && in_array($wnanorow->sid,$nanolikes)) { ?>
                             								<font>
-                            								  
                             								    <a href="javascript:void(0);" onclick="nanodislike(<?php echo $wnanorow->sid;?>);" class="nanolike<?php echo $wnanorow->sid;?>" title="Unlike">
                             										<i class="fa fa-heart favbtn<?php echo $wnanorow->sid;?>" style="color:#f00; padding-top:5px;"></i>
                             									</a>
@@ -606,7 +605,6 @@
                             								</font>
                             							    <?php } else { ?>
                             							    <font>
-                            							      
                             								    <a href="javascript:void(0);" onclick="nanolike(<?php echo $wnanorow->sid;?>);" class="nanolike<?php echo $wnanorow->sid;?>" title="like">
                             										<i class="fa fa-heart-o favbtn<?php echo $wnanorow->sid;?>" style="color:#f00; padding-top:5px;"></i>
                             									</a>
@@ -614,7 +612,6 @@
                             								</font>
                             							    <?php } }else { ?>
                             							    <font>
-                            								   
                             								    <a href="javascript:void(0);" class="notloginmodal" title="like">
                             										<i class="fa fa-heart-o" style="color:#f00; padding-top:5px;"></i>
                             									</a>
@@ -691,7 +688,6 @@
                                                         		</a> &nbsp;
                                                         		<span class="nanolikecount<?php echo $wmnanorow->sid;?>"><?php echo $wmnanorow->nanolikecount;?></span>
                                                         <?php } } else{ ?>
-                                                          
                                                             <a href="javascript:void(0);" class="notloginmodal" title="like">
                                                         		<i class="fa fa-heart-o favbtn<?php echo $wmnanorow->sid;?>" style="color:#f00; padding-left:3px;font-size:20px;"></i>
                                                         	</a> &nbsp;
@@ -1148,7 +1144,7 @@ function addreplycomment(commentid){
                                             '<i class="fa fa-pencil"></i> EDIT</span></a></li>'+
                                         '<li><a href="javascript:void(0);"><span onclick="deletepro_comment('+datares.response[0].cid+');">'+
                                             '<i class="fa fa-trash"></i> DELETE</span></a></li>'+
-                                    '</ul>'+                
+                                    '</ul>'+
                                 '</span><div style="color:#777; font-size:11px;margin-top:-4px;">1 minute ago</div>'+
                                 '<p style="margin: 8px 0px 2px 0px;" class="pcomment'+datares.response[0].cid+'">'+datares.response[0].pro_comment+'</p></div>'+
                                 '</div></li>';
@@ -1586,7 +1582,7 @@ function copylinkshare(element) {
     });
 </script>
 <script>
-   var lazyLoadInstance = new LazyLoad({
-    elements_selector: ".lazy"
-   });
-  </script>
+    var lazyLoadInstance = new LazyLoad({
+        elements_selector: ".lazy"
+    });
+</script>

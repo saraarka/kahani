@@ -24,5 +24,5 @@
             <button class="pull-right vjw btn btn-success notloginmodal follow<?php echo $comm_joinie->user_id;?>" onclick="writerfollow(<?php echo $comm_joinie->user_id;?>,'<?php echo $comm_joinie->username;?>')"> FOLLOW </button>
         <?php } ?>
         </span>
-        </div><hr>
+    </div><hr>
 <?php } } ?>

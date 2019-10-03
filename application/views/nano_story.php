@@ -65,54 +65,53 @@
             /* popup delete cancel buttons css end */
             
 
-/*snackbar css start */
-/* The snackbar - position it at the bottom and in the middle of the screen */
-#snackbar {
-  visibility: hidden; /* Hidden by default. Visible on click */
-  min-width: 250px; /* Set a default minimum width */
-  background-color: #333; /* Black background color */
-  color: #fff; /* White text color */
-  text-align: center; /* Centered text */
-  border-radius: 2px; /* Rounded borders */
-  padding: 16px; /* Padding */
-  position: fixed; /* Sit on top of the screen */
-  z-index: 1; /* Add a z-index if needed */
-  left: 50%; /* Center the snackbar */
-  bottom: 30px; /* 30px from the bottom */
-  transform: translateX(-50%);
-}
+            /*snackbar css start */
+            /* The snackbar - position it at the bottom and in the middle of the screen */
+            #snackbar {
+              visibility: hidden; /* Hidden by default. Visible on click */
+              min-width: 250px; /* Set a default minimum width */
+              background-color: #333; /* Black background color */
+              color: #fff; /* White text color */
+              text-align: center; /* Centered text */
+              border-radius: 2px; /* Rounded borders */
+              padding: 16px; /* Padding */
+              position: fixed; /* Sit on top of the screen */
+              z-index: 1; /* Add a z-index if needed */
+              left: 50%; /* Center the snackbar */
+              bottom: 30px; /* 30px from the bottom */
+              transform: translateX(-50%);
+            }
 
-/* Show the snackbar when clicking on a button (class added with JavaScript) */
-#snackbar.show {
-  visibility: visible; /* Show the snackbar */
-  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
-  However, delay the fade out process for 2.5 seconds */
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 10.5s;
-  animation: fadein 0.5s, fadeout 0.5s 10.5s;
-}
+            /* Show the snackbar when clicking on a button (class added with JavaScript) */
+            #snackbar.show {
+              visibility: visible; /* Show the snackbar */
+              /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+              However, delay the fade out process for 2.5 seconds */
+              -webkit-animation: fadein 0.5s, fadeout 0.5s 10.5s;
+              animation: fadein 0.5s, fadeout 0.5s 10.5s;
+            }
 
-/* Animations to fade the snackbar in and out */
-@-webkit-keyframes fadein {
-  from {bottom: 0; opacity: 0;} 
-  to {bottom: 30px; opacity: 1;}
-}
+            /* Animations to fade the snackbar in and out */
+            @-webkit-keyframes fadein {
+              from {bottom: 0; opacity: 0;} 
+              to {bottom: 30px; opacity: 1;}
+            }
 
-@keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
-}
+            @keyframes fadein {
+              from {bottom: 0; opacity: 0;}
+              to {bottom: 30px; opacity: 1;}
+            }
 
-@-webkit-keyframes fadeout {
-  from {bottom: 30px; opacity: 1;} 
-  to {bottom: 0; opacity: 0;}
-}
+            @-webkit-keyframes fadeout {
+              from {bottom: 30px; opacity: 1;} 
+              to {bottom: 0; opacity: 0;}
+            }
 
-@keyframes fadeout {
-  from {bottom: 30px; opacity: 1;}
-  to {bottom: 0; opacity: 0;}
-}
-/*snackbar css end */
-            
+            @keyframes fadeout {
+              from {bottom: 30px; opacity: 1;}
+              to {bottom: 0; opacity: 0;}
+            }
+            /*snackbar css end */
         </style>
     </head>
     <body>
@@ -183,6 +182,23 @@
             </div>
         </div>
 
+        <!-- Delete confirm popup start -->
+        <div class="modal-wrapper" id="confirmdelpopup">
+            <div class="modal">
+                <div class="popup-head">
+                    <div class="popup-headtext">Are You Sure? Do you want to Delete?</div>
+                </div>
+                <div class="popup-content">
+                    <p class="deletemessage"></p>
+                    <center>
+                        <button type="button" data-dismiss="modal" class="btn btn-primary" id="delconfirmed">Delete</button>
+                        <button type="button" data-dismiss="modal" class="btn delcancelled">Cancel</button>
+                    </center>
+                </div>
+            </div>
+        </div>
+        <!-- Delete confirm popup end -->
+
 <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <script>
     var text_max = 1000;
@@ -227,22 +243,7 @@ function submit(){
     }
 }
 </script>
-<!-- Delete confirm popup start -->
-<div class="modal-wrapper" id="confirmdelpopup">
-    <div class="modal">
-        <div class="popup-head">
-            <div class="popup-headtext">Are You Sure? Do you want to Delete?</div>
-        </div>
-        <div class="popup-content">
-            <p class="deletemessage"></p>
-            <center>
-                <button type="button" data-dismiss="modal" class="btn btn-primary" id="delconfirmed">Delete</button>
-                <button type="button" data-dismiss="modal" class="btn delcancelled">Cancel</button>
-            </center>
-        </div>
-    </div>
-</div>
-<!-- Delete confirm popup end -->
+
 <script>
     history.pushState(null, document.title, location.href);
     window.addEventListener('popstate', function (event) {

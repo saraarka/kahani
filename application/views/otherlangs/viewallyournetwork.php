@@ -40,7 +40,7 @@
     						</div>
     									
     						<div class="flextestls" style="padding-top:4px;">
-    							<font class = "episodesls">
+    							<font class="episodesls">
     								<font>
     									<?php $wordcount = explode(' ', $yournetworkrow->story);
     								$time = round(sizeof($wordcount)/50);	?>
@@ -79,10 +79,10 @@
     							</button>
     							<ul class="dropdown-menu list-inline dropvk">
     								<li onclick="groupsuggest(<?php echo $yournetworkrow->sid; ?>);">
-    									<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
-    								</li>
-    								<li onclick="friend(<?php echo $yournetworkrow->sid;?>);">
-    									<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+    									<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                    </li>
+                                    <li onclick="friend(<?php echo $yournetworkrow->sid;?>);">
+                                        <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     								</li>
     								<li onclick="socialshare(<?php echo $yournetworkrow->sid;?>, 'story');">
     									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -192,7 +192,7 @@
             if ($(window).scrollTop() >= (($("#loadmoreall").height() - $(window).height())*0.6) && action == 'inactive'){
                 action = 'active';
                 start = start + limit;
-                setTimeout(function(){load_country_data(limit, start);}, 500);
+                setTimeout(function(){load_country_data(limit, start);}, 50);
             }
         });
     });

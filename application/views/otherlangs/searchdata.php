@@ -33,16 +33,6 @@
 	            	</li>
 	            </ul>
 	        </div>
-	        <div class="hidden-md hidden-lg" style="margin-bottom:20px;">		
-    	        <center>		
-        	        <div style="margin:10.8% auto">		
-        	            <div style="width:150px;">		
-        	                <img src="<?php echo base_url();?>assets/images/nodata.svg" class="img-responsive" style="width:100%;" alt="No Data">		
-        	            </div>		
-        	            <div style="font-family: arial,sans-serif;margin-top:5px;"><center>NO STORIES FOUND</center></div>		
-        	        </div>		
-        	    </center>		
-    	    </div>
             <div class="">
         	    <!-- Series Start -->	
             	<?php if(isset($get_series) && ($get_series->num_rows() > 0)){ $pagestoriescount = $pagestoriescount+$get_series->num_rows(); ?>
@@ -62,9 +52,9 @@
     						    <div class="book-type"><?php echo $seriesrow->gener;?></div>
     							<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u", '-', $seriesrow->title).'-'.$seriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $seriesrow->title).'-'.$seriesrow->story_id);?>" class="imagess-style">
         							<?php if(isset($seriesrow->image) && !empty($seriesrow->image)) { ?>
-        							    <img src="<?php echo base_url();?>assets/images/<?php echo $seriesrow->image; ?>" alt="<?php echo ($seriesrow->title);?>" class="imageme">
-        							<?php }else{ ?>
-        								<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo ($seriesrow->title);?>" class="imageme">
+        							    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $seriesrow->image; ?>" alt="<?php echo ($seriesrow->title);?>" class="imageme lazy">
+                                    <?php }else{ ?>
+                                        <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo ($seriesrow->title);?>" class="imageme lazy">
         							<?php } ?>
     							</a>
         						<div>
@@ -104,10 +94,10 @@
         							</button>
         							<ul class="dropdown-menu list-inline dropvk">
         								<li onclick="groupsuggest(<?php echo $seriesrow->sid; ?>);">
-        									<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
-        								</li>
-        								<li onclick="friend(<?php echo $seriesrow->sid;?>);">
-        									<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+        									<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                        </li>
+                                        <li onclick="friend(<?php echo $seriesrow->sid;?>);">
+                                            <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
         								</li>
         								<li onclick="socialshare(<?php echo $seriesrow->sid;?>, 'series');">
         									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -127,7 +117,7 @@
         	    <!-- Stories Start -->
         	    <?php if(isset($get_storys) && ($get_storys->num_rows() > 0)){ $pagestoriescount = $pagestoriescount+$get_storys->num_rows(); ?>
         		<div class="pd-0">
-    		        <span class="titlei">STories</span>
+    		        <span class="titlei">Stories</span>
     		        <?php if($get_storys->num_rows() > 4){ ?>
     		        <a href="<?php echo base_url().$this->uri->segment(1);?>/searchresult?type=story&searchtext=<?php if(isset($searchtext)){echo $searchtext;} ?>" class="view pull-right">
     		            <span class="pull-right">VIEW MORE</span>
@@ -142,9 +132,9 @@
         						<div class="book-type"><?php echo $storysrow->gener;?></div>
         						<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $storysrow->title).'-'.$storysrow->sid);?>" class="imagess-style">
         							<?php if(isset($storysrow->image) && !empty($storysrow->image)) { ?>
-        							<img src="<?php echo base_url();?>assets/images/<?php echo $storysrow->image; ?>" alt="<?php echo ($storysrow->title);?>" class="imageme">
-        							<?php }else{ ?>
-        								<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo ($storysrow->title);?>" class="imageme">
+                                    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $storysrow->image; ?>" alt="<?php echo ($storysrow->title);?>" class="imageme lazy">
+                                    <?php }else{ ?>
+                                        <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo ($storysrow->title);?>" class="imageme lazy">
         							<?php } ?>
         						</a>
         						<div>
@@ -199,10 +189,10 @@
     								</button>
     								<ul class="dropdown-menu list-inline dropvk">
     									<li onclick="groupsuggest(<?php echo $storysrow->sid; ?>);">
-    										<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
-    									</li>
-    									<li onclick="friend(<?php echo $storysrow->sid;?>);">
-    										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+    										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                        </li>
+                                        <li onclick="friend(<?php echo $storysrow->sid;?>);">
+                                            <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     									</li>
     									<li onclick="socialshare(<?php echo $storysrow->sid;?>, 'story');">
         									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -237,9 +227,9 @@
                     			<div class="card1">
                     			    <a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $liferow->title).'-'.$liferow->sid);?>" class="imagelife-style">
                         				<?php if(isset($liferow->image) && !empty($liferow->image)) { ?>
-                        					<img src="<?php echo base_url();?>assets/images/<?php echo $liferow->image; ?>" alt="<?php echo $liferow->title;?>" class="imageme1">
-                        				<?php }else{ ?>
-                        					<img src="<?php echo base_url();?>assets/default/life.jpg" alt="<?php echo $liferow->title;?>" class="imageme1">
+                        					<img src="<?php echo base_url();?>assets/images/lazy-d266-j.jpg"  data-src="<?php echo base_url();?>assets/images/<?php echo $liferow->image; ?>" alt="<?php echo $liferow->title;?>" class="imageme1 lazy">
+                                        <?php }else{ ?>
+                                            <img src="<?php echo base_url();?>assets/images/lazy-d266-j.jpg" data-src="<?php echo base_url();?>assets/default/life.jpg" alt="<?php echo $liferow->title;?>" class="imageme1 lazy">
                         				<?php } ?>
                     			    </a>		
                     				<div>
@@ -285,10 +275,10 @@
                     					</button>
                     					<ul class="dropdown-menu list-inline dropvklife">
                     						<li onclick="groupsuggest(<?php echo $liferow->sid; ?>);">
-                    							<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
-                    						</li>
-                    						<li onclick="friend(<?php echo $liferow->sid;?>);">
-                    							<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+                    							<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                            </li>
+                                            <li onclick="friend(<?php echo $liferow->sid;?>);">
+                                                <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
                     						</li>
                     						<li onclick="socialshare(<?php echo $liferow->sid;?>, 'story');">
             									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -395,15 +385,27 @@
 			    <!-- Writers End-->
 			    </div>
 			    <?php if(isset($pagestoriescount) && ($pagestoriescount < 1)){ ?>
-    	            <div class="outerv hidden-xs">
-            	        <div class="middlev hidden-xs">
-            	            <div class="innerv">
-            	                <img src="<?php echo base_url();?>assets/images/nodata.svg" class="img-responsive" style="width:100%;" alt="No Data">
-            	                <div style="font-family: arial,sans-serif;margin-top:5px;">NO STORIES FOUND</div>
-            	            </div>
-            	        </div>
-            	    </div>
+                <div class="outerv hidden-xs">
+                    <div class="middlev hidden-xs">
+                        <div class="innerv">
+                            <img src="<?php echo base_url();?>assets/images/nodata.svg" class="img-responsive" style="width:100%;" alt="No Data">
+                            <div style="font-family: arial,sans-serif;margin-top:5px;"><center>NO STORIES FOUND</center></div>
+                        </div>
+                    </div>
+                </div>
+                <?php if(isset($_GET['searchtext']) && !empty($_GET['searchtext'])){ ?>
+                <div class="hidden-md hidden-lg" style="margin-bottom:20px;">
+                    <center>
+                        <div style="margin:10.8% auto">
+                            <div style="width:150px;">
+                                <img src="<?php echo base_url();?>assets/images/nodata.svg" class="img-responsive" style="width:100%;" alt="No Data">
+                            </div>
+                            <div style="font-family: arial,sans-serif;margin-top:5px;"><center>NO STORIES FOUND</center></div>
+                        </div>
+                    </center>
+                </div>
                 <?php } ?>
+            <?php } ?>
         </div>
     </section>
 </div>
@@ -413,7 +415,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content socv ">
 			<div class="modal-header" style="padding:8px 15px;">
-				<button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px;margin-bottom:-2px;" data-dismiss="modal" aria-label="Close">
+				<button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px; margin-bottom:-2px;" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span></button>
 				<h5 class="modal-title text-center" style="color:#808182;">SOCIAL MEDIA SHARE</h5>
 			</div>
@@ -619,4 +621,9 @@ carousel2("#right-btnw", "#left-btnw", "#StoryContw", "#story-sliderw", "story-s
         $('#snackbar').text('Link Copied to clipboard...').addClass('show');
         setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     }
+</script>
+<script>
+    var lazyLoadInstance = new LazyLoad({
+        elements_selector: ".lazy"
+    });
 </script>

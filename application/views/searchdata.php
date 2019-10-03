@@ -616,8 +616,8 @@ carousel2("#right-btnw", "#left-btnw", "#StoryContw", "#story-sliderw", "story-s
         setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     }
 </script>
- <script>
-   var lazyLoadInstance = new LazyLoad({
-    elements_selector: ".lazy"
-   });
-  </script>
+<script>
+    var lazyLoadInstance = new LazyLoad({
+        elements_selector: ".lazy"
+    });
+</script>

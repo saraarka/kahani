@@ -26,7 +26,7 @@
 	    <?php if(isset($new_series) && ($new_series->num_rows() > 0)){ foreach($new_series->result() as $row){ ?>
 		<ul class="nav navbar-nav" style="display: -webkit-inline-box;">
 			<li class="dropdown se-vj">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color:#23678e;max-width: 300px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:#23678e;max-width: 300px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
                     <i class="fa fa-bars" aria-hidden="true"></i>
     			    <span class="hidden-xs hidden-sm">
 						<?php $seriesftitles = ''; if(isset($seriesftitle) && ($seriesftitle->num_rows() == 1)){ 
@@ -43,7 +43,7 @@
     			    <?php if(isset($new_episode) && !empty($new_episode)){ $i=1; foreach($new_episode as $newepisode) {
     			        if(isset($newepisode->sid) && ($newepisode->sid != $newepisode->story_id) && ($newepisode->type == "series") && ($newepisode->draft != 'draft')){ ?>
         				<li data-target="#myCarousel" class="li-color">
-        					<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $newepisode->title).'-'.$newepisode->sid.'/'.$this->uri->segment(4));?>">
+        					<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $newepisode->title).'-'.$newepisode->sid.'/'.$this->uri->segment(4));?>">
         					    <span class="menu-icon bg-light-blue" style="border-radius: 50px; background-color: #000; padding-left: 0px;">
         					       <?php echo $i; ?> </span>
         					    <div class="menu-info">
@@ -70,53 +70,67 @@
             </li>
 		</ul>
 		<ul class="nav navbar-nav pull-right" style="display: -webkit-box;">
-			<li class="">
-			    <?php if(!isset($this->session->userdata['logged_in']['user_id']) || empty($this->session->userdata['logged_in']['user_id'])) { ?>
-			        <a class="btn btn-primary" style="background: none; border: none;padding:0;">
-					    <button class="notloginmodal readbv"><i class="fa fa-bookmark"></i> READ LATER </button>
-			        </a>
-    			<?php }else{ $readlatersids = get_storiesreadlater('readlater');
-                    if(isset($readlatersids) && (sizeof($readlatersids)>0) && in_array($row->sid, $readlatersids)) { ?>
-					<a class="btn btn-primary readlaterbtn<?php echo $row->sid;?>" style="background: none; border: none; padding:0;">
-					    <button onclick="unreadlater(<?php echo $row->sid;?>)" class="readbv notloginmodal readlaterbtnatr<?php echo $row->sid;?>">
-			            <i class="fa fa-check faicon<?php echo $row->sid;?>"></i> READ LATER </button>
-			        </a>
-        	    <?php } else { ?>
-                    <a class="btn btn-primary readlaterbtn<?php echo $row->sid;?>" style="background: none; border: none; padding:0;">
-    			        <button onclick="readlater(<?php echo $row->sid;?>)" class="readbv notloginmodal readlaterbtnatr<?php echo $row->sid;?>">
-    	                <i class="fa fa-bookmark faicon<?php echo $row->sid;?>"></i> READ LATER </button>
-	                </a>
-                <?php } } ?>
-            </li>
-			<li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color:none;"><i class="fa fa-share-alt"></i></a>
-                <ul class="dropdown-menu pull-right">
-                    <li onclick="groupsuggest(<?php echo $row->sid;?>);">
-						<a data-toggle="modal" href="javascript:void(0);" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users pr-10"></i>COMMUNITY</a>
-					</li>
-					<li onclick="friend(<?php echo $row->sid;?>);">
-						<a data-toggle="modal" href="javascript:void(0);" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user pr-10"></i>SUGGEST</a>
-					</li>
-					<li onclick="socialshare(<?php echo $row->sid;?>, 'series');">
-						<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt pr-10"></i>SOCIAL</a>
-					</li>
-                </ul>
-            </li>
-			<li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color:none;"><i class="fa fa-ellipsis-v"></i></a>
-                <ul class="dropdown-menu pull-right" style="right:10px;">
-                    <li>
-                    <?php if(!isset($this->session->userdata['logged_in']['user_id']) || empty($this->session->userdata['logged_in']['user_id'])) { ?>
-			            <a href="javascript:void(0);" class="notloginmodal fb-share-button"><i class="fa fa-exclamation pr-10"></i> Report</a>
-			        <?php }else if(isset($new_series) && ($new_series->num_rows() > 0)){ foreach($new_series->result() as $row){ ?>
-						<a href="javascript:void(0);" class="fb-share-button" onclick="reportseries(<?php echo $row->user_id;?>,<?php echo $row->sid;?>)"> 
-    			             <i class="fa fa-exclamation pr-10"></i> Report
-    			        </a>
-			        <?php } } ?>
-					</li>
-				</ul>
-            </li>
-		</ul>
+            <?php $readlatersids = get_storiesreadlater('readlater');
+            if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])) { ?>
+                <li class="">
+                <?php if(isset($readlatersids) && (sizeof($readlatersids)>0) && in_array($row->sid, $readlatersids)) { ?>
+                    <a class="btn btn-primary" style="background: none; border: none; padding:0;">
+                        <button onclick="unreadlater(<?php echo $row->sid;?>)" class="readbv readbtnremove readlaterbtnatr<?php echo $row->sid;?>"><i class="fa fa-check faicon<?php echo $row->sid;?>"></i> READ LATER </button>
+                    </a>
+                <?php } else { ?>
+                    <a class="btn btn-primary" style="background: none; border: none; padding:0;">
+                        <button onclick="readlater(<?php echo $row->sid;?>)" class="readbv readbtnremove readlaterbtnatr<?php echo $row->sid;?>"><i class="fa fa-bookmark faicon<?php echo $row->sid;?>"></i> READ LATER </button>
+                    </a>
+                <?php } ?>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:none;"><i class="fa fa-share-alt"></i></a>
+                    <ul class="dropdown-menu pull-right">
+                        <li onclick="groupsuggest(<?php echo $row->sid;?>);">
+                            <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users pr-10"></i>COMMUNITY</a>
+                        </li>
+                        <li onclick="friend(<?php echo $row->sid;?>);">
+                            <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user pr-10"></i>SUGGEST</a>
+                        </li>
+                        <li onclick="socialshare(<?php echo $row->sid;?>, 'series');">
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#soc" title="SOCIAL"><i class="fa fa-share-alt pr-10"></i>SOCIAL</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:none;"><i class="fa fa-ellipsis-v"></i></a>
+                    <ul class="dropdown-menu pull-right" style="right:10px;">
+                        <li>
+                            <a href="javascript:void(0);" class="fb-share-button" onclick="reportseries(<?php echo $row->user_id;?>,<?php echo $row->sid;?>)"> 
+                                <i class="fa fa-exclamation pr-10"></i> REPORT
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            <?php } else { ?>
+                <li class="">
+                    <a class="btn btn-primary" style="background: none; border: none;padding:0;">
+                        <button class="notloginmodal readbv"><i class="fa fa-bookmark"></i> READ LATER </button>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:none;"><i class="fa fa-share-alt"></i></a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a class="notloginmodal" title="COMMUNITY"><i class="fa fa-users pr-10"></i>COMMUNITY</a></li>
+                        <li><a class="notloginmodal" title="SUGGEST"><i class="fa fa-user pr-10"></i>SUGGEST</a></li>
+                        <li onclick="socialshare(<?php echo $row->sid;?>, 'series');">
+                            <a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt pr-10"></i>SOCIAL</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:none;"><i class="fa fa-ellipsis-v"></i></a>
+                    <ul class="dropdown-menu pull-right" style="right:10px;">
+                        <li><a href="javascript:void(0);" class="notloginmodal"><i class="fa fa-exclamation pr-10"></i> REPORT</a></li>
+                    </ul>
+                </li>
+            <?php } ?>
+        </ul>
 		<?php } } ?>
 	</div>
 </div>
@@ -127,7 +141,7 @@
 			<div class="" style="display:flex; flex-wrap:wrap;">
 				<?php if(isset($new_series) && ($new_series->num_rows() > 0)){ foreach($new_series->result() as $row){
 					if(isset($this->session->userdata['logged_in']['user_id']) && ($row->user_id == $this->session->userdata['logged_in']['user_id'])){
-						header('Location: '.base_url().$this->uri->segment(1).'/admin-series/'.preg_replace('/\s+/', '-', $row->title).'-'.$row->sid.'/'.preg_replace('/\s+/', '-', $row->title).'-'.$row->story_id);
+						header('Location: '.base_url().$this->uri->segment(1).'/admin-series/'.preg_replace("~[^\p{M}\w]+~u",'-', $row->title).'-'.$row->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $row->title).'-'.$row->story_id);
 					} ?>
 					<div class="sidebox-i-c" style="margin-bottom:20px;">
 						<div class="row pt-0">
@@ -154,8 +168,7 @@
 								<div class="box-footer" style="padding-top:0; border-top:1px solid #cac8c885;border-radius:5px;">
 									<div class="row pt-0">
 										<div class="col-sm-12">
-											<center><a href="<?php echo base_url().$this->uri->segment(1).'/'.$row->profile_name;?>" style="color:#000">
-											    <h4 style="margin-top:10px"><b><?php echo $row->name; ?></b></h4></a></center>
+											<center><a href="<?php echo base_url().$this->uri->segment(1).'/'.$row->profile_name;?>" style="color:#000"><h4 style="margin-top:10px"><b><?php echo $row->name; ?></b></h4></a></center>
 										</div>
 										<div class="col-sm-12">
 										    <?php if(!isset($this->session->userdata['logged_in']['user_id']) || empty($this->session->userdata['logged_in']['user_id'])) { ?>
@@ -179,9 +192,9 @@
 										</span>
 										<span style="float:right">
 											<?php if(isset($following) && in_array($row->user_id, $following)) { ?>
-												<button style="padding-left:15px; padding-right:15px; margin-top: 2px;" class="btn btn-primary unfollow<?php echo $row->user_id;?>" onclick="writerunfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOWING </button>
+												<button style="padding-left:15px; padding-right:15px; margin-top: 2px;" class="btn btn-primary notloginmodal unfollow<?php echo $row->user_id;?>" onclick="writerunfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOWING </button>
 											<?php } else { ?>
-												<button style="padding-left:15px; padding-right:15px; margin-top: 2px;" class="btn btn-success follow<?php echo $row->user_id;?>" onclick="writerfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOW </button>
+												<button style="padding-left:15px; padding-right:15px; margin-top: 2px;" class="btn btn-success notloginmodal follow<?php echo $row->user_id;?>" onclick="writerfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOW </button>
 											<?php } ?>
 										</span>
 									</div>
@@ -203,9 +216,9 @@
 										</div>
 										<div class="col-sm-6" style="float:right;margin-top:4px; ">
 											<?php if(isset($subscriptions) && in_array($row->story_id, $subscriptions)){ ?>
-												<button class="btn btn-primary subscribe  pull-right" onclick="unsubscribe(<?php echo $row->story_id;?>)"> SUBSCRIBED </button>
+												<button class="btn btn-primary subscribe notloginmodal pull-right" onclick="unsubscribe(<?php echo $row->story_id;?>)"> SUBSCRIBED </button>
 											<?php } else{ ?>
-												<button class="btn btn-success subscribe  pull-right" onclick="subscribe(<?php echo $row->story_id;?>)"> SUBSCRIBE </button>
+												<button class="btn btn-success subscribe notloginmodal  pull-right" onclick="subscribe(<?php echo $row->story_id;?>)"> SUBSCRIBE </button>
 											<?php } ?>
 										</div>
 									</div>
@@ -317,6 +330,10 @@
 									</div>
 									<div class="col-md-8 favoritemsg text-danger"></div><div class="col-md-4"></div>
 								</div>
+								<?php echo $row->sadd1; ?>
+                                <?php echo $row->sadd2; ?>
+                                <?php echo $row->sadd3; ?>
+                                <?php echo $row->sadd4; ?>
 							</div>
 							<?php } ?>
 							<div class="row pt-0">
@@ -327,10 +344,10 @@
 								<div class="col-md-3 pull-right col-xs-6 pd-0" style="margin-top:8px;">
 									<center>
         				        		<?php if(isset($nextepisode)){ foreach($nextepisode as $nextepisoderow) { if($nextepisoderow->sid === $row->story_id){ ?>
-        				        		    <a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $nextepisoderow->title).'-'.$nextepisoderow->sid.'/'.$this->uri->segment(4));?>">
+        				        		    <a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $nextepisoderow->title).'-'.$nextepisoderow->sid.'/'.$this->uri->segment(4));?>">
         				        			<button class="btn btn-success btn-texts pull-right"> START READING</button></a>
         				        		<?php } else { ?>
-        				        			<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $nextepisoderow->title).'-'.$nextepisoderow->sid.'/'.$this->uri->segment(4));?>">
+        				        			<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $nextepisoderow->title).'-'.$nextepisoderow->sid.'/'.$this->uri->segment(4));?>">
         				        			<button class="btn btn-success btn-texts pull-right"> NEXT EPISODE</button></a>
         				        	    <?php } } } ?>
     				        	    </center>
@@ -351,7 +368,7 @@
                                         <div class="card">
                                         	<div class="book-type" style="z-index:0"><?php echo $recentstory->gener;?></div>
                                         	<!--<a href="<?php echo base_url('new_series?id='.$recentstory->sid.'&story_id='.$recentstory->story_id);?>">-->
-                                        	<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $recentstory->title).'-'.$recentstory->sid.'/'.preg_replace('/\s+/', '-', $recentstory->title).'-'.$recentstory->story_id);?>" class="imagess-style">
+                                        	<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $recentstory->title).'-'.$recentstory->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $recentstory->title).'-'.$recentstory->story_id);?>" class="imagess-style">
                                         		<?php if(isset($recentstory->image) && !empty($recentstory->image)) { ?>
                                         		    <img src="<?php echo base_url();?>assets/images/<?php echo $recentstory->image; ?>" alt="<?php echo $recentstory->image; ?>" class="imageme">
                                         		<?php }else{ ?>
@@ -360,7 +377,7 @@
                                     		</a>
                                         	<div>
                                         		<font class="max-lines">
-                                        			<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $recentstory->title).'-'.$recentstory->sid.'/'.preg_replace('/\s+/', '-', $recentstory->title).'-'.$recentstory->story_id);?>">
+                                        			<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $recentstory->title).'-'.$recentstory->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $recentstory->title).'-'.$recentstory->story_id);?>">
                                         				<?php echo ($recentstory->title);?>
                                         			</a>
                                         		</font> 
@@ -380,31 +397,37 @@
                                         	<div class="flextest" style="padding-top:6px">
                                         		<?php if(isset($this->session->userdata['logged_in']['user_id']) && ($recentstory->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
                                         			<button class="read" onclick="yoursreadlater();"><i class="fa fa-bookmark"></i> Read later </button>
-                                        		<?php }else{ ?>
-                                        			<?php if(isset($readlatersids) && (sizeof($readlatersids)>0) && in_array($recentstory->sid, $readlatersids)) { ?>
-                                        				<button onclick="unreadlater(<?php echo $recentstory->sid;?>)" class="readdone notloginmodal readlaterbtnatr<?php echo $recentstory->sid;?>">
-                                        				<i class="fa fa-check faicon<?php echo $recentstory->sid;?>"></i> Read later </button>
+                                        		<?php }else if(isset($this->session->userdata['logged_in']['user_id'])) { ?>
+                                            		<?php if(isset($readlatersids) && (sizeof($readlatersids)>0) && in_array($recentstory->sid, $readlatersids)) { ?>
+                                            			<button onclick="unreadlater(<?php echo $recentstory->sid;?>)" class="readdone readlaterbtnatr<?php echo $recentstory->sid;?>">
+                                            			<i class="fa fa-check faicon<?php echo $recentstory->sid;?>"></i> Read later </button>
                                         			<?php }else { ?>
-                                        				<button onclick="readlater(<?php echo $recentstory->sid;?>)" class="read notloginmodal readlaterbtnatr<?php echo $recentstory->sid;?>">
-                                        				<i class="fa fa-bookmark faicon<?php echo $recentstory->sid;?>"></i> Read later </button>
-                                        			<?php } ?>
-                                        		<?php } ?>
+                                            			<button onclick="readlater(<?php echo $recentstory->sid;?>)" class="read readlaterbtnatr<?php echo $recentstory->sid;?>">
+                                            			<i class="fa fa-bookmark faicon<?php echo $recentstory->sid;?>"></i> Read later </button>
+                                            		<?php } ?>
+                    							<?php } else { ?>
+                                                    <?php if(isset($readlatersids) && (sizeof($readlatersids)>0) && in_array($recentstory->sid, $readlatersids)) { ?>
+                                                        <button onclick="unreadlater(<?php echo $recentstory->sid;?>)" class="readdone notloginmodal readlaterbtnatr<?php echo $recentstory->sid;?>">
+                                                            <i class="fa fa-check faicon<?php echo $recentstory->sid;?>"></i> Read later </button>
+                                                    <?php }else { ?>
+                                                        <button onclick="readlater(<?php echo $recentstory->sid;?>)" class="read notloginmodal readlaterbtnatr<?php echo $recentstory->sid;?>">
+                                                            <i class="fa fa-bookmark faicon<?php echo $recentstory->sid;?>"></i> Read later </button>
+                                                    <?php } ?>
+                                                <?php } ?>
                                         		<button type="button" class="btn read dropdown-toggle pull-right" data-toggle="dropdown">
-                                        			<span class=""><i class="fa fa-plus"></i></span>
-                                        		</button>
+                                            		<span class=""><i class="fa fa-plus"></i></span>
+                                            	</button>
                                         		<ul class="dropdown-menu list-inline dropvk">
-                                        			<li onclick="groupsuggest(<?php echo $recentstory->sid; ?>);">
-                                        				<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
-                                        			</li>
-                                        			<li onclick="friend(<?php echo $recentstory->sid;?>);">
-                                        				<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
-                                        			</li>
-                                        			<li onclick="socialshare(<?php echo $recentstory->sid;?>, 'series');">
-                                    					<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-                                    						<i class="fa fa-share-alt"></i>
-                                    					</a>
-                                    				</li>
-                                        		</ul>
+                                            		<li onclick="groupsuggest(<?php echo $recentstory->sid; ?>);">
+                                            			<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                            		</li>
+                                            		<li onclick="friend(<?php echo $recentstory->sid;?>);">
+                                            			<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+                                            		</li>
+                                            		<li onclick="socialshare(<?php echo $recentstory->sid;?>, 'series');">
+                                            			<a href="javascript:void(0);" data-toggle="modal" data-target="#soc" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
+                                            		</li>
+                                            	</ul>
                                         	</div>
                                         </div>
                                     <?php } ?>
@@ -426,7 +449,11 @@
     										<input type="hidden" id="storyid" name="id" value="<?php echo $row->sid; ?>">
     										<span class="input-group-btn">
     											<!--<button type="submit" onclick="commentsend()" class="btn btn-success btn-flat">POST</button>-->
-    											<input type="submit" class="btn btn-success btn-flat notloginmodal" value="POST">
+    											<?php if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])) { ?>
+    											<button type="submit" class="btn btn-success btn-flat btnspinner">POST</button>
+    											<?php }else{ ?>
+    											<button type="submit" class="btn btn-success btn-flat notloginmodal btnspinner">POST</button>
+    											<?php } ?>
     										</span>
     									</div>
     								</form><br>
@@ -469,7 +496,7 @@
                                                             <span class="text-muted pull-right datecv"><?php echo get_ydhmdatetime($comment->date);?></span>
                                                         </span>
     											    </div>
-    											    <div class="comment-text" style="margin:8px 0px 6px 2px;">
+    											    <div style="margin:4px 0 6px 2px" class="comment-text">
     											        <div class="more pcomment<?php echo $comment->cid;?>" style="word-break:break-word;"><?php echo $comment->comment; ?></div>
     											        <div style=" margin:5px 0px;">
     											            <a href="javascript:void(0)" onClick="postReplycomment(<?php echo $comment->cid;?>, <?php echo $comment->story_id;?>)" class="pull-left replycv" title="reply">REPLY </a>
@@ -484,10 +511,10 @@
     											    </div>
 										        </div>
 												
-												<div class="subcomments" style="margin-bottom:10px;" id="mysublist<?php echo $comment->story_id, $comment->cid;?>">
+												<div class="subcomments" id="mysublist<?php echo $comment->story_id, $comment->cid;?>">
     												<?php $replaycomments = get_replaycomments($comment->story_id, $comment->cid); ?>
     												<?php if(isset($replaycomments) && ($replaycomments->num_rows() > 0 )) { ?>
-    													<ul style="list-style: none; padding:0px; margin-top:15px; margin-left:15px;display:none;" class="replycmtlist<?php echo $comment->cid;?>">
+    													<ul style="list-style: none; padding:0px; display:none;" class="replycmtlist<?php echo $comment->cid;?>">
     													    <span id="spinnertab<?php echo $comment->cid;?>"><center>
                                                                 <img src="<?php echo base_url();?>/assets/landing/svg/spinnertab.svg" class="spinner">
                                                             </center></span>
@@ -502,43 +529,44 @@
     																		<img class="img-circle" src="<?php echo base_url();?>assets/images/2.png" style="width:25px;" alt="<?php echo ucfirst($replaycomment->name); ?>">
     																	<?php } ?>
     																</span>
-    																	<span class="media-body bodycv">
-    																	    <div class="">
-        																	    <span class="" style="color: #337ab7;">&nbsp;<b>
-        																	        <a href="<?php echo base_url().$this->uri->segment(1).'/'.$replaycomment->profile_name;?>"><?php echo ucfirst($replaycomment->name); ?></a></b>
-                    																<span class="dropdown pull-right">
-                        																<a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
-                        										                            <i class="fa fa-ellipsis-v"></i>
-                        										                        </a>
-                        										                        <ul class="dropdown-menu pull-right">
-                        										                            <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $replaycomment->user_id)){ ?>
-                            										                            <li><a href="javascript:void(0);" onClick="editcomment(<?php echo $replaycomment->cid;?>);"><i class="fa fa-pencil"></i> EDIT </a></li>
-                                                				                                <li><a href="javascript:void(0);" onClick="deletecomment(<?php echo $replaycomment->cid;?>);"><i class="fa fa-trash"></i> DELETE </a></li>
-                                            					                        	<?php }else{ ?>
-                        																	    <li><a href="javascript:void(0);" onClick="reportcomment(<?php echo $replaycomment->cid;?>, <?php echo $replaycomment->user_id;?>, <?php echo $replaycomment->story_id;?>);"><i class="fa fa-exclamation-triangle"></i> REPORT </a></li>
-                        																	<?php } ?>
-                        																</ul>
-                    																</span>
-                    																<span class="text-muted pull-right datecv"><?php echo get_ydhmdatetime($replaycomment->date);?></span>
-                    															</span><br>
-        												                    <!--</div>-->
-        															            <span class="more pcomment<?php echo $replaycomment->cid;?>" style="padding-left:6px;word-break:break-word;"><?php echo $replaycomment->comment; ?></span>
-        															         </div>
-        															    </span>
+																		<span class="media-body bodycv">
+																		    <div class="">
+																			    <span class="" style="color: #337ab7;">&nbsp;<b>
+																			        <a href="<?php echo base_url().$this->uri->segment(1).'/'.$replaycomment->profile_name;?>">
+																			        	<p class="namers"><?php echo ucfirst($replaycomment->name); ?></p>
+																			        </a></b>
+																					<span class="dropdown pull-right">
+																						<a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" title="write" aria-expanded="false">
+														                            		<i class="fa fa-ellipsis-v"></i>
+														                        		</a>
+																                        <ul class="dropdown-menu pull-right">
+																                            <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $replaycomment->user_id)){ ?>
+																	                            <li><a href="javascript:void(0);" onClick="editcomment(<?php echo $replaycomment->cid;?>);"><i class="fa fa-pencil"></i> EDIT </a></li>
+																                                <li><a href="javascript:void(0);" onClick="deletecomment(<?php echo $replaycomment->cid;?>);"><i class="fa fa-trash"></i> DELETE </a></li>
+																                        	<?php }else{ ?>
+																							    <li><a href="javascript:void(0);" onClick="reportcomment(<?php echo $replaycomment->cid;?>, <?php echo $replaycomment->user_id;?>, <?php echo $replaycomment->story_id;?>);"><i class="fa fa-exclamation-triangle"></i> REPORT </a></li>
+																							<?php } ?>
+																						</ul>
+																					</span>
+																					<span class="text-muted pull-right datecv"><?php echo get_ydhmdatetime($replaycomment->date);?></span>
+																				</span><br>
+														                    <!--</div>-->
+																	            <span class="more pcomment<?php echo $replaycomment->cid;?>" style="padding-left:10px;word-break:break-word;"><?php echo $replaycomment->comment; ?></span>
+																	         </div>
+																	    </span>
         														<!--</div>-->
     													    </div>
     													<?php } ?> 
     												</ul>
     												<?php } else{ ?>
-    													<ul style="list-style: none; padding:0px; margin-top:15px;">
+    													<ul style="list-style: none; padding:0px; margin-top:0px;">
     														<li class="postreplycmt<?php echo $comment->cid;?>"></li>
     													</ul>
     												<?php } ?>
     											</div>
 											</div>
-    								<?php } } ?>
-    								</div>
-    								
+	    								<?php } } ?>
+	    								</div>
     								</ul>
     								<div id="load_data_message"></div>
     							</div>
@@ -645,15 +673,15 @@
 				<div class="row">
 					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
 						<a href="javascript:void(0);" class="facebookshare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/><p class="socialsharepopupspan">Facebook</p></a>
+						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px;height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Facebook</p></a>
 					</div>
 					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
 					    <a href="javascript:void(0);" class="whatsappshare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-10px;"/><p class="socialsharepopupspan">Whatsapp</p></a>
+						    <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px;height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Whatsapp</p></a>
 					</div>
 					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
 						<a href="javascript:void(0);" class="twittershare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Twitter</p></a>
+						    <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px;height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Twitter</p></a>
 					</div>
 					<div class="col-md-12 pd-5v" style="margin:12px;">
 						<a href="javascript:void(0);" onclick="copylinkshare('#copylinkshare')" class="socsh">
@@ -801,18 +829,27 @@ $('document').ready(function() {
 <script type="text/javascript">
 	$( "form#commentsend" ).submit(function( event ) {
 		event.preventDefault();
+		$('.btnspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 		$('#comment').empty();
 		$('#comments').empty();
 	    var comment = $('#comment').val();
 	    if((comment == '') || (comment == 'undefined')){
 	        comment = $('#comments').val();
 	    }
-	    var storyid = $('#storyid').val();
-		$.post("<?php echo base_url().$this->uri->segment(1); ?>/comment",{'comment':comment,'storyid':storyid},function(output,status){
-			$("li#postcmt").prepend(output);
-			$("#comment").val('');
-			$("#comments").val('');
-		});
+	    if(comment){
+            var storyid = $('#storyid').val();
+            $.post("<?php echo base_url().$this->uri->segment(1); ?>/comment",{'comment':comment,'storyid':storyid},function(output,status){
+                $('.btnspinner').html('POST');
+                $("li#postcmt").prepend(output);
+                $("#comment").val('');
+                $("#comments").val('');
+                $("#load_data_message").html('');
+            });
+	    }else{
+	        $('.btnspinner').html('POST');
+            $('#snackbar').text('Enter Comment text.').addClass('show');
+            setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+	    }
 	});
 </script>
 <script type="text/javascript">
@@ -954,8 +991,8 @@ $( "#down" ).on( "click", function() {
 </style>
 <script> // comments
     function deletecomment(commentid){
-	    var x = confirm("Are you sure you want to delete the Comment?");
-        if (x) {
+	    $('.deletemessage').html("Are you sure you want to delete the Comment?");
+        $('#confirmdelpopup').modal().one('click', '#delconfirmed', function (e) {
             $.ajax({
                 type:'POST',
                 url:'<?php echo base_url().$this->uri->segment(1);?>/deletepro_comment/'+commentid,
@@ -963,18 +1000,16 @@ $( "#down" ).on( "click", function() {
                     if(response){
                         var result = jQuery.parseJSON(response);
                         $('.old_subcmtcount'+result.comment_id).text(result.delsubcmtcount);
-                        $('div.commentdelete'+commentid).css('display','none');
+                        $('.commentdelete'+commentid).css('display','none');
                         $('#snackbar').text('Comment Deleted Successfully.').addClass('show');
-        	            setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+        	            setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
                     }else{
                         $('#snackbar').text('Failed to Delete Comment.').addClass('show');
-        	            setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+        	            setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
                     }
                 }
             });
-        }else{
-            return false;
-        }
+        });
 	}
     function reportcomment(commentid, user_id, story_id){
 	    $('#report_comment').modal('show');
@@ -1023,7 +1058,7 @@ $( "#down" ).on( "click", function() {
 				$('span.comment').text('Please Enter Comment');
 			}else if(resultdata == 1){
 			    console.log('success');
-			    $('p.pcomment'+cid).html(comments);
+			    $('.pcomment'+cid).html(comments);
 			    $('#edit_comment').modal('hide');
 			}else{
 			    console.log('fail');
@@ -1034,7 +1069,7 @@ $( "#down" ).on( "click", function() {
 	function postReplycomment(commentid, storyid){
 	    $('div.postreplycomment'+commentid).html('<input type="text" id="replycmts'+commentid+'" value="" class="form-control" placeholder="Replay Comment..." required>'+
 	    '<span class="text-danger addreplaycmt'+commentid+'"></span><input type="hidden" name="storyid" value="'+storyid+'">'+
-	    '<span class="input-group-btn"><button type="submit" class="btn btn-success btn-flat" onclick="addreplycomment('+commentid+','+storyid+')">POST</button></span>');
+	    '<span class="input-group-btn"><button type="submit" class="btn btn-success btn-flat btnspinner'+commentid+'" onclick="addreplycomment('+commentid+','+storyid+')">POST</button></span>');
 	    $('.replycmtlist'+commentid).css('display','block');
 	    setTimeout(function(){ $('#spinnertab'+commentid).html(' '); }, 50);
 	}
@@ -1045,6 +1080,7 @@ $( "#down" ).on( "click", function() {
 	function addreplycomment(commentid, storyid){
 	    var comments = $('#replycmts'+commentid).val();
 	    var old_subcmtcount = $('.old_subcmtcount'+commentid).text();
+	    $('.btnspinner'+commentid).html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 	    if(comments){
 	        $.ajax({
         		url:'<?php echo base_url().$this->uri->segment(1);?>/addstoryreplycomment',
@@ -1052,26 +1088,25 @@ $( "#down" ).on( "click", function() {
         		data: {'comment_id': commentid, 'comment':comments, 'story_id': storyid},
         		dataType: "json",
         		success:function(data){
-        		    if(data == 2){
-                        $('.addreplaycmt'+commentid).text('Enter your Comments.');
-                    }else if(data == 1){
+        		    if(data == 1){
                         $.ajax({
                             url: "<?php echo base_url($this->uri->segment(1).'/pro_commentpost'); ?>",
                             type: 'POST',
                             dataType: 'json',
                             success: function(result) {
+                            	$('.btnspinner'+commentid).html('POST');
                                 if(result.response){
                                     $('#replycmts'+commentid).val('');
                                     var profileimage = result.response[0].profile_image;
                                     if(profileimage){ }else{ profileimage = '2.png'; }
-                                    var htmlcomment = '<li style="padding:0px;margin-bottom: 15px;" class="box-footer padding-0 box-comments commentdelete'+result.response[0].cid+'">'+
+                                    var htmlcomment = '<li style="padding:0px; margin-bottom:5px;margin-top:5px;" class="box-footer padding-0 box-comments commentdelete'+result.response[0].cid+'">'+
                                         '<div class="">'+
                                         '<span class="media-left"><img class="img-circle" style="width:25px;" src="<?php echo base_url();?>assets/images/'+profileimage+'" alt="'+result.response[0].name+'"></span>'+
                                         '<span class="media-body bodycv">'+
                                         '<div class="">'+
                                         '<span class="">&nbsp;<b><a href="javascript:void(0);" style="color: #337ab7;">'+result.response[0].name+'</a></b>'+
                                         '<span class="dropdown" style="float:right;">'+
-                                        '<a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="false">'+
+                                        '<a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" aria-expanded="false">'+
     					                '<i class="fa fa-ellipsis-v" style="color: #337ab7;"></i></a><ul class="dropdown-menu pull-right">'+
     	                                    '<li><a href="javascript:void(0);" onClick="editcomment('+result.response[0].cid+');"><i class="fa fa-pencil"></i> EDIT </a></li>'+
     	                                    '<li><a href="javascript:void(0);" onClick="deletecomment('+result.response[0].cid+');"><i class="fa fa-trash"></i> DELETE </a></li>'+
@@ -1084,13 +1119,18 @@ $( "#down" ).on( "click", function() {
                                 }
                             }
                         })
+                    }else if(data == 2){
+                        $('.addreplaycmt'+commentid).text('Enter your Comments.');
                     }else{
                         $('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
                     }
                 }
             });
 	    }else{
-	        $('.addreplaycmt'+commentid).text('Enter your Comments.');
+	        //$('.addreplaycmt'+commentid).text('Enter your Comments.');
+	        $('.btnspinner'+commentid).html('POST');
+	        $('#snackbar').text('Enter your Comments.').addClass('show');
+            setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
 	    }
 	}
 </script>
@@ -1099,7 +1139,7 @@ $( "#down" ).on( "click", function() {
         var limit = 2;
         var start = 2;
         var action = 'inactive';
-        
+        var numcomments = $('.box-footer.padding-0.box-comments').length;
         function load_country_data(limit, start) {
             var story_id = $('#storyid').val();
             if(story_id){
@@ -1116,6 +1156,9 @@ $( "#down" ).on( "click", function() {
                         }else{
                             $('#load_data_message').html("<center> Loading ...</center>");
                             action = "inactive";
+                        }
+                        if(numcomments < 1){		
+                            $('#load_data_message').html("<center> No comments yet!</center>");		
                         }
                     }
                 });

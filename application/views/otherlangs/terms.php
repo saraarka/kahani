@@ -19,16 +19,20 @@
 </head>
 <body>
 <header>
-        <font style="background: linear-gradient(to right, green 0%, #5658ae 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;margin-left:15px;color: white"><a href="<?php echo base_url();?>">StoryCarry.com</a></font>
+    <font style="background: linear-gradient(to right, green 0%, #5658ae 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;margin-left:15px;color: white"><a href="<?php echo base_url();?>">StoryCarry.com</a></font>
+    <?php if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){ ?>
+        <font class="login-but"><a href="<?php echo base_url();?>">HOME</a></font>
+    <?php } else{ ?>
         <font class="login-but pull-right" style="float:right;"><a href="<?php echo base_url();?>">SIGN UP</a></font>
-    </header>
+    <?php } ?>
+</header>
 
 <div class="main-content"> 
     <div class="body-padding">
         <div class="">
-            <h1 style="text-align:center;color:black;font-family:arial;" class="termsv">Terms & Condtions</h1>
+            <h1 style="text-align:center;color:black;font-family:arial;font-size:1.5em;" class="termsv">Terms & Conditions</h1>
         </div>
         <div class="terms-text">
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
@@ -65,10 +69,10 @@
     <div class="footer1">
         <div style="font-size:14px;color:black;font-family:'Varela Round',sans-serif;">
             <center>
-                <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url();?>about">ABOUT</a></font>
-                <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url();?>contact">CONTACT</a></font>
-                <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url();?>terms">TERMS</a></font>
-                <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url();?>privacy_policy">PRIVACY</a></font>
+                <font class="hover-tems"><a href="<?php echo base_url().$this->uri->segment(1);?>/about">ABOUT</a></font>
+                <font class="hover-tems"><a href="<?php echo base_url().$this->uri->segment(1);?>/blog">BLOG</a></font>
+                <font class="hover-tems"><a href="<?php echo base_url().$this->uri->segment(1);?>/contact">CONTACT</a></font>
+                <font class="hover-tems"><a href="<?php echo base_url().$this->uri->segment(1);?>/privacy-policy">PRIVACY</a></font>
             </center>
         </div>
     </div>

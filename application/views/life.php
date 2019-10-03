@@ -210,7 +210,7 @@
                         <label for="keywords">KEY WORDS : </label>
                         <!--<select name="keywords[]" class="tokenize-custom-demo1" multiple placeholder="Key words related to your story">-->
                         <select name="keywords[]" class="tokenize-callable-demo1" multiple placeholder="Key words related to your story">
-                           < <!--<?php if(isset($tagslist) && ($tagslist->num_rows() >0)){ foreach($tagslist->result() as $taglist){ ?>
+                            <!--<?php if(isset($tagslist) && ($tagslist->num_rows() >0)){ foreach($tagslist->result() as $taglist){ ?>
                                 <option value="<?php echo $taglist->tagname;?>"><?php echo $taglist->tagname;?>  &nbsp; &nbsp; - &nbsp; Tag used in <?php echo $taglist->tagcount;?> Life Events</option>
                             <?php } } ?> -->
                         </select>

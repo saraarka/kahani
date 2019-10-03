@@ -20,7 +20,6 @@
     margin-top: 10px;
     margin-left: -20px;
 }
-
 </style>
 <div class="main-container">	
     <section class="mt-5">

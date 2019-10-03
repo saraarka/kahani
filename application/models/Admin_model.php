@@ -884,7 +884,7 @@ public function testbrowseimage(){
 
 
 	/* Analytics Start */
-	public function allstories($language = false){
+	/*public function allstories($language = false){
 		$this->db->select('COUNT(sid) as storiescount, (SELECT COUNT(sid) FROM stories WHERE type="series" AND draft != "draft" AND status = "active" AND sid=story_id) as seriescount, type');
 		$this->db->from('stories');
 		$this->db->where('draft != ','draft');
@@ -895,18 +895,53 @@ public function testbrowseimage(){
 		}
 		$this->db->group_by('type');
 		return $this->db->get()->result_array();
-	}
-
-	public function allgenre($type){
-		$this->db->select('COUNT(sid) as storiescount, type, genre');
+	}*/
+	public function forseriesonly($language = false, $gener = false){
+		$this->db->select('COUNT(sid) as storiescount, type');
 		$this->db->from('stories');
 		$this->db->where('draft != ','draft');
 		$this->db->where('status', 'active');
-		$this->db->where('type', $type);
-		if($type == 'series'){
-			$this->db->where('sid = story_id');
+		$this->db->where('type', 'series');
+		$this->db->where('sid=story_id');
+		if(isset($language) && !empty($language)){
+			$this->db->where('language', $language);
 		}
-		$this->db->group_by('genre');
+		return $this->db->get()->result_array();
+	}
+	public function allstories($language = false){
+		$this->db->select('COUNT(sid) as storiescount, type');
+		$this->db->from('stories');
+		$this->db->where('draft != ','draft');
+		$this->db->where('status', 'active');
+		$this->db->where('type !=', '');
+		$this->db->where('type !=', 'series');
+		if(isset($language) && !empty($language)){
+			$this->db->where('language', $language);
+		}
+		$this->db->group_by('type');
+		$data = $this->db->get()->result_array();
+		if(isset($language) && !empty($language)){
+			$data1 = $this->forseriesonly($language);
+		}else{
+			$data1 = $this->forseriesonly();
+		}
+		$response = array_merge($data, $data1);
+		return $response;
+	}
+	public function allgenre($type, $language = false){
+		$this->db->select('COUNT(stories.sid) as storiescount, stories.type, stories.genre, gener.gener')->from('stories');
+		$this->db->join('gener','stories.genre = gener.id', 'left');
+		$this->db->where('stories.draft != ','draft');
+		$this->db->where('stories.status', 'active');
+		$this->db->where('stories.genre !=', '');
+		$this->db->where('stories.type', $type);
+		if($type == 'series'){
+			$this->db->where('stories.sid = stories.story_id');
+		}
+		if(isset($language) && !empty($language)){
+			$this->db->where('stories.language', $language);
+		}
+		$this->db->group_by('stories.genre');
 		return $this->db->get()->result_array();
 	}
 	public function allprofiles(){

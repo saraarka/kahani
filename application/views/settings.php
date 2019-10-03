@@ -1,6 +1,5 @@
-
 <script src="<?php echo base_url();?>assets/dist/js/js/jquery.Jcrop.min.js"></script>
-<Style>
+<style>
 *{
     -webkit-tap-highlight-color:  transparent; 
 }
@@ -142,7 +141,7 @@ body{
         padding-top: 0;
     }
 }
-</Style>
+</style>
 
     
 <?php $writerlanguage = ''; if(isset($editprofile) && ($editprofile->num_rows()>0)){ foreach($editprofile->result() as $row){ 

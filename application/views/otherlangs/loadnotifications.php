@@ -6,7 +6,7 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
 		    <?php if(!empty($storynotify->profile_image)){ ?>
 			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>"> 
 			<?php } else{ ?> 
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $storynotify->sname;?>">
 			<?php } ?>
             <span class="username">
                     <b> <?php echo $storynotify->sname;?> </b> 
@@ -17,9 +17,9 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
         <div class="user-block" style="cursor:pointer;">
             <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
 		    <?php if(!empty($storynotify->profile_image)){ ?>
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
 			<?php } else{ ?> 
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $storynotify->sname;?>">
 			<?php } ?>
             <span class="username">
                 <b> <?php echo $storynotify->sname;?> </b>
@@ -31,9 +31,9 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
         <div class="user-block" style="cursor:pointer;">
             <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
 		    <?php if(!empty($storynotify->profile_image)){ ?>
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
 			<?php } else{ ?> 
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $storynotify->sname;?>">
 			<?php } ?>
             <span class="username">
                 <b> <?php echo $storynotify->sname;?> </b>
@@ -45,9 +45,9 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
         <div class="user-block" style="cursor:pointer;">
             <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
 		    <?php if(!empty($storynotify->profile_image)){ ?>
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
 			<?php } else{ ?> 
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $storynotify->sname;?>">
 			<?php } ?>
             <span class="username">
                 <b> <?php echo $storynotify->sname;?> </b>
@@ -59,9 +59,9 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
         <div class="user-block" style="cursor:pointer;">
             <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->profile_name;?>">
 		    <?php if(!empty($storynotify->profile_image)){ ?>
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
 			<?php } else{ ?> 
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $storynotify->sname;?>">
 			<?php } ?>
             <span class="username">
                 <b> <?php echo $storynotify->sname;?> </b>
@@ -72,9 +72,9 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
         <div class="user-block" style="cursor:pointer;">
             <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
 		    <?php if(!empty($storynotify->profile_image)){ ?>
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
 			<?php } else{ ?> 
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $storynotify->sname;?>">
 			<?php } ?>
             <span class="username">
                 <b> <?php echo $storynotify->sname;?> </b>
@@ -87,9 +87,9 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
         <div class="user-block" style="cursor:pointer;">
             <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
 		    <?php if(!empty($storynotify->profile_image)){ ?>
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
 			<?php } else{ ?> 
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $storynotify->sname;?>">
 			<?php } ?>
             <span class="username"><span> New episode </span>
                 <b> <?php echo $storynotify->stitle;?> </b>
@@ -99,7 +99,7 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
                         $seriesname = get_seriesname($storynotify->title_id);
                         if(isset($seriesname[0]->title)){  $seriestitle = $seriesname[0]->title;  }
                         if(isset($seriesname[0]->sid) && !empty($seriesname[0]->sid)){
-                        $seriesuri='index.php/welcome/new_series?id='.$seriesname[0]->sid.'&story_id='.$seriesname[0]->sid;
+                        $seriesuri='series/'.preg_replace('/\s+/', '-', $seriesname[0]->title).'-'.$seriesname[0]->sid.'/'.preg_replace('/\s+/', '-', $seriesname[0]->title).'-'.$seriesname[0]->sid;
                         }
                     } ?>
                     <b><?php echo $seriestitle;?></b>
@@ -108,11 +108,11 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
         </div> <hr>
     <?php } elseif($storynotify->type == 'startseries') { ?>
         <div class="user-block" style="cursor:pointer;">
-            <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
+            <a href="<?php echo base_url().$this->uri->segment(1).'/'.$seriesuri;?>">
 		    <?php if(!empty($storynotify->profile_image)){ ?>
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
 			<?php } else{ ?> 
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $storynotify->sname;?>">
 			<?php } ?>
             <span class="username">
                 <b> <?php echo $storynotify->sname;?> </b>
@@ -125,9 +125,9 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
         <div class="user-block" style="cursor:pointer;">
             <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
 		    <?php if(!empty($storynotify->profile_image)){ ?>
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
 			<?php } else{ ?> 
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $storynotify->sname;?>">
 			<?php } ?>
             <span class="username">
                 <b> <?php echo $storynotify->sname;?> </b>
@@ -140,9 +140,9 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
         <div class="user-block" style="cursor:pointer;">
             <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->profile_name;?>">
 		    <?php if(!empty($storynotify->profile_image)){ ?>
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
 			<?php } else{ ?> 
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $storynotify->sname;?>">
 			<?php } ?>
             <span class="username">
                 <b> <?php echo $storynotify->sname;?> </b>
@@ -153,9 +153,9 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
         <div class="user-block" style="cursor:pointer;">
             <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
 		    <?php if(!empty($storynotify->profile_image)) { ?>
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
 			<?php } else { ?> 
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $storynotify->sname;?>">
 			<?php } ?>
             <span class="username">
                 <b> <?php echo $storynotify->sname;?> </b>
@@ -168,9 +168,9 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
         <div class="user-block" style="cursor:pointer;">
             <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->profile_name;?>">
 		    <?php if(!empty($storynotify->profile_image)) { ?>
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
 			<?php } else { ?> 
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $storynotify->sname;?>">
 			<?php } ?>
             <span class="username">
                 <b> <?php echo $storynotify->sname;?> </b>
@@ -181,9 +181,9 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
         <div class="user-block" style="cursor:pointer;">
             <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->profile_name;?>">
 		    <?php if(!empty($storynotify->profile_image)) { ?>
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
 			<?php } else { ?> 
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $storynotify->sname;?>">
 			<?php } ?>
             <span class="username">
                 <b> <?php echo $storynotify->sname;?> </b>
@@ -194,9 +194,9 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
         <div class="user-block" style="cursor:pointer;">
             <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
 		    <?php if(!empty($storynotify->profile_image)) { ?>
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
 			<?php } else { ?> 
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $storynotify->sname;?>">
 			<?php } ?>
             <span class="username">
                 <b> <?php echo $storynotify->sname;?> </b>
@@ -204,7 +204,7 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
                     <b> <?php echo $storynotify->stitle;?> </b><span> to </span>
                     <?php $commuri = '#'; $commname = ''; $communityname = get_commname($storynotify->title_id);
                         if(isset($communityname[0]->id) && !empty($communityname[0]->id)){
-                            $commuri = 'index.php/welcome/co_view/'.$communityname[0]->id;  }
+                             $commuri = 'welcome/community/'.preg_replace('/\s+/', '-', $communityname[0]->gener);  }
                         if(isset($communityname[0]->gener)){ $commname = $communityname[0]->gener; } ?>
                     <b> <?php echo $commname;?> </b>
                 </span></a>
@@ -216,11 +216,11 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
     <div class="user-block" style="cursor:pointer;">
 		<a href="<?php echo base_url().$this->uri->segment(1).'/'.$communitynotify->redirect_uri; ?>">
             <?php if(!empty($communitynotify->profile_image)){ ?>
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $communitynotify->profile_image;?>"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $communitynotify->profile_image;?>" alt="<?php echo $communitynotify->sname;?>">
 			<?php } else{ ?> 
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $communitynotify->sname;?>">
 			<?php } ?>
-            <span class="username"><b> <?php echo $communitynotify->title;?> </b> <span> new story created by</span> <b><?php echo $communitynotify->from_name;?></b></span>
+            <span class="username"><b> <?php echo $communitynotify->title;?> </b> <span style="font-weight:200;"> new story created by</span> <b><?php echo $communitynotify->from_name;?></b></span>
             <span class="description"><?php echo date("F j, Y g:i A", strtotime($communitynotify->created_at));?></span>
         </a>
     </div><hr>
@@ -228,9 +228,9 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
     <div class="user-block" style="cursor:pointer;">
 		<a href="<?php echo base_url().$this->uri->segment(1).'/'.$communitynotify->redirect_uri; ?>">
             <?php if(!empty($communitynotify->profile_image)){ ?>
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $communitynotify->profile_image;?>"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $communitynotify->profile_image;?>" alt="<?php echo $communitynotify->sname;?>">
 			<?php } else{ ?> 
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $communitynotify->sname;?>">
 			<?php } ?>
             <span class="username"><b> <?php echo $communitynotify->title;?> </b> A Community Comment posted by <b> <?php echo $communitynotify->from_name;?></b></span>
             <span class="description"><?php echo date("F j, Y g:i A", strtotime($communitynotify->created_at));?></span>
@@ -240,9 +240,9 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
     <div class="user-block" style="cursor:pointer;">
 		<a href="<?php echo base_url().$this->uri->segment(1).'/'.$communitynotify->redirect_uri; ?>">
 		    <?php if(!empty($communitynotify->profile_image)){ ?>
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $communitynotify->profile_image;?>"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $communitynotify->profile_image;?>" alt="<?php echo $communitynotify->sname;?>">
 			<?php } else{ ?> 
-			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $communitynotify->sname;?>">
 			<?php } ?>
             <span class="username"><b> <?php echo $communitynotify->from_name;?></b> liked community post</span>
             <span class="description"><?php echo date("F j, Y g:i A", strtotime($communitynotify->created_at));?></span>
@@ -254,9 +254,9 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
             <div class="user-block" style="cursor:pointer;">
                 <a href="#" data-toggle="modal" data-target="#sugnotifymodalp<?php echo $suggestion->id;?>">
 			    <?php if(!empty($suggestion->profile_image)) { ?>
-				    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $suggestion->profile_image;?>"> 
+				    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $suggestion->profile_image;?>" alt="<?php echo $suggestion->sname;?>">
 				<?php } else { ?> 
-				    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png"> 
+				    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $suggestion->sname;?>">
 				<?php } ?>
                 <span class="username">
                         <b> <?php echo $suggestion->sname;?> </b>

@@ -222,7 +222,7 @@
             		            <i class="fa fa-ellipsis-v" style="font-size:14px;"></i>
             		        </a>
             		        <ul class="dropdown-menu pull-right">
-            		            <li><a href="javascript:void(0);" onClick="editnano(<?php echo $valoadnanorow->sid;?>);"><i class="fa fa-edit pr-10"></i> EDIT</a></li>
+            		            <li><a href="<?php echo base_url();?>editnano/<?php echo $valoadnanorow->sid;?>"><i class="fa fa-edit pr-10"></i> EDIT</a></li>
         		                <li><a href="javascript:void(0);" onClick="deletenano(<?php echo $valoadnanorow->sid;?>);"><i class="fa fa-trash pr-10"></i> DELETE</a></li>
             		        </ul>
             		    </span>

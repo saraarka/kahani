@@ -18,7 +18,7 @@
                     <?php foreach($rlseries->result() as $rlseriesrow){ ?>
                     	<div class="card">
                 		    <div class="book-type"><?php echo $rlseriesrow->gener;?></div>
-                			<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $rlseriesrow->title).'-'.$rlseriesrow->sid.'/'.preg_replace('/\s+/', '-', $rlseriesrow->title).'-'.$rlseriesrow->story_id);?>">
+                			<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $rlseriesrow->title).'-'.$rlseriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $rlseriesrow->title).'-'.$rlseriesrow->story_id);?>">
                     			<?php if(isset($rlseriesrow->cover_image) && !empty($rlseriesrow->cover_image)) { ?>
                     			    <img src="<?php echo base_url();?>assets/images/<?php echo $rlseriesrow->cover_image; ?>" alt="<?php echo $rlseriesrow->title;?>" class="imageme">
                     			<?php }else{ ?>
@@ -27,7 +27,7 @@
                 			</a>
                     		<div>
                     			<font class="max-lines">
-                    				<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $rlseriesrow->title).'-'.$rlseriesrow->sid.'/'.preg_replace('/\s+/', '-', $rlseriesrow->title).'-'.$rlseriesrow->story_id);?>">
+                    				<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $rlseriesrow->title).'-'.$rlseriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $rlseriesrow->title).'-'.$rlseriesrow->story_id);?>">
                     					<?php echo $rlseriesrow->title;?>
                     				</a>
                     			</font> 
@@ -61,18 +61,18 @@
                     				<span class=""><i class="fa fa-plus"></i></span>
                     			</button>
                     			<ul class="dropdown-menu list-inline dropvk">
-                    				<li onclick="groupsuggest(<?php echo $rlseriesrow->sid; ?>);">
-                    					<a data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
-                    				</li>
-                    				<li onclick="friend(<?php echo $rlseriesrow->sid;?>);">
-                    					<a data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
-                    				</li>
-                    				<li onclick="socialshare(<?php echo $rlseriesrow->sid;?>, 'series');">
-                    					<a data-toggle="modal" data-target="#soc" href="" title="SOCIAL">
-                    						<i class="fa fa-share-alt"></i>
-                    					</a>
-                    				</li>
-                    			</ul>
+                                    <li onclick="groupsuggest(<?php echo $rlseriesrow->sid; ?>);">
+                                        <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                    </li>
+                                    <li onclick="friend(<?php echo $rlseriesrow->sid;?>);">
+                                        <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+                                    </li>
+                                    <li onclick="socialshare(<?php echo $rlseriesrow->sid;?>, 'series');">
+                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#soc" title="SOCIAL">
+                                            <i class="fa fa-share-alt"></i>
+                                        </a>
+                                    </li>
+                                </ul>
                     		</div>
                 	    </div>        
                     <?php } ?>
@@ -101,7 +101,7 @@
                     <?php foreach($rlstories->result() as $rlstoryrow) { ?>
                     	<div class="card">
                 		    <div class="book-type"><?php echo $rlstoryrow->gener;?></div>
-                			<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $rlstoryrow->title).'-'.$rlstoryrow->sid);?>">
+                			<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u",'-', $rlstoryrow->title).'-'.$rlstoryrow->sid);?>">
                     			<?php if(isset($rlstoryrow->cover_image) && !empty($rlstoryrow->cover_image)) { ?>
                     			    <img src="<?php echo base_url();?>assets/images/<?php echo $rlstoryrow->cover_image; ?>" alt="<?php echo $rlstoryrow->title;?>" class="imageme">
                     			<?php }else{ ?>
@@ -110,7 +110,7 @@
                     		</a>
                     		<div>
                     			<font class="max-lines">
-                    				<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $rlstoryrow->title).'-'.$rlstoryrow->sid);?>">
+                    				<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u",'-', $rlstoryrow->title).'-'.$rlstoryrow->sid);?>">
                     					<?php echo $rlstoryrow->title;?>
                     				</a>
                     			</font> 
@@ -153,18 +153,18 @@
                     				<span class=""><i class="fa fa-plus"></i></span>
                     			</button>
                     			<ul class="dropdown-menu list-inline dropvk">
-                    				<li onclick="groupsuggest(<?php echo $rlstoryrow->sid; ?>);">
-                    					<a data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
-                    				</li>
-                    				<li onclick="friend(<?php echo $rlstoryrow->sid;?>);">
-                    					<a data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
-                    				</li>
-                    				<li onclick="socialshare(<?php echo $rlstoryrow->sid;?>, 'story');">
-                    					<a data-toggle="modal" data-target="#soc" href="" title="SOCIAL">
-                    						<i class="fa fa-share-alt"></i>
-                    					</a>
-                    				</li>
-                    			</ul>
+                                    <li onclick="groupsuggest(<?php echo $rlstoryrow->sid; ?>);">
+                                        <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                    </li>
+                                    <li onclick="friend(<?php echo $rlstoryrow->sid;?>);">
+                                        <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+                                    </li>
+                                    <li onclick="socialshare(<?php echo $rlstoryrow->sid;?>, 'story');">
+                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#soc" title="SOCIAL">
+                                            <i class="fa fa-share-alt"></i>
+                                        </a>
+                                    </li>
+                                </ul>
                     		</div>
                 	    </div>        
                     <?php } ?>
@@ -175,16 +175,16 @@
     	
     <?php if(isset($rllife) && ($rllife->num_rows() > 0)){ 
         $tab2pagescount = $tab2pagescount+$rllife->num_rows(); ?>
-	    <div class="row pt-0" style="margin-top:40px;">
+        <div class="row pt-0" style="margin-top:40px;">
             <div class="col-md-6 col-xs-8 pd-0">
-            	<div class="titlei">LIFE EVENTS</div>
+                <div class="titlei">LIFE EVENTS</div>
             </div>
-            <?php if($rllife->num_rows() > 4) { ?>		
-            <div class="col-md-6 col-xs-4 pd-0">		
-            	<a href="javascript:void(0)" onclick="readall(<?php echo $userid;?>,'life')" class="view pull-right">		
-            	    <div class="pull-right">View More</div>		
-            	</a>		
-            </div>		
+            <?php if($rllife->num_rows() > 4) { ?>
+            <div class="col-md-6 col-xs-4 pd-0">
+                <a href="javascript:void(0)" onclick="readall(<?php echo $userid;?>,'life')" class="view pull-right">
+                    <div class="pull-right">View More</div>
+                </a>
+            </div>
             <?php } ?>
         </div><hr>
 	    <div class=""> 
@@ -192,7 +192,7 @@
             	<div id="story-sliderls" class="story-slider" >
             		<?php $i = 0; foreach($rllife->result() as $rlliferow) { if($i < 3){ ?>
             			<div class="card1">
-            				<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $rlliferow->title).'-'.$rlliferow->sid);?>">
+            				<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u",'-', $rlliferow->title).'-'.$rlliferow->sid);?>">
                 				<?php if(isset($rlliferow->cover_image) && !empty($rlliferow->cover_image)) { ?>
                 					<img src="<?php echo base_url();?>assets/images/<?php echo $rlliferow->cover_image; ?>" alt="<?php echo $rlliferow->title;?>" class="imageme1">
                 				<?php }else{ ?>
@@ -201,7 +201,7 @@
             				</a>
             				<div>
                 				<font class="max-lines">
-                					<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $rlliferow->title).'-'.$rlliferow->sid);?>">
+                					<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u",'-', $rlliferow->title).'-'.$rlliferow->sid);?>">
                 						<?php echo $rlliferow->title;?>
                 					</a>
                 				</font> 
@@ -232,18 +232,18 @@
             						<span class=""><i class="fa fa-plus"></i></span>
             					</button>
             					<ul class="dropdown-menu list-inline dropvklife">
-            						<li onclick="groupsuggest(<?php echo $rlliferow->sid; ?>);">
-            							<a data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
-            						</li>
-            						<li onclick="friend(<?php echo $rlliferow->sid;?>);">
-            							<a data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
-            						</li>
-            						<li onclick="socialshare(<?php echo $rlliferow->sid;?>, 'story');">
-            							<a data-toggle="modal" data-target="#soc" href="" title="SOCIAL">
-            								<i class="fa fa-share-alt"></i>
-            							</a>
-            						</li>
-            					</ul>
+                                    <li onclick="groupsuggest(<?php echo $rlliferow->sid; ?>);">
+                                        <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                    </li>
+                                    <li onclick="friend(<?php echo $rlliferow->sid;?>);">
+                                        <a dhref="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+                                    </li>
+                                    <li onclick="socialshare(<?php echo $rlliferow->sid;?>, 'story');">
+                                        <a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
+                                            <i class="fa fa-share-alt"></i>
+                                        </a>
+                                    </li>
+                                </ul>
             				</div>
             			</div>
             		<?php $i++; } } ?>
@@ -254,13 +254,25 @@
 
     <?php if($tab2pagescount < 1){  ?>
         <center>
-	        <div style="margin:10.8% auto">
-	            <div style="width:150px;">
-	                <img src="<?php echo base_url();?>assets/images/nodata.svg" class="img-responsive" style="width:100%;" alt="No Data">
-	            </div>
-	            <div style="font-family: arial,sans-serif;margin-top:5px;">NO STORIES FOUND</div>
-	        </div>
-	    </center>
+            <div class="outerv hidden-xs">
+                <div class="middlev hidden-xs">
+                    <div class="innerv">
+                        <img src="<?php echo base_url();?>assets/images/nodata.svg" class="img-responsive" style="width:100%;" alt="No Data">
+                        <div style="font-family: arial,sans-serif;margin-top:5px;">NO STORIES FOUND</div>
+                    </div>
+                </div>
+            </div>
+        </center>
+        <div class="hidden-md hidden-lg" style="margin-bottom:20px;">
+            <center>
+                <div style="margin:10.8% auto">
+                    <div style="width:150px;">
+                        <img src="<?php echo base_url();?>assets/images/nodata.svg" class="img-responsive" style="width:100%;" alt="No Data">
+                    </div>
+                    <div style="font-family: arial,sans-serif;margin-top:5px;"><center>NO STORIES FOUND</center></div>
+                </div>
+            </center>
+        </div>
     <?php } ?>
     <div class="clearfix"></div>
     

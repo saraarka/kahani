@@ -282,7 +282,7 @@
 <!-- Social Popup ---- -->
 <div class="modal fade" id="soc">
 	<div class="modal-dialog">
-		<div class="modal-content socv ">
+		<div class="modal-content socv">
 			<div class="modal-header" style="padding:8px 15px;">
 				<button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px; margin-bottom:-2px;" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span></button>

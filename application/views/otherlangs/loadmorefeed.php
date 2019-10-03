@@ -44,7 +44,7 @@
 							<?php if(!empty($key->image)) { ?>
 						        <img src="<?php echo $key->image;?>" class="media-object img-v" alt="<?php echo $key->title; ?>">
 							<?php } else { ?>
-								<img src="<?php echo base_url();?>assets/images/2.png" class="media-object img-v" alt="<?php echo $key->title; ?>">
+								<img src="<?php echo base_url();?>assets/default/feed_comm.jpeg" class="media-object img-v" alt="<?php echo $key->title; ?>">
 							<?php } ?>
 							</a>
 						</div>
@@ -93,7 +93,9 @@
 			<?php } else { ?>
 				<button class="btn btn-default btn-xs like<?php echo $key->id;?>" onclick="likestory(<?php echo $key->id;?>)" style="background:none;"><i class="fa fa-thumbs-up"></i> Like</button>
 			<?php } ?>
-			<span class="pl-10"><a data-toggle="modal" data-target="#soc" href="javascript:void(0);"><i class="fa fa-share"></i> Share</a></span>
+			<span class="pl-10" onclick="commusocialshare(<?php echo $key->id;?>, '<?php echo preg_replace('/\s+/', '-', $key->gener); ?>');">
+                <a data-toggle="modal" data-target="#soc" style="color:#333;cursor:pointer;"><i class="fa fa-share"></i> Share</a>
+            </span>
 			<span class="pull-right text-muted" onClick="comments(<?php echo $key->id;?>);">
 				<span id="old_like<?php echo $key->id;?>"><?php echo $key->likes; ?></span> <span id="new_like"></span> Likes &nbsp; 
 				<span id="old_cmt<?php echo $key->id;?>" style="cursor:pointer"><?php echo get_storycmtcount($key->id);?></span> <span style="cursor:pointer"> Comments</span>
@@ -115,7 +117,7 @@
     				<input type="text" name="comment" placeholder="Type Comment Message ..." class="form-control" required="">
     				<input type="hidden" name="comm_id" value="<?php echo $key->id; ?>">
     				<span class="input-group-btn">
-    					<button type="submit" class="btn btn-success btn-flat" onclick="comm_comments(<?php echo $key->id;?>)"> Comment </button>
+    					<button type="submit" class="btn btn-success btn-flat btnspinner<?php echo $key->id;?>" onclick="comm_comments(<?php echo $key->id;?>)"> Comment </button>
     				</span>
     			</div>
     		</div>
@@ -151,7 +153,7 @@
 									<span class="text-muted pull-right datecv"><?php echo get_ydhmdatetime($comment->date);?></span>
 								</span>
 							</div>
-							<div style="margin:8px 0 6px 2px" class="comment-text">
+							<div style="margin:4px 0 6px 2px" class="comment-text">
 							    <?php if(strlen($comment->comment) > 200){ ?>
 							        <div class="more <?php echo $comment->id;?>"><?php echo mb_substr($comment->comment, 0, 200); ?>
 							            <span class="showhide<?php echo $comment->id;?>" style="display:none;"><?php echo mb_substr($comment->comment,200); ?></span>
@@ -282,7 +284,7 @@
 								<?php }elseif((!empty($yourfeed->image) && ($yourfeed->type != "url"))){ ?>
 									<img src="<?php echo base_url();?>assets/images/<?php echo $yourfeed->image;?>" class="media-object img-v" alt="<?php echo $yourfeed->title;?>">
 								<?php } else { ?>
-									<img src="<?php echo base_url();?>assets/images/1.jpg" class="media-object img-v" alt="<?php echo $yourfeed->title;?>">
+									<img src="<?php echo base_url();?>assets/default/feed_comm.jpeg" class="media-object img-v" alt="<?php echo $yourfeed->title;?>">
 								<?php } ?>
 							</a>
 						</div>
@@ -331,7 +333,9 @@
 			<?php } else { ?>
 				<button class="btn btn-default btn-xs like<?php echo $yourfeed->id;?>" onclick="likestory(<?php echo $yourfeed->id;?>)" style="background:none;"><i class="fa fa-thumbs-up"></i> Like</button>
 			<?php } ?>
-			<span class="pl-10"><a data-toggle="modal" data-target="#soc" href="javascript:void(0);"><i class="fa fa-share"></i> Share</a></span>	
+			<span class="pl-10" onclick="commusocialshare(<?php echo $yourfeed->id;?>, '<?php echo preg_replace('/\s+/', '-', $yourfeed->gener); ?>');">
+                <a data-toggle="modal" data-target="#soc" style="color:#333;cursor:pointer;"><i class="fa fa-share"></i> Share</a>
+            </span>
 			<span class="pull-right text-muted" onClick="tcomments(<?php echo $yourfeed->id;?>);">
 				<span id="old_like<?php echo $yourfeed->id;?>"><?php echo $yourfeed->likes; ?></span><span id="new_like"></span> Likes &nbsp; 
 				<span id="told_cmt<?php echo $yourfeed->id;?>" style="cursor:pointer"><?php echo get_storycmtcount($yourfeed->id);?></span> <span style="cursor:pointer">Comments</span>
@@ -353,7 +357,7 @@
 					<input type="text" name="tcomment" placeholder="Type Comment Message ..." class="form-control" required="">
 					<input type="hidden" name="tcomm_id" value="<?php echo $yourfeed->comm_id; ?>">
 					<span class="input-group-btn">
-						<button type="submit" class="btn btn-success btn-flat" onclick="tpostscomm_comments(<?php echo $yourfeed->id;?>)"> Comment </button>
+						<button type="submit" class="btn btn-success btn-flat btnspinner<?php echo $yourfeed->id;?>" onclick="tpostscomm_comments(<?php echo $yourfeed->id;?>)"> Comment </button>
 					</span>
 				</div>
 			</div>
@@ -391,7 +395,7 @@
                                         <span class="text-muted pull-right datecv"><?php echo get_ydhmdatetime($ycomment->date);?></span>
 									</span>
 								</div>
-								<div style="margin:8px 0 6px 2px" class="comment-text">
+								<div style="margin:4px 0 6px 2px" class="comment-text">
 									<?php if(strlen($ycomment->comment) > 200){ ?>
 								        <div style="word-break:break-word;" class="more pcomment<?php echo $ycomment->id;?>"><?php echo mb_substr($ycomment->comment, 0, 200); ?>
 								            <span class="showhide<?php echo $ycomment->id;?>" style="display:none;"><?php echo mb_substr($ycomment->comment,200); ?></span>
@@ -428,7 +432,7 @@
     							            <div class="">
     								            <span class="">&nbsp;<b><a href="<?php echo base_url().$this->uri->segment(1).'/'.$topsubcomment->profile_name; ?>">
     								                <p class="namers"><?php echo ucfirst($topsubcomment->name);?></p></a></b><span class="dropdown" style="float:right;">
-                                                    <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true" style="padding: 0px 10px 0px 20px;">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true" style="padding: 0px 0px 0px 20px;">
                                                      <i class="fa fa-ellipsis-v"></i> </a> 
                                                     <ul class="dropdown-menu pull-right">
                                                         <?php if($topsubcomment->user_id == $this->session->userdata['logged_in']['user_id']){ ?>
@@ -441,13 +445,13 @@
                                                 </span><span class="text-muted pull-right datecv"><?php echo get_ydhmdatetime($topsubcomment->date);?></span>
     								            </span><br>
     								            <?php if(strlen($topsubcomment->comment) > 200){ ?>
-    										        <span class="more pcomment<?php echo $topsubcomment->id;?>" style="padding-left: 6px;word-break:break-word;">
+    										        <span class="more pcomment<?php echo $topsubcomment->id;?>" style="padding-left: 10px;word-break:break-word;">
     										            <?php echo mb_substr($topsubcomment->comment, 0, 200); ?>
     										            <span class="showhide<?php echo $topsubcomment->id;?>" style="display:none;"><?php echo mb_substr($topsubcomment->comment,200); ?></span>
     										            <span class="smorelessdots<?php echo $topsubcomment->id;?>">...</span>
     										            <u onclick="showhide(<?php echo $topsubcomment->id;?>)" class="moreless<?php echo $topsubcomment->id;?>" style="cursor: pointer;color:red;">show-more</u></span>
     										    <?php } else{ ?>
-    										        <span class="more pcomment<?php echo $topsubcomment->id;?>" style="padding-left: 6px;word-break:break-word;"><?php echo $topsubcomment->comment;?></span>
+    										        <span class="more pcomment<?php echo $topsubcomment->id;?>" style="padding-left: 10px;word-break:break-word;"><?php echo $topsubcomment->comment;?></span>
     										    <?php } ?>
     							            </div>
     							        </span>
@@ -518,7 +522,7 @@
     					<?php if(!empty($storyfeed->cover_image)) { ?>
     				        <img src="<?php echo base_url();?>assets/images/<?php echo $storyfeed->cover_image;?>" class="media-object img-v" alt="<?php echo $storyfeed->title;?>">
     				    <?php } else { ?>
-    					    <img src="<?php echo base_url();?>assets/images/1.jpg" class="media-object img-v" alt="<?php echo $storyfeed->title;?>">
+    					    <img src="<?php echo base_url();?>assets/default/feed_comm.jpeg" class="media-object img-v" alt="<?php echo $storyfeed->title;?>">
     					<?php } ?>
     				</a>
     			</div>

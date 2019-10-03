@@ -7,269 +7,386 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Story Carry</title>
         <link rel="stylesheet" href="<?php echo base_url();?>assets/css/editor.css">
-<style>
-*{
-    -webkit-tap-highlight-color: transparent;
-}
- body{
-  margin: 0;
-  background: rgb(238, 238, 238);
- }
- 
- .write-nav{
-  width: 100%;
-  height: 60px;
-  z-index: 1000;
-  position: fixed;
-  background: #3c8dbc;
-  font-family: Arial, Helvetica, sans-serif;
-}
+        <style>
+          *{
+              -webkit-tap-highlight-color: transparent;
+          }
+           body{
+            margin: 0;
+            background: rgb(238, 238, 238);
+           }
+           
+           .write-nav{
+            width: 100%;
+            height: 60px;
+            z-index: 1000;
+            position: fixed;
+            background: #3c8dbc;
+            font-family: Arial, Helvetica, sans-serif;
+          }
 
-.logo1{
-    width: 170px;
-    /* height: 30px; */
-    margin-top: 15px;
-    margin-left: 15px;
-    display : inline-block;
-}
+          .logo1{
+              width: 170px;
+              /* height: 30px; */
+              margin-top: 15px;
+              margin-left: 15px;
+              display : inline-block;
+          }
 
-.logo-small{
-    display : none;
-    margin: 11px 20px;
-    height: 38px;
-}
-
-
-.nav-items-write{
-  color: white;
-  float: right;
-  font-size: 15px;
-  display: flex;
-  margin-top: 10px;
-}
-
-.nav-items-write div {
-  margin-right: 25px;
-  cursor : pointer;
-}
-
-.save-btn {
-  border-radius : 5px;
-  border: 1px solid white;
-  padding :10px;
-  cursor:pointer;
-
-}
-
-.save-btn{
-  background: #00000c24
-}
+          .logo-small{
+              display : none;
+              margin: 11px 20px;
+              height: 38px;
+          }
 
 
-.draft-btn, .cancel-btn{
-  margin-top: 11px;
-}
+          .nav-items-write{
+            color: white;
+            float: right;
+            font-size: 15px;
+            display: flex;
+            margin-top: 10px;
+          }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  right:0;
-  top:60px;
-  box-shadow:0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
-  background-color: #f9f9f9;
-  min-width: 160px;
-  z-index: 1;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
+          .nav-items-write div {
+            margin-right: 25px;
+            cursor : pointer;
+          }
 
-.dropdown-content a{
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-.dropdown-content a:hover{
-    background-color:#eeeeee;
-}
-.removeimg {
-    background: #3c8dbc;
-    text-align: center;
-    width: 293px;
-    margin: 15px;
-    padding: 3px 0px;
-    color: #fff;
-}
-.imageThumb {
-    width: 293px;
-    height: 280px;
-}
-@media screen and (max-width:760px){
-    .logo1{
-        display : none;
-  }
+          .save-btn {
+            border-radius : 5px;
+            border: 1px solid white;
+            padding :10px;
+            cursor:pointer;
+          }
 
-    .logo-small{
-       display : inline-block;
-  }
-}
+          .save-btn{
+            background: #00000c24
+          }
 
 
-@media screen and (max-width:480px){
-    .nav-items-write{
-        margin-top:14px;
-        font-size : 13px;
-    }
-    .save-btn{
-        padding :7px;
-    }
-    .draft-btn, .cancel-btn{
-        margin-top: 8px;
-    }
-    .nav-items-write div {
-        margin-right: 15px;
-    }
-}
-/* Popup modal css start */
-.hide-body-scroll{
-    overflow-y: hidden;
-}
-.blur{
-  -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  -o-filter: blur(5px);
-  -ms-filter: blur(5px);
-  filter: blur(5px);
-}
+          .draft-btn, .cancel-btn{
+            margin-top: 11px;
+          }
+
+          .dropdown-content {
+            display: none;
+            position: absolute;
+            right:0;
+            top:60px;
+            box-shadow:0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+            background-color: #f9f9f9;
+            min-width: 160px;
+            z-index: 1;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+          }
+
+          .dropdown-content a{
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+          }
+          .dropdown-content a:hover{
+              background-color:#eeeeee;
+          }
+          .removeimg {
+              background: #3c8dbc;
+              text-align: center;
+              width: 293px;
+              margin: 15px;
+              padding: 3px 0px;
+              color: #fff;
+          }
+          .imageThumb {
+              width: 293px;
+              height: 280px;
+          }
+          @media screen and (max-width:760px){
+              .logo1{
+                  display : none;
+            }
+
+              .logo-small{
+                 display : inline-block;
+            }
+          }
 
 
-.modal-wrapper{
-    z-index: 1005;
-  width:100%;
-  height:100%;
-  position:fixed;
-  font-family: arial,"sans-serif";
-  top:0; left:0;
-  background:rgba(0,0,0,0.5);
-  visibility:hidden;
-  opacity:0;
-  -webkit-transition: all 0.25s ease-in-out;
-  -moz-transition: all 0.25s ease-in-out;
-  -o-transition: all 0.25s ease-in-out;
-  transition: all 0.25s ease-in-out;
-}
-
-.modal-wrapper.open{
-  opacity:1;
-  visibility:visible;
-}
-
-.modal{
-  width:500px;
-  max-width : 90%;
-  border-radius: 5px;
-  max-height : 100%;
-  display:block;
-  position: absolute;
-  left: 50%;
-  top: 30%;
-  transform : translate(-50%,-30%);
-  background:#fff;
-  opacity:0;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-}
-
-.modal-wrapper.open .modal{
-  opacity:1;
-}
-
-.popup-head{
-  width:100%;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  height:45px;
-  font-size :17px;
-  overflow:hidden;
-  background:#01bce5;
-}
-
-.popup-headtext{
-    display : inline-block;
-    margin:13px;
-    color:white;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    max-width: 70%;
-}
-.popup-btn-close{
-  width : 22px;
-  margin: 6px 8px 0px 0px;
-  float:right;
-}
-
-.popup-content{
-    padding: 10px;
-    font-size: 16px;
-    line-height: 25px;
-    max-height: 300px;
-    min-height: 100px;
-    overflow-y: scroll;
-}
-/* Popup modal css end */
+          @media screen and (max-width:480px){
+              .nav-items-write{
+                  margin-top:14px;
+                  font-size : 13px;
+              }
+              .save-btn{
+                  padding :7px;
+              }
+              .draft-btn, .cancel-btn{
+                  margin-top: 8px;
+              }
+              .nav-items-write div {
+                  margin-right: 15px;
+              }
+          }
+          /* Popup modal css start */
+          .hide-body-scroll{
+              overflow-y: hidden;
+          }
+          .blur{
+            -webkit-filter: blur(5px);
+            -moz-filter: blur(5px);
+            -o-filter: blur(5px);
+            -ms-filter: blur(5px);
+            filter: blur(5px);
+          }
 
 
-/*snackbar css start */
-/* The snackbar - position it at the bottom and in the middle of the screen */
-#snackbar {
-  visibility: hidden; /* Hidden by default. Visible on click */
-  min-width: 250px; /* Set a default minimum width */
-  background-color: #333; /* Black background color */
-  color: #fff; /* White text color */
-  text-align: center; /* Centered text */
-  border-radius: 2px; /* Rounded borders */
-  padding: 16px; /* Padding */
-  position: fixed; /* Sit on top of the screen */
-  z-index: 1; /* Add a z-index if needed */
-  left: 50%; /* Center the snackbar */
-  bottom: 30px; /* 30px from the bottom */
-  transform: translateX(-50%);
-}
+          .modal-wrapper{
+              z-index: 1005;
+            width:100%;
+            height:100%;
+            position:fixed;
+            font-family: arial,"sans-serif";
+            top:0; left:0;
+            background:rgba(0,0,0,0.5);
+            visibility:hidden;
+            opacity:0;
+            -webkit-transition: all 0.25s ease-in-out;
+            -moz-transition: all 0.25s ease-in-out;
+            -o-transition: all 0.25s ease-in-out;
+            transition: all 0.25s ease-in-out;
+          }
 
-/* Show the snackbar when clicking on a button (class added with JavaScript) */
-#snackbar.show {
-  visibility: visible; /* Show the snackbar */
-  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
-  However, delay the fade out process for 2.5 seconds */
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 10.5s;
-  animation: fadein 0.5s, fadeout 0.5s 10.5s;
-}
+          .modal-wrapper.open{
+            opacity:1;
+            visibility:visible;
+          }
 
-/* Animations to fade the snackbar in and out */
-@-webkit-keyframes fadein {
-  from {bottom: 0; opacity: 0;} 
-  to {bottom: 30px; opacity: 1;}
-}
+          .modal{
+            width:500px;
+            max-width : 90%;
+            border-radius: 5px;
+            max-height : 100%;
+            display:block;
+            position: absolute;
+            left: 50%;
+            top: 30%;
+            transform : translate(-50%,-30%);
+            background:#fff;
+            opacity:0;
+            -webkit-transition: all 0.5s ease-in-out;
+            -moz-transition: all 0.5s ease-in-out;
+            -o-transition: all 0.5s ease-in-out;
+            transition: all 0.5s ease-in-out;
+          }
 
-@keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
-}
+          .modal-wrapper.open .modal{
+            opacity:1;
+          }
 
-@-webkit-keyframes fadeout {
-  from {bottom: 30px; opacity: 1;} 
-  to {bottom: 0; opacity: 0;}
-}
+          .popup-head{
+            width:100%;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            height:45px;
+            font-size :17px;
+            overflow:hidden;
+            background:#01bce5;
+          }
 
-@keyframes fadeout {
-  from {bottom: 30px; opacity: 1;}
-  to {bottom: 0; opacity: 0;}
-}
-/*snackbar css end */
-</style>
+          .popup-headtext{
+              display : inline-block;
+              margin:13px;
+              color:white;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              max-width: 70%;
+          }
+          .popup-btn-close{
+            width : 22px;
+            margin: 6px 8px 0px 0px;
+            float:right;
+          }
+
+          .popup-content{
+              padding: 10px;
+              font-size: 16px;
+              line-height: 25px;
+              max-height: 300px;
+              min-height: 100px;
+              overflow-y: scroll;
+          }
+          /* Popup modal css end */
+
+
+          /*snackbar css start */
+          /* The snackbar - position it at the bottom and in the middle of the screen */
+          #snackbar {
+            visibility: hidden; /* Hidden by default. Visible on click */
+            min-width: 250px; /* Set a default minimum width */
+            background-color: #333; /* Black background color */
+            color: #fff; /* White text color */
+            text-align: center; /* Centered text */
+            border-radius: 2px; /* Rounded borders */
+            padding: 16px; /* Padding */
+            position: fixed; /* Sit on top of the screen */
+            z-index: 1; /* Add a z-index if needed */
+            left: 50%; /* Center the snackbar */
+            bottom: 30px; /* 30px from the bottom */
+            transform: translateX(-50%);
+          }
+
+          /* Show the snackbar when clicking on a button (class added with JavaScript) */
+          #snackbar.show {
+            visibility: visible; /* Show the snackbar */
+            /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+            However, delay the fade out process for 2.5 seconds */
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 10.5s;
+            animation: fadein 0.5s, fadeout 0.5s 10.5s;
+          }
+
+          /* Animations to fade the snackbar in and out */
+          @-webkit-keyframes fadein {
+            from {bottom: 0; opacity: 0;} 
+            to {bottom: 30px; opacity: 1;}
+          }
+
+          @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+          }
+
+          @-webkit-keyframes fadeout {
+            from {bottom: 30px; opacity: 1;} 
+            to {bottom: 0; opacity: 0;}
+          }
+
+          @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+          }
+          /*snackbar css end */
+        </style>
+        <style>
+            .top-div-image-popup {
+              height: 57px;
+              box-shadow: 0 3px 2px -2px rgba(200,200,200,0.2);
+              border-bottom: 1px solid #ddd;
+              padding-top: 12px;
+              text-align: center;
+              box-sizing: border-box;
+              background: white;
+            }
+
+            .top-div-image-popup input {
+              height: 31px;
+              width: 250px;
+              border: none;
+              border-radius: 0;
+              border-bottom: 2px solid;
+              margin-right: 5px;
+              outline: none;
+              font-size: 16px;
+            }
+
+            .top-div-image-popup button {
+              cursor: pointer;
+              background-color: rgba(0,0,0,0.3);
+              width: 45px;
+              padding: 8px 0px;
+              border: none;
+              border-radius: 3px;
+              outline: none;
+              color: white;
+            }
+
+            .defaultimages {
+              padding-top: 10px;
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: center;
+              height: 260px;
+              overflow-Y: auto;
+            }
+
+            .defaultimages img {
+              border-radius: 5px;
+              width: 45%;
+              max-width: 127px;
+              max-height: 121px;
+              border: 3px solid #eeee;
+              margin: 1%;
+              cursor: pointer;
+            }
+            img.selectedIMG{
+              border : 3px solid #3c8dbc;
+            }
+
+            .image-loadmore{
+              width: 100%;
+              text-align: center;
+            }
+
+            .image-loadmore button {
+              height: 30px;
+              font-size: 14px;
+              margin: 10px 0px;
+              background: #3c8dbc;
+              border: none;
+              border-radius: 3px;
+              color: white;
+              outline: none;
+            }
+
+            .upload-own-img-div{
+              text-align: center;
+              display:flex;
+              justify-content: center;
+              border-top: 1px solid #ddd;
+            }
+
+            .upload-own-img-btn{
+              background: none;
+              border: 1px solid;
+              height: 30px;
+              margin: 10px;
+              color: #3c8dbc;
+              outline: none;
+            }
+            .default-img-save-button{
+              border: 1px solid transparent;
+              height: 30px;
+              margin: 10px;
+              color: #bcb2b2;
+              background: #eee;
+              outline: none;
+            }
+            .close-btn{
+              position: absolute;
+              background: red;
+              text-align: center;
+              color: white;
+              right: 0;
+              top: -37px;
+              box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+              border: none;
+              height: 30px;
+              font-size: 17px;
+              border-radius: 3px;
+              cursor: pointer;
+              outline: none;
+            }
+            @media screen and (max-width:470px){
+              .default-image-popup {
+                width: 300px;
+              }
+              .top-div-image-popup input {
+                width: 200px;
+              }
+            }
+        </style>
     </head>
     <body>
         
@@ -297,14 +414,14 @@
                             <div class="imagebox">
                                 <label for="upload-file-selector">
                                     <input type="hidden" id="previewimage" value="<?php echo $row->cover_image;?>">
-                                    <input type="file" name="cover_image" id="upload-file-selector" style="display:none;">
+                                    <input type="hidden" name="cover_image" id="upload-file-selectorserver" style="display:none;">
                                     <?php if(isset($row->cover_image) && !empty($row->cover_image)) { ?>
                                         <span class="upload-file-selector">
-                                            <img src="<?php echo base_url();?>assets/images/<?php echo $row->cover_image;?>" alt="<?php echo $row->title;?>" class="imageThumb">
+                                            <img src="<?php echo base_url();?>assets/images/<?php echo $row->cover_image;?>" alt="<?php echo $row->title;?>" class="imageThumb" style="cursor: pointer;">
                                         </span>
                                     <?php } else { ?>
                                         <span class="upload-file-selector">
-                                            <img src="<?php echo base_url();?>assets/images/series-stories.jpg" alt="<?php echo $row->title;?>" class="imageThumb">
+                                            <img src="<?php echo base_url();?>assets/images/series-stories.jpg" alt="<?php echo $row->title;?>" class="imageThumb" style="cursor: pointer;">
                                         </span>
                                     <?php } ?>
                                 </label>
@@ -342,6 +459,28 @@
     </div>
 </div>
 
+<div class="modal-wrapper" id="defaultimages">
+    <div class="modal">
+        <div class="default-image-popup">
+            <button class="close-btn">CLOSE</button>
+            <div class="top-div-image-popup">
+                <input id="searchimage" placeholder="Search image...">
+                <button onclick="searchimage()">GO</button>
+            </div>
+            <div class="defaultimages">
+                <?php if(isset($defaultimages) && ($defaultimages->num_rows() > 0)){ foreach($defaultimages->result() as $defaultimage){ ?>
+                    <img class="selectimg<?php echo $defaultimage->id;?>" src="<?php echo base_url();?>assets/images/<?php echo $defaultimage->dimage;?>" onclick="selectimg(<?php echo $defaultimage->id;?>)">
+                <?php } } ?>
+            </div>
+            <div class="image-loadmore"><button>LOAD MORE</button></div>
+            <div class="upload-own-img-div">
+                <button class="upload-own-img-btn"><label><input type="file" name="cover_image" id="upload-file-selector" style="display:none;">+ UPLOAD IMAGE</label></button>
+                <button class="default-img-save-button">USE THIS IMAGE</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 <script>
     $(document).ready(function(){
@@ -356,6 +495,97 @@
     });
 });
 </script>
+
+<script>
+    $(document).ready(function() {
+        $('.upload-file-selector').click(function() {
+            $('body').toggleClass('hide-body-scroll');
+            $('#defaultimages').toggleClass('open');
+            return false;
+        });
+        $('button.close-btn').click(function() {
+            $('body').toggleClass('hide-body-scroll');
+            $('.modal-wrapper').removeClass('open');
+            return false;
+        });
+    });
+    var limit = 6;
+    var start = 0;
+    function loadmoredimages(limit, start){
+        $.ajax({
+            url: '<?php echo base_url().$this->uri->segment(1);?>/loadmoredimages',
+            method: "POST",
+            data: {limit:limit, start:start},
+            cache: false,
+            dataType: "json",
+            success:function(data){
+                if(data.length > 0){
+                    var images = '';
+                    $.each(data,function (p,q){
+                    images+= '<img class="selectimg'+q.id+'" src="<?php echo base_url();?>assets/images/'+q.dimage+'" onclick="selectimg('+q.id+')">';
+                    });
+                    $('.defaultimages').append(images);
+                }else{
+                    $('.image-loadmore').html('No more Results');
+                }
+            }
+        });
+    }
+    $('.image-loadmore').click(function() {
+        start = start + limit;
+        loadmoredimages(limit, start);
+    });
+
+    function searchimage(){
+        var searchimage = $('#searchimage').val();
+        if(searchimage){
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url().$this->uri->segment(1);?>/searchimage",
+                data: {'searchimage': searchimage},
+                dataType: "json",
+                success: function(data) {
+                    var images = '';
+                    $.each(data,function (p,q){
+                    images+= '<img class="selectimg'+q.id+'" src="<?php echo base_url();?>assets/images/'+q.dimage+'" onclick="selectimg('+q.id+')">';
+                    });
+                    $('.defaultimages').html(images);
+                }
+            });
+        }
+    }
+    function selectimg(id){
+        $('.defaultimages img').removeClass("selectedIMG");
+        $('.selectimg'+id).addClass('selectedIMG');
+        $('.default-img-save-button').css({'background':'#3c8dbc','color':'white'});
+    }
+    $('.default-img-save-button').click(function(){
+        var checkclass = $('.defaultimages img').hasClass("selectedIMG");
+        if(checkclass){
+            var imagepath = $('.selectedIMG').attr('src');
+            $("#upload-file-selectorserver").val(imagepath);
+            $('.cover_imagelocalp').val('');
+            $('.cover_imagelocali').val('');
+            $('.upload-file-selector').html("<span class=\"pip\">" +
+            "<img class=\"imageThumb\" src=\"" + imagepath + "\"/>");
+            $('.removebtn').html("<div class=\"removeimg\"><span class=\"remove\" style=cursor:pointer;>REMOVE</span></div></span>");
+
+            $('body').toggleClass('hide-body-scroll');
+            $('.modal-wrapper').removeClass('open');
+            return false;
+        }
+    });
+    $(".removebtn").click(function(){
+        $(this).parent(".pip").remove();
+        $('.removebtn').html("");
+        $('.cover_imagelocalp').val('');
+        $('.cover_imagelocali').val('');
+        $("#upload-file-selectorserver").val('');
+        $('.upload-file-selector').html('<img src="<?php echo base_url();?>assets/images/flat.png" style="cursor:pointer;padding:124px;"/>'+
+            '<p class="browseimg">Image SIZE should be smaller than 2MB.</p>');
+    });
+</script>
+
 <script>
 $(document).ready(function() {
     upLoader();
@@ -368,6 +598,35 @@ function upLoader(){
             filesLength = files.length;
 	        for (var i = 0; i < filesLength; i++) {
                 var f = files[i]
+
+                var fd = new FormData();
+                var files = $('#upload-file-selector')[0].files[0];
+                fd.append('file',files);
+                fd.append('type','life');
+                $.ajax({
+                    url:'<?php echo base_url().$this->uri->segment(1);?>/localimage',
+                    type: 'POST',
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    success: function(response){
+                        var responsedata = JSON.parse(response);
+                        if(responsedata.picture1 != 0){
+                            $('.cover_imagelocalp').val(responsedata.picture1);
+                            $('.cover_imagelocali').val(responsedata.image);
+                            $("#upload-file-selectorserver").val('');
+
+                            $('body').toggleClass('hide-body-scroll');
+                            $('.modal-wrapper').removeClass('open');
+                            return false;
+                            console.log('file uploaded');
+                        }else{
+                            console.log('file not uploaded');
+                        }
+                    }
+                });
+
                 var fileReader = new FileReader();
                 fileReader.onload = (function(e) {
                     var file = e.target;
@@ -503,6 +762,7 @@ $(document).ready(function() {
             $('#upload').trigger('click');
             $('#upload').on('change', function() {
               var file = this.files[0];
+              $('button#mceu_18-action').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinnercomments.svg" class="spinner">');
               var reader = new FileReader();
               reader.onload = function() {
                 /*callback(e.target.result, {
@@ -520,7 +780,9 @@ $(document).ready(function() {
                     },error: function(response) {
                         $('#snackbar').text('Your browser does not support to File API').addClass('show');
         	            setTimeout(function(){ $('#snackbar').removeClass('show'); }, 5000);
-                    },
+                    },complete: function() {
+                        $('button#mceu_18-action').html('<i class="mce-ico mce-i-browse"></i>');
+                    }
                 });
               };
               reader.readAsDataURL(file);

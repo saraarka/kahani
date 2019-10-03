@@ -7,7 +7,7 @@
     margin: -1px 0 0 0;
     visibility: visible;
     opacity: 1;
-    max-height:105px;
+    max-height:150px;
     overflow-y:scroll;
     text-align: left;
     list-style: none;
@@ -50,8 +50,12 @@
 	        <?php } else{ $openlinkurl = '#';?>
 	            <input type="hidden" name="url" id="url123" value="">
     		<?php } ?>
-    		<div class="">
+    		<div class="" style="position:relative;">
         		<select name="to_ids[]" class="form-control tokenize-callable-demo1" multiple placeholder="Enter username to suggest"></select>
+                <div class="loader-hide" style="position: absolute;top:30%;left:50%; display:none">
+                    <img src="<?php echo base_url();?>/assets/landing/svg/spinnertab.svg" class="spinner" style="width:15px;">
+                </div>
+                <span class="text-danger nouser"></span>
     		</div>
     		<div class="" style="margin-top:5px;">
     		    <input type="text" name="to_idtext" class="form-control" placeholder="Enter your text">
@@ -66,15 +70,17 @@
     <center> Something Wrong in Your Suggestion. Try Again. </center>
 <?php } ?>
 
-<script src="<?php echo base_url();?>assets/dist/js/sugfrdtokenize.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>assets/dist/js/sugfrdtokenize_123.js" type="text/javascript"></script>
 <script>
     $('.tokenize-callable-demo1').tokenize2({
 		placeholder: "Enter username to suggest",
         dataSource: function(search, object){  // search and get tokens
+            $(".loader-hide").show();
             $.ajax('<?php echo base_url().$this->uri->segment(1);?>/allusers', {
                 data: { search: search, start: 1 },
                 dataType: 'json',
                 success: function(data){
+                    $(".loader-hide").hide();
                     var $items = [];
                     $.each(data, function(k, v){
                         $items.push(v);
@@ -88,19 +94,25 @@
 <script>	
 	$("form#storysuggestiontousers").submit(function( event ) {
 		event.preventDefault();
-		$.post("<?php echo base_url().$this->uri->segment(1);?>/friendnote",$("form#storysuggestiontousers").serialize(),function(result) {
-		    $('.sharefriendspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
-            if(result == 1){
-                setTimeout(function(){ $('#friendsuggest').modal('hide'); }, 100);
-                $('#snackbar').text('Successfully suggested the story.').addClass('show');
-    			setTimeout(function(){ $('#snackbar').removeClass('show'); }, 5000);
-    			
-            }else{
-                setTimeout(function(){ $('#friendsuggest').modal('hide'); }, 100);
-                $('#snackbar').text('Failed to suggest Story to frinds.').addClass('show');
-    			setTimeout(function(){ $('#snackbar').removeClass('show'); }, 5000);
-    			
-            }
-		});
-	});
+        var sugtokenusers=[];
+        $('.tokenize-callable-demo1 :selected').each(function(){
+            sugtokenusers.push($(this).val());
+        });
+        if(sugtokenusers.length > 0){
+    		$.post("<?php echo base_url().$this->uri->segment(1);?>/friendnote",$("form#storysuggestiontousers").serialize(),function(result) {
+    		    $('.sharefriendspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
+                if(result == 1){
+                    setTimeout(function(){ $('#friendsuggest').modal('hide'); }, 100);
+                    $('#snackbar').text('Successfully suggested the story.').addClass('show');
+        			setTimeout(function(){ $('#snackbar').removeClass('show'); }, 5000);
+                }else{
+                    setTimeout(function(){ $('#friendsuggest').modal('hide'); }, 100);
+                    $('#snackbar').text('Failed to suggest Story to frinds.').addClass('show');
+        			setTimeout(function(){ $('#snackbar').removeClass('show'); }, 5000);
+                }
+    		});
+    	}else{
+            $('.nouser').html('Enter at least one user to suggest the story');
+        }
+    });
 </script>

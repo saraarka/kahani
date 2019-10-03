@@ -72,7 +72,8 @@
         <div class="card-community" style="padding-bottom: 10px;">
         	<div class="box box-widget" style="border-radius:5px;">
         		<div class="box-body" style="padding:0px;">
-        		    <a href="<?php echo base_url();?>co_view/<?php echo $jrow->id;?>">
+        		    <!--<a href="<?php echo base_url();?>co_view/<?php echo $jrow->id;?>">-->
+        		    <a href="<?php echo base_url();?>/community/<?php echo preg_replace('/\s+/', '-',$jrow->gener);?>">
         		        <?php if(!empty($jrow->comm_image)){ ?>
         			    <img class="img-responsive" src="<?php echo base_url();?>assets/images/<?php echo $jrow->comm_image; ?>" alt="<?php echo $jrow->gener; ?>" style="height:200px; border-radius:5px 5px 0 0;">
         			    <?php } else{ ?>
@@ -83,7 +84,8 @@
         		<div class="box-footer box-comments" style="border-radius:0 0 5px 5px;">
         			<div class="box-comment">
                         <div class="comment-text">
-                            <a href="<?php echo base_url();?>co_view/<?php echo $jrow->id;?>" style="float:left;">
+                            <!--<a href="<?php echo base_url();?>co_view/<?php echo $jrow->id;?>" style="float:left;">-->
+                            <a href="<?php echo base_url();?>/community/<?php echo preg_replace('/\s+/', '-',$jrow->gener);?>" style="float:left;">
                                 <span class="username"><?php echo $jrow->gener; ?></span>
                             </a>
                             <?php if(isset($join_comm) && in_array($jrow->id, $join_comm)) { ?>

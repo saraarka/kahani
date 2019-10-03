@@ -1,4 +1,26 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/transaction.css">
+<style>
+    .nav-tabs-custom>.nav-tabs>li {
+    margin-right: 2px;
+}
+.trans_modal>thead>tr>th {
+   
+    width: 33% !important;
+}
+.modal_head_alg{
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 5px !important;
+    margin-top: -8px !important;
+}
+.mt-10{
+    margin-top:10px;
+}
+.checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio] {
+    position: absolute;
+    margin-top: 10px;
+    margin-left: -20px;
+}
+</style>
 <div class="main-container">	
     <section class="mt-5">
 		<div class="box box-widget boxv" style="box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);border-radius:3px;">
@@ -121,16 +143,16 @@
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header modal_head_alg">
                 <button type="button" class="close" data-dismiss="modal" style="margin-top:4px;">&times;</button>
                 <h4 class="modal-title">Header</h4>
             </div>
             <div class="modal-body">
+                <div class="mt-10">
                 <p>Some text.</p>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+            
         </div>
     </div>
 </div>
@@ -171,18 +193,20 @@
 </div> -->
 
 <div id="receivemoneyreq" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
+    <div class="modal-dialog modal-dialog-custom">
+        <div class="modal-content" style="padding: 17px 10px;">
+            <div class="modal-header modal_head_alg">
                 <button type="button" class="close" data-dismiss="modal" style="margin-top:4px;">&times;</button>
-                <h4 class="modal-title">Receive Money Request</h4>
+                <h4 class="modal-title">Select Payment Source</h4>
             </div>
-            <div class="modal-body">
-                <h4>Select Payment Type</h4>
-                <label class="radio-inline"><input type="radio" name="paymenttype" value="paytm"> To Paytm </label>
-                <label class="radio-inline"><input type="radio" name="paymenttype" value="bankaccount">To Bank Account</label>
-                <label class="radio-inline"><input type="radio" name="paymenttype" value="googlepay">Google Pay</label>
-                <div id="paymentdetails"></div>
+            <div class="modal-body mt-10" >
+                <div style="display: flex;justify-content: space-around;">
+                <label class="radio-inline "><input type="radio" name="paymenttype" value="paytm"><img style="height: 32px;border: 1px solid #ccc;padding: 5px 0px;" src="<?php echo base_url();?>assets/images/paytm.png"> </label>
+                <label class="radio-inline "><input type="radio" name="paymenttype" value="bankaccount"><img style="height: 32px;border: 1px solid #ccc;padding: 5px 0px;" src="<?php echo base_url();?>assets/images/bank_icon.png"></label>
+                <label class="radio-inline "><input type="radio" name="paymenttype" value="googlepay"><img style="height: 32px;border: 1px solid #ccc;padding: 5px 0px;" src="<?php echo base_url();?>assets/images/googlepay.png"></label>
+               </div>
+                <div class="mt-10" id="paymentdetails"></div>
+                
             </div>
         </div>
     </div>
@@ -191,18 +215,18 @@
 <div id="viewtrans" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header modal_head_alg">
                 <button type="button" class="close" data-dismiss="modal" style="margin-top:4px;">&times;</button>
                 <h4 class="modal-title">View Transactions</h4>
             </div>
             <div class="modal-body">
-                <table class="table table-striped table-hovered">
+                <table class="table table-striped table-hovered trans_modal">
                     <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Payment Source</th>
-                            <th>Amount</th>
-                            <th>Status</th>
+                            <th>DATE</th>
+                            <th class="text-center">SOURCE</th>
+                            <th class="text-right">AMOUNT</th>
+                         
                         </tr>
                     </thead>
                     <tbody id="translist"></tbody>
@@ -475,71 +499,77 @@
 }
 </style>
 <div class="modal fade" id="cog" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-		    <div class="nav-tabs-custom" style="margin-bottom:0; border-radius:5px;">
-				<ul class="nav nav-tabs">
-					<li class="active"><a href="#paytm" data-toggle="tab">PAYTM</a></li>
-					<li><a href="#google" data-toggle="tab">Google Pay</a></li>
-					<li><a href="#bank" data-toggle="tab">Bank</a></li>
-					<li style="float:right; padding-right:15px;"><button type="button" class="close" data-dismiss="modal" style="margin-top:10px;">&times;</button></li>
-				</ul>
-				<div class="tab-content" style="padding:0px;background: #ecf0f5;border-radius:5px;">
-    			    <div class="tab-pane active" id="paytm" style="padding:10px;background:#fff;border-radius:5px;">
-    			        <form id="paytmform">
-        			        <h2>Paytm Details</h2>
-        			        <div style="margin:10px 0">
-        			            <input type="hidden" name="paymenttype" value="paytm">
-        			            <input type="number" name="paytmphone" placeholder="Paytm Number" class="form-control" required minlength="10">
-        			            <span class="text-danger paytmphone"></span>
-        			        </div>
-        			        <div style="margin:10px 0 0">
-        			            <center>
-        			                <button type="submit" class="btn btn-primary">Update</button>
-        			            </center>
-        			        </div>
-    			        </form>
-    			    </div>
-    			    <div class="tab-pane" id="google" style="padding:10px;background:#fff;border-radius:5px;">
-    			        <h2>Google Pay Details</h2>
-    			        <form id="googlepayform">
-        			        <div style="margin:10px 0">
-        			            <input type="hidden" name="paymenttype" value="googlepay">
-        			            <input type="number" name="googlepayphone" placeholder="Google Pay Number" class="form-control" required minlength="10">
-        			            <span class="text-danger googlepayphone"></span>
-        			        </div>
-        			        <div style="margin:10px 0 0">
-        			            <center>
-        			                <button type="submit" class="btn btn-primary">Update</button>
-        			            </center>
-        			        </div>
-        		        </form>
-    			    </div>
-    			    <div class="tab-pane" id="bank" style="padding:10px;background:#fff;border-radius:5px;">
-    			        <h2>Bank Details</h2>
-    			        <form id="bankaccountform">
-        			        <div style="margin:10px 0">
-        			            <input type="hidden" name="paymenttype" value="bankaccount">
-        			            <input type="text" name="accounteename" placeholder="Bank Account Holder Name" class="form-control" style="margin-bottom:6px;" required>
-        			            <span class="text-danger accounteename"></span>
-        			            <input type="number" name="accountno" placeholder="Bank Account Number" class="form-control" style="margin-bottom:6px;" required>
-        			            <span class="text-danger accountno"></span>
-        			            <input type="text" name="ifsccode" placeholder="IFSC CODE" class="form-control" style="margin-bottom:6px;" required>
-        			            <span class="text-danger ifsccode"></span>
-        			            <input type="text" name="bankname" placeholder="Bank Name" class="form-control"  style="margin-bottom:6px;" required>
-        			            <span class="text-danger bankname"></span>
-        			            <input type="text" name="branchname" placeholder="Branch Name" class="form-control" required>
-        			            <span class="text-danger branchname"></span>
-        			        </div>
-        			        <div style="margin:10px 0 0">
-        			            <center>
-        			                <button type="submit" class="btn btn-primary">Update</button>
-        			            </center>
-        			        </div>
-        			    </form>
-    			    </div>
-    		    </div>
-	        </div>
-	    </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="nav-tabs-custom" style="margin-bottom:0; border-radius:5px;">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#paytm" data-toggle="tab">PAYTM</a></li>
+                    <li><a href="#google" data-toggle="tab">Google Pay</a></li>
+                    <li><a href="#bank" data-toggle="tab">Bank</a></li>
+                
+                </ul>
+                <div class="tab-content" style="padding:0px;background: #ecf0f5;border-radius:5px;">
+                    <div class="tab-pane active" id="paytm" style="background:#fff;border-radius:5px;">
+                        <form id="paytmform">
+                           
+                            <div style="margin:10px 0">
+                                <input type="hidden" name="paymenttype" value="paytm">
+                                <input type="number" name="paytmphone" placeholder="Paytm Number" class="form-control" required minlength="10">
+                                <span class="text-danger paytmphone"></span>
+                            </div>
+                            <div style="margin:10px 0 0">
+                                <center>
+                                     <button type="button" class=" btn btn-default" data-dismiss="modal" >CLOSE</button>
+                                      <button type="submit" class="btn btn-primary">UPDATE</button>
+                                   
+                                </center>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="google" style="background:#fff;border-radius:5px;">
+                      
+                        <form id="googlepayform">
+                            <div style="margin:10px 0">
+                                <input type="hidden" name="paymenttype" value="googlepay">
+                                <input type="number" name="googlepayphone" placeholder="Google Pay Number" class="form-control" required minlength="10">
+                                <span class="text-danger googlepayphone"></span>
+                            </div>
+                            <div style="margin:10px 0 0">
+                                <center>
+                                     <button type="button" class=" btn btn-default" data-dismiss="modal" >CLOSE</button>
+                                    <button type="submit" class="btn btn-primary">UPDATE</button>
+                                   
+                                </center>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="bank" style="background:#fff;border-radius:5px;">
+                       
+                        <form id="bankaccountform">
+                            <div style="margin:10px 0">
+                                <input type="hidden" name="paymenttype" value="bankaccount">
+                                <input type="text" name="accounteename" placeholder="Bank Account Holder Name" class="form-control" style="margin-bottom:6px;" required>
+                                <span class="text-danger accounteename"></span>
+                                <input type="number" name="accountno" placeholder="Bank Account Number" class="form-control" style="margin-bottom:6px;" required>
+                                <span class="text-danger accountno"></span>
+                                <input type="text" name="ifsccode" placeholder="IFSC CODE" class="form-control" style="margin-bottom:6px;" required>
+                                <span class="text-danger ifsccode"></span>
+                                <input type="text" name="bankname" placeholder="Bank Name" class="form-control"  style="margin-bottom:6px;" required>
+                                <span class="text-danger bankname"></span>
+                                <input type="text" name="branchname" placeholder="Branch Name" class="form-control" required>
+                                <span class="text-danger branchname"></span>
+                            </div>
+                            <div style="margin:10px 0 0">
+                                <center>
+                                     <button type="button" class=" btn btn-default" data-dismiss="modal" >CLOSE</button>
+                                        <button type="submit" class="btn btn-primary">UPDATE</button>
+                                   
+                                </center>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

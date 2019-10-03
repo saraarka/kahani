@@ -60,10 +60,10 @@
             				</button>
             				<ul class="dropdown-menu list-inline dropvk">
             					<li onclick="groupsuggest(<?php echo $topseriesrow->sid; ?>);">
-            						<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+            						<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
             					</li>
             					<li onclick="friend(<?php echo $topseriesrow->sid;?>);">
-            						<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+            						<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
             					</li>
             					<li onclick="socialshare(<?php echo $topseriesrow->sid;?>, 'series');">
 									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -149,10 +149,10 @@
 							</button>
 							<ul class="dropdown-menu list-inline dropvk">
 								<li onclick="groupsuggest(<?php echo $topstorysrow->sid; ?>);">
-									<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+									<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
 								</li>
 								<li onclick="friend(<?php echo $topstorysrow->sid;?>);">
-									<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+									<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
 								</li>
 								<li onclick="socialshare(<?php echo $topstorysrow->sid;?>, 'story');">
 									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -217,24 +217,24 @@
 								<?php if(isset($this->session->userdata['logged_in']['user_id'])){
 								    if(isset($nanolikes) && in_array($nanorow->sid,$nanolikes)) { ?>
     								<font>
-    								    <span class="nanolikecount<?php echo $nanorow->sid;?>"><?php echo $nanorow->nanolikecount;?></span>
     								    <a href="javascript:void(0);" onclick="nanodislike(<?php echo $nanorow->sid;?>);" class="nanolike<?php echo $nanorow->sid;?>" title="Unlike">
     										<i class="fa fa-heart favbtn<?php echo $nanorow->sid;?>" style="color:#f00; padding-top:5px;"></i>
     									</a>
+    									<span class="nanolikecount<?php echo $nanorow->sid;?>"><?php echo $nanorow->nanolikecount;?></span>
     								</font>
     							    <?php } else { ?>
     							    <font>
-    							        <span class="nanolikecount<?php echo $nanorow->sid;?>"><?php echo $nanorow->nanolikecount;?></span>
     								    <a href="javascript:void(0);" onclick="nanolike(<?php echo $nanorow->sid;?>);" class="nanolike<?php echo $nanorow->sid;?>" title="like">
     										<i class="fa fa-heart-o favbtn<?php echo $nanorow->sid;?>" style="color:#f00; padding-top:5px;"></i>
     									</a>
+    									<span class="nanolikecount<?php echo $nanorow->sid;?>"><?php echo $nanorow->nanolikecount;?></span>
     								</font>
     							    <?php } }else { ?>
     							    <font>
-    								    <span class="nanolikecount<?php echo $nanorow->sid;?>"><?php echo $nanorow->nanolikecount;?></span>
     								    <a href="javascript:void(0);" class="notloginmodal" title="like">
     										<i class="fa fa-heart-o favbtn<?php echo $nanorow->sid;?>" style="color:#f00; padding-top:5px;"></i>
     									</a>
+    									<span class="nanolikecount<?php echo $nanorow->sid;?>"><?php echo $nanorow->nanolikecount;?></span>
     								</font>
     							<?php } ?>
 								<div style="float:right;color:#777">
@@ -243,10 +243,10 @@
 									</a>
 									<ul class="dropdown-menu list-inline dropvknano">
     									<li onclick="groupsuggest(<?php echo $nanorow->sid; ?>);">
-    										<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest"><i class="fa fa-users"></i></a>
+    										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
     									</li>
     									<li onclick="friend(<?php echo $nanorow->sid;?>);">
-    										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest"><i class="fa fa-user"></i></a>
+    										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     									</li>
 										<li onclick="socialshare(<?php echo $nanorow->sid;?>, 'nano');">
 											<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
@@ -263,16 +263,16 @@
 		        </div>
 		        <?php if(isset($viewallhome) && ($viewallhome->num_rows() > 0)){ foreach($viewallhome->result() as $nanomodalrow) { ?>
             		<div class="modal fade" id="modal-default<?php echo $nanomodalrow->sid;?>">
-            			<div class="modal-dialog">
-            				<div class="modal-content">
-            					<div class="modal-header">
+            			<div class="modal-dialog" style="max-width:500px;">
+            				<div class="modal-content" style="padding: 0px ;">
+            					<div class="modal-header" style="padding:18px; border-bottom-color: #e5e5e5;">
             						<div class="">
             						    <?php if(isset($nanomodalrow->profile_image) && !empty($nanomodalrow->profile_image)) { ?>
         									<img src="<?php echo base_url();?>assets/images/<?php echo $nanomodalrow->profile_image; ?>" class="user-image img-circle" style="height:50px;color:#000" alt="<?php echo $nanomodalrow->name;?>">
         								<?php }else{ ?>
         									<img src="<?php echo base_url();?>assets/images/2.png" class="user-image img-circle" style="height:50px;color:#000" alt="<?php echo $nanomodalrow->name;?>">
         								<?php } ?>
-            							<h3 class="name-nanostories" style="margin-top: -40px;">
+            							<h3 class="name-nanostories" style="margin-top: -45px;">
             							    <a href="<?php echo base_url($this->uri->segment(1)."/".$nanomodalrow->profile_name);?>" style="color:#000"><?php echo $nanomodalrow->name;?></a>
             			                    <span class="pull-right">
             			                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top:4px;">
@@ -282,38 +282,38 @@
             			                </h3>
             						</div>
             					</div>
-            					<div class="modal-body modal-bodyv" style="overflow-y:scroll;">
+            					<div class="modal-body modal-bodyv" style="overflow-y:scroll;padding:15px">
             						<font class="text-in-nanostory-p" style="border-left:none; overflow-y:scroll;"><?php echo $nanomodalrow->story; ?></font>
             					</div>
             					<div class="modal-footer">
             						<ul class="list-inline">
-            							<li class="text-muted pull-left">
+            							<li class="text-muted pull-left" style="display:flex;">
             						        <?php if(isset($this->session->userdata['logged_in']['user_id'])){
             								    if(isset($nanolikes) && in_array($nanomodalrow->sid,$nanolikes)) { ?>
-                    							    <span class="nanolikecount<?php echo $nanomodalrow->sid;?>"><?php echo $nanomodalrow->nanolikecount;?></span>
                 								    <a href="javascript:void(0);" onclick="nanodislike(<?php echo $nanomodalrow->sid;?>);" class="nanolike<?php echo $nanomodalrow->sid;?>" title="Unlike">
-                										<i class="fa fa-heart favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-top:5px;"></i>
-                									</a>
-                								<?php } else { ?>
+                										<i class="fa fa-heart favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-right:3px;font-size:20px;"></i>
+                									</a> &nbsp; 
                 									<span class="nanolikecount<?php echo $nanomodalrow->sid;?>"><?php echo $nanomodalrow->nanolikecount;?></span>
+                								<?php } else { ?>
                 								    <a href="javascript:void(0);" onclick="nanolike(<?php echo $nanomodalrow->sid;?>);" class="nanolike<?php echo $nanomodalrow->sid;?>" title="like">
                 										<i class="fa fa-heart-o favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-top:5px;"></i>
-                									</a>
+                									</a> &nbsp; 
+                									<span class="nanolikecount<?php echo $nanomodalrow->sid;?>"><?php echo $nanomodalrow->nanolikecount;?></span>
                 							<?php } } else{ ?>
-                						        <span class="nanolikecount<?php echo $nanomodalrow->sid;?>"><?php echo $nanomodalrow->nanolikecount;?></span>
             								    <a href="javascript:void(0);" class="notloginmodal" title="like">
             										<i class="fa fa-heart-o favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-top:5px;"></i>
-            									</a>
+            									</a> &nbsp; 
+            									<span class="nanolikecount<?php echo $nanomodalrow->sid;?>"><?php echo $nanomodalrow->nanolikecount;?></span>
                 						    <?php } ?>
             							</li>
             							<li class="pull-right">
                                         	<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
                                             <ul class="dropdown-menu list-inline dropvknano1">
                                                 <li onclick="groupsuggest(<?php echo $nanomodalrow->sid; ?>);">
-        										    <a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest"><i class="fa fa-users"></i></a>
+        										    <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
             									</li>
             									<li onclick="friend(<?php echo $nanomodalrow->sid;?>);">
-            										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest"><i class="fa fa-user"></i></a>
+            										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
             									</li>
         										<li onclick="socialshare(<?php echo $nanomodalrow->sid;?>, 'nano');">
         											<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
@@ -345,7 +345,8 @@
 	                        <?php } } ?>
 	                    </div>
 	                </div>
-	                <button id="right-btnt" class="right-btnt right-btnt"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+	                <button id="right-btnt" class="right-btnt right-btnt" style="padding-right: 20px;"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+	                <div class="brv1 hidden-xs view" style="margin-right:0px; width:10%;background: #3c8dbc;border-radius: 3px;"><a href="<?php echo base_url().$this->uri->segment(1);?>/lifeeventtags" style="color:#fff;"> View More </a></div>
 	            </div>
 	            <?php } ?>
 		    </div>
@@ -402,10 +403,10 @@
 								</button>
 								<ul class="dropdown-menu list-inline dropvklife">
 									<li onclick="groupsuggest(<?php echo $liferow->sid; ?>);">
-										<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
 									</li>
 									<li onclick="friend(<?php echo $liferow->sid;?>);">
-										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
 									</li>
 									<li onclick="socialshare(<?php echo $liferow->sid;?>, 'story');">
 										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
@@ -451,15 +452,15 @@
 			</div>
 			<div class="" style="padding-top:10px;">
 				<div class="row">
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+					<div class="col-md-12 pd-5v" style="margin:12px;">
 						<a href="javascript:void(0);" class="facebookshare socsh">
 						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/><p class="socialsharepopupspan">Facebook</p></a>
 					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+					<div class="col-md-12 pd-5v" style="margin:12px;">
 					    <a href="javascript:void(0);" class="whatsappshare socsh">
 						    <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-10px;"/><p class="socialsharepopupspan">Whatsapp</p></a>
 					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+					<div class="col-md-12 pd-5v" style="margin:12px;">
 						<a href="javascript:void(0);" class="twittershare socsh">
 						    <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Twitter</p></a>
 					</div>

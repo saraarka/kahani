@@ -2,7 +2,7 @@
     <?php foreach ($viewallloadmore->result() as $vahseriesrow) { ?>
         <div class="cardls">
 			<div class="book-type"><?php echo $vahseriesrow->gener;?></div>
-			    <a href="<?php echo base_url('series/'.preg_replace("~[^\p{M}\w]+~u", '-', $vahseriesrow->title).'-'.$vahseriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $vahseriesrow->title).'-'.$vahseriesrow->story_id);?>" class="product-title" class="imagess-style">
+			    <a href="<?php echo base_url('series/'.preg_replace("~[^\p{M}\w]+~u", '-', $vahseriesrow->title).'-'.$vahseriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $vahseriesrow->title).'-'.$vahseriesrow->story_id);?>" class="product-title imagess-style">
     			    <?php if(isset($vahseriesrow->image) && !empty($vahseriesrow->image)) { ?>
     				    <img src="<?php echo base_url();?>assets/images/<?php echo $vahseriesrow->image; ?>" alt="<?php echo $vahseriesrow->title;?>" class="imageme">
     				<?php }else{ ?>

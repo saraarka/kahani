@@ -39,11 +39,11 @@
     <center><img src="<?php echo base_url();?>/assets/landing/svg/spinnertab.svg" class="spinner"></center>
     <?php } ?>
 </div>
- <div class="modal-footer">
-<div id="btn">
-    <input type='button' id="crop" value='SAVE' class="text-center btn btn-primary">
+<div class="modal-footer">
+    <div id="btn">
+        <input type='button' id="crop" value='SAVE' class="text-center btn btn-primary">
+    </div>
 </div>
- </div>
 <!--<div>
     <img src="#" id="cropped_img" style="display: none;">
 </div> -->

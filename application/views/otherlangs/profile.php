@@ -8,7 +8,7 @@
                     if(!empty($row->aboutus)){ $about = $row->aboutus; }
                     $readingliststatus = $row->readinglist; $email = $row->email; $phone = $row->phone; 
                     $uemailstatus = $row->uemailstatus; $uphonestatus = $row->uphonestatus;  ?>
-                <div class= pd-0"col-md-12">
+                <div class="pd-0 col-md-12">
                     <div class="box box-widget widget-user-2 ovv">
                         <?php if(isset($row->banner_image) && !empty($row->banner_image)) { ?>
                         <div class="widget-user-header ovv  profile1 bgvv" style="padding:0px; background: url('<?php echo base_url();?>assets/images/<?php echo $row->banner_image; ?>')center center;background-repeat: no-repeat;background-size: cover;">
@@ -55,20 +55,21 @@
                                 <h5 class="widget-user-desc clrvk" style="color:#fff; margin-left:100px;">@<?php echo $row->profile_name;?></h5>
                             </div>
                         </div>
-                        <center>		
-                            <div class="widget-user-header ovv profile2" style="padding:0px; background: linear-gradient(-60deg,RoyalBlue,brown);background-repeat: no-repeat;background-size: cover;">		
-                                <div style="background-color:rgba(0, 0, 0, 0.55); background-repeat: no-repeat;background-size: cover; padding: 40px 30px;">		
-                                    <div class="widget-user-imaghidden-lg hidden-mdontent:center;">		
-                                        <?php  if(isset($row->profile_image) && !empty($row->profile_image)) { ?>		
-                                            <img class="img-circle" src="<?php echo base_url();?>assets/images/<?php echo $row->profile_image; ?>" alt="<?php echo $row->name;?>" style="width:85px; float:none; justify-content:center;">		
-                                         <?php } else { ?>		
-                                            <img class="img-circle" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $row->name;?>" style="width:85px; float:none; justify-content:center;">		
-                                        <?php } ?>		
+                        <center>
+                            <div class="widget-user-header ovv profile2" style="padding:0px; background: linear-gradient(-60deg,RoyalBlue,brown);background-repeat: no-repeat;background-size: cover;">
+                                <div style="background-color:rgba(0, 0, 0, 0.55); background-repeat: no-repeat;background-size: cover; padding: 40px 30px;">
+                                    <div class="widget-user-imaghidden-lg hidden-mdontent:center;">
+                                        <?php  if(isset($row->profile_image) && !empty($row->profile_image)) { ?>
+                                            <img class="img-circle" src="<?php echo base_url();?>assets/images/<?php echo $row->profile_image; ?>" alt="<?php echo $row->name;?>" style="width:85px; float:none; justify-content:center;">
+                                         <?php } else { ?>
+                                            <img class="img-circle" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $row->name;?>" style="width:85px; float:none; justify-content:center;">
+                                        <?php } ?>
                                     </div><!-- /.widget-user-image -->		
-                                    <h3><b><a href="<?php echo base_url().$this->uri->segment(1).'/'.$row->profile_name; ?>" style="color:#fff;"><?php echo $row->name;?> </a></b></h3>		
-                                    <h5 class="" style="color:#fff;">@<?php echo $row->profile_name;?></h5>		
-                                </div>		
-                            </div>		
+                                    <h3><b><a href="<?php echo base_url().$this->uri->segment(1).'/'.$row->profile_name; ?>" style="color:#fff;"><?php echo $row->name;?> </a></b></h3>
+
+                                    <h5 class="" style="color:#fff;">@<?php echo $row->profile_name;?></h5>
+                                </div>
+                            </div>
                         </center>
                         <?php } ?>
                         <div class="box-footer">
@@ -98,9 +99,9 @@
     							</div>
                                 <div class="modal fade" id="fmodal-defaultf"> <!-- Modelpop up -->
                                     <div class="modal-dialog">
-                                        <div class="modal-content  modalf">
+                                        <div class="modal-content modalf" style="padding:0">
                                             <div class="modal-body" style="padding:0">
-                                                <ul class="nav nav-tabs">
+                                                <ul class="nav nav-tabs" style="border-bottom:1px #ddd;">
                                                     <li class="active"><a href="#tab_1" data-toggle="tab"><b>FOLLOWERS</b></a></li>
                                                     <li onclick="profilefollowing(<?php echo $userid;?>)"><a href="#tab_2" data-toggle="tab"><b>FOLLOWING</b></a></li>
     												<li class="pull-right" style="margin-right:10px;"><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding-top:10px;color:#000;">
@@ -130,9 +131,9 @@
                                                                                 <button class="vjw btn btn-success pull-right" onclick="yoursfollow()" > FOLLOW </button>
                                                                             <?php } else { ?>
                                                                             <?php if(isset($following) && in_array($followerskey->user_id, $following)) { ?>
-                                                                                <button class="pull-right vjw btn btn-primary notloginmodal unfollow<?php echo $followerskey->user_id;?>" onclick="writerunfollow(<?php echo $followerskey->user_id;?>,'<?php echo $followerskey->name;?>')"> FOLLOWING </button>
+                                                                                <button class="pull-right vjw btn btn-primary unfollow-font notloginmodal unfollow<?php echo $followerskey->user_id;?>" onclick="writerunfollow(<?php echo $followerskey->user_id;?>,'<?php echo $followerskey->name;?>')"> FOLLOWING </button>
                                                                             <?php } else { ?>
-                                                                                <button class="pull-right vjw btn btn-success notloginmodal follow<?php echo $followerskey->user_id;?>" onclick="writerfollow(<?php echo $followerskey->user_id;?>,'<?php echo $followerskey->name;?>')"> FOLLOW </button>
+                                                                                <button class="pull-right vjw btn btn-success follow-font notloginmodal follow<?php echo $followerskey->user_id;?>" onclick="writerfollow(<?php echo $followerskey->user_id;?>,'<?php echo $followerskey->name;?>')"> FOLLOW </button>
                                                                             <?php } ?>
                                                                             <?php } ?>
                                                                         </span>
@@ -168,9 +169,9 @@
                                         <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $row->user_id)){ ?>
                                         <?php } else { ?>
                                             <?php if(isset($following) && in_array($row->user_id, $following)) { ?>
-                                                <button style="font-size:14px; padding:6px 12px;" class="btn btn-primary notloginmodal unfollow<?php echo $row->user_id;?>" onclick="writerunfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOWING </button>
+                                                <button style="padding:6px 12px;" class="btn btn-primary unfollow-font notloginmodal unfollow<?php echo $row->user_id;?>" onclick="writerunfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOWING </button>
                                             <?php } else { ?>
-                                                <button style="font-size:14px; padding:6px 12px;" class="btn btn-success notloginmodal follow<?php echo $row->user_id;?>" onclick="writerfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOW </button>
+                                                <button style="padding:6px 12px;" class="btn btn-success follow-font notloginmodal follow<?php echo $row->user_id;?>" onclick="writerfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOW </button>
                                             <?php } ?>
                                         <?php } ?>
                                     </div><!-- /.description-block -->
@@ -181,21 +182,21 @@
                                         <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $row->user_id)){ ?>
                                         <?php } else if(isset($this->session->userdata['logged_in']['user_id'])){ ?>
                                             <?php if(isset($following) && in_array($row->user_id, $following)) { ?>
-                                                <button style="font-size:14px; padding:6px 12px;" class="btn btn-primary unfollow<?php echo $row->user_id;?>" onclick="writerunfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOWING </button>
+                                                <button style="padding:6px 12px;" class="btn btn-primary unfollow-font unfollow<?php echo $row->user_id;?>" onclick="writerunfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOWING </button>
                                             <?php } else { ?>
-                                                <button style="font-size:14px; padding:6px 12px;" class="btn btn-success follow<?php echo $row->user_id;?>" onclick="writerfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOW </button>
+                                                <button style=" padding:6px 12px;" class="btn btn-success follow-font follow<?php echo $userid;?>" onclick="writerfollow(<?php echo $userid;?>,'<?php echo $row->name;?>')"> FOLLOW </button>
                                             <?php } ?>
                                         <?php } else{ ?>
                                             <button style="font-size:14px; padding:6px 12px;" class="btn btn-success notloginmodal"> FOLLOW </button>
                                         <?php } ?>
                                     </div>
-                                    <div class="description-block profile2 btnv" style="padding-top:4px;">
+                                    <div class="description-block profile2" style="padding-top:4px;">
                                         <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $row->user_id)){ ?>
                                         <?php } else if(isset($this->session->userdata['logged_in']['user_id'])){ ?>
                                             <?php if(isset($following) && in_array($row->user_id, $following)) { ?>
-                                                <a class="btn btn-primary unfollow<?php echo $row->user_id;?>" onclick="writerunfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOWING </a>
+                                                <button class="btn btn-primary unfollow-font unfollow<?php echo $row->user_id;?>" onclick="writerunfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOWING </button>
                                             <?php } else { ?>
-                                                <a class="btn btn-success follow<?php echo $row->user_id;?>" onclick="writerfollow(<?php echo $row->user_id;?>,'<?php echo $row->name;?>')"> FOLLOW </a>
+                                                <button  class="btn btn-success follow-font  follow<?php echo $userid;?>" onclick="writerfollow(<?php echo $userid;?>,'<?php echo $row->name;?>')"> FOLLOW </button>
                                             <?php } ?>
                                         <?php } else{ ?>
                                             <button class="btn btn-success notloginmodal"> FOLLOW </button>
@@ -317,16 +318,16 @@
         			                        	<div class="card">
         			                    		<div class="book-type"><?php echo $wseriesrow->gener;?></div>
         			                    		<!--<a href="<?php echo base_url('new_series?id='.$wseriesrow->sid.'&story_id='.$wseriesrow->story_id);?>"> -->
-        			                    		<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $wseriesrow->title).'-'.$wseriesrow->sid.'/'.preg_replace('/\s+/', '-', $wseriesrow->title).'-'.$wseriesrow->story_id);?>" class="imagess-style">
+        			                    		<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $wseriesrow->title).'-'.$wseriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $wseriesrow->title).'-'.$wseriesrow->story_id);?>" class="imagess-style">
         			                    			<?php if(isset($wseriesrow->cover_image) && !empty($wseriesrow->cover_image)) { ?>
-        			                    			    <img src="<?php echo base_url();?>assets/images/<?php echo $wseriesrow->cover_image; ?>" alt="<?php echo $wseriesrow->title;?>" class="imageme">
+        			                    			    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $wseriesrow->cover_image; ?>" alt="<?php echo $wseriesrow->title;?>" class="imageme lazy">
         			                    			<?php }else{ ?>
-        			                    				<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $wseriesrow->title;?>" class="imageme">
+        			                    				<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $wseriesrow->title;?>" class="imageme lazy">
         			                    			<?php } ?>
         			                    		</a>
         			                    		<div>
         			                    			<font class="max-lines">
-        			                    				<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $wseriesrow->title).'-'.$wseriesrow->sid.'/'.preg_replace('/\s+/', '-', $wseriesrow->title).'-'.$wseriesrow->story_id);?>">
+        			                    				<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $wseriesrow->title).'-'.$wseriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $wseriesrow->title).'-'.$wseriesrow->story_id);?>">
         			                    					<?php echo $wseriesrow->title;?>
         			                    				</a>
         			                    			</font> 
@@ -359,10 +360,10 @@
         			                    			</button>
         			                    			<ul class="dropdown-menu list-inline dropvk">
         			                    				<li onclick="groupsuggest(<?php echo $wseriesrow->sid; ?>);">
-        			                    					<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+        			                    					<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
         			                    				</li>
         			                    				<li onclick="friend(<?php echo $wseriesrow->sid;?>);">
-        			                    					<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+        			                    					<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
         			                    				</li>
         			                    				<li onclick="socialshare(<?php echo $wseriesrow->sid;?>, 'series');">
         			                    					<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -401,16 +402,16 @@
     				                        <?php $i = 0; foreach($writerstories->result() as $wstoryrow) { if($i < 4 ){  ?>
     				                            <div class="card">
     				                    		<div class="book-type"><?php echo $wstoryrow->gener;?></div>
-    			                    			<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $wstoryrow->title).'-'.$wstoryrow->sid);?>" class="imagess-style">
+    			                    			<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u",'-', $wstoryrow->title).'-'.$wstoryrow->sid);?>" class="imagess-style">
         			                    			<?php if(isset($wstoryrow->cover_image) && !empty($wstoryrow->cover_image)) { ?>
-        			                    			    <img src="<?php echo base_url();?>assets/images/<?php echo $wstoryrow->cover_image; ?>" alt="<?php echo $wstoryrow->title;?>" class="imageme">
+        			                    			    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/images/<?php echo $wstoryrow->cover_image; ?>" alt="<?php echo $wstoryrow->title;?>" class="imageme lazy">
         			                    			<?php }else{ ?>
-        			                    				<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $wstoryrow->title;?>" class="imageme">
+        			                    				<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $wstoryrow->title;?>" class="imageme lazy">
         			                    			<?php } ?>
     			                    			</a>
     				                    		<div>
     				                    			<font class="max-lines">
-    				                    				<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $wstoryrow->title).'-'.$wstoryrow->sid);?>">
+    				                    				<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u",'-', $wstoryrow->title).'-'.$wstoryrow->sid);?>">
     				                    					<?php echo $wstoryrow->title;?>
     				                    				</a>
     				                    			</font> 
@@ -455,10 +456,10 @@
     				                    			</button>
     				                    			<ul class="dropdown-menu list-inline dropvk">
     				                    				<li onclick="groupsuggest(<?php echo $wstoryrow->sid; ?>);">
-    				                    					<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+    				                    					<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
     				                    				</li>
     				                    				<li onclick="friend(<?php echo $wstoryrow->sid;?>);">
-    				                    					<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+    				                    					<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     				                    				</li>
     				                    				<li onclick="socialshare(<?php echo $wstoryrow->sid;?>, 'story');">
     				                    					<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -495,16 +496,16 @@
 		                        	<div id="story-sliderl" class="story-slider">
 		                        		<?php $j = 0; foreach($writerlifes->result() as $liferow) { if($j < 3){ ?>
 		                        			<div class="card1">
-		                        			    <a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $liferow->title).'-'.$liferow->sid);?>" class="imagelife-style">
+		                        			    <a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u",'-', $liferow->title).'-'.$liferow->sid);?>" class="imagelife-style">
     		                        				<?php if(isset($liferow->cover_image) && !empty($liferow->cover_image)) { ?>
-    		                        					<img src="<?php echo base_url();?>assets/images/<?php echo $liferow->cover_image; ?>" alt="<?php echo $liferow->title;?>" class="imageme1">
-    		                        				<?php }else{ ?>
-    		                        					<img src="<?php echo base_url();?>assets/default/life.jpg" alt="<?php echo $liferow->title;?>" class="imageme1">
+    		                        					<img src="<?php echo base_url();?>assets/images/lazy-d266-j.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $liferow->cover_image; ?>" alt="<?php echo $liferow->title;?>" class="imageme1 lazy">
+                                                    <?php }else{ ?>
+                                                        <img src="<?php echo base_url();?>assets/images/lazy-d266-j.jpg"  data-src="<?php echo base_url();?>assets/default/life.jpg" alt="<?php echo $liferow->title;?>" class="imageme1 lazy">
     		                        				<?php } ?>
 		                        				</a>
 		                        				<div>
 			                        				<font class="max-lines">
-			                        					<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $liferow->title).'-'.$liferow->sid);?>">
+			                        					<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u",'-', $liferow->title).'-'.$liferow->sid);?>">
 			                        						<?php echo $liferow->title;?>
 			                        					</a>
 			                        				</font> 
@@ -537,10 +538,10 @@
 		                        					</button>
 		                        					<ul class="dropdown-menu list-inline dropvklife">
 		                        						<li onclick="groupsuggest(<?php echo $liferow->sid; ?>);">
-		                        							<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
-		                        						</li>
-		                        						<li onclick="friend(<?php echo $liferow->sid;?>);">
-		                        							<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+		                        							<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                                        </li>
+                                                        <li onclick="friend(<?php echo $liferow->sid;?>);">
+                                                            <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
 		                        						</li>
 		                        						<li onclick="socialshare(<?php echo $liferow->sid;?>, 'story');">
 		                        							<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -598,24 +599,24 @@
                                                         <?php if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){
                         								    if(isset($nanolikes) && in_array($wnanorow->sid,$nanolikes)) { ?>
                             								<font>
-                            								    <span class="nanolikecount<?php echo $wnanorow->sid;?>"><?php echo $wnanorow->nanolikecount;?></span>
                             								    <a href="javascript:void(0);" onclick="nanodislike(<?php echo $wnanorow->sid;?>);" class="nanolike<?php echo $wnanorow->sid;?>" title="Unlike">
                             										<i class="fa fa-heart favbtn<?php echo $wnanorow->sid;?>" style="color:#f00; padding-top:5px;"></i>
                             									</a>
+                                                                <span class="nanolikecount<?php echo $wnanorow->sid;?>"><?php echo $wnanorow->nanolikecount;?></span>
                             								</font>
                             							    <?php } else { ?>
                             							    <font>
-                            							        <span class="nanolikecount<?php echo $wnanorow->sid;?>"><?php echo $wnanorow->nanolikecount;?></span>
                             								    <a href="javascript:void(0);" onclick="nanolike(<?php echo $wnanorow->sid;?>);" class="nanolike<?php echo $wnanorow->sid;?>" title="like">
                             										<i class="fa fa-heart-o favbtn<?php echo $wnanorow->sid;?>" style="color:#f00; padding-top:5px;"></i>
                             									</a>
+                                                                <span class="nanolikecount<?php echo $wnanorow->sid;?>"><?php echo $wnanorow->nanolikecount;?></span>
                             								</font>
                             							    <?php } }else { ?>
                             							    <font>
-                            								    <span><?php echo $wnanorow->nanolikecount;?></span>
                             								    <a href="javascript:void(0);" class="notloginmodal" title="like">
                             										<i class="fa fa-heart-o" style="color:#f00; padding-top:5px;"></i>
                             									</a>
+                                                                <span><?php echo $wnanorow->nanolikecount;?></span>
                             								</font>
                             							<?php } ?>
                         								<div style="float:right;color:#777">
@@ -624,10 +625,10 @@
                         									</a>
                         									<ul class="dropdown-menu list-inline dropvknano">
                             									<li onclick="groupsuggest(<?php echo $wnanorow->sid; ?>);">
-                            										<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest"><i class="fa fa-users"></i></a>
-                            									</li>
-                            									<li onclick="friend(<?php echo $wnanorow->sid;?>);">
-                            										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest"><i class="fa fa-user"></i></a>
+                            										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                                                </li>
+                                                                <li onclick="friend(<?php echo $wnanorow->sid;?>);">
+                                                                    <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
                             									</li>
                         										<li onclick="socialshare(<?php echo $wnanorow->sid;?>, 'nano');">
                         											<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
@@ -649,10 +650,10 @@
                             <?php if(isset($writernanos) && ($writernanos->num_rows() > 0)){
                     	        foreach($writernanos->result() as $wmnanorow) { ?>
                         		<div class="modal fade" id="modal-default<?php echo $wmnanorow->sid;?>">
-                        			<div class="modal-dialog">
-                        				<div class="modal-content">
-                        					<div class="modal-header">
-                        						<div class="">
+                        			<div class="modal-dialog" style="max-width:500px;">
+                                        <div class="modal-content" style="padding: 0px ;">
+                                            <div class="modal-header" style="padding:18px;border-bottom-color: #e5e5e5;">
+                                                <div class="">
                         						    <?php if(isset($wmnanorow->profile_image) && !empty($wmnanorow->profile_image)) { ?>
                     									<img src="<?php echo base_url();?>assets/images/<?php echo $wmnanorow->profile_image; ?>" class="user-image img-circle" style="height:50px;" alt="<?php echo $wmnanorow->name;?>">
                     								<?php }else{ ?>
@@ -668,7 +669,7 @@
                         			                </h3>
                         						</div>
                         					</div>
-                        					<div class="modal-body modal-bodyv" style="overflow-y:scroll;">
+                        					<div class="modal-body modal-bodyv" style="overflow-y:scroll;padding:15px">
                         						<font class="text-in-nanostory-p" style="border-left:none; overflow-y:scroll;"><?php echo $wmnanorow->story; ?></font>
                         					</div>
                         					<div class="modal-footer">
@@ -676,30 +677,32 @@
                                                     <li class="text-muted pull-left" style="display:flex;">
                                                         <?php if(isset($this->session->userdata['logged_in']['user_id'])){
                                                             if(isset($nanolikes) && in_array($wmnanorow->sid,$nanolikes)) { ?>
-                                                            <span class="nanolikecount<?php echo $wmnanorow->sid;?>"><?php echo $wmnanorow->nanolikecount;?></span>
-                                                            <a href="javascript:void(0);" onclick="nanodislike(<?php echo $wmnanorow->sid;?>);" class="nanolike<?php echo $wmnanorow->sid;?>" title="Unlike">
-                                                                <i class="fa fa-heart favbtn<?php echo $wmnanorow->sid;?>" style="color:#f00; padding-left:3px;font-size:20px;"></i>
-                                                            </a>
-                                                        <?php } else { ?>
-                                                            <span class="nanolikecount<?php echo $wmnanorow->sid;?>"><?php echo $wmnanorow->nanolikecount;?></span>
-                                                            <a href="javascript:void(0);" onclick="nanolike(<?php echo $wmnanorow->sid;?>);" class="nanolike<?php echo $wmnanorow->sid;?>" title="like">
-                                                                <i class="fa fa-heart-o favbtn<?php echo $wmnanorow->sid;?>" style="color:#f00; padding-left:3px;font-size:20px;"></i>
-                                                            </a>
-                                                        <?php } }else { ?>
-                                                            <span><?php echo $wmnanorow->nanolikecount;?></span>
+                                                               
+                                                                <a href="javascript:void(0);" onclick="nanodislike(<?php echo $wmnanorow->sid;?>);" class="nanolike<?php echo $wmnanorow->sid;?>" title="Unlike">
+                                                                    <i class="fa fa-heart favbtn<?php echo $wmnanorow->sid;?>" style="color:#f00; padding-left:3px;font-size:20px;"></i>
+                                                                </a> &nbsp;
+                                                                 <span class="nanolikecount<?php echo $wmnanorow->sid;?>"><?php echo $wmnanorow->nanolikecount;?></span>
+                                                            <?php } else { ?>
+                                                                
+                                                                <a href="javascript:void(0);" onclick="nanolike(<?php echo $wmnanorow->sid;?>);" class="nanolike<?php echo $wmnanorow->sid;?>" title="like">
+                                                                    <i class="fa fa-heart-o favbtn<?php echo $wmnanorow->sid;?>" style="color:#f00; padding-left:3px;font-size:20px;"></i>
+                                                                </a> &nbsp;
+                                                                <span class="nanolikecount<?php echo $wmnanorow->sid;?>"><?php echo $wmnanorow->nanolikecount;?></span>
+                                                        <?php } } else{ ?>
                                                             <a href="javascript:void(0);" class="notloginmodal" title="like">
                                                                 <i class="fa fa-heart-o favbtn<?php echo $wmnanorow->sid;?>" style="color:#f00; padding-left:3px;font-size:20px;"></i>
-                                                            </a>
+                                                            </a> &nbsp;
+                                                              <span class="nanolikecount<?php echo $wmnanorow->sid;?>"><?php echo $wmnanorow->nanolikecount;?></span>
                                                         <?php } ?>
                                                     </li>
                                                     <li class="pull-right">
                                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
                                                         <ul class="dropdown-menu list-inline dropvknano1">
                                                             <li onclick="groupsuggest(<?php echo $wmnanorow->sid; ?>);">
-                                                                <a data-toggle="modal" data-target="#groupsuggest" href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                                                <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
                                                             </li>
                                                             <li onclick="friend(<?php echo $wmnanorow->sid;?>);">
-                                                                <a data-toggle="modal" data-target="#friendsuggest" href="javascript:void(0);" tilte="SUGGEST"><i class="fa fa-user"></i></a>
+                                                                <a href="javascript:void(0);" tilte="SUGGEST"><i class="fa fa-user"></i></a>
                                                             </li>
                                                             <li onclick="socialshare(<?php echo $wmnanorow->sid;?>, 'nano');">
                                                                 <a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
@@ -715,13 +718,23 @@
                             
                             <?php if($tab1pagescount < 1){  ?>
                                 <center>
-                        	        <div style="margin:10.8% auto">
-                        	            <div style="width:150px;">
-                        	                <img src="<?php echo base_url();?>assets/images/nodata.svg" class="img-responsive" style="width:100%;" alt="No Data">
-                        	            </div>
-                        	            <div style="font-family: arial,sans-serif;margin-top:5px;">NO STORIES FOUND</div>
-                        	        </div>
-                        	    </center>
+                                    <div style="margin:10.8% auto">
+                                        <div style="width:150px;">
+                                            <img src="<?php echo base_url();?>assets/images/nodata.svg" class="img-responsive" style="width:100%;" alt="No Data">
+                                        </div>
+                                        <div style="font-family: arial,sans-serif;margin-top:5px;">NO STORIES FOUND</div>
+                                    </div>
+                                </center>
+                                <div class="hidden-md hidden-lg" style="margin-bottom:20px;">
+                                    <center>
+                                        <div style="margin:10.8% auto">
+                                            <div style="width:150px;">
+                                                <img src="<?php echo base_url();?>assets/images/nodata.svg" class="img-responsive" style="width:100%;" alt="No Data">
+                                            </div>
+                                            <div style="font-family: arial,sans-serif;margin-top:5px;"><center>NO STORIES FOUND</center></div>
+                                        </div>
+                                    </center>
+                                </div>
                             <?php } ?>
                 		</div>
                 		<!-- END TAB 1 -->
@@ -797,25 +810,25 @@
 				<h5 class="modal-title text-center" style="color:#808182;">SOCIAL MEDIA SHARE</h5>
 			</div>
 			<div class="" style="padding-top:10px;">
-				<div class="row">
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
-						<a href="javascript:void(0);" class="facebookshare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/><p class="socialsharepopupspan">Facebook</p></a>
-					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
-					    <a href="javascript:void(0);" class="whatsappshare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-10px;"/><p class="socialsharepopupspan">Whatsapp</p></a>
-					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
-						<a href="javascript:void(0);" class="twittershare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Twitter</p></a>
-					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;">
-						<a href="javascript:void(0);" onclick="copylinkshare('#copylinkshare')" class="socsh">
-						    <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px;height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Copy to link</p></a>
-					    <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">
-					</div>
-				</div>
+                <div class="row">
+                    <div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+                        <a href="javascript:void(0);" class="facebookshare socsh">
+                            <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Facebook</p></a>
+                    </div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+                        <a href="javascript:void(0);" class="whatsappshare socsh">
+                            <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Whatsapp</p></a>
+                    </div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+                        <a href="javascript:void(0);" class="twittershare socsh">
+                            <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Twitter</p></a>
+                    </div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;">
+                        <a href="javascript:void(0);" onclick="copylinkshare('#copylinkshare')" class="socsh">
+                            <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Copy to link</p></a>
+                        <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">
+                    </div>
+                </div>
 			</div>
 		</div>
 	<!-- /.modal-content -->
@@ -875,8 +888,8 @@ $("#profilecomments").submit(function(event) {
                         '<div class="" style="float:left;><a href="<?php echo base_url().$this->uri->segment(1);?>/'+result.response[0].profile_name+'">'+
                         '<img src="<?php echo base_url();?>assets/images/'+profile_image+'" style="border-radius: 50%;width:40px !important;height: 40px !important;margin-right: 10px;" alt="'+result.response[0].name+'">'+
                         '</a></div><div class="comment_right clearfix"><div class="comment_info" style="padding-left:10px;">'+
-                        '<a href="<?php echo base_url().$this->uri->segment(1);?>/'+result.response[0].profile_name+'">'+result.response[0].name+'</a>'+
-                        '<span class="dropdown" style="float:right;"><a href="#" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
+                        '<div class="namers1"><a href="<?php echo base_url();?>'+result.response[0].profile_name+'">'+result.response[0].name+'</a></div>'+
+                        '<span class="dropdown" style="float:right;"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
                         '<i class="fa fa-ellipsis-v"></i></a> <ul class="dropdown-menu pull-right">'+
                         '<li><a href="javascript:void(0);"><span onClick="editpro_comment('+result.response[0].cid+');"><i class="fa fa-pencil"></i> EDIT</span></a></li>'+
                         '<li><a href="javascript:void(0);"><span onClick="deletepro_comment('+result.response[0].cid+');"><i class="fa fa-trash"></i> DELETE</span></a></li></ul></span>'+
@@ -887,6 +900,7 @@ $("#profilecomments").submit(function(event) {
                         '<span class="text-danger addreplaycmt'+result.response[0].cid+'"></span><div class="box-comment replycommentslist">'+
                         '<ul id="replycommentresults'+result.response[0].cid+'" style="padding-left:10px;list-style:none;"></ul><span class="viewmore'+result.response[0].cid+'"></span>'+
                         '</div></div></li><hr>');
+                        $('.commentslist.pcmtfwidth .col-md-12').html('');
                     }
                 }
             });
@@ -1023,12 +1037,13 @@ function deletepro_comment(commentid){
 }
 function postReplycomment(commentid){
     $('div.postreplycomment'+commentid).html('<input type="text" id="replycmts'+commentid+'" value="" class="form-control" placeholder="Replay Comment..." required>'+
-    '<span class="input-group-btn"><button type="submit" class="btn btn-success btn-flat" onclick="addreplycomment('+commentid+')">POST</button></span>');
+    '<span class="input-group-btn"><button type="submit" class="btn btn-success btn-flat btnspinner'+commentid+'" onclick="addreplycomment('+commentid+')">POST</button></span>');
 }
 function addreplycomment(commentid){
     var repliescmtcount = $('span#repliescount'+commentid).text();
     var comments = $('#replycmts'+commentid).val();
     var profile_id = $('#profile_id').val();
+    $('.btnspinner'+commentid).html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
     if(comments){
         $.ajax({
             url:'<?php echo base_url().$this->uri->segment(1);?>/addreplycomment',
@@ -1036,9 +1051,12 @@ function addreplycomment(commentid){
             data: {'comment_id': commentid, 'pro_comment':comments, 'profile_id': profile_id},
             dataType: "json",
             success:function(data){
+                $('.btnspinner'+commentid).html('POST');
                 $('#replycmts'+commentid).val('');
                 if(data == 2){
-                    $('.addreplaycmt'+commentid).text('Enter your Comments.');
+                    //$('.addreplaycmt'+commentid).text('Enter your Comments.');
+                    $('#snackbar').text('Enter Comments.').addClass('show');
+                    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                 }else if(data == 1){
                     $.ajax({
                         url:'<?php echo base_url().$this->uri->segment(1);?>/pro_commentpost',
@@ -1051,15 +1069,15 @@ function addreplycomment(commentid){
                             cmthtml = '<li style="margin-bottom:10px;" class="commentdelete'+datares.response[0].cid+'">'+
                             '<div class="media"><div class="media-left" style="padding-right:5px;">'+
                                 '<img src="<?php echo base_url();?>assets/images/'+profile_image+'" style="border-radius: 50%;width:30px !important;height: 30px !important;" alt="'+datares.response[0].name+'">'+
-                                '</div><div class="media-body" style="background-color:#ddd; padding-left:8px; border-radius: 10px;">'+
-                                '<b>'+datares.response[0].name+'</b><span class="dropdown pull-right">'+
+                                '</div><div class="media-body" style="background-color:#ddd; padding-left:8px; border-radius: 10px; padding-top:5px;">'+
+                                '<b><div class="namers"><a href="javascript:void(0);">'+datares.response[0].name+'</a></div></b><span class="dropdown" style="float:right;">'+
                                     '<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
                                         '<i class="fa fa-ellipsis-v"></i></a>'+
                                     '<ul class="dropdown-menu pull-right">'+
                                         '<li><a href="javascript:void(0);"><span onclick="editpro_comment('+datares.response[0].cid+');">'+
-                                            '<i class="fa fa-pencil"></i> Edit</span></a></li>'+
+                                            '<i class="fa fa-pencil"></i> EDIT</span></a></li>'+
                                         '<li><a href="javascript:void(0);"><span onclick="deletepro_comment('+datares.response[0].cid+');">'+
-                                            '<i class="fa fa-trash"></i> Delete</span></a></li>'+
+                                            '<i class="fa fa-trash"></i> DELETE</span></a></li>'+
                                     '</ul>'+                
                                 '</span><div style="color:#777; font-size:11px;margin-top:-4px;">1 minute ago</div>'+
                                 '<p style="margin: 8px 0px 2px 0px;" class="pcomment'+datares.response[0].cid+'">'+datares.response[0].pro_comment+'</p></div>'+
@@ -1069,12 +1087,17 @@ function addreplycomment(commentid){
                 		}
                     });
                 }else{
-                    $('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                    //$('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                    $('#snackbar').text('Failed to Post your Comments.').addClass('show');
+                    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                 }
             }
         });
     }else{
-        $('.addreplaycmt'+commentid).text('Enter your Comments.');
+        //$('.addreplaycmt'+commentid).text('Enter your Comments.');
+        $('.btnspinner'+commentid).html('POST');
+        $('#snackbar').text('Enter Comments.').addClass('show');
+        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     }
 }
 function reportpro_comment(commentid, user_id){
@@ -1142,6 +1165,7 @@ $( "form#reportprocomment" ).submit(function( event ) {
     		method: 'POST',
     		success:function(data){
     		    $('ul.nav.nav-tabs').hide();
+                $('.nav-tabs-custom ul.nav.nav-tabs').hide();
     		    $('#tabreadingviewall').html(data);
     		    $('#tabreadingviewall').prepend('<div class="row pv-0"><div class="col-md-6 col-xs-8"><div class="titlei">'+type+'</div></div>'+
     		    '<div class="col-md-6 col-xs-4"><a href="<?php echo base_url();?>'+profilename+'" class="view pull-right">'+
@@ -1218,6 +1242,7 @@ $( "form#reportprocomment" ).submit(function( event ) {
                         '<span class="text-danger addreplaycmt'+result.response[0].cid+'"></span><div class="box-comment replycommentslist">'+
                         '<ul id="replycommentresults'+result.response[0].cid+'" style="padding-left:10px;list-style:none;"></ul><span class="viewmore'+result.response[0].cid+'"></span>'+
                         '</div></div></li>');
+                        $('.commentslist.pcmtmwidth .col-md-12').html('');
                     }
                 }
             });
@@ -1489,5 +1514,10 @@ function copylinkshare(element) {
                 setTimeout(function(){ fingload_country_data(finglimit, fingstart); }, 100);
            }
         });
+    });
+</script>
+<script>
+    var lazyLoadInstance = new LazyLoad({
+        elements_selector: ".lazy"
     });
 </script>

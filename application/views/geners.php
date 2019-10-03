@@ -102,7 +102,7 @@
 		    <?php if(isset($generstories) && ($generstories->num_rows() > 0)){ 
 		        $pscount = $pscount+$generstories->num_rows(); ?>
     			<div class="row pt-0"> 
-    			    <div class="col-md-6 col-xs-8 ">
+    			    <div class="col-md-6 col-xs-8">
     			    	<div class="titlei">LATEST STORIES</div>
     			    </div>
     			</div><hr class="lin">
@@ -228,22 +228,26 @@
 					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
 						<a href="javascript:void(0);" class="facebookshare">
 						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/>
-						    <span class="socialsharepopupspan">Facebook</span></a>
+						    <span class="socialsharepopupspan">Facebook</span>
+                        </a>
 					</div>
 					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
 					    <a href="javascript:void(0);" class="whatsappshare">
 						    <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-10px;"/>
-						    <span class="socialsharepopupspan">Whatsapp</span></a>
+						    <span class="socialsharepopupspan">Whatsapp</span>
+                        </a>
 					</div>
 					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
 						<a href="javascript:void(0);" class="twittershare">
 						    <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-10px;"/>
-						    <span class="socialsharepopupspan">Twitter</span></a>
+						    <span class="socialsharepopupspan">Twitter</span>
+                        </a>
 					</div>
 					<div class="col-md-12 pd-5v" style="margin:12px;">
 						<a href="javascript:void(0);" onclick="copylinkshare('#copylinkshare')">
 						    <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px; height:40px;margin-top:-10px;"/>
-						    <span class="socialsharepopupspan">Copy to link</span></a>
+						    <span class="socialsharepopupspan">Copy to link</span>
+                        </a>
 					    <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">
 					</div>
 				</div>

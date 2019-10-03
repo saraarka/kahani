@@ -132,7 +132,7 @@
             <div class="info">
                 <?php if(isset($story) && ($story->num_rows() > 0)){
                     foreach($story->result() as $storyrow) { ?>
-                    <form action="<?php echo base_url().$this->uri->segment(1);?>nano_update" method="post" id="display_result">
+                    <form action="<?php echo base_url().$this->uri->segment(1);?>/nano_update" method="post" id="display_result">
                         <div id='translControl'>
                             <input type="hidden" id="previousenlang">
                             <?php $sesslang = $storyrow->nanolang; ?>

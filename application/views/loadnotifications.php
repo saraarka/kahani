@@ -108,7 +108,7 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
         </div> <hr>
     <?php } elseif($storynotify->type == 'startseries') { ?>
         <div class="user-block" style="cursor:pointer;">
-            <a href="<?php echo base_url().$storynotify->redirect_uri;?>">
+            <a href="<?php echo base_url().$seriesuri;?>">
 		    <?php if(!empty($storynotify->profile_image)){ ?>
 			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
 			<?php } else{ ?> 
@@ -213,7 +213,7 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
 <?php } } } else if(isset($tab2['communitynotifys']) && ($tab2['communitynotifys']->num_rows() >0)) {
     foreach($tab2['communitynotifys']->result() as $communitynotify) {
     if( $communitynotify->type == 'communitystory') { ?>
-    <div class="user-block">
+    <div class="user-block" style="cursor:pointer;">
 		<a href="<?php echo base_url().$communitynotify->redirect_uri; ?>">
             <?php if(!empty($communitynotify->profile_image)){ ?>
 			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $communitynotify->profile_image;?>" alt="<?php echo $communitynotify->sname;?>">
@@ -225,7 +225,7 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
         </a>
     </div><hr>
 <?php } elseif($communitynotify->type == 'communitycomment') { ?>
-    <div class="user-block">
+    <div class="user-block" style="cursor:pointer;">
 		<a href="<?php echo base_url().$communitynotify->redirect_uri; ?>">
             <?php if(!empty($communitynotify->profile_image)){ ?>
 			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $communitynotify->profile_image;?>" alt="<?php echo $communitynotify->sname;?>">
@@ -237,7 +237,7 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
         </a>
     </div>   <hr>
 <?php } elseif($communitynotify->type == 'commustorylike') { ?>
-    <div class="user-block">
+    <div class="user-block" style="cursor:pointer;">
 		<a href="<?php echo base_url().$communitynotify->redirect_uri; ?>">
 		    <?php if(!empty($communitynotify->profile_image)){ ?>
 			    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $communitynotify->profile_image;?>" alt="<?php echo $communitynotify->sname;?>">
@@ -251,7 +251,7 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
 <?php } } } else if(isset($notifications['suggestions']) && ($notifications['suggestions']->num_rows() >0)) {
     foreach($notifications['suggestions']->result() as $suggestion) { 
         if($suggestion->type == 'suggestion') { ?>
-            <div class="user-block">
+            <div class="user-block" style="cursor:pointer;">
                 <a href="#" data-toggle="modal" data-target="#sugnotifymodalp<?php echo $suggestion->id;?>">
 			    <?php if(!empty($suggestion->profile_image)) { ?>
 				    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $suggestion->profile_image;?>" alt="<?php echo $suggestion->sname;?>">

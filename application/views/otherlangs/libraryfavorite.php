@@ -8,7 +8,7 @@
         <?php foreach($frseries->result() as $frseriesrow){ ?>
             <div class="cardls" id="frlibdel<?php echo $frseriesrow->sid;?>">
 		        <div class="book-typels"><?php echo $frseriesrow->gener;?></div>
-	            <a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $frseriesrow->title).'-'.$frseriesrow->sid.'/'.preg_replace('/\s+/', '-', $frseriesrow->title).'-'.$frseriesrow->story_id);?>" class="imagesls-style">
+	            <a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $frseriesrow->title).'-'.$frseriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $frseriesrow->title).'-'.$frseriesrow->story_id);?>" class="imagesls-style">
     	            <?php if(isset($frseriesrow->image) && !empty($frseriesrow->image)) { ?>
     	                <img src="<?php echo base_url();?>assets/images/<?php echo $frseriesrow->image; ?>" alt="<?php echo $frseriesrow->title;?>" class="imagemels">
     	            <?php }else{ ?>
@@ -22,7 +22,7 @@
     	            <div class="clear-fix"></div>
 				    <div style="margin-top:-18px;">
     	            	<font class="max-linesls">
-    	            		<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $frseriesrow->title).'-'.$frseriesrow->sid.'/'.preg_replace('/\s+/', '-', $frseriesrow->title).'-'.$frseriesrow->story_id);?>">
+    	            		<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $frseriesrow->title).'-'.$frseriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $frseriesrow->title).'-'.$frseriesrow->story_id);?>">
     	            			<?php echo $frseriesrow->title;?>
     	            		</a>
     	            	</font> 
@@ -56,10 +56,10 @@
             			</button>
             			<ul class="dropdown-menu list-inline dropvk">
             				<li onclick="groupsuggest(<?php echo $frseriesrow->sid; ?>);">
-            					<a href="javascript:void(0)" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+            					<a href="javascript:void(0)" title="COMMUNITY"><i class="fa fa-users"></i></a>
             				</li>
             				<li onclick="friend(<?php echo $frseriesrow->sid;?>);">
-            					<a href="javascript:void(0)" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+            					<a href="javascript:void(0)" title="SUGGEST"><i class="fa fa-user"></i></a>
             				</li>
             				<li onclick="socialshare(<?php echo $frseriesrow->sid;?>, 'series');">
             					<a data-toggle="modal" data-target="#soc" href="javascript:void(0)" title="SOCIAL">
@@ -83,7 +83,7 @@
 		<?php foreach($frstories->result() as $frstoriesrow) { ?>
 		<div class="cardls" id="frlibdel<?php echo $frstoriesrow->sid;?>">
 	        <div class="book-type"><?php echo $frstoriesrow->gener;?></div>
-			<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $frstoriesrow->title).'-'.$frstoriesrow->sid);?>" class="product-title imagesls-style">
+			<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u",'-', $frstoriesrow->title).'-'.$frstoriesrow->sid);?>" class="product-title imagesls-style">
 				<?php if(isset($frstoriesrow->image) && !empty($frstoriesrow->image)) { ?>
 			        <img src="<?php echo base_url();?>assets/images/<?php echo $frstoriesrow->image; ?>" alt="<?php echo $frstoriesrow->name; ?>" class="imagemels">
 				<?php }else{ ?>
@@ -97,7 +97,7 @@
 	    	<div class="clear-fix"></div>
 			<div style="margin-top:-18px;">
 				<font class="max-lines">
-					<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $frstoriesrow->title).'-'.$frstoriesrow->sid);?>" class="product-title">
+					<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u",'-', $frstoriesrow->title).'-'.$frstoriesrow->sid);?>" class="product-title">
 					    <?php echo $frstoriesrow->title;?>
 					</a>
 				</font> 
@@ -141,10 +141,10 @@
 				</button>
 				<ul class="dropdown-menu list-inline dropvk">
 					<li onclick="groupsuggest(<?php echo $frstoriesrow->sid; ?>);">
-						<a href="javascript:void(0)" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+						<a href="javascript:void(0)" title="COMMUNITY"><i class="fa fa-users"></i></a>
 					</li>
 					<li onclick="friend(<?php echo $frstoriesrow->sid;?>);">
-						<a href="javascript:void(0)" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+						<a href="javascript:void(0)" title="SUGGEST"><i class="fa fa-user"></i></a>
 					</li>
 					<li onclick="socialshare(<?php echo $frstoriesrow->sid;?>, 'story');">
 						<a data-toggle="modal" data-target="#soc" href="javascript:void(0)" title="SOCIAL">
@@ -167,7 +167,7 @@
     <div class="jc-m" style="display:flex; flex-wrap:wrap; margin-bottom:25px;">
         <?php foreach($frlife->result() as $frliferow) { ?>
             <div class="card1" style="margin-top:10px" id="frlibdel<?php echo $frliferow->sid;?>">
-				<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $frliferow->title).'-'.$frliferow->sid);?>">
+				<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u",'-', $frliferow->title).'-'.$frliferow->sid);?>" class="imagelife-style">
 					<?php if(isset($frliferow->image) && !empty($frliferow->image)) { ?>
 						<img src="<?php echo base_url();?>assets/images/<?php echo $frliferow->image; ?>" alt="<?php echo $frliferow->title;?>" class="imageme1">
 					<?php }else{ ?>
@@ -180,7 +180,7 @@
 				</div>
 				<div style="margin-top:-22px;">
 					<font class="max-lines">
-						<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $frliferow->title).'-'.$frliferow->sid);?>">
+						<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u",'-', $frliferow->title).'-'.$frliferow->sid);?>">
 						    <?php echo $frliferow->title;?>
 						</a>
 					</font> 
@@ -214,10 +214,10 @@
 					</button>
 					<ul class="dropdown-menu list-inline dropvklife">
 						<li onclick="groupsuggest(<?php echo $frliferow->sid; ?>);">
-							<a href="javascript:void(0)" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+							<a href="javascript:void(0)" title="COMMUNITY"><i class="fa fa-users"></i></a>
 						</li>
 						<li onclick="friend(<?php echo $frliferow->sid;?>);">
-							<a href="javascript:void(0)" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+							<a href="javascript:void(0)" title="SUGGEST"><i class="fa fa-user"></i></a>
 						</li>
 						<li onclick="socialshare(<?php echo $frliferow->sid;?>, 'story');">
 							<a data-toggle="modal" data-target="#soc" href="javascript:void(0)" title="SOCIAL">

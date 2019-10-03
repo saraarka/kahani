@@ -84,7 +84,7 @@
             			    		<li onclick="socialshare(<?php echo $storysrow->sid;?>, 'story');">
             			    			<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
             			    		</li>
-        			    	    </ul>   
+        			    	    </ul>
     			            </div>
     				    </div>
     				    <input type="hidden" id="generid" value="<?php echo $storysrow->genre;?>">
@@ -136,12 +136,14 @@
 					<div class="col-md-12 pd-5v" style="margin:12px;">
 						<a href="javascript:void(0);" class="facebookshare">
 						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/>
-						    <span class="socialsharepopupspan">Facebook</span></a>
+						    <span class="socialsharepopupspan">Facebook</span>
+                        </a>
 					</div>
 					<div class="col-md-12 pd-5v" style="margin:12px;">
 					    <a href="javascript:void(0);" class="whatsappshare">
 						    <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-10px;"/>
-						    <span class="socialsharepopupspan">Whatsapp</span></a>
+						    <span class="socialsharepopupspan">Whatsapp</span>
+                        </a>
 					</div>
 					<div class="col-md-12 pd-5v" style="margin:12px;">
 						<a href="javascript:void(0);" class="twittershare">

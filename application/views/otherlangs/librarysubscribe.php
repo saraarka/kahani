@@ -6,15 +6,15 @@
         </div>
     </div><hr>
     <div class="">
-        <div class="jc-m" style="display:flex; flex-wrap:wrap; margin-bottom:25px;">
+        <div class="jc-m" style="display:flex; flex-wrap:wrap; margin-bottom:25px;" id="subloadseries">
             <?php foreach($scseries->result() as $scseriesrow){ ?>
                 <div class="cardls" id="sclibdel<?php echo $scseriesrow->sid;?>">
 				    <div class="book-typels"><?php echo $scseriesrow->gener;?></div>
-    	            <a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $scseriesrow->title).'-'.$scseriesrow->sid.'/'.preg_replace('/\s+/', '-', $scseriesrow->title).'-'.$scseriesrow->story_id);?>" class="imagesls-style">
+    	            <a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $scseriesrow->title).'-'.$scseriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $scseriesrow->title).'-'.$scseriesrow->story_id);?>" class="imagesls-style">
 	    	            <?php if(isset($scseriesrow->image) && !empty($scseriesrow->image)) { ?>
 	    	                <img src="<?php echo base_url();?>assets/images/<?php echo $scseriesrow->image; ?>" alt="<?php echo $scseriesrow->title;?>" class="imagemels">
 	    	            <?php }else{ ?>
-	    	            	<img src="<?php echo base_url();?>assets/dist/img/photo1.png" alt="<?php echo $scseriesrow->title;?>" class="imagemels">
+	    	            	<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $scseriesrow->title;?>" class="imagemels">
 	    	            <?php } ?>
     	            </a>
     	            <div class="bottom-left">
@@ -24,7 +24,7 @@
     	            <div class="clear-fix"></div>
 				    <div style="margin-top:-18px;">
     	            	<font class="max-linesls">
-    	            		<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $scseriesrow->title).'-'.$scseriesrow->sid.'/'.preg_replace('/\s+/', '-', $scseriesrow->title).'-'.$scseriesrow->story_id);?>">
+    	            		<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $scseriesrow->title).'-'.$scseriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $scseriesrow->title).'-'.$scseriesrow->story_id);?>">
     	            			<?php echo $scseriesrow->title;?>
     	            		</a>
     	            	</font> 
@@ -58,10 +58,10 @@
             			</button>
             			<ul class="dropdown-menu list-inline dropvk">
             				<li onclick="groupsuggest(<?php echo $scseriesrow->sid; ?>);">
-            					<a href="javascript:void(0)" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+            					<a href="javascript:void(0)" title="COMMUNITY"><i class="fa fa-users"></i></a>
             				</li>
             				<li onclick="friend(<?php echo $scseriesrow->sid;?>);">
-            					<a href="javascript:void(0)" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+            					<a href="javascript:void(0)" title="SUGGEST"><i class="fa fa-user"></i></a>
             				</li>
             				<li onclick="socialshare(<?php echo $scseriesrow->sid;?>, 'series');">
             					<a data-toggle="modal" data-target="#soc" href="javascript:void(0)" title="SOCIAL">
@@ -74,13 +74,51 @@
             <?php } ?>
         </div>
     </div>
-<?php } else{ ?>
-    <div class="outerv">
-        <div class="middlev">
-            <div class="innerv">
-                <img src="<?php echo base_url();?>assets/images/nodata.svg" class="img-responsive" style="width:100%;" alt="No Data">
+    <div id="subload_data_message"></div>
+    <?php } else{ ?>
+        <div class="outerv">
+            <div class="middlev">
+                <div class="innerv">
+                    <img src="<?php echo base_url();?>assets/images/nodata.svg" class="img-responsive" style="width:100%;" alt="No Data">
+                </div>
+                <div class="innervd">NO STORIES FOUND</div>
             </div>
-            <div class="innervd">NO STORIES FOUND</div>
         </div>
-    </div>
-<?php } ?>
+    <?php } ?>
+
+<script>
+    $(document).ready(function(){
+        var sublimit = 8;
+        var substart = 8;
+        var subaction = 'inactive';
+        function load_country_data(sublimit, substart) {
+            $.ajax({
+                url:'<?php echo base_url().$this->uri->segment(1);?>/libseriesloadmore',
+                method:"POST",
+                data:{limit:sublimit, start:substart},
+                cache:false,
+                success:function(data){
+                    $('#subloadseries').append(data);
+                    if(data == '') {
+                        $('#subload_data_message').html("<center><div class='col-md-12' style='padding-top:20px;'> No More Results!</div></center>");
+                        subaction = 'active';
+                    }else{
+                        $('#subload_data_message').html("<center><div class='col-md-12' style='padding-top:20px;'> Loading ...</div></center>");
+                        subaction = "inactive";
+                    }
+                }
+            });
+        }
+        if(subaction == 'inactive') {
+            subaction = 'active';
+            load_country_data(sublimit, substart);
+        } 
+        $(window).scroll(function(){
+            if ($(window).scrollTop() >= (($("#subloadseries").height() - $(window).height())*0.6) && subaction == 'inactive'){
+                subaction = 'active';
+                substart = substart + sublimit;
+                setTimeout(function(){load_country_data(sublimit, substart);}, 10);
+            }
+        });
+    });
+</script>

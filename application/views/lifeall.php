@@ -10,26 +10,26 @@
 		    		<div class="view pull-right"><a href="<?php echo base_url();?>lifeeventtags"> View More </a></div>
 		    	</div>
 		    </div> <hr> -->
-		    <div class="row pt-0">
-		        <?php if(isset($lifetagslist) && ($lifetagslist->num_rows() > 0)){ ?>
-		        <div class="tagv" style="display:flex;">
-                    <div class="brv1 hidden-xs">Popular Tags :</div>
-                    <button id="left-btnt" class="left-btnt right-btnt"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
-                    <div id="tag1" class="tags1">
-                        <div id="tag2" class="tags2">
-                            <?php if(isset($lifetagslist) && ($lifetagslist->num_rows() > 0)){
-                            foreach($lifetagslist->result() as $lifetaglist){ ?>
-                                <div class="brv" style="display:inline-block;"><a href="<?php echo base_url();?>searchresult?type=life&searchtext=<?php echo $lifetaglist->tagname; ?>">
-                                    <?php echo $lifetaglist->tagname; ?></a>
-                                </div>
-                            <?php } } ?>
-                        </div>
-                    </div>
-                    <button id="right-btnt" class="right-btnt right-btnt" style="padding-right: 20px;"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
-                    <div class="brv1 hidden-xs view" style="margin-right:0px; width:10%;"><a href="<?php echo base_url();?>lifeeventtags"> View More </a></div>
-	            </div>
-	            <?php } ?>
-		    </div>
+			<div class="row pt-0">
+			    <?php if(isset($lifetagslist) && ($lifetagslist->num_rows() > 0)){ ?>
+			    <div class="tagv" style="display:flex;">
+			        <div class="brv1 hidden-xs">Popular Tags :</div>
+			        <button id="left-btnt" class="left-btnt right-btnt"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+			        <div id="tag1" class="tags1">
+			            <div id="tag2" class="tags2">
+			                <?php if(isset($lifetagslist) && ($lifetagslist->num_rows() > 0)){
+			                foreach($lifetagslist->result() as $lifetaglist){ ?>
+			                    <div class="brv" style="display:inline-block;"><a href="<?php echo base_url();?>searchresult?type=life&searchtext=<?php echo $lifetaglist->tagname; ?>">
+			                        <?php echo $lifetaglist->tagname; ?></a>
+			                    </div>
+			                <?php } } ?>
+			            </div>
+			        </div>
+			        <button id="right-btnt" class="right-btnt right-btnt" style="padding-right: 20px;"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+			        <div class="brv1 hidden-xs view" style="margin-right:0px; width:10%;"><a href="<?php echo base_url();?>lifeeventtags"> View More </a></div>
+			    </div>
+			    <?php } ?>
+			</div>
 		    <div class="row pt-0">
 		        <?php if(isset($top_get_life) && ($top_get_life->num_rows() > 0)){ ?>
 		    	<div class="col-md-6 col-xs-8 pd-0">
@@ -197,7 +197,7 @@
 <!-- Social Popup ---- -->
 <div class="modal fade" id="soc">
 	<div class="modal-dialog">
-		<div class="modal-content socv ">
+		<div class="modal-content socv">
 			<div class="modal-header" style="padding:8px 15px;">
 				<button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px; margin-bottom:-2px;" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span></button>

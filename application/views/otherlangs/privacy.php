@@ -17,7 +17,7 @@
 <meta property="og:description" content="Read & Write stories, life events in the language you wish for free. Hindi, Telugu, Tamil, English, Bengali, Marathi, Gujarati, Malayalam, Kannada, Punjabi, Russian, & ItaliaR">
 <meta property="og:url" content="<?php echo base_url();?>privacy">
 <meta property="og:type" content="website">
-<link rel="stylesheet" href="<?php echo base_url();?>assets/css/privacy.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/css/terms.css">
 </head>
 <body>
 <header>
@@ -70,10 +70,10 @@
 <div class="footer1">
     <div style="font-size:14px;color:black;font-family: 'Varela Round', sans-serif;">
         <center>
-            <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url();?>about" style="color:#000;">ABOUT</a></font>
-            <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url();?>blog" style="color:#000;">BLOG</a></font>		
-            <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url();?>contact" style="color:#000;">CONTACT</a></font>		            <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url();?>contact" style="color:#000;">CONTACT</a></font>
-            <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url();?>terms-conditions" style="color:#000;">TERMS</a></font>
+            <font class="hover-tems"><a href="<?php echo base_url().$this->uri->segment(1);?>about" style="color:#000;">ABOUT</a></font>
+            <font class="hover-tems"><a href="<?php echo base_url().$this->uri->segment(1);?>blog" style="color:#000;">BLOG</a></font>		
+            <font class="hover-tems"><a href="<?php echo base_url().$this->uri->segment(1);?>contact" style="color:#000;">CONTACT</a></font>		            <font class="hover-tems"><a href="<?php echo base_url().$this->uri->segment(1);?>contact" style="color:#000;">CONTACT</a></font>
+            <font class="hover-tems"><a href="<?php echo base_url().$this->uri->segment(1);?>terms-conditions" style="color:#000;">TERMS</a></font>
         </center>
     </div>
 </div>

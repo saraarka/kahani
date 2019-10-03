@@ -53,11 +53,11 @@
 }
 </style>
   <div class="main">
-    <h3>Stories Counts </h3>
+    <h3>Genre Counts </h3>
     
     <h5>
         <span class="pull-right" id="storiessearch">
-            <select class="form-control" onchange="languagecount(this.value);">
+            <select class="form-control" onchange="scgenres(this.value);">
                 <option value=""> -- By Language -- </option>
                 <?php if(isset($languages) && ($languages->num_rows() > 0)){ foreach($languages->result() as $language){ ?>
                 <option value="<?php echo $language->code;?>"><?php echo $language->language;?> </option>
@@ -65,28 +65,30 @@
             </select>
         </span>
     </h5>
-    <?php if(isset($allstories) && count($allstories > 0)){ ?>
-      <h3>All Stories Counts</h3>
-        <div class="tagpagemaindiv">
-            <?php foreach($allstories as $allstory) { ?>
-                <div class="tagcards">
-                    <div class="tagtext"><a href="<?php echo base_url();?>searchresult?type=life&searchtext="><?php echo $allstory['type']; ?></a></div>
-                    <div class="tagnumbertext"><?php echo $allstory['storiescount'];?></div>
-                </div>
-            <?php } ?>
-        </div>
-    <?php } ?>
+    <div class="scgenreslang">
+        <?php if(isset($stories) && count($stories > 0)){ ?>
+          <h3>All Stories Genre Counts</h3>
+            <div class="tagpagemaindiv">
+                <?php foreach($stories as $story) { ?>
+                    <div class="tagcards">
+                        <div class="tagtext"><a href="javascript:void(0);"><?php echo $story['gener']; ?></a></div>
+                        <div class="tagnumbertext"><?php echo $story['storiescount'];?></div>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
 
-    <!--<?php if(isset($allstorieslang) && count($allstorieslang > 0)){ ?>
-      <h3>All Stories Counts in Current Language</h3>
-        <div class="tagpagemaindiv">
-            <?php foreach($allstorieslang as $allstorylang) { ?>
-                <div class="tagcards">
-                    <div class="tagtext"><a href="<?php echo base_url();?>searchresult?type=life&searchtext="><?php echo $allstorylang['type']; ?></a></div>
-                    <div class="tagnumbertext"><?php echo $allstorylang['storiescount'];?></div>
-                </div>
-            <?php } ?>
-        </div>
-    <?php } ?> -->
+        <?php if(isset($series) && count($series > 0)){ ?>
+          <h3>All Series Genre Counts</h3>
+            <div class="tagpagemaindiv">
+                <?php foreach($series as $seriesrow) { ?>
+                    <div class="tagcards">
+                        <div class="tagtext"><a href="javascript:void(0);"><?php echo $seriesrow['gener']; ?></a></div>
+                        <div class="tagnumbertext"><?php echo $seriesrow['storiescount'];?></div>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
+    </div>
   </div>
   <?php $this->load->view('admin/footer.php'); ?>

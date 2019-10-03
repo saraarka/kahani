@@ -19,7 +19,7 @@
         			<?php foreach($genertopstories->result() as $storysrow) { ?>
             			<div class="cardls">
     			        	<div class="book-typels"><?php echo $storysrow->gener;?></div>
-    		        		<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $storysrow->title).'-'.$storysrow->sid);?>" class="imagesls-style">
+    		        		<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $storysrow->title).'-'.$storysrow->sid);?>" class="imagesls-style">
         		        		<?php if(isset($storysrow->image) && !empty($storysrow->image)) { ?>
         		                	<img src="<?php echo base_url();?>assets/images/<?php echo $storysrow->image; ?>" alt="<?php echo $storysrow->title;?>" class="imagemels">
         	                	<?php }else{ ?>
@@ -28,7 +28,7 @@
     	                	</a>
     		                <div>
     			            	<font class="max-linesls">
-    			            		<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $storysrow->title).'-'.$storysrow->sid);?>" class="product-title"><?php echo $storysrow->title;?></a>
+    			            		<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $storysrow->title).'-'.$storysrow->sid);?>" class="product-title"><?php echo $storysrow->title;?></a>
     			            	</font> 
     			            </div>
     			        	<div class="flextestls">
@@ -75,18 +75,16 @@
         			    		    <span class=""><i class="fa fa-plus"></i></span>
         			    	    </button>
         			    	    <ul class="dropdown-menu list-inline dropvk">
-            			    		<li onclick="groupsuggest(<?php echo $storysrow->sid; ?>);">
-            			    			<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
-            			    		</li>
-            			    		<li onclick="friend(<?php echo $storysrow->sid;?>);">
-            			    			<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
-            			    		</li>
-            			    		<li onclick="socialshare(<?php echo $storysrow->sid;?>, 'story');">
-            			    			<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-            			    				<i class="fa fa-share-alt"></i>
-            			    			</a>
-            			    		</li>
-        			    	    </ul>   
+                                    <li onclick="groupsuggest(<?php echo $storysrow->sid; ?>);">
+                                        <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                    </li>
+                                    <li onclick="friend(<?php echo $storysrow->sid;?>);">
+                                        <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+                                    </li>
+                                    <li onclick="socialshare(<?php echo $storysrow->sid;?>, 'story');">
+                                        <a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
+                                    </li>
+                                </ul>
     			            </div>
     				    </div>
     				    <input type="hidden" id="generid" value="<?php echo $storysrow->genre;?>">
@@ -129,30 +127,36 @@
 	<div class="modal-dialog">
 		<div class="modal-content socv ">
 			<div class="modal-header" style="padding:8px 15px;">
-				<button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px;margin-bottom:-2px;" data-dismiss="modal" aria-label="Close">
+				<button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px;" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span></button>
 				<h5 class="modal-title text-center" style="color:#808182;">SOCIAL MEDIA SHARE</h5>
 			</div>
 			<div class="" style="padding-top:5px;">
-				<div class="row">
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
-						<a href="javascript:void(0);" class="facebookshare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/><p class="socialsharepopupspan">Facebook</p></a>
-					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
-					    <a href="javascript:void(0);" class="whatsappshare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-10px;"/><p class="socialsharepopupspan">Whatsapp</p></a>
-					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
-						<a href="javascript:void(0);" class="twittershare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Twitter</p></a>
-					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;">
-						<a href="javascript:void(0);" onclick="copylinkshare('#copylinkshare')" class="socsh">
-						    <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px;height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Copy to link</p></a>
-					    <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">
-					</div>
-				</div>
+                <div class="row">
+                    <div class="col-md-12 pd-5v" style="margin:12px;">
+                        <a href="javascript:void(0);" class="facebookshare">
+                            <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/>
+                            <span class="socialsharepopupspan">Facebook</span>
+                        </a>
+                    </div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;">
+                        <a href="javascript:void(0);" class="whatsappshare">
+                            <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-10px;"/>
+                            <span class="socialsharepopupspan">Whatsapp</span>
+                        </a>
+                    </div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;">
+                        <a href="javascript:void(0);" class="twittershare">
+                            <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-10px;"/>
+                            <span class="socialsharepopupspan">Twitter</span></a>
+                    </div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;">
+                        <a href="javascript:void(0);" onclick="copylinkshare('#copylinkshare')">
+                            <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px; height:40px;margin-top:-10px;"/>
+                            <span class="socialsharepopupspan">Copy to link</span></a>
+                        <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">
+                    </div>
+                </div>
 			</div>
 		</div>
 	<!-- /.modal-content -->
@@ -276,7 +280,7 @@ function copylinkshare(element) {
     $temp.val($(element).val()).select();
     document.execCommand("copy");
     $temp.remove();
-    $('#snackbar').text('Link Copied to clipboard...').addClass('show');		
+    $('#snackbar').text('Link Copied to clipboard...').addClass('show');
     setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
 }
 </script>

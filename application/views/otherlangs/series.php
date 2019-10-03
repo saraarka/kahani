@@ -10,6 +10,124 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet">
         <link href="<?php echo base_url();?>assets/css/infopage.css" rel="stylesheet">
     </head>
+    <style>
+        .top-div-image-popup {
+          height: 57px;
+          box-shadow: 0 3px 2px -2px rgba(200,200,200,0.2);
+          border-bottom: 1px solid #ddd;
+          padding-top: 12px;
+          text-align: center;
+          box-sizing: border-box;
+          background: white;
+        }
+
+        .top-div-image-popup input {
+          height: 31px;
+          width: 250px;
+          border: none;
+          border-radius: 0;
+          border-bottom: 2px solid;
+          margin-right: 5px;
+          outline: none;
+          font-size: 16px;
+        }
+
+        .top-div-image-popup button {
+          cursor: pointer;
+          background-color: rgba(0,0,0,0.3);
+          width: 45px;
+          padding: 8px 0px;
+          border: none;
+          border-radius: 3px;
+          outline: none;
+          color: white;
+        }
+
+        .defaultimages {
+          padding-top: 10px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          height: 260px;
+          overflow-Y: auto;
+        }
+
+        .defaultimages img {
+          border-radius: 5px;
+          width: 45%;
+          max-width: 127px;
+          max-height: 121px;
+          border: 3px solid #eeee;
+          margin: 1%;
+          cursor: pointer;
+        }
+        img.selectedIMG{
+          border : 3px solid #3c8dbc;
+        }
+
+        .image-loadmore{
+          width: 100%;
+          text-align: center;
+        }
+
+        .image-loadmore button {
+          height: 30px;
+          font-size: 14px;
+          margin: 10px 0px;
+          background: #3c8dbc;
+          border: none;
+          border-radius: 3px;
+          color: white;
+          outline: none;
+        }
+
+        .upload-own-img-div{
+          text-align: center;
+          display:flex;
+          justify-content: center;
+          border-top: 1px solid #ddd;
+        }
+
+        .upload-own-img-btn{
+          background: none;
+          border: 1px solid;
+          height: 30px;
+          margin: 10px;
+          color: #3c8dbc;
+          outline: none;
+        }
+        .default-img-save-button{
+          border: 1px solid transparent;
+          height: 30px;
+          margin: 10px;
+          color: #bcb2b2;
+          background: #eee;
+          outline: none;
+        }
+        .close-btn{
+          position: absolute;
+          background: red;
+          text-align: center;
+          color: white;
+          right: 0;
+          top: -37px;
+          box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+          border: none;
+          height: 30px;
+          font-size: 17px;
+          border-radius: 3px;
+          cursor: pointer;
+          outline: none;
+        }
+        @media screen and (max-width:470px){
+          .default-image-popup {
+            width: 300px;
+          }
+          .top-div-image-popup input {
+            width: 200px;
+          }
+        }
+    </style>
     <body>
         
         <form action="<?php echo base_url().$this->uri->segment(1);?>/series_story_uplode" onsubmit="return validateForm()" name="infoForm" id="display_result" method="post" enctype="multipart/form-data">
@@ -30,13 +148,15 @@
                 <div class="imagemaindiv">
                     <div class="imagebox">
                         <label for="upload-file-selector">
-                            <input type="file" name="cover_image" id="upload-file-selector" style="display:none;">
+                            <input type="hidden" name="cover_image" id="upload-file-selectorserver" style="display:none;">
                             <span class="upload-file-selector">
                                 <img src="<?php echo base_url();?>assets/images/flat.png" style="cursor:pointer;padding:124px;"/>
                                 <p class="browseimg">Image SIZE should be smaller than 2MB.</p>
                             </span>
                             <span class="text-danger imageerror"></span>
                         </label>
+                        <input type="hidden" name="cover_imagelocalp" class="cover_imagelocalp">        
+                        <input type="hidden" name="cover_imagelocali" class="cover_imagelocali">
                     </div>
                     <div class="removebtn"></div>
                     <div class="monetize">
@@ -190,6 +310,29 @@
     </div>
 </div>
 
+<div class="modal-wrapper" id="defaultimages">
+    <div class="modal">
+        <div class="default-image-popup">
+            <button class="close-btn">CLOSE</button>
+            <div class="top-div-image-popup">
+                <input id="searchimage" placeholder="Search image...">
+                <button onclick="searchimage()">GO</button>
+            </div>
+            <div class="defaultimages">
+                <?php if(isset($defaultimages) && ($defaultimages->num_rows() > 0)){ foreach($defaultimages->result() as $defaultimage){ ?>
+                    <img class="selectimg<?php echo $defaultimage->id;?>" src="<?php echo base_url();?>assets/images/<?php echo $defaultimage->dimage;?>" onclick="selectimg(<?php echo $defaultimage->id;?>)">
+                <?php } } ?>
+            </div>
+            <div class="image-loadmore"><button>LOAD MORE</button></div>
+            <div class="upload-own-img-div">
+                <!--<button class="upload-own-img-btn">+ UPLOAD IMAGE</button>-->
+                <button class="upload-own-img-btn"><label><input type="file" name="cover_image" id="upload-file-selector" style="display:none;">+ UPLOAD IMAGE</label></button>
+                <button class="default-img-save-button">USE THIS IMAGE</button>
+            </div>
+        </div>
+    </div>
+</div>
+
         
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="<?php echo base_url();?>assets/bootstrap-tagsinput.min.js"></script>
@@ -291,6 +434,97 @@
         }
     });
 </script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.upload-file-selector').click(function() {
+            $('body').toggleClass('hide-body-scroll');
+            $('#defaultimages').toggleClass('open');
+            return false;
+        });
+
+        $('button.close-btn').click(function() {
+            $('body').toggleClass('hide-body-scroll');
+            $('.modal-wrapper').removeClass('open');
+            return false;
+        });
+
+        $('.default-img-save-button').click(function(){
+            var checkclass = $('.defaultimages img').hasClass("selectedIMG");
+            if(checkclass){
+                var imagepath = $('.selectedIMG').attr('src');
+                $("#upload-file-selectorserver").val(imagepath);
+                $('.cover_imagelocalp').val('');
+                $('.cover_imagelocali').val('');
+                $('.upload-file-selector').html("<span class=\"pip\">" +
+                    "<img class=\"imageThumb\" src=\"" + imagepath + "\"/>");
+                $('.removebtn').html("<div class=\"removeimg\"><span class=\"remove\" style=cursor:pointer;>REMOVE</span></div></span>");
+                
+                $('body').toggleClass('hide-body-scroll');
+                $('.modal-wrapper').removeClass('open');
+                return false;
+            }
+        });
+
+        $(".remove").click(function(){
+            $(this).parent(".pip").remove();
+            $('.removebtn').html("");
+            $("#upload-file-selectorserver").val('');
+            $('.upload-file-selector').html('<img src="<?php echo base_url();?>assets/images/flat.png" style="cursor:pointer;padding:124px;"/>'+
+                '<p class="browseimg">Image SIZE should be smaller than 2MB.</p>');
+        });
+
+        var limit = 6;
+        var start = 0;
+        function loadmoredimages(limit, start){
+            $.ajax({
+                url: '<?php echo base_url().$this->uri->segment(1);?>/loadmoredimages',
+                method: "POST",
+                data: {limit:limit, start:start},
+                cache: false,
+                dataType: "json",
+                success:function(data){
+                    if(data.length > 0){
+                        var images = '';
+                        $.each(data,function (p,q){
+                            images+= '<img class="selectimg'+q.id+'" src="<?php echo base_url();?>assets/images/'+q.dimage+'" onclick="selectimg('+q.id+')">';
+                        });
+                        $('.defaultimages').append(images);
+                    }else{
+                        $('.image-loadmore').html('No more Results');
+                    }
+                }
+            });
+        }
+        $('.image-loadmore').click(function() {
+            start = start + limit;
+            loadmoredimages(limit, start);
+        });
+
+    });
+    function searchimage(){
+        var searchimage = $('#searchimage').val();
+        if(searchimage){
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url().$this->uri->segment(1);?>/searchimage",
+                data: {'searchimage': searchimage},
+                dataType: "json",
+                success: function(data) {
+                    var images = '';
+                    $.each(data,function (p,q){
+                        images+= '<img class="selectimg'+q.id+'" src="<?php echo base_url();?>assets/images/'+q.dimage+'" onclick="selectimg('+q.id+')">';
+                    });
+                    $('.defaultimages').html(images);
+                }
+            });
+        }
+    }
+    function selectimg(id){
+        $('.defaultimages img').removeClass("selectedIMG");
+        $('.selectimg'+id).addClass('selectedIMG');
+        $('.default-img-save-button').css({'background':'#3c8dbc','color':'white'});
+    }
+</script>
 <script>
     $(document).ready(function() {
         upLoader();
@@ -306,6 +540,35 @@
                         alert('Upload File Size Should be lessthan 2MB.');
                         $("#upload-file-selector").val('');
                     }else{
+
+                        var fd = new FormData();
+                        var files = $('#upload-file-selector')[0].files[0];
+                        fd.append('file',files);
+                        fd.append('type','series');
+                        $.ajax({
+                            url:'<?php echo base_url().$this->uri->segment(1);?>/localimage',
+                            type: 'POST',
+                            data: fd,
+                            contentType: false,
+                            processData: false,
+                            cache: false,
+                            success: function(response){
+                                var responsedata = JSON.parse(response);
+                                if(responsedata.picture1 != 0){
+                                    $('.cover_imagelocalp').val(responsedata.picture1);
+                                    $('.cover_imagelocali').val(responsedata.image);
+                                    $("#upload-file-selectorserver").val('');
+
+                                    $('body').toggleClass('hide-body-scroll');
+                                    $('.modal-wrapper').removeClass('open');
+                                    return false;
+                                    console.log('file uploaded');
+                                }else{
+                                    console.log('file not uploaded');
+                                }
+                            }
+                        });
+
                         var fileReader = new FileReader();
                         fileReader.onload = (function(e) {
                             var file = e.target;

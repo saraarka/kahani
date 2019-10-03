@@ -15,6 +15,11 @@
             visibility:hidden;
         }
     }
+    .box.box-widget.widget-user.boxshv.boxshv1 p img{
+        margin: 10px auto;
+        display:block;
+        max-width:100%;
+    }
 </style>
 
 <div class="addnewepisode" id="">
@@ -22,7 +27,7 @@
     	<div class="navbar-collapse pd-4">
     		<ul class="nav navbar-nav" style="display: inline-block;">
     		    <li class="dropdown se-vj">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color:transparent; max-width: 300px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:transparent; max-width: 300px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
                         <i class="fa fa-bars"></i> 
                         <span class="hidden-xs hidden-sm">
                             <?php $seriesftitles = ''; if(isset($seriesftitle) && ($seriesftitle->num_rows() == 1)){
@@ -50,7 +55,7 @@
             				        <small class="pull-right"><?php if($row->draft == "draft"){ echo 'In Drafts'; } ?></small>
             					</a>
                                 <?php }else{ ?>
-                                <a href="<?php echo base_url($this->uri->segment(1).'/admin-series/'.preg_replace('/\s+/', '-', $row->title).'-'.$row->sid.'/'.$this->uri->segment(4));?>">
+                                <a href="<?php echo base_url($this->uri->segment(1).'/admin-series/'.preg_replace("~[^\p{M}\w]+~u",'-', $row->title).'-'.$row->sid.'/'.$this->uri->segment(4));?>">
             					    <span class="menu-icon bg-light-blue" style="border-radius:50px;background-color: #000;padding-left: 0px;"><?php echo $i; ?> </span>
             					    <div class="menu-info">
             					        <h4 class="control-sidebar-subheading"><?php echo ucfirst($row->title); ?></h4>
@@ -66,80 +71,67 @@
                 </li>
             </ul>
     		<ul class="nav navbar-nav pull-right" style="display: -webkit-box;">
-    		    <?php foreach($admin_story_view->result() as $adminrow) {
-    		        if(isset($lastepisode) && ($lastepisode->num_rows() > 0) && isset($this->session->userdata['logged_in']['user_id']) && 
-    		        ($this->session->userdata['logged_in']['user_id'] == $adminrow->user_id)){  ?>
-            			<li class="dropdown write-d">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color:transparent;"><i class="fa fa-edit"></i> EDIT</a>
-                            <ul class="dropdown-menu pull-right" style="right:10px;">
-                                <li>
-                                    <a href="<?php echo base_url().$this->uri->segment(1);?>/series_edit/<?php echo $adminrow->sid; ?>"><i class="fa fa-edit pr-10"></i>STORY</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo base_url().$this->uri->segment(1);?>/story_info/<?php echo $adminrow->sid; ?>"><i class="fa fa-edit pr-10"></i>INFO</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown write-m">
-                            <a href="" data-toggle="modal" data-target="#writeapp" id="notloginmodal"><i class="fa fa-edit"></i> EDIT</a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color:transparent;"><i class="fa fa-share-alt"></i></a>
-                            <ul class="dropdown-menu pull-right" style="margin-right:15px;">
-								<li onclick="groupsuggest(<?php echo $adminrow->sid; ?>);">
-									<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users pr-10"></i>COMMUNITY</a>
-								</li>
-								<li onclick="friend(<?php echo $adminrow->sid;?>);">
-									<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user pr-10"></i>SUGGEST</a>
-								</li>
-								<li onclick="socialshare(<?php echo $adminrow->sid;?>, 'series');">
-									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-										<i class="fa fa-share-alt pr-10"></i>SOCIAL
-									</a>
-								</li>
-							</ul>
-                        </li>
-                    <?php } elseif(isset($this->session->userdata['logged_in']['user_id']) && 
-                        ($this->session->userdata['logged_in']['user_id'] == $adminrow->user_id)){ ?>
-                        <li class="write-d">
-                            <a href="<?php echo base_url().$this->uri->segment(1);?>/episode/<?php echo $this->uri->segment(4).'/'.$this->uri->segment(4);?>" style="border-radius:2px; margin: 9px 15px 7px; border-radius:4px; padding:6px; border:1px solid #3c8dbc;"> ADD EPISODE</a>
-                        </li>
-                        <li class="dropdown write-d">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#fff;background-color:transparent;"><i class="fa fa-edit"></i> EDIT</a>
-                            <ul class="dropdown-menu pull-right">
-                                <li>
-                                    <a href="<?php echo base_url().$this->uri->segment(1);?>/series_edit/<?php echo $adminrow->sid; ?>"><i class="fa fa-edit pr-10"></i>STORY EDIT</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo base_url().$this->uri->segment(1);?>/story_info/<?php echo $adminrow->sid; ?>"><i class="fa fa-edit pr-10"></i>INFO EDIT</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown write-m">
-                            <a onclick="mobileaddepisode()" data-toggle="modal" data-target="#writeapp" id="notloginmodal" style="border-radius:2px; margin: 9px 15px 7px; border-radius:4px; padding:6px; border:1px solid #3c8dbc;">ADD EPISODE</a>
-                        </li>
-                        <li class="dropdown write-m">
-                            <a onclick="mobilestoryedit(<?php echo $adminrow->sid; ?>)" data-toggle="modal" data-target="#writeapp" id="notloginmodal"><i class="fa fa-edit"></i> EDIT</a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color:transparent;"><i class="fa fa-share-alt"></i></a>
-                            <ul class="dropdown-menu pull-right" style="margin-right:15px;">
-								<li onclick="groupsuggest(<?php echo $adminrow->sid; ?>);">
-									<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users pr-10"></i>COMMUNITY</a>
-								</li>
-								<li onclick="friend(<?php echo $adminrow->sid;?>);">
-									<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user pr-10"></i>SUGGEST</a>
-								</li>
-								<li onclick="socialshare(<?php echo $adminrow->sid;?>, 'series');">
-									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-										<i class="fa fa-share-alt pr-10"></i>SOCIAL
-									</a>
-								</li>
-							</ul>
-                        </li>
-                    <?php } ?>
-                <?php } ?>
-    		</ul>
+                <?php foreach($admin_story_view->result() as $adminrow) {
+
+                if(isset($lastepisode) && ($lastepisode->num_rows() > 0) && isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $adminrow->user_id)){  ?>
+                    <li class="dropdown write-d">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:transparent;"><i class="fa fa-edit"></i> EDIT</a>
+                        <ul class="dropdown-menu pull-right" style="right:10px;">
+                            <li><a href="<?php echo base_url().$this->uri->segment(1);?>/series_edit/<?php echo $adminrow->sid; ?>"><i class="fa fa-edit pr-10"></i>STORY</a></li>
+                            <li><a href="<?php echo base_url().$this->uri->segment(1);?>/story_info/<?php echo $adminrow->sid; ?>"><i class="fa fa-edit pr-10"></i>INFO</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown write-m">
+                        <a href="javascript:void(0);" data-toggle="modal" data-target="#writeapp"><i class="fa fa-edit"></i> EDIT</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:transparent;"><i class="fa fa-share-alt"></i></a>
+                        <ul class="dropdown-menu pull-right" style="margin-right:15px;">
+                            <li onclick="groupsuggest(<?php echo $adminrow->sid; ?>);">
+                                <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users pr-10"></i>COMMUNITY</a>
+                            </li>
+                            <li onclick="friend(<?php echo $adminrow->sid;?>);">
+                                <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user pr-10"></i>SUGGEST</a>
+                            </li>
+                            <li onclick="socialshare(<?php echo $adminrow->sid;?>, 'series');">
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#soc" title="SOCIAL"><i class="fa fa-share-alt pr-10"></i>SOCIAL</a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php } elseif(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $adminrow->user_id)){ ?>
+                    <li class="write-d">
+                        <a href="<?php echo base_url().$this->uri->segment(1);?>/episode/<?php echo $this->uri->segment(3).'/'.$this->uri->segment(3);?>" style="border-radius:2px; margin: 9px 15px 7px; border-radius:4px; padding:6px; border:1px solid #3c8dbc;"> ADD EPISODE</a>
+                    </li>
+                    <li class="dropdown write-d">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="color:#fff;background-color:transparent;"><i class="fa fa-edit"></i> EDIT</a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="<?php echo base_url().$this->uri->segment(1);?>/series_edit/<?php echo $adminrow->sid; ?>"><i class="fa fa-edit pr-10"></i>STORY EDIT</a></li>
+                            <li><a href="<?php echo base_url().$this->uri->segment(1);?>/story_info/<?php echo $adminrow->sid; ?>"><i class="fa fa-edit pr-10"></i> INFO EDIT</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown write-m">
+                        <a onclick="mobileaddepisode()" data-toggle="modal" data-target="#writeapp" style="border-radius:2px; margin: 9px 15px 7px; border-radius:4px; padding:6px; border:1px solid #3c8dbc;">ADD EPISODE</a>
+                    </li>
+                    <li class="dropdown write-m">
+                        <a onclick="mobilestoryedit(<?php echo $adminrow->sid; ?>)" data-toggle="modal" data-target="#writeapp"><i class="fa fa-edit"></i> EDIT</a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:transparent;"><i class="fa fa-share-alt"></i></a>
+                        <ul class="dropdown-menu pull-right" style="margin-right:15px;">
+                            <li onclick="groupsuggest(<?php echo $adminrow->sid; ?>);">
+                                <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users pr-10"></i>COMMUNITY</a>
+                            </li>
+                            <li onclick="friend(<?php echo $adminrow->sid;?>);">
+                                <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user pr-10"></i>SUGGEST</a>
+                            </li>
+                            <li onclick="socialshare(<?php echo $adminrow->sid;?>, 'series');">
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#soc" title="SOCIAL"><i class="fa fa-share-alt pr-10"></i>SOCIAL</a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php } } ?>
+            </ul>
     	</div>
     </div>
     <div class="clear-fix"></div>
@@ -158,7 +150,7 @@
         			        <?php $image = 'reading.jpg'; if(isset($row->cover_image) && !empty($row->cover_image)) {
                                 $image = $row->cover_image; } ?>
             			    <div class="vjbs"style="background: url(<?php echo base_url();?>assets/images/<?php echo $image; ?>) no-repeat;background-size: 100% 100%;">
-            			       <div style="background:rgba(0, 0, 0, 0.8);">
+            			        <div style="background:rgba(0, 0, 0, 0.8);">
                 			        <center>
         							    <img src="<?php echo base_url();?>assets/images/<?php echo $image; ?>" alt="<?php echo $row->title; ?>" class="imgs">
                                     </center>
@@ -337,7 +329,7 @@
 						            <?php foreach ($recentseries->result() as $recentstory) { ?>
 					                    <div class="card">
 					                    	<div class="book-type" style="z-index:0"><?php echo $recentstory->gener;?></div>
-					                    	<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $recentstory->title).'-'.$recentstory->sid.'/'.preg_replace('/\s+/', '-', $recentstory->title).'-'.$recentstory->story_id);?>" class="imagess-style">
+					                    	<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $recentstory->title).'-'.$recentstory->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $recentstory->title).'-'.$recentstory->story_id);?>" class="imagess-style">
 					                    		<?php if(isset($recentstory->image) && !empty($recentstory->image)) { ?>
 					                    		    <img src="<?php echo base_url();?>assets/images/<?php echo $recentstory->image; ?>" alt="<?php echo $recentstory->title; ?>" class="imageme">
 					                    		<?php }else{ ?>
@@ -346,7 +338,7 @@
 					                    	</a>
 					                    	<div>
 					                    		<font class="max-lines">
-					                    			<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $recentstory->title).'-'.$recentstory->sid.'/'.preg_replace('/\s+/', '-', $recentstory->title).'-'.$recentstory->story_id);?>">
+					                    			<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $recentstory->title).'-'.$recentstory->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $recentstory->title).'-'.$recentstory->story_id);?>">
 					                    				<?php echo $recentstory->title;?>
 					                    			</a>
 					                    		</font> 
@@ -365,42 +357,33 @@
 					                    		</font><br>
 					                    	</div>
 					                    	<div class="flextest" style="padding-top:6px">
-					                    		<?php if(isset($this->session->userdata['logged_in']['user_id']) && ($recentstory->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
-					                    			<button class="read" onclick="yoursreadlater();"><i class="fa fa-bookmark"></i> Read later </button>
-					                    		<?php } else if(isset($this->session->userdata['logged_in']['user_id'])) { ?>
-					                    			<?php if(isset($readlatersids) && (sizeof($readlatersids)>0) && in_array($recentstory->sid, $readlatersids)) { ?>
-					                    				<button onclick="unreadlater(<?php echo $recentstory->sid;?>)" class="readdone readlaterbtnatr<?php echo $recentstory->sid;?>">
-					                    				<i class="fa fa-check faicon<?php echo $recentstory->sid;?>"></i> Read later </button>
-					                    			<?php } else { ?>
-					                    				<button onclick="readlater(<?php echo $recentstory->sid;?>)" class="read readlaterbtnatr<?php echo $recentstory->sid;?>">
-					                    				<i class="fa fa-bookmark faicon<?php echo $recentstory->sid;?>"></i> Read later </button>
-					                    			<?php } ?>
-					                    		<?php } else { ?>
-                                                    <?php if(isset($readlatersids) && (sizeof($readlatersids)>0) && in_array($recentlife->sid, $readlatersids)) { ?>
-                                                        <button onclick="unreadlater(<?php echo $recentlife->sid;?>)" class="readdone notloginmodal readlaterbtnatr<?php echo $recentlife->sid;?>">
-                                                        <i class="fa fa-check faicon<?php echo $recentlife->sid;?>"></i> Read later </button>
-                                                    <?php } else { ?>
-                                                        <button onclick="readlater(<?php echo $recentlife->sid;?>)" class="read notloginmodal readlaterbtnatr<?php echo $recentlife->sid;?>">
-                                                        <i class="fa fa-bookmark faicon<?php echo $recentlife->sid;?>"></i> Read later </button>
+                                                <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($recentstory->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
+                                                    <button class="read" onclick="yoursreadlater();"><i class="fa fa-bookmark"></i> Read later </button>
+                                                <?php }else{ ?>
+                                                    <?php if(isset($readlatersids) && (sizeof($readlatersids)>0) && in_array($recentstory->sid, $readlatersids)) { ?>
+                                                        <button onclick="unreadlater(<?php echo $recentstory->sid;?>)" class="readdone notloginmodal readlaterbtnatr<?php echo $recentstory->sid;?>">
+                                                        <i class="fa fa-check faicon<?php echo $recentstory->sid;?>"></i> Read later </button>
+                                                    <?php }else { ?>
+                                                        <button onclick="readlater(<?php echo $recentstory->sid;?>)" class="read notloginmodal readlaterbtnatr<?php echo $recentstory->sid;?>">
+                                                        <i class="fa fa-bookmark faicon<?php echo $recentstory->sid;?>"></i> Read later </button>
                                                     <?php } ?>
                                                 <?php } ?>
-					                    		<button type="button" class="btn read dropdown-toggle pull-right" data-toggle="dropdown">
-					                    			<span class=""><i class="fa fa-plus"></i></span>
-					                    		</button>
-					                    		<ul class="dropdown-menu list-inline dropvk">
-					                    			<li onclick="groupsuggest(<?php echo $recentstory->sid; ?>);">
-					                    				<a data-toggle="modal" data-target="#groupsuggest"href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
-					                    			</li>
-					                    			<li onclick="friend(<?php echo $recentstory->sid;?>);">
-					                    				<a data-toggle="modal" data-target="#friendsuggest"href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
-					                    			</li>
-					                    			<li onclick="socialshare(<?php echo $recentstory->sid;?>, 'series');">
-                    									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-                    										<i class="fa fa-share-alt"></i>
-                    									</a>
-                    								</li>
-					                    		</ul>
-					                    	</div>
+                                                
+                                                <button type="button" class="btn read dropdown-toggle pull-right" data-toggle="dropdown">
+                                                    <span class=""><i class="fa fa-plus"></i></span>
+                                                </button>
+                                                <ul class="dropdown-menu list-inline dropvk">
+                                                    <li onclick="groupsuggest(<?php echo $recentstory->sid; ?>);">
+                                                        <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                                    </li>
+                                                    <li onclick="friend(<?php echo $recentstory->sid;?>);">
+                                                        <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+                                                    </li>
+                                                    <li onclick="socialshare(<?php echo $recentstory->sid;?>, 'series');">
+                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#soc" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
 					                    </div>
 						            <?php } } ?>
 						        </div>
@@ -419,8 +402,8 @@
 										<span class="p_usernamev text-danger"></span>
 										<input type="hidden" id="storyid" name="id" value="<?php echo $row->sid; ?>">
 										<span class="input-group-btn">
-											<input type="submit" class="btn btn-success btn-flat notloginmodal" value="POST" style="z-index:0">
-										</span>
+                                            <input type="submit" class="btn btn-success btn-flat" value="POST" style="z-index:0">
+                                        </span>
 									</div>
 								</form><br>
 								<div class="input-group hidden-xs ctext desktopedit">
@@ -463,7 +446,7 @@
                                                             <span class="text-muted pull-right datecv"><?php echo get_ydhmdatetime($comment->date);?></span>
     											        </span>
     											    </div>
-    											    <div class="comment-text" style="margin:8px 0px 6px 2px;">
+    											    <div class="comment-text" style="margin:4px 0px 6px 2px;">
     											        <div style="word-break:break-word;" class="more pcomment<?php echo $comment->cid;?>"><?php echo $comment->comment; ?></div>
     											        <div style="margin:5px 0px;">
     											            <a href="javascript:void(0)" onClick="postReplycomment(<?php echo $comment->cid;?>, <?php echo $comment->story_id;?>)" class="pull-left replycv"> REPLY </a>
@@ -513,7 +496,7 @@
         																    </span>
         												                    <span class="text-muted pull-right datecv"><?php echo get_ydhmdatetime($replaycomment->date);?></span>
     															        </span><br>
-    															        <span style="padding-left:6px;word-break:break-word;" class="more pcomment<?php echo $replaycomment->cid;?>"><?php echo $replaycomment->comment; ?></span>
+    															        <span style="padding-left:10px;word-break:break-word;" class="more pcomment<?php echo $replaycomment->cid;?>"><?php echo $replaycomment->comment; ?></span>
     														        </div>
     														     </span>
     														 </div>

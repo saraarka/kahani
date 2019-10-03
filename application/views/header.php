@@ -92,8 +92,8 @@
             display:block;
         }
 		textarea {
-  resize: none;
-}
+            resize: none;
+        }
     </style>
 </head>
 
@@ -176,16 +176,9 @@
             </div><!-- modal-content -->
         </div><!-- modal-dialog -->
     </div><!-- modal -->
-    <!-- modal 
-<script>
-    $("#nvmenu").on("show", function () {
-  $("body").addClass("modal-dialogv");
-}).on("hidden", function () {
-  $("body").removeClass("modal-dialogv")
-});
-</script>-->				
+
 <style>
-    .modalvjk {
+.modalvjk {
   padding-top: 0px!important; /* Location of the box */
   left: 0;
   top: 0;
@@ -202,17 +195,16 @@ body.modal-open {
     overflow-y: -webkit-paged-y;
     -webkit-mask-position-y: initial;
 }
-
-	@media(max-width:768px){
-        .modal-backdrop {
-            background-color: none!important;
-            position: relative!important;
-        }
-         .modalvjk {
-             height:100%;
-         }
-    }
+@media(max-width:768px){
     .modal-backdrop {
+        background-color: none!important;
+        position: relative!important;
+    }
+     .modalvjk {
+         height:100%;
+     }
+}
+.modal-backdrop {
     position: fixed;
     top: 0;
     right: 0;
@@ -221,74 +213,72 @@ body.modal-open {
     z-index: 1001;
     background-color: #00000036;
 }
-    .modal.left .modal-dialogv,
-	.modal.right .modal-dialogv {
-		position: fixed;
-		margin: auto;
-		width: 200px;
-		height: 100%;
-		-webkit-transform: translate3d(0%, 0, 0);
-		    -ms-transform: translate3d(0%, 0, 0);
-		     -o-transform: translate3d(0%, 0, 0);
-		        transform: translate3d(0%, 0, 0);
-	}
+.modal.left .modal-dialogv,
+.modal.right .modal-dialogv {
+	position: fixed;
+	margin: auto;
+	width: 200px;
+	height: 100%;
+	-webkit-transform: translate3d(0%, 0, 0);
+	    -ms-transform: translate3d(0%, 0, 0);
+	     -o-transform: translate3d(0%, 0, 0);
+	        transform: translate3d(0%, 0, 0);
+}
 
-	.modal.left .modal-content,
-	.modal.right .modal-content {
-		height: 100%;
-		overflow-y: auto;
-	}
-	
-	.modal.left .modal-body,
-	.modal.right .modal-body {
-		padding: 0px;
-	}
+.modal.left .modal-content,
+.modal.right .modal-content {
+	height: 100%;
+	overflow-y: auto;
+}
+
+.modal.left .modal-body,
+.modal.right .modal-body {
+	padding: 0px;
+}
 
 /*Left*/
-	.modal.left.fade .modal-dialogv{
-		left: -320px;
-		-webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
-		   -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
-		     -o-transition: opacity 0.3s linear, left 0.3s ease-out;
-		        transition: opacity 0.3s linear, left 0.3s ease-out;
-	}
-	.modal.left.fade.in .modal-dialogv{
-		left: 0;
-	}
-
-
-	@supports (-webkit-overflow-scrolling: touch) {
-.dropvk {
-margin-top: -80px !important;
-float: right;
-position: relative;
-padding-left: 3px;
-
+.modal.left.fade .modal-dialogv{
+	left: -320px;
+	-webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+	   -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+	     -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+	        transition: opacity 0.3s linear, left 0.3s ease-out;
 }
-.dropvklife {
-margin-top: -50px !important;
-float: right;
-position: relative;
-padding-left: 3px;
-}
+.modal.left.fade.in .modal-dialogv{
+	left: 0;
 }
 
+
+@supports (-webkit-overflow-scrolling: touch) {
+    .dropvk {
+        margin-top: -80px !important;
+        float: right;
+        position: relative;
+        padding-left: 3px;
+    }
+    .dropvklife {
+        margin-top: -50px !important;
+        float: right;
+        position: relative;
+        padding-left: 3px;
+    }
+}
 @supports not (-webkit-overflow-scrolling: touch) {
-.dropvk {
-margin-top: -112px !important;
-float: right;
-position: relative;
-padding-left: 3px;
+    .dropvk {
+        margin-top: -112px !important;
+        float: right;
+        position: relative;
+        padding-left: 3px;
+    }
+    .dropvklife {
+        margin-top: -80px !important;
+        float: right;
+        position: relative;
+        padding-left: 3px;
+    }
 }
-.dropvklife {
-margin-top: -80px !important;
-float: right;
-position: relative;
-padding-left: 3px;
-}
-}
-
 </style>
+
 <style type="text/css">
     div#friendsuggest div.modal-content {
         min-height: 200px;
@@ -1040,7 +1030,7 @@ padding-left: 3px;
                                             $segmenturi = $segmentlang.'/';
                                         }   ?>
 									<li>
-										<a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>"   style="padding-top:0px;">
+										<a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($seennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -1231,7 +1221,6 @@ padding-left: 3px;
                         <b><?php echo $notseennotify->stitle;?> </b>
                 </div>
                 <div class="modal-body" style="margin-top:6px;">
-                   
                     <p><?php echo $notseennotify->description;?></p>
                     <center><a class="btn btn-primary" href="<?php echo base_url().$notseennotify->redirect_uri;?>">Open Link</a></center>
                 </div>
@@ -1253,7 +1242,6 @@ padding-left: 3px;
                         <b><?php echo $seennotify->stitle;?> </b>
                 </div>
                 <div class="modal-body" style="margin-top:6px;">
-                   
                     <p><?php echo $seennotify->description;?></p>
                     <center><a class="btn btn-primary" href="<?php echo base_url().$seennotify->redirect_uri;?>">Open Link</a></center>
                 </div>

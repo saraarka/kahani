@@ -10,8 +10,8 @@
                 <?php } ?>
             </div>
             <div class="media-body" style="background-color:#ddd; padding-left:8px; border-radius: 10px; padding-top:5px;">
-                <b>
-                    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$proreply_comment->profile_name;?>"><?php echo ucfirst($proreply_comment->name); ?></a>
+                <b><div class="namers">
+                    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$proreply_comment->profile_name;?>"><?php echo ucfirst($proreply_comment->name); ?></a></div>
                 </b>
                 <span class="dropdown" style="float:right;">
                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">

@@ -70,10 +70,10 @@
 <div class="footer1">
     <div style="font-size:14px;color:black;font-family: 'Varela Round', sans-serif;">
         <center>
-            <font  class="hover-tems"><a href="<?php echo base_url();?>about" style="color:#000;">ABOUT</a></font>
-            <font  class="hover-tems"><a href="<?php echo base_url();?>blog" style="color:#000;">BLOG</a></font>
-            <font  class="hover-tems"><a href="<?php echo base_url();?>contact" style="color:#000;">CONTACT</a></font>
-            <font  class="hover-tems"><a href="<?php echo base_url();?>terms-conditions" style="color:#000;">TERMS</a></font>
+            <font class="hover-tems"><a href="<?php echo base_url();?>about" style="color:#000;">ABOUT</a></font>
+            <font class="hover-tems"><a href="<?php echo base_url();?>blog" style="color:#000;">BLOG</a></font>
+            <font class="hover-tems"><a href="<?php echo base_url();?>contact" style="color:#000;">CONTACT</a></font>
+            <font class="hover-tems"><a href="<?php echo base_url();?>terms-conditions" style="color:#000;">TERMS</a></font>
         </center>
     </div>
 </div>

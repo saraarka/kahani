@@ -368,7 +368,7 @@
 			</div>
 			<div class="" style="padding-top:10px;">
 				<div class="row">
-					<div class="col-md-12 pd-5v" style="margin:12pxp
+					<div class="col-md-12 pd-5v" style="margin:12px;">
 						<a href=""><img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Facebook</p></a>
 					</div>
 					<div class="col-md-12 pd-5v" style="margin:12px;">

@@ -116,7 +116,7 @@
             if ($(window).scrollTop() >= (($("#loadmoreall").height() - $(window).height())*0.6) && action == 'inactive'){
                 action = 'active';
                 start = start + limit;
-                setTimeout(function(){load_country_data(limit, start);}, 500);
+                setTimeout(function(){load_country_data(limit, start);}, 10);
             }
         });
     });

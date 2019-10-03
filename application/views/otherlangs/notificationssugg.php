@@ -19,17 +19,17 @@
                 </div> <hr>
                 
                 <div id="sugnotifymodalp<?php echo $suggestion->id;?>" class="modal fade" role="dialog" style="padding-right: 0px!important;">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog" style="max-width:500px;padding:0">
                         <div class="modal-content">
-                            <div class="modal-header" style="border:0">
-                                <button type="button" class="close" data-dismiss="modal" style="margin-top:4px;">&times;</button>
+                            <div class="modal-header" style="padding: 0px 0px 12px 0px;">
+                                <button type="button" class="close" data-dismiss="modal" style="margin: 0px 0px 0px 5px;">&times;</button>
                                 <h4 class="modal-title">
                                     <a href="<?php echo base_url().$this->uri->segment(1).'/'.$suggestion->profile_name;?>">
                                     <b><?php echo $suggestion->sname;?> </b></a>suggested you a story 
                                     <b><?php echo $suggestion->stitle;?> </b>
                                 </h4>
                             </div>
-                            <div class="modal-body" style="padding-top:0;">
+                            <div class="modal-body" style="padding-top:0;margin-top:6px">
                                 <!--<p><h5> Read the following Story, it consists of some eye opening facts. </h5></p><br>-->
                                 <p style="margin:0;"><?php echo $suggestion->description;?></p>
                                 <div style="margin-top:25px;">

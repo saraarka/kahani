@@ -1742,6 +1742,7 @@ class Welcome extends CI_Controller {
 	    $header['gener'] = $this->User_model->gener();
         $header['languages'] = $this->User_model->language();
         $header['story_info'] = $this->User_model->story_info($sid);
+        $header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
         $header['sid'] = $sid;
         if(isset($_POST) && !empty($_POST)){
             $this->form_validation->set_rules('title', 'title', 'trim|required');
@@ -2641,6 +2642,7 @@ class Welcome extends CI_Controller {
 	    if($this->session->userdata('logged_in')==NULL) redirect(base_url());
 	    $header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		if(isset($_POST) && !empty($_POST)){
     	    $this->form_validation->set_rules('language', 'Language','trim|required', array('required' => 'This field is required'));
     		$this->form_validation->set_rules('title', 'Title', 'trim|required', array('required' => 'This field is required'));
@@ -2824,6 +2826,7 @@ class Welcome extends CI_Controller {
 	    $header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
 		$data['res']  = $this->User_model->edit_story($lid);
+		$data['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$this->form_validation->set_rules('story', 'story', 'trim|required');
 		$this->form_validation->set_rules('story_id', 'story_id', 'trim|required');
 		if ($this->form_validation->run() == FALSE) {

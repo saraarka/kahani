@@ -616,31 +616,31 @@
     																		<img class="img-circle" src="<?php echo base_url();?>assets/images/2.png" style="width:25px;" alt="<?php echo ucfirst($replaycomment->name); ?>">
     																	<?php } ?>
     																</span>
-																	<span class="media-body bodycv">
-																	    <div class="">
-    																	    <span class="" style="color: #337ab7;">&nbsp;<b>
-    																	        <a href="<?php echo base_url().$replaycomment->profile_name; ?>">
-    																	            <p class="namers"><?php echo ucfirst($replaycomment->name); ?></p>
-    																	        </a></b>
-                																<span class="dropdown pull-right">
-                    																<a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" title="write" aria-expanded="false">
-                    										                            <i class="fa fa-ellipsis-v"></i>
-                    										                        </a>
-                    										                        <ul class="dropdown-menu pull-right">
-                    										                            <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $replaycomment->user_id)){ ?>
-                        										                            <li><a href="javascript:void(0);" onClick="editcomment(<?php echo $replaycomment->cid;?>);"><i class="fa fa-pencil"></i> EDIT </a></li>
-                                            				                                <li><a href="javascript:void(0);" onClick="deletecomment(<?php echo $replaycomment->cid;?>);"><i class="fa fa-trash"></i> DELETE </a></li>
-                                        					                        	<?php }else{ ?>
-                    																	    <li><a href="javascript:void(0);" onClick="reportcomment(<?php echo $replaycomment->cid;?>, <?php echo $replaycomment->user_id;?>, <?php echo $replaycomment->story_id;?>);"><i class="fa fa-exclamation-triangle"></i> REPORT </a></li>
-                    																	<?php } ?>
-                    																</ul>
-                																</span>
-                																<span class="text-muted pull-right datecv"><?php echo get_ydhmdatetime($replaycomment->date);?></span>
-                															</span><br>
-    												                    <!--</div>-->
-    															            <span class="more pcomment<?php echo $replaycomment->cid;?>" style="padding-left:10px;word-break:break-word;"><?php echo $replaycomment->comment; ?></span>
-    															         </div>
-    															    </span>
+                                                        				<span class="media-body bodycv">
+                                                        				    <div class="">
+                                                        					    <span class="" style="color: #337ab7;">&nbsp;<b>
+                                                        					        <a href="<?php echo base_url().$replaycomment->profile_name; ?>">
+                                                        					            <p class="namers"><?php echo ucfirst($replaycomment->name); ?></p>
+                                                        					        </a></b>
+                                                        							<span class="dropdown pull-right">
+                                                        								<a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" title="write" aria-expanded="false">
+                                                        		                            <i class="fa fa-ellipsis-v"></i>
+                                                        		                        </a>
+                                                        		                        <ul class="dropdown-menu pull-right">
+                                                        		                            <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $replaycomment->user_id)){ ?>
+                                                        			                            <li><a href="javascript:void(0);" onClick="editcomment(<?php echo $replaycomment->cid;?>);"><i class="fa fa-pencil"></i> EDIT </a></li>
+                                                        		                                <li><a href="javascript:void(0);" onClick="deletecomment(<?php echo $replaycomment->cid;?>);"><i class="fa fa-trash"></i> DELETE </a></li>
+                                                        		                        	<?php }else{ ?>
+                                                        									    <li><a href="javascript:void(0);" onClick="reportcomment(<?php echo $replaycomment->cid;?>, <?php echo $replaycomment->user_id;?>, <?php echo $replaycomment->story_id;?>);"><i class="fa fa-exclamation-triangle"></i> REPORT </a></li>
+                                                        									<?php } ?>
+                                                        								</ul>
+                                                        							</span>
+                                                        							<span class="text-muted pull-right datecv"><?php echo get_ydhmdatetime($replaycomment->date);?></span>
+                                                        						</span><br>
+                                                                            <!--</div>-->
+                                                        			            <span class="more pcomment<?php echo $replaycomment->cid;?>" style="padding-left:10px;word-break:break-word;"><?php echo $replaycomment->comment; ?></span>
+                                                        			         </div>
+                                                        			    </span>
         														<!--</div>-->
     													    </div>
     													<?php } ?> 

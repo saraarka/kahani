@@ -1,7 +1,7 @@
 <?php if(isset($generseries) && ($generseries->num_rows() > 0 )){ foreach($generseries->result() as $seriesrow) { ?>
     <div class="cardls">
 	    <div class="book-type"><?php echo $seriesrow->gener;?></div>
-	    	<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $seriesrow->title).'-'.$seriesrow->sid.'/'.preg_replace('/\s+/', '-', $seriesrow->title).'-'.$seriesrow->story_id);?>">
+	    	<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u", '-', $seriesrow->title).'-'.$seriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $seriesrow->title).'-'.$seriesrow->story_id);?>" class="imagess-style">
     	    	<?php if(isset($seriesrow->image) && !empty($seriesrow->image)) { ?>
     	    	    <img src="<?php echo base_url();?>assets/images/<?php echo $seriesrow->image; ?>" alt="<?php echo $seriesrow->title;?>" class="imagemels">
     	    	<?php }else{ ?>
@@ -10,7 +10,7 @@
 	    	</a>
 	    	<div>
 	    		<font class="max-linesls">
-	    			<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $seriesrow->title).'-'.$seriesrow->sid.'/'.preg_replace('/\s+/', '-', $seriesrow->title).'-'.$seriesrow->story_id);?>" class="product-title">
+	    			<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u", '-', $seriesrow->title).'-'.$seriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $seriesrow->title).'-'.$seriesrow->story_id);?>" class="product-title">
 	    				<?php echo $seriesrow->title;?>
 	    			</a>
 	    		</font> 
@@ -45,18 +45,16 @@
 				<span class=""><i class="fa fa-plus"></i></span>
 			</button>
 			<ul class="dropdown-menu list-inline dropvk">
-				<li onclick="groupsuggest(<?php echo $seriesrow->sid; ?>);">
-					<a href="javascript:void(0)" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
-				</li>
-				<li onclick="friend(<?php echo $seriesrow->sid;?>);">
-					<a dhref="javascript:void(0)" ata-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
-				</li>
-				<li onclick="socialshare(<?php echo $seriesrow->sid;?>, 'series');">
-					<a data-toggle="modal" data-target="#soc" href="javascript:void(0)" title="SOCIAL">
-						<i class="fa fa-share-alt"></i>
-					</a>
-				</li>
-			</ul>
+                <li onclick="groupsuggest(<?php echo $seriesrow->sid; ?>);">
+                    <a href="javascript:void(0)" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                </li>
+                <li onclick="friend(<?php echo $seriesrow->sid;?>);">
+                    <a dhref="javascript:void(0)" title="SUGGEST"><i class="fa fa-user"></i></a>
+                </li>
+                <li onclick="socialshare(<?php echo $seriesrow->sid;?>, 'series');">
+                    <a data-toggle="modal" data-target="#soc" href="javascript:void(0)" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
+                </li>
+            </ul>
 	    </div>
 	</div>
 
@@ -64,9 +62,6 @@
 <?php } ?>
 <input type="hidden" id="generid" value="<?php echo $seriesrow->genre; ?>">
 <?php } else{ ?>
-<center>
-    <div class="load-more col-md-12"> No Results Found! </div>
-</center>
 <?php } ?>
 
 <script>

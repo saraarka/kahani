@@ -332,5 +332,56 @@
             }
         });
     }
+
+    //scanalytics.php
+    function languagecount(lang){
+        $.ajax({
+            url: "<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/scanalyticslang",
+            type: "POST",
+            data: {'lang':lang},
+            dataType: "json",
+            success: function(result){
+                if(result != '' || result != 0){
+                    var scanalytics = '';
+                    $.each(result,function (p,q){
+                        scanalytics+= '<div class="tagcards"><div class="tagtext"><a href="javascript:void(0);">'+q.type+'</a></div><div class="tagnumbertext">'+q.storiescount+'</div></div>';
+                    });
+                    $('.tagpagemaindiv').html(scanalytics);
+                }
+            }
+        });
+    }
+
+    //scgenres.php
+    function scgenres(lang){
+        $.ajax({
+            url: "<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/scgenreslang",
+            type: "POST",
+            data: {'lang':lang},
+            dataType: "json",
+            success: function(result){
+                console.log(result);
+                var scgenre=''; var scgenres_story=''; var scgenres_series='';
+                if(result.stories != '' || result.stories != 0){
+                    var scgenres_story = '<h3>All Stories Genre Counts</h3>'+
+                    '<div class="tagpagemaindiv">';
+                    $.each(result.stories,function (p,q){
+                        scgenres_story+= '<div class="tagcards"><div class="tagtext"><a href="javascript:void(0);">'+q.gener+'</a></div><div class="tagnumbertext">'+q.storiescount+'</div></div>';
+                    });
+                    scgenres_story+= '</div></div>';
+                }
+                if(result.series != '' || result.series != 0){
+                    var scgenres_series = '<h3>All Series Genre Counts</h3>'+
+                    '<div class="tagpagemaindiv">';
+                    $.each(result.series,function (p,q){
+                        scgenres_series+= '<div class="tagcards"><div class="tagtext"><a href="javascript:void(0);">'+q.gener+'</a></div><div class="tagnumbertext">'+q.storiescount+'</div></div>';
+                    });
+                    scgenres_series+= '</div></div>';
+                }
+                scgenre = scgenres_story+scgenres_series;
+                $('.scgenreslang').html(scgenre);
+            }
+        });
+    }
     
 </script>

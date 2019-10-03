@@ -127,7 +127,7 @@
             width: 200px;
           }
         }
-        </style>
+      </style>
     <body>
         
         <form action="<?php echo base_url();?>series_story_uplode" onsubmit="return validateForm()" name="infoForm" id="display_result" method="post" enctype="multipart/form-data">

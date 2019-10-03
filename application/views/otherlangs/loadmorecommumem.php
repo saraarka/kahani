@@ -2,18 +2,18 @@
     <div class="user-block" style="padding:0 10px; display:flex;">
         <span style="width:15%;">
 		<?php if(!empty($comm_joinie->profile_image)){ ?>
-		    <a href="<?php echo base_url().$comm_joinie->profile_name;?>">
+		    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$comm_joinie->profile_name;?>">
                 <img class="img-circle" src="<?php echo base_url();?>assets/images/<?php echo $comm_joinie->profile_image;?>" alt="<?php echo ucwords($comm_joinie->username);?>">
             </a>
         <?php } else{ ?>
-            <a href="<?php echo base_url().$comm_joinie->profile_name;?>">
+            <a href="<?php echo base_url().$this->uri->segment(1).'/'.$comm_joinie->profile_name;?>">
                 <img class="img-circle" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo ucwords($comm_joinie->name);?>">
             </a>
         <?php } ?>
        </span>
         <span  class="username" style="padding-top:8px;width:52%;margin-left:2px;">
             <span style="color:#337ab7;font-size:16.2px;">
-                <a href="<?php echo base_url().$comm_joinie->profile_name; ?>"><?php echo ucwords($comm_joinie->name);?></a></span>
+                <a href="<?php echo base_url().$this->uri->segment(1).'/'.$comm_joinie->profile_name; ?>"><?php echo ucwords($comm_joinie->name);?></a></span>
         </span>
         <span class="pull-right" style="width:33%;padding-top:6px;">
         <?php if(isset($following) && isset($this->session->userdata['logged_in']['user_id']) && ($comm_joinie->user_id == $this->session->userdata['logged_in']['user_id'])) { ?>
@@ -24,5 +24,5 @@
             <button class="pull-right vjw btn btn-success notloginmodal follow<?php echo $comm_joinie->user_id;?>" onclick="writerfollow(<?php echo $comm_joinie->user_id;?>,'<?php echo $comm_joinie->username;?>')"> FOLLOW </button>
         <?php } ?>
         </span>
-        </div><hr>
+    </div><hr>
 <?php } } ?>

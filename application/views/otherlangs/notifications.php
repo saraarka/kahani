@@ -10,7 +10,7 @@
                     <li onclick="communitynotis()"><a href="#tab_2" data-toggle="tab"><b>COMMUNITY </b></a></li>
                     <li onclick="suggestnotis()"><a href="#tab_3" data-toggle="tab"><b>SUGGESTIONS</b></a></li>
                 </ul>
-                <div class="col-md-12" style="background:#fff;border-top:2px solid #ecf0f5;">
+                <div class="col-md-12" style="background:#fff;border-top:2px solid #ecf0f5;box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);">
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_1" style="padding-top:8px;">
                             <div class="box-header with-border" style="padding:0px;" id="loadmoreall">
@@ -28,9 +28,13 @@
                                                 <span> started following you.</span></span></a>
                                             <span class="description"><?php echo date("F j, Y g:i A", strtotime($storynotify->created_at));?></span>
                                         </div> <hr>
-                                    <?php } elseif($storynotify->type == 'comment') { ?>
+                                    <?php } elseif($storynotify->type == 'comment') { $segmenturi = '';
+                                        $segmentlang = get_langfullname($storynotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        } ?>
                                         <div class="user-block" style="cursor:pointer;">
-                                            <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
+                                            <a href="<?php echo base_url().$segmenturi.$storynotify->redirect_uri;?>">
         	                			    <?php if(!empty($storynotify->profile_image)){ ?>
         	                				    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
         	                				<?php } else{ ?> 
@@ -42,9 +46,13 @@
                                                 <b><?php echo $storynotify->stitle;?></b></span></a>
                                             <span class="description"><?php echo date("F j, Y g:i A", strtotime($storynotify->created_at));?></span>
                                         </div> <hr>
-                                    <?php } elseif($storynotify->type == 'replycomment') { ?>
+                                    <?php } elseif($storynotify->type == 'replycomment') {  $segmenturi = '';
+                                        $segmentlang = get_langfullname($storynotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
                                         <div class="user-block" style="cursor:pointer;">
-                                            <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
+                                            <a href="<?php echo base_url().$segmenturi.$storynotify->redirect_uri;?>">
         	                			    <?php if(!empty($storynotify->profile_image)){ ?>
         	                				    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
         	                				<?php } else{ ?> 
@@ -56,9 +64,13 @@
                                                 <b><?php echo $storynotify->stitle;?></b></span></a>
                                             <span class="description"><?php echo date("F j, Y g:i A", strtotime($storynotify->created_at));?></span>
                                         </div> <hr>
-                                    <?php } elseif($storynotify->type == 'rating') { ?>
+                                    <?php } elseif($storynotify->type == 'rating') { $segmenturi = '';
+                                        $segmentlang = get_langfullname($storynotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
                                         <div class="user-block" style="cursor:pointer;">
-                                            <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
+                                            <a href="<?php echo base_url().$segmenturi.$storynotify->redirect_uri;?>">
         	                			    <?php if(!empty($storynotify->profile_image)){ ?>
         	                				    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
         	                				<?php } else{ ?> 
@@ -83,9 +95,13 @@
                                                 <span> liked your nanostory </span></span></a>
                                             <span class="description"><?php echo date("F j, Y g:i A", strtotime($storynotify->created_at));?></span>
                                         </div> <hr>
-                                    <?php } elseif($storynotify->type == 'seriessubscribe') { ?>
+                                    <?php } elseif($storynotify->type == 'seriessubscribe') { $segmenturi = '';
+                                        $segmentlang = get_langfullname($storynotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
                                         <div class="user-block" style="cursor:pointer;">
-                                            <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
+                                            <a href="<?php echo base_url().$segmenturi.$storynotify->redirect_uri;?>">
         	                			    <?php if(!empty($storynotify->profile_image)){ ?>
         	                				    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
         	                				<?php } else{ ?> 
@@ -98,9 +114,13 @@
                                                 </span></a>
                                             <span class="description"><?php echo date("F j, Y g:i A", strtotime($storynotify->created_at));?></span>
                                         </div> <hr>
-                                    <?php } elseif($storynotify->type == 'seriesepisode') { ?>
+                                    <?php } elseif($storynotify->type == 'seriesepisode') { $segmenturi = '';
+                                        $segmentlang = get_langfullname($storynotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
                                         <div class="user-block" style="cursor:pointer;">
-                                            <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
+                                            <a href="<?php echo base_url().$segmenturi.$storynotify->redirect_uri;?>">
         	                			    <?php if(!empty($storynotify->profile_image)){ ?>
         	                				    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
         	                				<?php } else{ ?> 
@@ -116,9 +136,9 @@
                                                         if(isset($seriesname[0]->sid) && !empty($seriesname[0]->sid)){
                                                             if(isset($seriesname[0]->language) && ($seriesname[0]->language != 'en')){
                                                                 $segmenturi = get_langfullname($seriesname[0]->language);
-                                                                $seriesuri=$segmenturi.'/series/'.preg_replace('/\s+/', '-', $seriesname[0]->title).'-'.$seriesname[0]->sid.'/'.preg_replace('/\s+/', '-', $seriesname[0]->title).'-'.$seriesname[0]->story_id;
+                                                                $seriesuri=$segmenturi.'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $seriesname[0]->title).'-'.$seriesname[0]->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $seriesname[0]->title).'-'.$seriesname[0]->story_id;
                                                             }else{
-                                                                $seriesuri=$uri.'series/'.preg_replace('/\s+/', '-', $seriesname[0]->title).'-'.$seriesname[0]->sid.'/'.preg_replace('/\s+/', '-', $seriesname[0]->title).'-'.$seriesname[0]->story_id;
+                                                                $seriesuri=$uri.'series/'.preg_replace("~[^\p{M}\w]+~u",'-', $seriesname[0]->title).'-'.$seriesname[0]->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $seriesname[0]->title).'-'.$seriesname[0]->story_id;
                                                             }
                                                         }
                                                     } ?>
@@ -126,9 +146,13 @@
                                                 </span></a>
                                             <span class="description"><?php echo date("F j, Y g:i A", strtotime($storynotify->created_at));?></span>
                                         </div> <hr>
-                                    <?php } elseif($storynotify->type == 'startseries') { ?>
+                                    <?php } elseif($storynotify->type == 'startseries') { $segmenturi = '';
+                                        $segmentlang = get_langfullname($storynotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
                                         <div class="user-block" style="cursor:pointer;">
-                                            <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
+                                            <a href="<?php echo base_url().$segmenturi.$storynotify->redirect_uri;?>">
         	                			    <?php if(!empty($storynotify->profile_image)){ ?>
         	                				    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
         	                				<?php } else{ ?> 
@@ -141,9 +165,13 @@
                                                 </span></a>
                                             <span class="description"><?php echo date("F j, Y g:i A", strtotime($storynotify->created_at));?></span>
                                         </div> <hr>
-                                    <?php } elseif($storynotify->type == 'newstory') { ?>
+                                    <?php } elseif($storynotify->type == 'newstory') {  $segmenturi = '';
+                                        $segmentlang = get_langfullname($storynotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
                                         <div class="user-block" style="cursor:pointer;">
-                                            <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
+                                            <a href="<?php echo base_url().$segmenturi.$storynotify->redirect_uri;?>">
         	                			    <?php if(!empty($storynotify->profile_image)){ ?>
         	                				    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
         	                				<?php } else{ ?> 
@@ -169,9 +197,13 @@
                                                 <span> published a new nanostory </span></span></a>
                                             <span class="description"><?php echo date("F j, Y g:i A", strtotime($storynotify->created_at));?></span>
                                         </div> <hr>
-                                    <?php } elseif($storynotify->type == 'favorite') { ?>
+                                    <?php } elseif($storynotify->type == 'favorite') { $segmenturi = '';
+                                        $segmentlang = get_langfullname($storynotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
                                         <div class="user-block" style="cursor:pointer;">
-                                            <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
+                                            <a href="<?php echo base_url().$segmenturi.$storynotify->redirect_uri;?>">
         	                			    <?php if(!empty($storynotify->profile_image)) { ?>
         	                				    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
         	                				<?php } else { ?> 
@@ -210,9 +242,13 @@
                                                 <span> replied on your profile comment </span></span></a>
                                             <span class="description"><?php echo date("F j, Y g:i A", strtotime($storynotify->created_at));?></span>
                                         </div> <hr>
-                                    <?php } elseif($storynotify->type == 'groupsuggestion') { ?>
+                                    <?php } elseif($storynotify->type == 'groupsuggestion') { $segmenturi = '';
+                                        $segmentlang = get_langfullname($storynotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
                                         <div class="user-block" style="cursor:pointer;">
-                                            <a href="<?php echo base_url().$this->uri->segment(1).'/'.$storynotify->redirect_uri;?>">
+                                            <a href="<?php echo base_url().$segmenturi.$storynotify->redirect_uri;?>">
         	                			    <?php if(!empty($storynotify->profile_image)) { ?>
         	                				    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $storynotify->profile_image;?>" alt="<?php echo $storynotify->sname;?>">
         	                				<?php } else { ?> 

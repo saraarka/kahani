@@ -21,7 +21,6 @@
         padding-left: 3px;
     }
 }
-
 </style>
 <script>
     $(document).ready(function(){
@@ -30,9 +29,9 @@
 </script>
 <div class="clear-fix"></div>
 <div class="content-wrapper">
-    
+
     <!-- Slider -->
-	<section class="content"  style="margin-bottom:30px;">
+	<section class="content" style="margin-bottom:30px;">
 		<div class="main-container carctop sliderh">
 			<!-- /.box-header -->
 			<div class="">
@@ -119,7 +118,7 @@
     							</font><br>
     						</div>
     						<div class="flextest" style="padding-top:6px">
-    							<?php if(isset($this->session->userdata['logged_in']['user_id']) && ($adminchoice->user_id == $this->session->userdata['logged_in']['user_id'])) { ?>
+    							<?php if(isset($this->session->userdata['logged_in']['user_id']) && ($adminchoice->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
     								<button class="read" onclick="yoursreadlater();"><i class="fa fa-bookmark"></i> Read later </button>
     							<?php } else { ?>
     								<?php if(isset($readlatersids) && (sizeof($readlatersids)>0) && in_array($adminchoice->sid, $readlatersids)) { ?>
@@ -242,7 +241,7 @@
     						</div>
     					</div>
     				<?php } if($yournetworks->num_rows() >= 7) { ?>
-    					<div class="card" style="justify-content: center">   
+    					<div class="card" style="justify-content: center">
     					    <a href="<?php echo base_url();?>viewallyournetwork" style="padding: 150px 0px;">
         						<font class="max-lines" style="padding-left:52px">VIEW MORE</font>
         					</a>
@@ -255,8 +254,7 @@
 	    	<button id="left-btnyn" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i> </button>
 	    <?php } ?>
 	    </div><!-- // Your network STORIES end-->
-		
-	    
+
 		<div class="main-container">
 		    <div class="clear-fix"></div>
 		    <!-- Top Series Start -->
@@ -642,7 +640,7 @@
     		</div><hr>
 		    <div id="StoryContl" class="StoryCont" >
 				<div id="story-sliderl" class="story-slider" >
-					<?php $i=0; foreach($top_get_life->result() as $topliferow) { if($i < 5){?>
+					<?php $i=0; foreach($top_get_life->result() as $topliferow) { if($i < 5){ ?>
 						<div class="card1">
 							<a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u", '-', $topliferow->title).'-'.$topliferow->sid);?>" class="imagelife-style">
     							<?php if(isset($topliferow->image) && !empty($topliferow->image)) { ?>
@@ -840,7 +838,7 @@
     								    <a href="javascript:void(0);" onclick="nanodislike(<?php echo $nanorow->sid;?>);" class="nanolike<?php echo $nanorow->sid;?>" title="Unlike">
     										<i class="fa fa-heart favbtn<?php echo $nanorow->sid;?>" style="color:#f00; padding-top:5px;"></i>
     									</a>
-    									<span class="nanolikecount<?php echo $nanorow->sid;?>"><?php echo $nanorow->nanolikecount;?></span>
+                                        <span class="nanolikecount<?php echo $nanorow->sid;?>"><?php echo $nanorow->nanolikecount;?></span>
     								</font>
     							    <?php } else { ?>
     							    <font>
@@ -962,7 +960,7 @@
 	    
 	    <!-- WRITERS -->
         <div class="main-container">
-            <?php if(isset($get_writer) && ($get_writer->num_rows() > 0)) { $divisioncount = $divisioncount + $get_writer->num_rows(); ?>
+            <?php if(isset($get_writer) && ($get_writer->num_rows() > 0)){ $divisioncount = $divisioncount + $get_writer->num_rows(); ?>
     	    <div class="titleindex" style="clear:both;">
     		    <span class="titlei">TOP WRITERS</span>
 		        <?php if($get_writer->num_rows() >= 5){ ?>
@@ -977,7 +975,7 @@
     	            		<div class="card1" style="height:215px">
     	            		    <?php if(isset($writerrow->pbanner_image) && !empty($writerrow->pbanner_image)){ ?>
     					        <div class="imageme1 lazy" style="height:115px; " data-bg="url(<?php echo base_url();?>assets/images/<?php echo $writerrow->pbanner_image; ?>)">
-    						        <div style="padding:9px; background:rgba(0, 0, 0, 0.64);height:115px;">
+                                    <div style="padding:9px; background:rgba(0, 0, 0, 0.64);height:115px;">
     						            <a href="<?php echo base_url($writerrow->profile_name);?>">
         						            <?php if(isset($writerrow->profile_image) && !empty($writerrow->profile_image)) { ?>
         						            	<img src="<?php echo base_url();?>assets/images/<?php echo $writerrow->profile_image; ?>" class="circle-image" alt="<?php echo $writerrow->name;?>" style="height:50px">
@@ -1012,10 +1010,10 @@
     					            <center>
     					                <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $writerrow->user_id)){ ?>
                                             <button class="vjw btn btn-success" onclick="yoursfollow()"> FOLLOW </button>
-                                        <?php } else { ?>
+                                        <?php }else{ ?>
                                             <?php if(isset($following) && in_array($writerrow->user_id, $following)) { ?>
                                                 <button class="vjw btn btn-primary notloginmodal unfollow<?php echo $writerrow->user_id;?>" onclick="writerunfollow(<?php echo $writerrow->user_id;?>,'<?php echo $writerrow->name;?>')"> FOLLOWING </button>
-                                            <?php } else { ?>
+                                            <?php }else{ ?>
                                                 <button class="vjw btn btn-success notloginmodal follow<?php echo $writerrow->user_id;?>" onclick="writerfollow(<?php echo $writerrow->user_id;?>,'<?php echo $writerrow->name;?>')"> FOLLOW </button>
                                             <?php } ?>
                                         <?php } ?>
@@ -1087,10 +1085,10 @@
             <div class="footer1">
                 <div style="font-size:14px;color:black;font-family: 'Varela Round', sans-serif;">
                     <center>
-                        <font  class="hover-tems"><a href="<?php echo base_url();?>about">ABOUT</a></font>
-                        <font  class="hover-tems"><a href="<?php echo base_url();?>contact">CONTACT</a></font>
-                        <font  class="hover-tems"><a href="<?php echo base_url();?>terms-conditions">TERMS</a></font>
-                        <font  class="hover-tems"><a href="<?php echo base_url();?>privacy-policy">PRIVACY</a></font>
+                        <font class="hover-tems"><a href="<?php echo base_url();?>about">ABOUT</a></font>
+                        <font class="hover-tems"><a href="<?php echo base_url();?>contact">CONTACT</a></font>
+                        <font class="hover-tems"><a href="<?php echo base_url();?>terms-conditions">TERMS</a></font>
+                        <font class="hover-tems"><a href="<?php echo base_url();?>privacy-policy">PRIVACY</a></font>
                     </center>
                 </div>
             </div>
@@ -1101,7 +1099,7 @@
 <!-- Social Popup ---- -->
 <div class="modal fade" id="soc">
 	<div class="modal-dialog">
-		<div class="modal-content socv ">
+		<div class="modal-content socv">
 			<div class="modal-header" style="padding:8px 15px;">
 				<button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px; margin-bottom:-2px;" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span></button>
@@ -1208,8 +1206,8 @@ $(document).ready(function() {
         });
     });
 </script>-->
- <script>
-   var lazyLoadInstance = new LazyLoad({
-    elements_selector: ".lazy"
-   });
-  </script>
+<script>
+    var lazyLoadInstance = new LazyLoad({
+        elements_selector: ".lazy"
+    });
+</script>

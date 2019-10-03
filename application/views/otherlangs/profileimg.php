@@ -35,11 +35,13 @@
     <?php if(isset($image) && !empty($image)){  ?>
     <img src="<?php echo base_url();?>assets/images/<?php echo $image; ?>" id="cropbox" class="img"><br />
     <?php } else { ?>
-    <img src="<?php echo base_url();?>assets/images/2.png" id="cropbox" class="img" /><br />
+    <center><img src="<?php echo base_url();?>/assets/landing/svg/spinnertab.svg" class="spinner"></center>
     <?php } ?>
 </div>
-<div id="btn">
-    <input type='button' id="crop" value='SAVE' class="pull-right btn btn-primary">
+<div class="modal-footer">
+    <div id="btn">
+        <input type='button' id="crop" value='SAVE' class="text-center btn btn-primary">
+    </div>
 </div>
 
 
@@ -57,6 +59,7 @@
             }
         });
         $("#crop").click(function(){
+            $('#btn').html('<button class="pull-right btn btn-primary"><img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner"></button>');
             var img = $("#cropbox").attr('src');
             $("#cropped_img").show();
             if(size){

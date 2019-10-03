@@ -35,236 +35,173 @@
                 outline: none;
             }
             
-            /* Popup modal css start */
-.hide-body-scroll{
-    overflow-y: hidden;
-}
-.blur{
-  -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  -o-filter: blur(5px);
-  -ms-filter: blur(5px);
-  filter: blur(5px);
-}
-
-
-.modal-wrapper{
-  width:100%;
-  height:100%;
-  position:fixed;
-  font-family: arial,"sans-serif";
-  top:0; left:0;
-  background:rgba(0,0,0,0.5);
-  visibility:hidden;
-  opacity:0;
-  -webkit-transition: all 0.25s ease-in-out;
-  -moz-transition: all 0.25s ease-in-out;
-  -o-transition: all 0.25s ease-in-out;
-  transition: all 0.25s ease-in-out;
-}
-
-.modal-wrapper.open{
-  opacity:1;
-  visibility:visible;
-}
-
-.modal{
-  width:500px;
-  max-width : 90%;
-  border-radius: 5px;
-  max-height : 100%;
-  display:block;
-  position: absolute;
-  left: 50%;
-  top: 30%;
-  transform : translate(-50%,-30%);
-  background:#fff;
-  opacity:0;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-}
-
-.modal-wrapper.open .modal{
-  opacity:1;
-}
-
-.popup-head{
-  width:100%;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  height:45px;
-  font-size :17px;
-  overflow:hidden;
-  background:#01bce5;
-}
-
-.popup-headtext{
-    display : inline-block;
-    margin:13px;
-    color:white;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    max-width: 70%;
-}
-.popup-btn-close{
-  width : 22px;
-  margin: 6px 8px 0px 0px;
-  float:right;
-}
-
-.popup-content{
-    padding: 10px;
-    font-size: 16px;
-    line-height: 25px;
-    max-height: 300px;
-    min-height: 100px;
-    overflow-y: scroll;
-}
-/* Popup modal css end */
-
-
-/*snackbar css start */
-/* The snackbar - position it at the bottom and in the middle of the screen */
-#snackbar {
-  visibility: hidden; /* Hidden by default. Visible on click */
-  min-width: 250px; /* Set a default minimum width */
-  background-color: #333; /* Black background color */
-  color: #fff; /* White text color */
-  text-align: center; /* Centered text */
-  border-radius: 2px; /* Rounded borders */
-  padding: 16px; /* Padding */
-  position: fixed; /* Sit on top of the screen */
-  z-index: 1; /* Add a z-index if needed */
-  left: 50%; /* Center the snackbar */
-  bottom: 30px; /* 30px from the bottom */
-  transform: translateX(-50%);
-}
-
-/* Show the snackbar when clicking on a button (class added with JavaScript) */
-#snackbar.show {
-  visibility: visible; /* Show the snackbar */
-  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
-  However, delay the fade out process for 2.5 seconds */
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 10.5s;
-  animation: fadein 0.5s, fadeout 0.5s 10.5s;
-}
-
-/* Animations to fade the snackbar in and out */
-@-webkit-keyframes fadein {
-  from {bottom: 0; opacity: 0;} 
-  to {bottom: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes fadeout {
-  from {bottom: 30px; opacity: 1;} 
-  to {bottom: 0; opacity: 0;}
-}
-
-@keyframes fadeout {
-  from {bottom: 30px; opacity: 1;}
-  to {bottom: 0; opacity: 0;}
-}
-/*snackbar css end */
+            /* popup delete cancel buttons css start */
+            .btn{
+                display: inline-block;
+                padding: 6px 12px;
+                margin-bottom: 0;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.42857143;
+                text-align: center;
+                white-space: nowrap;
+                vertical-align: middle;
+                -ms-touch-action: manipulation;
+                touch-action: manipulation;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                background-image: none;
+                border: 1px solid transparent;
+                border-radius: 4px;
+            }
+            .btn-primary{
+                color: rgb(255, 255, 255);
+                background-color: #3c8dbc;
+                border-color: #3c8dbc;
+            }
+            /* popup delete cancel buttons css end */
             
+
+            /*snackbar css start */
+            /* The snackbar - position it at the bottom and in the middle of the screen */
+            #snackbar {
+              visibility: hidden; /* Hidden by default. Visible on click */
+              min-width: 250px; /* Set a default minimum width */
+              background-color: #333; /* Black background color */
+              color: #fff; /* White text color */
+              text-align: center; /* Centered text */
+              border-radius: 2px; /* Rounded borders */
+              padding: 16px; /* Padding */
+              position: fixed; /* Sit on top of the screen */
+              z-index: 1; /* Add a z-index if needed */
+              left: 50%; /* Center the snackbar */
+              bottom: 30px; /* 30px from the bottom */
+              transform: translateX(-50%);
+            }
+
+            /* Show the snackbar when clicking on a button (class added with JavaScript) */
+            #snackbar.show {
+              visibility: visible; /* Show the snackbar */
+              /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+              However, delay the fade out process for 2.5 seconds */
+              -webkit-animation: fadein 0.5s, fadeout 0.5s 10.5s;
+              animation: fadein 0.5s, fadeout 0.5s 10.5s;
+            }
+
+            /* Animations to fade the snackbar in and out */
+            @-webkit-keyframes fadein {
+              from {bottom: 0; opacity: 0;} 
+              to {bottom: 30px; opacity: 1;}
+            }
+
+            @keyframes fadein {
+              from {bottom: 0; opacity: 0;}
+              to {bottom: 30px; opacity: 1;}
+            }
+
+            @-webkit-keyframes fadeout {
+              from {bottom: 30px; opacity: 1;} 
+              to {bottom: 0; opacity: 0;}
+            }
+
+            @keyframes fadeout {
+              from {bottom: 30px; opacity: 1;}
+              to {bottom: 0; opacity: 0;}
+            }
+            /*snackbar css end */
         </style>
     </head>
     <body>
-        
-            <div class="write-nav">
-                <a href="<?php echo base_url().$this->uri->segment(1);?>"><img src="<?php echo base_url();?>assets/landing/storylogoland.png" class="logo1"></a>
-                <a href="<?php echo base_url().$this->uri->segment(1);?>"><img src="<?php echo base_url();?>assets/default/writemobile.png" class="logo-small"></a>
-                <div class="nav-items-write">
-                    <div class="writing-tips-btn">WRITING TIPS</div>
-                    <div><button type="submit" class="start-writing-btn" onclick="submit()"> PUBLISH </button></div>
-                    <a href="<?php echo base_url().$this->uri->segment(1);?>" style="text-decoration:none;color:#fff;">
-                        <div class="cancel-btn">CANCEL</div>
-                    </a>
+        <div class="write-nav">
+            <a href="<?php echo base_url().$this->uri->segment(1);?>"><img src="<?php echo base_url();?>assets/landing/storylogoland.png" class="logo1"></a>
+            <a href="<?php echo base_url().$this->uri->segment(1);?>"><img src="<?php echo base_url();?>assets/default/writemobile.png" class="logo-small"></a>
+            <div class="nav-items-write">
+                <div class="writing-tips-btn">WRITING TIPS</div>
+                <div><button type="submit" class="start-writing-btn" onclick="submit()"> PUBLISH </button></div>
+                <a href="<?php echo base_url().$this->uri->segment(1);?>" style="text-decoration:none;color:#fff;">
+                    <div class="cancel-btn">CANCEL</div>
+                </a>
+            </div>
+        </div>
+            
+        <div class="infocontainer">
+            <div class="info">
+                <form action="<?php echo base_url($this->uri->segment(1).'/nano_insert');?>" method="post" id="display_result">
+                <div id='translControl'>
+                    <input type="hidden" id="previousenlang">
+                    <?php $sesslang = get_langshortname($this->uri->segment(1)); ?>
+                    <input type="hidden" id="languageto" value="<?php echo $sesslang;?>">
+                    <input type="hidden" id="checkboxId" checked="checked">
+                </div>
+                
+                <div class="formgroup">
+                    <label for="SelectLanguage">SELECT LANGUAGE : </label>
+                    <select name="language" required="" id="languageDropDown" onchange="javascript:languageChangeHandler()">
+                        <option value="">-- Select your writing language --</option>
+                        <?php if(isset($languages) && ($languages->num_rows() > 0)){ foreach($languages->result() as $key) { ?>
+                        <option value="<?php echo $key->code; ?>" <?php if($key->code == $sesslang){ echo 'selected';} ?>><?php echo $key->language; ?></option>
+                        <?php } } ?>
+                    </select>
+                    <span class="text-danger vlanguage"><?php echo form_error('language');?></span>
+                </div>
+                <div class="display: flex;">
+                    <img src="<?php echo base_url();?>assets/default/fa-question.svg" class="nanoinfor" width="14px" style="float:left; padding-right: 10px;">
+                    <h6 class="pull-left" id="count_message"></h6>
+                </div>
+                
+                <textarea class="storywrite" id="story" name="story" placeholder="Start Writing Here...." maxlength="1000" minlength="1"><?php echo set_value('story');?></textarea>
+                </form>
+            </div>
+        </div>
+            
+        <div id="snackbar"></div>
+            
+        <div class="modal-wrapper" id="writing-tips-btn">
+            <div class="modal">
+                <div class="popup-head">
+                    <div class="popup-headtext">TEXT HERE  writing-tips-btn</div>   
+                    <div style="display : inline-block;float : right"><a class="popup-btn-close trigger" href="javascript:;">
+                        <img src="<?php echo base_url();?>assets/default/closeicon.svg"></a>
+                    </div>
+                </div>
+                <div class="popup-content">
+                    writing-tips-btn
                 </div>
             </div>
-            
-            <div class="infocontainer">
-                <div class="info">
-                    <form action="<?php echo base_url($this->uri->segment(1).'/nano_insert');?>" method="post">
-                    <div id='translControl'>
-                        <input type="hidden" id="previousenlang">
-                        <?php $sesslang = get_langshortname($this->uri->segment(1)); ?>
-                        <input type="hidden" id="languageto" value="<?php echo $sesslang;?>">
-                        <input type="hidden" id="checkboxId" checked="checked">
+        </div>
+
+        <div class="modal-wrapper" id="nanoinfor">
+            <div class="modal">
+                <div class="popup-head">
+                    <div class="popup-headtext">TEXT HERE  nanoinfor</div>   
+                    <div style="display : inline-block;float : right"><a class="popup-btn-close trigger" href="javascript:;">
+                        <img src="<?php echo base_url();?>assets/default/closeicon.svg"></a>
                     </div>
-                    
-                    <div class="formgroup">
-                        <label for="SelectLanguage">SELECT LANGUAGE : </label>
-                        <select name="language" required="" id="languageDropDown" onchange="javascript:languageChangeHandler()">
-                            <option value="">-- Select your writing language --</option>
-                            <?php if(isset($languages) && ($languages->num_rows() > 0)){ foreach($languages->result() as $key) { ?>
-                            <option value="<?php echo $key->code; ?>" <?php if($key->code == $sesslang){ echo 'selected';} ?>><?php echo $key->language; ?></option>
-                            <?php } } ?>
-                        </select>
-                        <span class="text-danger vlanguage"><?php echo form_error('language');?></span>
-                    </div>
-                    <div class="display: flex;">
-                        <img src="<?php echo base_url();?>assets/default/fa-question.svg" class="nanoinfor" width="14px" style="float:left; padding-right: 10px;">
-                        <h6 class="pull-left" id="count_message"></h6>
-                    </div>
-                    
-                    <textarea class="storywrite" id="story" name="story" placeholder="Start Writing Here...." maxlength="1000" minlength="1"><?php echo set_value('story');?></textarea>
-                    </form>
+                </div>
+                <div class="popup-content">
+                   nanoinfor count
                 </div>
             </div>
-            
-            <div id="snackbar"></div>
-            
-<div class="modal-wrapper" id="writing-tips-btn">
-    <div class="modal">
-        <div class="popup-head">
-            <div class="popup-headtext">TEXT HERE  writing-tips-btn</div>   
-            <div style="display : inline-block;float : right"><a class="popup-btn-close trigger" href="javascript:;">
-                <img src="<?php echo base_url();?>assets/default/closeicon.svg"></a>
+        </div>
+
+        <!-- Delete confirm popup start -->
+        <div class="modal-wrapper" id="confirmdelpopup">
+            <div class="modal">
+                <div class="popup-head">
+                    <div class="popup-headtext deletemessage">Are You Sure? Do you want to Delete?</div>
+                </div>
+                <div class="popup-content">
+                    <center>
+                        <button type="button" data-dismiss="modal" class="btn btn-primary" id="delconfirmed">Delete</button>
+                        <button type="button" data-dismiss="modal" class="btn delcancelled">Cancel</button>
+                    </center>
+                </div>
             </div>
         </div>
-        <div class="popup-content">
-            writing-tips-btn
-        </div>
-    </div>
-</div>
-
-<div class="modal-wrapper" id="nanoinfor">
-    <div class="modal">
-        <div class="popup-head">
-            <div class="popup-headtext">TEXT HERE  nanoinfor</div>   
-            <div style="display : inline-block;float : right"><a class="popup-btn-close trigger" href="javascript:;">
-                <img src="<?php echo base_url();?>assets/default/closeicon.svg"></a>
-            </div>
-        </div>
-        <div class="popup-content">
-           nanoinfor count
-        </div>
-    </div>
-</div>
-
-<!-- Delete confirm popup start -->
-<div class="modal-wrapper" id="confirmdelpopup">
-    <div class="modal">
-        <div class="popup-head">
-            <div class="popup-headtext deletemessage">Are You Sure? Do you want to Delete?</div>
-        </div>
-        <div class="popup-content">
-            <center>
-                <button type="button" data-dismiss="modal" class="btn btn-primary" id="delconfirmed">Delete</button>
-                <button type="button" data-dismiss="modal" class="btn delcancelled">Cancel</button>
-            </center>
-        </div>
-    </div>
-</div>
-<!-- Delete confirm popup end -->
+        <!-- Delete confirm popup end -->
 
 <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <script>

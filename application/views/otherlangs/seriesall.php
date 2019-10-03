@@ -71,10 +71,10 @@
         							</button>
         							<ul class="dropdown-menu list-inline dropvk">
         								<li onclick="groupsuggest(<?php echo $topseriesrow->sid; ?>);">
-        									<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
-        								</li>
-        								<li onclick="friend(<?php echo $topseriesrow->sid;?>);">
-        									<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+        									<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                        </li>
+                                        <li onclick="friend(<?php echo $topseriesrow->sid;?>);">
+                                            <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
         								</li>
         								<li onclick="socialshare(<?php echo $topseriesrow->sid;?>, 'series');">
         									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -156,10 +156,10 @@
 									</button>
 									<ul class="dropdown-menu list-inline dropvk">
 										<li onclick="groupsuggest(<?php echo $seriesrow->sid; ?>);">
-											<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
-										</li>
-										<li onclick="friend(<?php echo $seriesrow->sid;?>);">
-											<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+											<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                        </li>
+                                        <li onclick="friend(<?php echo $seriesrow->sid;?>);">
+                                            <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
 										</li>
 										<li onclick="socialshare(<?php echo $seriesrow->sid;?>, 'series');">
 											<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -189,24 +189,24 @@
 			</div>
 			<div class="" style="padding-top:10px;">
 				<div class="row">
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
-						<a href="javascript:void(0);" class="facebookshare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/><p class="socialsharepopupspan">Facebook</p></a>
-					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
-					    <a href="javascript:void(0);" class="whatsappshare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-10px;"/><p class="socialsharepopupspan">Whatsapp</p></a>
-					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
-						<a href="javascript:void(0);" class="twittershare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Twitter</p></a>
-					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;">
-						<a href="javascript:void(0);" onclick="copylinkshare('#copylinkshare')" class="socsh">
-						    <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px;height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Copy to link</p></a>
-					    <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">
-					</div>
-				</div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;">
+                        <a href="javascript:void(0);" class="facebookshare socsh">
+                            <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-12px;"/> <p class="socialsharepopupspan">Facebook</p></a>
+                    </div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;">
+                        <a href="javascript:void(0);" class="whatsappshare socsh">
+                            <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-12px;"/> <p class="socialsharepopupspan">Whatsapp</p></a>
+                    </div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;">
+                        <a href="javascript:void(0);" class="twittershare socsh">
+                            <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-12px;"/> <p class="socialsharepopupspan">Twitter</p></a>
+                    </div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;">
+                        <a href="javascript:void(0);" onclick="copylinkshare('#copylinkshare')" class="socsh">
+                            <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px; height:40px;margin-top:-12px;"/> <p class="socialsharepopupspan">Copy to link</p></a>
+                        <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">
+                    </div>
+                </div>
 			</div>
 		</div>
 	<!-- /.modal-content -->
@@ -367,7 +367,7 @@ function copylinkshare(element) {
     $temp.val($(element).val()).select();
     document.execCommand("copy");
     $temp.remove();
-    $('#snackbar').text('Link Copied to clipboard...').addClass('show');		
-    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);		
+    $('#snackbar').text('Link Copied to clipboard...').addClass('show');
+    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
 }
 </script>

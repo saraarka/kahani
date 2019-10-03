@@ -88,10 +88,10 @@
         							</button>
         							<ul class="dropdown-menu list-inline dropvk">
         								<li onclick="groupsuggest(<?php echo $seriesrow->sid; ?>);">
-        									<a data-toggle="modal" data-target="#groupsuggest" href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
-        								</li>
-        								<li onclick="friend(<?php echo $seriesrow->sid;?>);">
-        									<a data-toggle="modal" data-target="#friendsuggest" href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+        									<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                        </li>
+                                        <li onclick="friend(<?php echo $seriesrow->sid;?>);">
+                                            <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
         								</li>
         								<li onclick="socialshare(<?php echo $seriesrow->sid;?>, 'series');">
         									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -175,10 +175,10 @@
     								</button>
     								<ul class="dropdown-menu list-inline dropvk">
     									<li onclick="groupsuggest(<?php echo $storyrow->sid; ?>);">
-    										<a data-toggle="modal" data-target="#groupsuggest" href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
-    									</li>
-    									<li onclick="friend(<?php echo $storyrow->sid;?>);">
-    										<a data-toggle="modal" data-target="#friendsuggest" href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+    										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                        </li>
+                                        <li onclick="friend(<?php echo $storyrow->sid;?>);">
+                                            <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     									</li>
     									<li onclick="socialshare(<?php echo $storyrow->sid;?>, 'story');">
     										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -200,7 +200,7 @@
                     <div style="display:flex; flex-wrap:wrap; justify-content:center;" id="loadmoreall">
                         <?php foreach($searchresults->result() as $liferow) { ?>
         			    <div class="card1">
-            				<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $liferow->title).'-'.$liferow->sid);?>">
+            				<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $liferow->title).'-'.$liferow->sid);?>" class="imagelife-style">
             				<?php if(isset($liferow->image) && !empty($liferow->image)) { ?>
             					<img src="<?php echo base_url();?>assets/images/<?php echo $liferow->image; ?>" alt="<?php echo $liferow->title;?>" class="imageme1">
             				<?php }else{ ?>
@@ -250,10 +250,10 @@
             					</button>
             					<ul class="dropdown-menu list-inline dropvklife">
             						<li onclick="groupsuggest(<?php echo $liferow->sid; ?>);">
-            							<a data-toggle="modal" data-target="#groupsuggest" href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
-            						</li>
-            						<li onclick="friend(<?php echo $liferow->sid;?>);">
-            							<a data-toggle="modal" data-target="#friendsuggest" href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+            							<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                                    </li>
+                                    <li onclick="friend(<?php echo $liferow->sid;?>);">
+                                        <a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
             						</li>
             						<li onclick="socialshare(<?php echo $liferow->sid;?>, 'story');">
 										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -347,13 +347,25 @@
             		<div id="load_data_message"></div>
                 <?php } else { ?>
                     <div class="outerv hidden-xs">
-            	        <div class="middlev hidden-xs">
-            	            <div class="innerv">
-            	                <img src="<?php echo base_url();?>assets/images/nodata.svg" class="img-responsive" style="width:100%;" alt="No Data">
-            	                <div style="font-family: arial,sans-serif;margin-top:5px;">NO STORIES FOUND</div>
-            	            </div>
-            	        </div>
-            	    </div>
+                        <div class="middlev hidden-xs">
+                            <div class="innerv">
+                                <img src="<?php echo base_url();?>assets/images/nodata.svg" class="img-responsive" style="width:100%;" alt="No Data">
+                                <div style="font-family: arial,sans-serif;margin-top:5px;"><center>NO STORIES FOUND</center></div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php if(isset($_GET['searchtext']) && !empty($_GET['searchtext'])){ ?>
+                    <div class="hidden-md hidden-lg" style="margin-bottom:20px;">
+                        <center>
+                            <div style="margin:10.8% auto">
+                                <div style="width:150px;">
+                                    <img src="<?php echo base_url();?>assets/images/nodata.svg" class="img-responsive" style="width:100%;" alt="No Data">
+                                </div>
+                                <div style="font-family: arial,sans-serif;margin-top:5px;"><center>NO STORIES FOUND</center></div>
+                            </div>
+                        </center>
+                    </div>
+                    <?php } ?>
                 <?php } ?>
 		    </div>
         </div>
@@ -419,8 +431,8 @@
 
 <script>
     $(document).ready(function(){
-        var limit = 4;
-        var start = 4;
+        var limit = 7;
+        var start = 7;
         var action = 'inactive';
         function load_country_data(limit, start) {
             var vatype = "<?php echo $_GET['type'];?>";
@@ -451,10 +463,10 @@
                     success:function(data){
                         $('#loadmoreall').append(data);
                         if(data == '') {
-                            $('#load_data_message').html("<center><div class='col-md-12' style='padding-top:20px;'> No More Results!</div></center>");
+                            $('#load_data_message').html("<center><div class='col-md-12' style='padding-top:10px;'> No More Results!</div></center>");
                             action = 'active';
                         }else{
-                            $('#load_data_message').html("<center><div class='col-md-12' style='padding-top:20px;'> Loading ...</div></center>");
+                            $('#load_data_message').html("<center><div class='col-md-12' style='padding-top:10px;'> Loading ...</div></center>");
                             action = "inactive";
                         }
                     }

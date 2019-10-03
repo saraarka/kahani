@@ -172,12 +172,12 @@
     							<div class="col-sm-4 col-xs-4 col-md-4 col-lg-3 pd-0">
     							    <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $row->user_id)){ ?>
         							<div class="description-block  profile1" style="float:right; margin-top:14px; cursor:pointer;">
-        								<a href="<?php echo base_url();?>my_profile/<?php echo $this->session->userdata['logged_in']['user_id'];?>" style="color:#fff;" class="btn btn-successv">Edit Profile</a>
+        								<a href="<?php echo base_url();?>my_profile/<?php echo $this->session->userdata['logged_in']['user_id'];?>" style="color:#fff;" class="btn btn-successv">EDIT PROFILE</a>
         							</div>
     								<span class="profile1" style="padding-left:25px;"><a href="" class=""></a></span>
     								
     								<div class="description-block profile2 btnv" style="padding-top:4px; cursor:pointer;">
-        								<a href="<?php echo base_url();?>my_profile/<?php echo $this->session->userdata['logged_in']['user_id'];?>" style="color:#fff;" class="btn btn-successv">Edit Profile</a>
+        								<a href="<?php echo base_url();?>my_profile/<?php echo $this->session->userdata['logged_in']['user_id'];?>" style="color:#fff;" class="btn btn-successv">EDIT PROFILE</a>
         							</div>
         							<?php } else { ?>
         							<div class="description-block profile1 pull-right" style="width:33%;padding-top:6px;">
@@ -545,7 +545,7 @@
         			                        		            <i class="fa fa-ellipsis-v" style="font-size:14px;"></i>
         			                        		        </a>
         			                        		        <ul class="dropdown-menu" style="top:50px; float:right; left: 127px;">
-        			                        		            <li><a href="javascript:void(0);" onClick="editnano(<?php echo $vananorow->sid;?>);"><i class="fa fa-edit pr-10"></i> EDIT</a></li>
+        			                        		            <li><a href="<?php echo base_url();?>editnano/<?php echo $vananorow->sid;?>"><i class="fa fa-edit pr-10"></i> EDIT</a></li>
     			                        		                <li><a href="javascript:void(0);" onClick="deletenano(<?php echo $vananorow->sid;?>);"><i class="fa fa-trash pr-10"></i> DELETE</a></li>
         			                        		        </ul>
         			                        		    </span>
@@ -1358,8 +1358,8 @@ function copylinkshare(element) {
         });
     });
 </script>
- <script>
+<script>
    var lazyLoadInstance = new LazyLoad({
-    elements_selector: ".lazy"
+        elements_selector: ".lazy"
    });
-  </script>
+</script>

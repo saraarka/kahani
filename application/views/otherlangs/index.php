@@ -3,14 +3,33 @@
 
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/index.css">
 <!--<script src="<?php echo base_url();?>assets/js/index.js"></script>-->
+<style>
+@supports (-webkit-overflow-scrolling: touch) {
+    .dropvk {
+        margin-top: -80px !important;
+        float: right;
+        position: relative;
+        padding-left: 3px;
+    }
+}
 
+@supports not (-webkit-overflow-scrolling: touch) {
+    .dropvk {
+        margin-top: -112px;
+        float: right;
+        position: relative;
+        padding-left: 3px;
+    }
+}
+</style>
 <script>
-    $(document).ready(function(){ 
+    $(document).ready(function(){
         $("#home").addClass("active");
     });
 </script>
 <div class="clear-fix"></div>
 <div class="content-wrapper">
+
     <!-- Slider -->
 	<section class="content" style="margin-bottom:30px;">
 		<div class="main-container carctop sliderh">
@@ -51,7 +70,7 @@
     <!-- Main content -->
 	<section class="content" style="padding-bottom:0;">
 	    <?php $readlatersids = get_storiesreadlater('readlater'); $divisioncount = 0; ?>
-	    
+	    <div style="min-height:20vh;">
 	    <!-- // Admin Choice STORIES start-->
 		<div class="main-container">
 		    <div class="clear-fix"></div>
@@ -63,16 +82,16 @@
     				<?php foreach($adminchoices->result() as $adminchoice) { ?>
     					<div class="card">
     						<div class="book-type"><?php echo $adminchoice->gener;?></div>
-    						<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $adminchoice->title).'-'.$adminchoice->sid);?>" class="imagess-style">
+    						<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $adminchoice->title).'-'.$adminchoice->sid);?>" class="imagess-style">
         						<?php if(isset($adminchoice->image) && !empty($adminchoice->image)) { ?>
-        						    <img src="<?php echo base_url();?>assets/images/<?php echo $adminchoice->image; ?>" alt="<?php echo $adminchoice->title;?>" class="imageme">
+        						    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $adminchoice->image; ?>" alt="<?php echo $adminchoice->title;?>" class="imageme lazy">
         						<?php }else{ ?>
-        							<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $adminchoice->title;?>" class="imageme">
+        							<img  src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $adminchoice->title;?>" class="imageme lazy">
         						<?php } ?>
     						</a>
     						<div>
     							<font class="max-lines">
-    								<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $adminchoice->title).'-'.$adminchoice->sid);?>" class="product-title"><?php echo $adminchoice->title;?></a>
+    								<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $adminchoice->title).'-'.$adminchoice->sid);?>" class="product-title"><?php echo $adminchoice->title;?></a>
     							</font> 
     						</div>
     						<div class="flextest">
@@ -102,11 +121,11 @@
     						<div class="flextest" style="padding-top:6px">
     							<?php if(isset($this->session->userdata['logged_in']['user_id']) && ($adminchoice->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
     								<button class="read" onclick="yoursreadlater();"><i class="fa fa-bookmark"></i> Read later </button>
-    							<?php }else{ ?>
+    							<?php } else { ?>
     								<?php if(isset($readlatersids) && (sizeof($readlatersids)>0) && in_array($adminchoice->sid, $readlatersids)) { ?>
     									<button onclick="unreadlater(<?php echo $adminchoice->sid;?>)" class="readdone notloginmodal readlaterbtnatr<?php echo $adminchoice->sid;?>">
     									<i class="fa fa-check faicon<?php echo $adminchoice->sid;?>"></i> Read later </button>
-    								<?php }else { ?>
+    								<?php } else { ?>
     									<button onclick="readlater(<?php echo $adminchoice->sid;?>)" class="read notloginmodal readlaterbtnatr<?php echo $adminchoice->sid;?>">
     									<i class="fa fa-bookmark faicon<?php echo $adminchoice->sid;?>"></i> Read later </button>
     								<?php } ?>
@@ -114,17 +133,15 @@
     							<button type="button" class="btn read dropdown-toggle pull-right" data-toggle="dropdown">
     								<span class=""><i class="fa fa-plus"></i></span>
     							</button>
-    							<ul class="dropdown-menu list-inline  dropvk">
+    							<ul class="dropdown-menu list-inline dropvk">
     								<li onclick="groupsuggest(<?php echo $adminchoice->sid; ?>);">
-    									<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+    									<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
     								</li>
     								<li onclick="friend(<?php echo $adminchoice->sid;?>);">
-    									<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+    									<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     								</li>
     								<li onclick="socialshare(<?php echo $adminchoice->sid;?>, 'story');">
-    									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-    										<i class="fa fa-share-alt"></i>
-    									</a>
+    									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
     								</li>
     							</ul>
     						</div>
@@ -163,9 +180,9 @@
         						} ?>
     						<a href="<?php echo $yournwurl;?>" class="imagess-style">
         						<?php if(isset($yournetwork->image) && !empty($yournetwork->image)) { ?>
-        						    <img src="<?php echo base_url();?>assets/images/<?php echo $yournetwork->image; ?>" alt="<?php echo $yournetwork->title;?>" class="imageme">
-        						<?php }else{ ?>
-        							<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $yournetwork->title;?>" class="imageme">
+        						    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/images/<?php echo $yournetwork->image; ?>" alt="<?php echo $yournetwork->title;?>" class="imageme lazy">
+        						<?php } else { ?>
+        							<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $yournetwork->title;?>" class="imageme lazy">
         						<?php } ?>
     						</a>
     						<div>
@@ -199,11 +216,11 @@
     						<div class="flextest" style="padding-top:6px">
     							<?php if(isset($this->session->userdata['logged_in']['user_id']) && ($yournetwork->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
     								<button class="read" onclick="yoursreadlater();"><i class="fa fa-bookmark"></i> Read later </button>
-    							<?php }else{ ?>
+    							<?php } else { ?>
     								<?php if(isset($readlatersids) && (sizeof($readlatersids)>0) && in_array($yournetwork->sid, $readlatersids)) { ?>
     									<button onclick="unreadlater(<?php echo $yournetwork->sid;?>)" class="readdone notloginmodal readlaterbtnatr<?php echo $yournetwork->sid;?>">
     									<i class="fa fa-check faicon<?php echo $yournetwork->sid;?>"></i> Read later </button>
-    								<?php }else { ?>
+    								<?php } else { ?>
     									<button onclick="readlater(<?php echo $yournetwork->sid;?>)" class="read notloginmodal readlaterbtnatr<?php echo $yournetwork->sid;?>">
     									<i class="fa fa-bookmark faicon<?php echo $yournetwork->sid;?>"></i> Read later </button>
     								<?php } ?>
@@ -213,22 +230,20 @@
     							</button>
     							<ul class="dropdown-menu list-inline dropvk">
     								<li onclick="groupsuggest(<?php echo $yournetwork->sid; ?>);">
-    									<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+    									<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
     								</li>
     								<li onclick="friend(<?php echo $yournetwork->sid;?>);">
-    									<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+    									<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     								</li>
     								<li onclick="socialshare(<?php echo $yournetwork->sid;?>, 'story');">
-    									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-    										<i class="fa fa-share-alt"></i>
-    									</a>
+    									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
     								</li>
     							</ul>
     						</div>
     					</div>
-    				<?php } if($yournetworks->num_rows() >= 7){ ?>
+    				<?php } if($yournetworks->num_rows() >= 7) { ?>
     					<div class="card" style="justify-content: center">
-    					    <a href="<?php echo base_url().$this->uri->segment(1);?>/viewallyournetwork" style="padding:150px 0px;">
+    					    <a href="<?php echo base_url().$this->uri->segment(1);?>/viewallyournetwork" style="padding: 150px 0px;">
         						<font class="max-lines" style="padding-left:52px">VIEW MORE</font>
         					</a>
     					</div>
@@ -240,7 +255,7 @@
 	    	<button id="left-btnyn" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i> </button>
 	    <?php } ?>
 	    </div><!-- // Your network STORIES end-->
-	    
+
 		<div class="main-container">
 		    <div class="clear-fix"></div>
 		    <!-- Top Series Start -->
@@ -259,16 +274,16 @@
         					<div class="card">
         						<div class="book-type"><?php echo $topseriesrow->gener;?></div>
     							<!--<a href="<?php echo base_url('new_series?id='.$topseriesrow->sid.'&story_id='.$topseriesrow->story_id);?>"> -->
-    							<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $topseriesrow->title).'-'.$topseriesrow->sid.'/'.preg_replace('/\s+/', '-', $topseriesrow->title).'-'.$topseriesrow->story_id);?>" class="imagess-style">
+    							<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u", '-', $topseriesrow->title).'-'.$topseriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $topseriesrow->title).'-'.$topseriesrow->story_id);?>" class="imagess-style">
         							<?php if(isset($topseriesrow->image) && !empty($topseriesrow->image)) { ?>
-        							    <img src="<?php echo base_url();?>assets/images/<?php echo $topseriesrow->image; ?>" alt="<?php echo $topseriesrow->title;?>" class="imageme">
+        							    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/images/<?php echo $topseriesrow->image; ?>" alt="<?php echo $topseriesrow->title;?>" class="imageme lazy">
         							<?php }else{ ?>
-        								<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $topseriesrow->title;?>" class="imageme">
+        								<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $topseriesrow->title;?>" class="imageme lazy">
         							<?php } ?>
     							</a>
         						<div>
         							<font class="max-lines">
-        								<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $topseriesrow->title).'-'.$topseriesrow->sid.'/'.preg_replace('/\s+/', '-', $topseriesrow->title).'-'.$topseriesrow->story_id);?>">
+        								<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u", '-', $topseriesrow->title).'-'.$topseriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $topseriesrow->title).'-'.$topseriesrow->story_id);?>">
         									<?php echo $topseriesrow->title;?>
         								</a>
         							</font> 
@@ -288,13 +303,13 @@
         							</font><br>
         						</div>
         						<div class="flextest" style="padding-top:6px">
-            						<?php if(isset($this->session->userdata['logged_in']['user_id']) && ($topseriesrow->user_id == $this->session->userdata['logged_in']['user_id'])) { ?>
+            						<?php if(isset($this->session->userdata['logged_in']['user_id']) && ($topseriesrow->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
             							<button class="read" onclick="yoursreadlater();"><i class="fa fa-bookmark"></i> Read later </button>
-            						<?php } else { ?>
+            						<?php }else{ ?>
         								<?php if(isset($readlatersids) && (sizeof($readlatersids)>0) && in_array($topseriesrow->sid, $readlatersids)) { ?>
         									<button onclick="unreadlater(<?php echo $topseriesrow->sid;?>)" class="readdone notloginmodal readlaterbtnatr<?php echo $topseriesrow->sid;?>">
         									<i class="fa fa-check faicon<?php echo $topseriesrow->sid;?>"></i> Read later </button>
-        								<?php } else { ?>
+        								<?php }else { ?>
         									<button onclick="readlater(<?php echo $topseriesrow->sid;?>)" class="read notloginmodal readlaterbtnatr<?php echo $topseriesrow->sid;?>">
         									<i class="fa fa-bookmark faicon<?php echo $topseriesrow->sid;?>"></i> Read later </button>
         								<?php } ?>
@@ -304,22 +319,20 @@
         							</button>
         							<ul class="dropdown-menu list-inline  dropvk">
         								<li onclick="groupsuggest(<?php echo $topseriesrow->sid; ?>);">
-        									<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+        									<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
         								</li>
         								<li onclick="friend(<?php echo $topseriesrow->sid;?>);">
-        									<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+        									<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
         								</li>
         								<li onclick="socialshare(<?php echo $topseriesrow->sid;?>, 'series');">
-        									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-        										<i class="fa fa-share-alt"></i>
-        									</a>
+        									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
         								</li>
         							</ul>
         						</div>
         					</div>        
         			    <?php } if($top_get_series->num_rows() >= 7){ ?>
         					<div class="card" style="justify-content: center">
-        					    <a href="<?php echo base_url().$this->uri->segment(1);?>/series/top" style="padding:150px 0px;">
+        					    <a href="<?php echo base_url().$this->uri->segment(1);?>/series/top" style="padding: 150px 0px;">
             						<font class="max-lines" style="padding-left:52px">VIEW MORE</font>
             					</a>
         					</div>
@@ -349,16 +362,16 @@
     					<?php foreach($get_series->result() as $seriesrow) { ?>
     						<div class="card">
     							<div class="book-type"><?php echo $seriesrow->gener;?></div>
-    							<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $seriesrow->title).'-'.$seriesrow->sid.'/'.preg_replace('/\s+/', '-', $seriesrow->title).'-'.$seriesrow->story_id);?>" class="imagess-style">
+    							<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u", '-', $seriesrow->title).'-'.$seriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $seriesrow->title).'-'.$seriesrow->story_id);?>" class="imagess-style">
         							<?php if(isset($seriesrow->image) && !empty($seriesrow->image)) { ?>
-        							    <img src="<?php echo base_url();?>assets/images/<?php echo $seriesrow->image; ?>" alt="<?php echo $seriesrow->title;?>" class="imageme">
-        							<?php } else { ?>
-        								<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $seriesrow->title;?>" class="imageme">
+        							    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $seriesrow->image; ?>" alt="<?php echo $seriesrow->title;?>" class="imageme lazy">
+        							<?php }else{ ?>
+        								<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $seriesrow->title;?>" class="imageme lazy">
         							<?php } ?>
     							</a>
     							<div>
     								<font class="max-lines">
-    									<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $seriesrow->title).'-'.$seriesrow->sid.'/'.preg_replace('/\s+/', '-', $seriesrow->title).'-'.$seriesrow->story_id);?>">
+    									<a href="<?php echo base_url($this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u", '-', $seriesrow->title).'-'.$seriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $seriesrow->title).'-'.$seriesrow->story_id);?>">
     										<?php echo $seriesrow->title;?>
     									</a>
     								</font> 
@@ -378,7 +391,7 @@
     								</font><br>
     							</div>
     							<div class="flextest" style="padding-top:6px">
-    								<?php if(isset($this->session->userdata['logged_in']['user_id']) && ($seriesrow->user_id == $this->session->userdata['logged_in']['user_id'])) { ?>
+    								<?php if(isset($this->session->userdata['logged_in']['user_id']) && ($seriesrow->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
     									<button class="read" onclick="yoursreadlater();"><i class="fa fa-bookmark"></i> Read later </button>
     								<?php }else{ ?>
     									<?php if(isset($readlatersids) && (sizeof($readlatersids)>0) && in_array($seriesrow->sid, $readlatersids)) { ?>
@@ -395,22 +408,20 @@
     								</button>
     								<ul class="dropdown-menu list-inline  dropvk">
     									<li onclick="groupsuggest(<?php echo $seriesrow->sid; ?>);">
-    										<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+    										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
     									</li>
     									<li onclick="friend(<?php echo $seriesrow->sid;?>);">
-    										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+    										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     									</li>
     									<li onclick="socialshare(<?php echo $seriesrow->sid;?>, 'series');">
-    										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-    											<i class="fa fa-share-alt"></i>
-    										</a>
+    										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
     									</li>
     								</ul>
     							</div>
     						</div>        
     					<?php } if($get_series->num_rows() >= 7) { ?>
     						<div class="card" style="justify-content: center">
-    						    <a href="<?php echo base_url().$this->uri->segment(1);?>/series/latest" style="padding:150px 0px;">
+    						    <a href="<?php echo base_url().$this->uri->segment(1);?>/series/latest" style="padding: 150px 0px;">
         							<font class="max-lines" style="padding-left:52px">VIEW MORE</font>
         						</a>
     						</div>
@@ -441,16 +452,16 @@
 					<?php foreach($top_get_storys->result() as $topstorysrow) { ?>
 						<div class="card">
 							<div class="book-type"><?php echo $topstorysrow->gener;?></div>
-							<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $topstorysrow->title).'-'.$topstorysrow->sid);?>" class="imagess-style">
+							<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $topstorysrow->title).'-'.$topstorysrow->sid);?>" class="imagess-style">
     							<?php if(isset($topstorysrow->image) && !empty($topstorysrow->image)) { ?>
-    							    <img src="<?php echo base_url();?>assets/images/<?php echo $topstorysrow->image; ?>" alt="<?php echo $topstorysrow->title;?>" class="imageme">
+    							    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/images/<?php echo $topstorysrow->image; ?>" alt="<?php echo $topstorysrow->title;?>" class="imageme lazy">
     							<?php }else{ ?>
-    								<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $topstorysrow->title;?>" class="imageme">
+    								<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $topstorysrow->title;?>" class="imageme lazy">
     							<?php } ?>
 							</a>
 							<div>
 								<font class="max-lines">
-									<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $topstorysrow->title).'-'.$topstorysrow->sid);?>" class="product-title">
+									<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $topstorysrow->title).'-'.$topstorysrow->sid);?>" class="product-title">
 									    <?php echo $topstorysrow->title;?>
 									</a>
 								</font> 
@@ -497,15 +508,13 @@
 								</button>
 								<ul class="dropdown-menu list-inline  dropvk">
 									<li onclick="groupsuggest(<?php echo $topstorysrow->sid; ?>);">
-										<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
 									</li>
 									<li onclick="friend(<?php echo $topstorysrow->sid;?>);">
-										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
 									</li>
 									<li onclick="socialshare(<?php echo $topstorysrow->sid;?>, 'story');">
-										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-											<i class="fa fa-share-alt"></i>
-										</a>
+										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
 									</li>
 								</ul>
 							</div>
@@ -543,16 +552,16 @@
     				<?php foreach($get_storys->result() as $storysrow) { ?>
     					<div class="card">
     						<div class="book-type"><?php echo $storysrow->gener;?></div>
-    						<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $storysrow->title).'-'.$storysrow->sid);?>" class="imagess-style">
+    						<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $storysrow->title).'-'.$storysrow->sid);?>" class="imagess-style">
         						<?php if(isset($storysrow->image) && !empty($storysrow->image)) { ?>
-        						    <img src="<?php echo base_url();?>assets/images/<?php echo $storysrow->image; ?>" alt="<?php echo $storysrow->title;?>" class="imageme">
+        						    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/images/<?php echo $storysrow->image; ?>" alt="<?php echo $storysrow->title;?>" class="imageme lazy">
         						<?php }else{ ?>
-        							<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $storysrow->title;?>" class="imageme">
+        							<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $storysrow->title;?>" class="imageme lazy">
         						<?php } ?>
     						</a>
     						<div>
     							<font class="max-lines">
-    								<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $storysrow->title).'-'.$storysrow->sid);?>" class="product-title">
+    								<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $storysrow->title).'-'.$storysrow->sid);?>" class="product-title">
     								    <?php echo $storysrow->title;?>
     								</a>
     							</font> 
@@ -600,15 +609,13 @@
     							</button>
     							<ul class="dropdown-menu list-inline  dropvk">
     								<li onclick="groupsuggest(<?php echo $storysrow->sid; ?>);">
-    									<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+    									<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
     								</li>
     								<li onclick="friend(<?php echo $storysrow->sid;?>);">
-    									<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+    									<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     								</li>
     								<li onclick="socialshare(<?php echo $storysrow->sid;?>, 'story');">
-    									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-    										<i class="fa fa-share-alt"></i>
-    									</a>
+    									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
     								</li>
     							</ul>
     						</div>
@@ -644,16 +651,16 @@
 				<div id="story-sliderl" class="story-slider" >
 					<?php $i=0; foreach($top_get_life->result() as $topliferow) { if($i < 5){ ?>
 						<div class="card1">
-							<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $topliferow->title).'-'.$topliferow->sid);?>" class="imagelife-style">
+							<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $topliferow->title).'-'.$topliferow->sid);?>" class="imagelife-style">
     							<?php if(isset($topliferow->image) && !empty($topliferow->image)) { ?>
-    								<img src="<?php echo base_url();?>assets/images/<?php echo $topliferow->image; ?>" alt="<?php echo $topliferow->title;?>" class="imageme1">
+    								<img src="<?php echo base_url();?>assets/images/lazy-d266-j.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $topliferow->image; ?>" alt="<?php echo $topliferow->title;?>" class="imageme1 lazy">
     							<?php }else{ ?>
-    								<img src="<?php echo base_url();?>assets/default/life.jpg" alt="<?php echo $topliferow->title;?>" class="imageme1">
+    								<img src="<?php echo base_url();?>assets/images/lazy-d266-j.jpg"  data-src="<?php echo base_url();?>assets/default/life.jpg" alt="<?php echo $topliferow->title;?>" class="imageme1 lazy">
     							<?php } ?>
 						    </a>
 							<div>
     							<font class="max-lines">
-    								<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $topliferow->title).'-'.$topliferow->sid);?>">
+    								<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $topliferow->title).'-'.$topliferow->sid);?>">
     									<?php echo $topliferow->title;?>
     								</a>
     							</font> 
@@ -690,15 +697,13 @@
 								</button>
 								<ul class="dropdown-menu list-inline dropvklife">
 									<li onclick="groupsuggest(<?php echo $topliferow->sid; ?>);">
-										<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
 									</li>
 									<li onclick="friend(<?php echo $topliferow->sid;?>);">
-										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
 									</li>
 									<li onclick="socialshare(<?php echo $topliferow->sid;?>, 'story');">
-										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-											<i class="fa fa-share-alt"></i>
-										</a>
+										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
 									</li>
 								</ul>
 							</div>
@@ -735,16 +740,16 @@
 			    <div id="story-sliderll" class="story-slider" >
 					<?php $i = 0; foreach($get_life->result() as $liferow) { if($i < 5){ ?>
 						<div class="card1">
-							<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $liferow->title).'-'.$liferow->sid);?>" class="imagelife-style">
+							<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $liferow->title).'-'.$liferow->sid);?>" class="imagelife-style">
     							<?php if(isset($liferow->image) && !empty($liferow->image)) { ?>
-    								<img src="<?php echo base_url();?>assets/images/<?php echo $liferow->image; ?>" alt="<?php echo $liferow->title;?>" class="imageme1">
+    								<img src="<?php echo base_url();?>assets/images/lazy-d266-j.jpg"  data-src="<?php echo base_url();?>assets/images/<?php echo $liferow->image; ?>" alt="<?php echo $liferow->title;?>" class="imageme1 lazy">
     							<?php }else{ ?>
-    								<img src="<?php echo base_url();?>assets/default/life.jpg" alt="<?php echo $liferow->title;?>" class="imageme1">
+    								<img src="<?php echo base_url();?>assets/images/lazy-d266-j.jpg"  data-src="<?php echo base_url();?>assets/default/life.jpg" alt="<?php echo $liferow->title;?>" class="imageme1 lazy">
     							<?php } ?>
     						</a>
 							<div>
     							<font class="max-lines">
-    								<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $liferow->title).'-'.$liferow->sid);?>">
+    								<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $liferow->title).'-'.$liferow->sid);?>">
     									<?php echo $liferow->title;?>
     								</a>
     							</font> 
@@ -781,21 +786,19 @@
 								</button>
 								<ul class="dropdown-menu list-inline dropvklife">
 									<li onclick="groupsuggest(<?php echo $liferow->sid; ?>);">
-										<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
 									</li>
 									<li onclick="friend(<?php echo $liferow->sid;?>);">
-										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
 									</li>
 									<li onclick="socialshare(<?php echo $liferow->sid;?>, 'story');">
-										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
-											<i class="fa fa-share-alt"></i>
-										</a>
+										<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
 									</li>
 								</ul>
 							</div>
 						</div>
 					<?php } $i++; } if($get_life->num_rows() >= 5){ ?>
-						<div class="card1" style="justify-content: center">   
+						<div class="card1" style="justify-content: center">
 						    <a href="<?php echo base_url().$this->uri->segment(1);?>/lifeevents/latest" style="padding:140px 0px;">
 						        <font class="max-lines" style=" text-align:center;">VIEW MORE</font>
 					        </a>
@@ -830,7 +833,7 @@
 								<?php if(isset($nanorow->profile_image) && !empty($nanorow->profile_image)) { ?>
 									<img src="<?php echo base_url();?>assets/images/<?php echo $nanorow->profile_image; ?>" class="circle-image" style="height:50px;" alt="<?php echo $nanorow->name;?>">
 								<?php }else{ ?>
-									<img src="<?php echo base_url();?>assets/dist/img/photo1.png" class="circle-image" style="height:50px;" alt="<?php echo $nanorow->name;?>">
+									<img src="<?php echo base_url();?>assets/images/2.png" class="circle-image" style="height:50px;" alt="<?php echo $nanorow->name;?>">
 								<?php } ?>
 								<h3 class="name-nanostories">
 								    <a href="<?php echo base_url($this->uri->segment(1).'/'.$nanorow->profile_name);?>" style="color:#000"><?php echo $nanorow->name;?></a>
@@ -847,24 +850,24 @@
 								<?php if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){
 								    if(isset($nanolikes) && in_array($nanorow->sid,$nanolikes)) { ?>
     								<font>
-    								    <span class="nanolikecount<?php echo $nanorow->sid;?>"><?php echo $nanorow->nanolikecount;?></span>
     								    <a href="javascript:void(0);" onclick="nanodislike(<?php echo $nanorow->sid;?>);" class="nanolike<?php echo $nanorow->sid;?>" title="Unlike">
     										<i class="fa fa-heart favbtn<?php echo $nanorow->sid;?>" style="color:#f00; padding-top:5px;"></i>
     									</a>
+                                        <span class="nanolikecount<?php echo $nanorow->sid;?>"><?php echo $nanorow->nanolikecount;?></span>
     								</font>
     							    <?php } else { ?>
     							    <font>
-    							        <span class="nanolikecount<?php echo $nanorow->sid;?>"><?php echo $nanorow->nanolikecount;?></span>
     								    <a href="javascript:void(0);" onclick="nanolike(<?php echo $nanorow->sid;?>);" class="nanolike<?php echo $nanorow->sid;?>" title="like">
     										<i class="fa fa-heart-o favbtn<?php echo $nanorow->sid;?>" style="color:#f00; padding-top:5px;"></i>
     									</a>
+                                        <span class="nanolikecount<?php echo $nanorow->sid;?>"><?php echo $nanorow->nanolikecount;?></span>
     								</font>
     							    <?php } }else { ?>
     							    <font>
-    								    <span><?php echo $nanorow->nanolikecount;?></span>
     								    <a href="javascript:void(0);" class="notloginmodal" title="like">
     										<i class="fa fa-heart-o" style="color:#f00; padding-top:5px;"></i>
     									</a>
+                                        <span><?php echo $nanorow->nanolikecount;?></span>
     								</font>
     							<?php } ?>
 								<div style="float:right;color:#777">
@@ -873,10 +876,10 @@
 									</a>
 									<ul class="dropdown-menu list-inline dropvknano">
     									<li onclick="groupsuggest(<?php echo $nanorow->sid; ?>);">
-    										<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest"><i class="fa fa-users"></i></a>
+    										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
     									</li>
     									<li onclick="friend(<?php echo $nanorow->sid;?>);">
-    										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest"><i class="fa fa-user"></i></a>
+    										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     									</li>
 										<li onclick="socialshare(<?php echo $nanorow->sid;?>, 'nano');">
 											<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
@@ -885,7 +888,7 @@
 								</div>
 								<font style="float:right;color:#777">
 								    <i class="fa fa-eye" aria-hidden="true"></i>
-								    <b><span class="nanoviewcount<?php echo $nanorow->sid;?>"><?php echo $nanorow->views;?></span></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								    <b><span class="nanoviewcount<?php echo $nanorow->sid;?>"><?php echo $nanorow->views; ?></span></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								</font>
 							</div>
 						</div>
@@ -905,16 +908,16 @@
 			
 		<?php if(isset($get_nano) && ($get_nano->num_rows() > 0)){ foreach($get_nano->result() as $nanomodalrow) { ?>
     		<div class="modal fade" id="modal-default<?php echo $nanomodalrow->sid;?>">
-    			<div class="modal-dialog">
-    				<div class="modal-content modal-nano">
-    					<div class="modal-header">
+    			<div class="modal-dialog" style="max-width:500px;">
+    				<div class="modal-content modal-nano" style="padding: 0px ;">
+    					<div class="modal-header" style="padding:18px;border-bottom-color: #e5e5e5;">
     						<div class="">
     						    <?php if(isset($nanomodalrow->profile_image) && !empty($nanomodalrow->profile_image)) { ?>
 									<img src="<?php echo base_url();?>assets/images/<?php echo $nanomodalrow->profile_image; ?>" class="user-image img-circle" style="height:50px;" alt="<?php echo $nanomodalrow->name;?>">
 								<?php }else{ ?>
-									<img src="<?php echo base_url();?>assets/dist/img/user2-160x160.jpg" class="img-circle" style="height:50px;" alt="<?php echo $nanomodalrow->name;?>">
+									<img src="<?php echo base_url();?>assets/images/2.png" class="img-circle" style="height:50px;" alt="<?php echo $nanomodalrow->name;?>">
 								<?php } ?>
-    							<h3 class="name-nanostories" style="margin-top: -40px; margin-left: 50px;">
+    							<h3 class="name-nanostories" style="margin-top: -45px; margin-left: 50px;">
     							    <a href="<?php echo base_url($this->uri->segment(1).'/'.$nanomodalrow->profile_name);?>" style="color:#000"><?php echo $nanomodalrow->name;?></a>
     			                    <span class="pull-right">
     			                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top:4px;">
@@ -924,38 +927,38 @@
     			                </h3>
     						</div>
     					</div>
-    					<div class="modal-body modal-bodyv" style="overflow-y:scroll;">
+    					<div class="modal-body modal-bodyv" style="overflow-y:scroll;padding:15px">
     						<font class="text-in-nanostory-p" style="border-left:none; overflow-y:scroll;"><?php echo $nanomodalrow->story; ?></font>
     					</div>
     					<div class="modal-footer">
     						<ul class="list-inline">
-    							<li class="text-muted pull-left">
+    							<li class="text-muted pull-left" style="display:flex;">
     						        <?php if(isset($this->session->userdata['logged_in']['user_id'])){
     								    if(isset($nanolikes) && in_array($nanomodalrow->sid,$nanolikes)) { ?>
-            							    <span class="nanolikecount<?php echo $nanomodalrow->sid;?>"><?php echo $nanomodalrow->nanolikecount;?></span>
         								    <a href="javascript:void(0);" onclick="nanodislike(<?php echo $nanomodalrow->sid;?>);" class="nanolike<?php echo $nanomodalrow->sid;?>" title="Unlike">
-        										<i class="fa fa-heart favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-top:5px;"></i>
-        									</a>
+        										<i class="fa fa-heart favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-right:3px;font-size:20px;"></i>
+        									</a> &nbsp;
+                                            <span class="nanolikecount<?php echo $nanomodalrow->sid;?>" style="color:#000;"><?php echo $nanomodalrow->nanolikecount;?></span>
         								<?php } else { ?>
-        									<span class="nanolikecount<?php echo $nanomodalrow->sid;?>"><?php echo $nanomodalrow->nanolikecount;?></span>
         								    <a href="javascript:void(0);" onclick="nanolike(<?php echo $nanomodalrow->sid;?>);" class="nanolike<?php echo $nanomodalrow->sid;?>" title="like">
-        										<i class="fa fa-heart-o favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-top:5px;"></i>
-        									</a>
+        										<i class="fa fa-heart-o favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-right:3px;font-size:20px;"></i>
+        									</a> &nbsp;
+                                            <span class="nanolikecount<?php echo $nanomodalrow->sid;?>" style="color:#000;"><?php echo $nanomodalrow->nanolikecount;?></span>
         							<?php } } else{ ?>
-        						        <span class="nanolikecount<?php echo $nanomodalrow->sid;?>"><?php echo $nanomodalrow->nanolikecount;?></span>
     								    <a href="javascript:void(0);" class="notloginmodal" title="like">
-    										<i class="fa fa-heart-o favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-top:5px;"></i>
-    									</a>
+    										<i class="fa fa-heart-o favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-right:3px;font-size:20px;"></i>
+    									</a> &nbsp;
+                                        <span class="nanolikecount<?php echo $nanomodalrow->sid;?>" style="color:#000;"><?php echo $nanomodalrow->nanolikecount;?></span>
         						    <?php } ?>
     							</li>
     							<li class="pull-right">
                                 	<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
                                     <ul class="dropdown-menu list-inline dropvknano1">
                                         <li onclick="groupsuggest(<?php echo $nanomodalrow->sid; ?>);">
-										    <a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest"><i class="fa fa-users"></i></a>
+										    <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
     									</li>
     									<li onclick="friend(<?php echo $nanomodalrow->sid;?>);">
-    										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest"><i class="fa fa-user"></i></a>
+    										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
     									</li>
 										<li onclick="socialshare(<?php echo $nanomodalrow->sid;?>, 'nano');">
 											<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
@@ -985,8 +988,24 @@
     	            <div id="story-sliderw" class="story-slider" >
     	            	<?php $i = 0; foreach($get_writer->result() as $writerrow) { if($i < 5){ ?>
     	            		<div class="card1" style="height:215px">
-    	            		    <?php if(isset($writerrow->pbanner_image) && !empty($writerrow->pbanner_image)) { ?>
-    					        <div class="imageme1" style="height:115px; background-position:center; background:url(<?php echo base_url();?>assets/images/<?php echo $writerrow->pbanner_image; ?>) center center; background-size:cover">
+    	            		    <?php if(isset($writerrow->pbanner_image) && !empty($writerrow->pbanner_image)){ ?>
+    					        <div class="imageme1 lazy" style="height:115px; " data-bg="url(<?php echo base_url();?>assets/images/<?php echo $writerrow->pbanner_image; ?>)">
+                                    <div style="padding:9px; background:rgba(0, 0, 0, 0.64);height:115px;">
+    						            <a href="<?php echo base_url($this->uri->segment(1).'/'.$writerrow->profile_name);?>">
+        						            <?php if(isset($writerrow->profile_image) && !empty($writerrow->profile_image)) { ?>
+        						            	<img src="<?php echo base_url();?>assets/images/<?php echo $writerrow->profile_image; ?>" class="circle-image" alt="<?php echo $writerrow->name;?>" style="height:50px">
+        						            <?php }else{ ?>
+        						            	<img src="<?php echo base_url();?>assets/images/2.png" class="circle-image" alt="<?php echo $writerrow->name;?>" style="height:50px">
+        						            <?php } ?>
+    						            </a>
+    						            <h3 class="name-nanostories" style="color:#fff">
+    						                <a href="<?php echo base_url($this->uri->segment(1).'/'.$writerrow->profile_name);?>" style="color:#FFF;"><?php echo $writerrow->name;?></a>
+    						            </h3>
+    						            <p class="writerc"><?php echo $writerrow->aboutus; ?></p>
+    						        </div>
+    					        </div>
+    					        <?php }else{ ?>
+    					        <div class="imageme1" style="height:115px; background-position:center;  background: linear-gradient(-60deg,RoyalBlue,brown); background-size:cover">
     						        <div style="padding:9px; background:rgba(0, 0, 0, 0.64);height:115px;">
     						            <a href="<?php echo base_url($this->uri->segment(1).'/'.$writerrow->profile_name);?>">
         						            <?php if(isset($writerrow->profile_image) && !empty($writerrow->profile_image)) { ?>
@@ -1001,31 +1020,15 @@
     						            <p class="writerc"><?php echo $writerrow->aboutus; ?></p>
     						        </div>
     					        </div>
-    					        <?php } else { ?>	
-    					        <div class="imageme1" style="height:115px; background-position:center;  background: linear-gradient(-60deg,RoyalBlue,brown); background-size:cover">
-    						        <div style="padding:9px; background:rgba(0, 0, 0, 0.64);height:115px;">
-    						            <a href="<?php echo base_url($this->uri->segment(1).'/'.$writerrow->profile_name);?>">
-        						            <?php if(isset($writerrow->profile_image) && !empty($writerrow->profile_image)) { ?>
-        						            	<img src="<?php echo base_url();?>assets/images/<?php echo $writerrow->profile_image; ?>" class="circle-image" alt="<?php echo $writerrow->name;?>" style="height:50px">
-        						            <?php } else { ?>
-        						            	<img src="<?php echo base_url();?>assets/images/2.png" class="circle-image" alt="<?php echo $writerrow->name;?>" style="height:50px">
-        						            <?php } ?>
-    						            </a>
-    						            <h3 class="name-nanostories" style="color:#fff">
-    						                <a href="<?php echo base_url($this->uri->segment(1).'/'.$writerrow->profile_name);?>" style="color:#FFF;"><?php echo $writerrow->name;?></a>
-    						            </h3>
-    						            <p class="writerc"><?php echo $writerrow->aboutus; ?></p>
-    						        </div>
-    					        </div>
     					        <?php } ?>
     					        <div style="padding-top:6px;">
     					            <center>
     					                <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $writerrow->user_id)){ ?>
                                             <button class="vjw btn btn-success" onclick="yoursfollow()"> FOLLOW </button>
-                                        <?php } else { ?>
+                                        <?php }else{ ?>
                                             <?php if(isset($following) && in_array($writerrow->user_id, $following)) { ?>
                                                 <button class="vjw btn btn-primary notloginmodal unfollow<?php echo $writerrow->user_id;?>" onclick="writerunfollow(<?php echo $writerrow->user_id;?>,'<?php echo $writerrow->name;?>')"> FOLLOWING </button>
-                                            <?php } else { ?>
+                                            <?php }else{ ?>
                                                 <button class="vjw btn btn-success notloginmodal follow<?php echo $writerrow->user_id;?>" onclick="writerfollow(<?php echo $writerrow->user_id;?>,'<?php echo $writerrow->name;?>')"> FOLLOW </button>
                                             <?php } ?>
                                         <?php } ?>
@@ -1081,8 +1084,8 @@
 	        </div>
 	        </center>
 	    <?php } ?>
-	    
-	    <div class="main-container" style="margin-top:180px">
+	    </div>
+        <div class="main-container">
 	        <div class="footer">
                 <font style="float:left;font-size: 18px;margin-top: 8px;margin-left:10px;font-family: 'Varela Round', sans-serif;" class="copyright">
                     Copyright <i class="fa fa-copyright" aria-hidden="true" style="font-size:12px;"></i> 2018 Being Reader
@@ -1097,10 +1100,10 @@
             <div class="footer1">
                 <div style="font-size:14px;color:black;font-family: 'Varela Round', sans-serif;">
                     <center>
-                        <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url().$this->uri->segment(1);?>/about">ABOUT</a></font>
-                        <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url().$this->uri->segment(1);?>/contact">CONTACT</a></font>
-                        <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url().$this->uri->segment(1);?>/terms-conditions">TERMS</a></font>
-                        <font style="margin-right:10px" class="hover-tems"><a href="<?php echo base_url().$this->uri->segment(1);?>/privacy-policy">PRIVACY</a></font>
+                        <font class="hover-tems"><a href="<?php echo base_url().$this->uri->segment(1);?>/about">ABOUT</a></font>
+                        <font class="hover-tems"><a href="<?php echo base_url().$this->uri->segment(1);?>/contact">CONTACT</a></font>
+                        <font class="hover-tems"><a href="<?php echo base_url().$this->uri->segment(1);?>/terms-conditions">TERMS</a></font>
+                        <font class="hover-tems"><a href="<?php echo base_url().$this->uri->segment(1);?>/privacy-policy">PRIVACY</a></font>
                     </center>
                 </div>
             </div>
@@ -1113,30 +1116,30 @@
 	<div class="modal-dialog">
 		<div class="modal-content socv">
 			<div class="modal-header" style="padding:8px 15px;">
-				<button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px;margin-bottom:-2px;" data-dismiss="modal" aria-label="Close">
+				<button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px; margin-bottom:-2px;" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span></button>
 				<h5 class="modal-title text-center" style="color:#808182;">SOCIAL MEDIA SHARE</h5>
 			</div>
 			<div class="" style="padding-top:10px;">
 				<div class="row">
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
-						<a href="javascript:void(0);" class="facebookshare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/><p class="socialsharepopupspan">Facebook</p></a>
-					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
-					    <a href="javascript:void(0);" class="whatsappshare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-10px;"/><p class="socialsharepopupspan">Whatsapp</p></a>
-					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
-						<a href="javascript:void(0);" class="twittershare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Twitter</p></a>
-					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;">
-						<a href="javascript:void(0);" onclick="copylinkshare('#copylinkshare')" class="socsh">
-						    <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px;height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Copy to link</p></a>
-					    <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">
-					</div>
-				</div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+                        <a href="javascript:void(0);" class="facebookshare socsh">
+                            <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-8px;"/><p class="socialsharepopupspan">Facebook</p></a>
+                    </div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+                        <a href="javascript:void(0);" class="whatsappshare socsh">
+                            <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-8px;"/><p class="socialsharepopupspan">Whatsapp</p></a>
+                    </div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+                        <a href="javascript:void(0);" class="twittershare socsh">
+                            <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-8px;"/> <p class="socialsharepopupspan">Twitter</p></a>
+                    </div>
+                    <div class="col-md-12 pd-5v" style="margin:12px;">
+                        <a href="javascript:void(0);" onclick="copylinkshare('#copylinkshare')" class="socsh">
+                            <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px;height:40px;margin-top:-8px;"/> <p class="socialsharepopupspan">Copy to link</p></a>
+                        <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">
+                    </div>
+                </div>
 			</div>
 		</div>
 	<!-- /.modal-content -->
@@ -1166,3 +1169,8 @@
 
 
 <script src="<?php echo base_url();?>assets/js/index.js"></script>
+<script>
+    var lazyLoadInstance = new LazyLoad({
+        elements_selector: ".lazy"
+    });
+</script>

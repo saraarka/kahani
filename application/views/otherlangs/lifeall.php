@@ -4,25 +4,26 @@
 <div class="content-wrapper">
     <section class="content">
         <div class="main-container1">
-		    <div class="row pt-0">
-		        <?php if(isset($lifetagslist) && ($lifetagslist->num_rows() > 0)){ ?>
-		        <div class="tagv" style="display:flex;">
-		                <div class="brv1 hidden-xs">Popular Tags :</div>
-		                <button id="left-btnt" class="left-btnt right-btnt"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
-		                <div id="tag1" class="tags1">
-		                    <div id="tag2" class="tags2">
-		                        <?php if(isset($lifetagslist) && ($lifetagslist->num_rows() > 0)){
-		                        foreach($lifetagslist->result() as $lifetaglist){ ?>
-		                            <div class="brv" style="display:inline-block;"><a href="<?php echo base_url().$this->uri->segment(1);?>/searchresult?type=life&searchtext=<?php echo $lifetaglist->tagname; ?>">
-		                                <?php echo $lifetaglist->tagname; ?></a>
-		                            </div>
-		                        <?php } } ?>
-		                    </div>
-		                </div>
-		                <button id="right-btnt" class="right-btnt right-btnt"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
-	            </div>
-	            <?php } ?>
-		    </div>
+			<div class="row pt-0">
+			    <?php if(isset($lifetagslist) && ($lifetagslist->num_rows() > 0)){ ?>
+			    <div class="tagv" style="display:flex;">
+			            <div class="brv1 hidden-xs">Popular Tags :</div>
+			            <button id="left-btnt" class="left-btnt right-btnt"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+			            <div id="tag1" class="tags1">
+			                <div id="tag2" class="tags2">
+			                    <?php if(isset($lifetagslist) && ($lifetagslist->num_rows() > 0)){
+			                    foreach($lifetagslist->result() as $lifetaglist){ ?>
+			                        <div class="brv" style="display:inline-block;"><a href="<?php echo base_url().$this->uri->segment(1);?>/searchresult?type=life&searchtext=<?php echo $lifetaglist->tagname; ?>">
+			                            <?php echo $lifetaglist->tagname; ?></a>
+			                        </div>
+			                    <?php } } ?>
+			                </div>
+			            </div>
+			            <button id="right-btnt" class="right-btnt right-btnt" style="padding-right: 20px;"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+			        	<div class="brv1 hidden-xs view" style="margin-right:0px; width:10%;"><a href="<?php echo base_url().$this->uri->segment(1);?>lifeeventtags"> View More </a></div>
+			    </div>
+			    <?php } ?>
+			</div>
 		    <div class="row pt-0">
 		        <?php if(isset($top_get_life) && ($top_get_life->num_rows() > 0)){ ?>
 		    	<div class="col-md-6 col-xs-8 pd-0">
@@ -89,10 +90,10 @@
 								</button>
 								<ul class="dropdown-menu list-inline dropvklife">
 									<li onclick="groupsuggest(<?php echo $topliferow->sid; ?>);">
-										<a href="javascript:void(0);" href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
 									</li>
 									<li onclick="friend(<?php echo $topliferow->sid;?>);">
-										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
 									</li>
 									<li onclick="socialshare(<?php echo $topliferow->sid;?>, 'story');">
     									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -164,10 +165,10 @@
 								</button>
 								<ul class="dropdown-menu list-inline dropvklife">
 									<li onclick="groupsuggest(<?php echo $liferow->sid; ?>);">
-										<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
 									</li>
 									<li onclick="friend(<?php echo $liferow->sid;?>);">
-										<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
 									</li>
 									<li onclick="socialshare(<?php echo $liferow->sid;?>, 'story');">
     									<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">
@@ -188,29 +189,29 @@
 <!-- Social Popup ---- -->
 <div class="modal fade" id="soc">
 	<div class="modal-dialog">
-		<div class="modal-content socv ">
+		<div class="modal-content socv">
 			<div class="modal-header" style="padding:8px 15px;">
-				<button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px;" data-dismiss="modal" aria-label="Close">
+				<button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px; margin-bottom:-2px;" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span></button>
 				<h5 class="modal-title text-center" style="color:#808182;">SOCIAL MEDIA SHARE</h5>
 			</div>
 			<div class="" style="padding-top:10px;">
 				<div class="row">
-					<div class="col-md-12 pd-5v" style="margin:12px;">
-						<a href="javascript:void(0);" class="facebookshare">
-						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/> <span class="socialsharepopupspan">Facebook</span></a>
+					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+						<a href="javascript:void(0);" class="facebookshare socsh">
+						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px;height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Facebook</p></a>
+					</div>
+					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+					    <a href="javascript:void(0);" class="whatsappshare socsh">
+						    <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px;height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Whatsapp</p></a>
+					</div>
+					<div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+						<a href="javascript:void(0);" class="twittershare socsh">
+						    <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px;height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Twitter</p></a>
 					</div>
 					<div class="col-md-12 pd-5v" style="margin:12px;">
-					    <a href="javascript:void(0);" class="whatsappshare">
-						    <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-10px;"/> <span class="socialsharepopupspan">Whatsapp</span></a>
-					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;">
-						<a href="javascript:void(0);" class="twittershare">
-						    <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-10px;"/> <span class="socialsharepopupspan">Twitter</span></a>
-					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;">
-						<a href="javascript:void(0);" onclick="copylinkshare('#copylinkshare')">
-						    <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px; height:40px;margin-top:-10px;"/> <span class="socialsharepopupspan">Copy to link</span></a>
+						<a href="javascript:void(0);" onclick="copylinkshare('#copylinkshare')" class="socsh">
+						    <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px;height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Copy to link</p></a>
 					    <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">
 					</div>
 				</div>

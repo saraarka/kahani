@@ -59,10 +59,10 @@
 			</button>
 			<ul class="dropdown-menu list-inline dropvk">
 				<li onclick="groupsuggest(<?php echo $loadyournetwork->sid; ?>);">
-					<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
+					<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
 				</li>
 				<li onclick="friend(<?php echo $loadyournetwork->sid;?>);">
-					<a href="javascript:void(0);" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
+					<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
 				</li>
 				<li onclick="socialshare(<?php echo $loadyournetwork->sid;?>, 'story');">
 					<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL">

@@ -21,12 +21,11 @@ class Gujarati extends CI_Controller {
 		$data['top_get_storys'] = $this->User_model->top_get_storys();
 		$data['top_get_life'] = $this->User_model->top_get_life();
 		$data['adminchoices'] = $this->User_model->admin_choice();
-		$data['get_writer'] = $this->User_model->get_top_writer();
+		$data['get_writer'] = $this->User_model->get_top_writer('',0,5);
 		$data['follow_count'] = $this->User_model->follow_count();
 		$data['following'] = $this->User_model->following();
 		if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){
 	        $data['yournetworks'] = $this->User_model->yournetworks($this->session->userdata['logged_in']['user_id']);
-	        $sent_mailstatus = $this->User_model->sent_mailstatus($this->session->userdata['logged_in']['email']);
 		}
 		$this->load->view('otherlangs/header.php',$header);
 		$this->load->view('otherlangs/sidebar.php');
@@ -62,7 +61,20 @@ class Gujarati extends CI_Controller {
             return TRUE;
         }
     }
-    
+    public function validurl($url){
+        $data = trim($url);
+        $pattern = "/^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/";
+        $valid = preg_match($pattern,$data);
+        if(!$valid){
+            $data = "http://".$data;
+            $valid = preg_match($pattern,$data);
+        }
+        if(!$valid) {
+            return FALSE;
+        }else{
+            return TRUE;
+        }
+    }
     public function signup() {
 		$this->form_validation->set_rules('name', 'Name','trim|required|min_length[3]|max_length[30]|callback_alpha_dash_space');
 		$this->form_validation->set_rules('email', 'Email Id', 'trim|required|valid_email|is_unique[signup.email]');
@@ -77,7 +89,7 @@ class Gujarati extends CI_Controller {
 				'name' => $this->input->post('name'),
 				'email' => $this->input->post('email'),
 				'password' => md5($this->input->post('password')),
-			);      
+			);
 			$userid = $this->User_model->insertUser($inputdata); 
 			if(isset($userid) && !empty($userid)){
 				$this->User_model->sendEmail($inputdata['email']);
@@ -139,16 +151,16 @@ class Gujarati extends CI_Controller {
 		}
 	}
 	public function resendemail(){
-	    if(isset($_POST['email']) && !empty($_POST['email'])){
-	        $response = $this->User_model->sendEmail($_POST['email']);
-	        if($response){
-	            echo json_encode(1);
-	        }else{
-	            echo json_encode(0);
-	        }
-	    }else{
-	        echo json_encode(0);
-	    }
+        if(isset($_POST['email']) && !empty($_POST['email'])){
+            $response = $this->User_model->sendEmail($_POST['email']);
+            if($response){
+                echo json_encode(1);
+            }else{
+                echo json_encode(0);
+            }
+        }else{
+            echo json_encode(0);
+        }
 	}
 	public function verify($hash=NULL)
 	{
@@ -166,7 +178,7 @@ class Gujarati extends CI_Controller {
 	    if(isset($this->session->userdata['logged_in']['user_id'])) {
 			redirect(base_url().$this->uri->segment(1));
 		}
-		$this->form_validation->set_rules('email', 'Email Address', 'trim|required|valid_email');
+		$this->form_validation->set_rules('email', 'Email Address', 'trim|required');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|md5'); 
 		if ($this->form_validation->run() == FALSE) {
 			$data['validations'] = $this->form_validation->error_array();
@@ -200,6 +212,7 @@ class Gujarati extends CI_Controller {
 				        $data['status'] = 1;
         				$data['response']['res'] = 'nocommunities';
         				$data['response']['userid'] = $result[0]->user_id;
+        				$data['response']['writerlang'] = $result[0]->writer_language;
         				echo json_encode($data);
 				    }
 				}else{
@@ -255,8 +268,94 @@ class Gujarati extends CI_Controller {
         $data['message_display'] = 'Successfully Logout';
         redirect(base_url().$this->uri->segment(1));
     }
-    public function changepassword()
-	{
+    public function generalinfo(){
+        if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){
+		    $data['editprofile'] = $this->User_model->editprofile($this->session->userdata['logged_in']['user_id']);
+            $this->form_validation->set_rules('aboutus', 'About us', 'trim|min_length[3]');
+            $this->form_validation->set_rules('name', ' Name', 'trim|required|min_length[3]');
+            $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
+            $this->form_validation->set_rules('dob', 'DOB', 'trim');
+            if ($this->form_validation->run() == FALSE) {
+                $data['validations'] = $this->form_validation->error_array();
+    			$data['status']=-1;
+    			echo json_encode($data);
+            }else {
+                $inputdata = array(
+                    'aboutus' => $this->input->post('aboutus'),
+                    'name' => $this->input->post('name'),
+                    'gender' => $this->input->post('gender'),
+                    'dob' => $this->input->post('dob'),
+                );
+                $result = $this->User_model->updateprofile($inputdata, $this->session->userdata['logged_in']['user_id']);
+                if($result){
+                    $data['status']=1;
+                	$data['response']='success';
+			        echo json_encode($data);
+                }else{
+                    $data['status']=2;
+                	$data['response']='fail';
+			        echo json_encode($data);
+                }
+            }
+        }else{
+            $data['status']=3;
+        	$data['response']='nouser';
+	        echo json_encode($data);
+        }
+    }
+    public function contactinfo(){
+        if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){
+		    $data['editprofile'] = $this->User_model->editprofile($this->session->userdata['logged_in']['user_id']);
+            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+            $this->form_validation->set_rules('phone', 'Phone', 'trim|numeric');
+            $this->form_validation->set_rules('uemailstatus', 'Email Status', 'trim|required');
+            $this->form_validation->set_rules('uphonestatus', 'Phone Status', 'trim|required');
+            if ($this->form_validation->run() == FALSE) {
+                $data['validations'] = $this->form_validation->error_array();
+                $data['status']=-1;
+                echo json_encode($data);
+            }else {
+                $dbemailcheck = $this->User_model->dbemail($_POST['email']);
+                if($dbemailcheck->num_rows() > 0){
+                    $data['validations'] = array('email' => 'The Email you entered is already taken.');
+                    $data['status']=-1;
+                    echo json_encode($data);
+                }else{
+                    $dbemail = $this->User_model->dbemail();
+                    $user_activation  = 1;
+                    if(isset($dbemail) && !empty($dbemail) && ($_POST['email'] != $dbemail)){
+                        $user_activation = 2;
+                        //$this->User_model->sendEmail($_POST['email']);
+                    }
+                    
+                    $inputdata = array(
+                        'email' => $this->input->post('email'),
+                        'phone' => $this->input->post('phone'),
+                        'uemailstatus' => $this->input->post('uemailstatus'),
+                        'uphonestatus' => $this->input->post('uphonestatus'),
+                    );
+                    if($user_activation != 1){
+                        $inputdata['user_activation'] = $user_activation;
+                    }
+                    $result = $this->User_model->updateprofile($inputdata, $this->session->userdata['logged_in']['user_id']);
+                    if($result){
+                        $data['status']=1;
+                    	$data['response']='success';
+    			        echo json_encode($data);
+                    }else{
+                        $data['status']=2;
+                    	$data['response']='fail';
+                        echo json_encode($data);
+                    }
+                }
+            }
+        }else{
+            $data['status']=3;
+            $data['response']='nouser';
+            echo json_encode($data);
+        }
+    }
+    public function changepassword() {
         if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){
 		    $data['editprofile'] = $this->User_model->editprofile($this->session->userdata['logged_in']['user_id']);
             $this->form_validation->set_rules('oldpassword', 'Old Password', 'trim|required|md5');
@@ -268,7 +367,7 @@ class Gujarati extends CI_Controller {
     			echo json_encode($data);
             }else {
                 $passwordcheck = $this->User_model->changepassword($this->input->post('oldpassword'));
-                if(isset($passwordcheck)) {
+                if(isset($passwordcheck) && ($passwordcheck->num_rows() > 0)) {
                     $response = $this->User_model->resetpassword($this->input->post('password'),$this->session->userdata['logged_in']['user_id']);
                     if($response){
                         $data['status']=1;
@@ -512,15 +611,33 @@ class Gujarati extends CI_Controller {
  	    }else if(isset($_POST['id']) && !empty($_POST['id'])) {
 			$storyid = $this->input->post('id');
 	        $data['storysuggesttofrd'] = $this->User_model->get_story_data($storyid);
-	        $data['allusers'] = $this->User_model->allusers();
             $this->load->view('otherlangs/storysuggesttofrd', $data);
 		}else{
 		    $this->load->view('otherlangs/storysuggesttofrd');
 		}
  	}
+	public function allusers(){
+        if(isset($_GET['search']) && !empty($_GET['search'])){
+            $allusers = $this->User_model->allusers($_GET['search']);
+            $datares = array(); $i = 0;
+            if($allusers->num_rows() > 0){ foreach($allusers->result() as $res){
+                if($res->user_id != $this->session->userdata['logged_in']['user_id']){
+                    $datares[$i]['value'] = $res->user_id;
+                    if(isset($res->profile_image) && !empty($res->profile_image)){
+                        $datares[$i]['text'] = '<div style="flex"><img style="height:30px;width:30px; float:left;margin-top:-5px;" class="img-circle" src="'.base_url().'assets/images/'.$res->profile_image.'"><span style="padding-left:8px;">'.$res->name.'</span></div>';
+                    }else{
+                        $datares[$i]['text'] = '<div style="flex"><img style="height:30px;width:30px; float:left;margin-top:-5px;" class="img-circle" src="'.base_url().'assets/images/2.png"><span style="padding-left:8px;">'.$res->name.'</span></div>';
+                    }
+                    $i++;
+                }
+            }   }
+            echo json_encode($datares);
+	    }
+	}
 	public function series(){
 	    $header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$this->load->view('otherlangs/series.php', $header);
 	}
 	public function series_story_uplode() {
@@ -579,6 +696,87 @@ class Gujarati extends CI_Controller {
                 		$this->load->view('otherlangs/series.php', $header);
                     }
                 }
+                if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+                	$serverimageurl = explode('/', $_POST['cover_image']);
+                	$serverimage = end($serverimageurl);
+					$imageextension = explode('.',$serverimage);
+					$filename = $_POST['cover_image'];
+					list($width, $height) = getimagesize($filename);
+					$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+					$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+					$targ_w=293;$targ_h=280;   $itarg_w=200;$itarg_h=180;
+					switch($imageextension[1]) {
+					    case 'gif' :
+					        $type ="gif";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'GIF' :
+					        $type ="GIF";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'png' :
+					        $type ="png";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'PNG' :
+					        $type ="PNG";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'jpg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPG' :
+					        $type ="JPG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'jpeg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPEG' :
+					        $type ="JPEG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    default : 
+					        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+					        break;
+					}
+					$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+					$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+					imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+					imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+
+					if($type=="gif" || $type=="GIF")
+					{
+					    imagegif($dst_r, $pnewimagepath);
+					    imagegif($idst_r, $inewimagepath);
+					}
+					elseif($type=="jpg" || $type=="JPG")
+					{
+					    imagejpeg($dst_r, $pnewimagepath);
+					    imagejpeg($idst_r, $inewimagepath);
+					}
+					elseif($type=="png" || $type=="PNG")
+					{
+					    imagepng($dst_r, $pnewimagepath);
+					    imagepng($idst_r, $inewimagepath);
+					}
+					elseif($type=="bmp" || $type=="BMP" || $type=="jpeg")
+					{
+					    imagewbmp($dst_r, $pnewimagepath);
+					    imagewbmp($idst_r, $inewimagepath);
+					}
+					$urlpicture1 = explode('/', $pnewimagepath);
+					$picture1 = end($urlpicture1);
+					$urlimage = explode('/', $inewimagepath);
+					$image = end($urlimage);
+                }
+                if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+                	$picture1 = $_POST['cover_imagelocalp'];
+                }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+                	$image = $_POST['cover_imagelocali'];
+                }
                 $data = array(
                     'title' => $this->input->post('title'),
                     'etitle' => $this->input->post('etitle'),
@@ -602,6 +800,7 @@ class Gujarati extends CI_Controller {
 	public function series_priview($lid) {
         if($this->session->userdata('logged_in')==NULL) redirect(base_url().$this->uri->segment(1));
 		$header['res'] = $this->User_model->edit_story($lid);
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$this->load->view('otherlangs/series_priview.php',$header);
   	}
   	public function addseriesepisode($series_id){
@@ -617,7 +816,7 @@ class Gujarati extends CI_Controller {
     	    echo 0;
     	}
     }
-	public function addstory_intro($lid){
+	/*public function addstory_intro($lid){
 	    $header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
 		$data['res']  = $this->User_model->edit_story($lid);
@@ -638,6 +837,145 @@ class Gujarati extends CI_Controller {
 				'story' => $this->input->post('story'),
 				'story_id' => $this->input->post('story_id'),
 			);
+			if(isset($_POST['draft']) && ($_POST['draft'] == 'draft')){
+			    $inputdata['draft'] = $_POST['draft'];
+			}
+			$res = $this->User_model->addstory($inputdata, $lid);
+			if($add == 'yes'){
+			    redirect(base_url($this->uri->segment(1).'/episode/'.$title.'-'.$lid.'/'.$title.'-'.$lid));
+			}else{
+		       redirect(base_url($this->uri->segment(1).'/admin-series/'.$title.'-'.$lid.'/'.$title.'-'.$lid));
+			}
+		}
+	} */
+	public function addstory_intro($lid){
+	    $header['gener'] = $this->User_model->gener();
+		$header['languages'] = $this->User_model->language();
+		$data['res']  = $this->User_model->edit_story($lid);
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
+		$this->form_validation->set_rules('story', 'story', 'trim|required');
+		$this->form_validation->set_rules('story_id', 'story_id', 'trim|required');
+		$this->form_validation->set_rules('draft', 'Draft', 'trim');
+		$add = '';
+		if(isset($_POST['addepisode']) && !empty($_POST['addepisode'])){
+		    $add = $_POST['addepisode'];
+		}
+		if ($this->form_validation->run() == FALSE) {
+    		$this->load->view('otherlangs/header.php', $header);
+    		$this->load->view('otherlangs/series_story',$data);//series_priview.php
+            $this->load->view('otherlangs/footer.php');
+        } else {
+            $picture1 = ''; $image = '';
+            if(isset($_FILES['cover_image']['name']) && !empty($_FILES['cover_image']['name'])){
+                $config['upload_path'] = 'assets/images/';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                $config['max_size']     = '2048';
+                $config['encrypt_name'] = TRUE;
+                $this->load->library('upload',$config);
+                $this->upload->initialize($config);
+                if($this->upload->do_upload('cover_image')){
+                    $uploadData = $this->upload->data();
+                    $config['image_library'] = 'gd2';
+                    $config['source_image'] = 'assets/images/'.$uploadData['file_name'];
+                    $config['create_thumb'] = FALSE;
+                    $config['maintain_ratio'] = FALSE;
+                    $config['quality'] = '85%';
+                    $config['width'] = 293;
+                    $config['height'] = 280;
+                    $this->load->library('image_lib', $config);
+                    $this->image_lib->resize();
+                    $picture1 = $uploadData['file_name'];
+                    $date = strtotime(date('Y-m-d h:i:s'));
+                    $newNamePrefix = $date.'_';
+                    $manipulator = new ImageManipulator($_FILES['cover_image']['tmp_name']);
+                    $newImage = $manipulator->resample(200, 180, FALSE);
+                    $image = $newNamePrefix.$_FILES['cover_image']['name'];
+                    $manipulator->save('assets/images/'.$newNamePrefix.$_FILES['cover_image']['name']);
+                }
+            }
+            if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+            	$serverimageurl = explode('/', $_POST['cover_image']);
+            	$serverimage = end($serverimageurl);
+				$imageextension = explode('.',$serverimage);
+				$filename = $_POST['cover_image'];
+				list($width, $height) = getimagesize($filename);
+				$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+				$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+				$targ_w=293;$targ_h=280;   $itarg_w=200;$itarg_h=180;
+				switch($imageextension[1]) {
+				    case 'gif' :
+				        $type ="gif";
+				        $img = imagecreatefromgif($filename);
+				        break;
+				    case 'GIF' :
+				        $type ="GIF";
+				        $img = imagecreatefromgif($filename);
+				        break;
+				    case 'png' :
+				        $type ="png";
+				        $img = imagecreatefrompng($filename);
+				        break;
+				    case 'PNG' :
+				        $type ="PNG";
+				        $img = imagecreatefrompng($filename);
+				        break;
+				    case 'jpg' :
+				        $type ="jpg";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'JPG' :
+				        $type ="JPG";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'jpeg' :
+				        $type ="jpg";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'JPEG' :
+				        $type ="JPEG";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    default : 
+				        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+				        break;
+				}
+				$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+				$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+				imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+				imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+				if($type=="gif" || $type=="GIF")
+				{
+				    imagegif($dst_r, $pnewimagepath);
+				    imagegif($idst_r, $inewimagepath);
+				}elseif($type=="jpg" || $type=="JPG"){
+				    imagejpeg($dst_r, $pnewimagepath);
+				    imagejpeg($idst_r, $inewimagepath);
+				}elseif($type=="png" || $type=="PNG"){
+				    imagepng($dst_r, $pnewimagepath);
+				    imagepng($idst_r, $inewimagepath);
+				}elseif($type=="bmp" || $type=="BMP" || $type=="jpeg"){
+				    imagewbmp($dst_r, $pnewimagepath);
+				    imagewbmp($idst_r, $inewimagepath);
+				}
+				$urlpicture1 = explode('/', $pnewimagepath);
+				$picture1 = end($urlpicture1);
+				$urlimage = explode('/', $inewimagepath);
+				$image = end($urlimage);
+            }
+            if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+            	$picture1 = $_POST['cover_imagelocalp'];
+            }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+            	$image = $_POST['cover_imagelocali'];
+            }
+            $title = preg_replace("~[^\p{M}\w]+~u", '-', $_POST['title']);
+			$inputdata = array(
+				'story' => $this->input->post('story'),
+				'story_id' => $this->input->post('story_id'),
+			);
+			if(!empty($picture1)){
+                $inputdata['cover_image'] = $picture1;
+                $inputdata['image'] = $image;
+            }
 			if(isset($_POST['draft']) && ($_POST['draft'] == 'draft')){
 			    $inputdata['draft'] = $_POST['draft'];
 			}
@@ -682,7 +1020,7 @@ class Gujarati extends CI_Controller {
                     $date = strtotime(date('Y-m-d h:i:s'));
                     $newNamePrefix = $date.'_';
                     $manipulator = new ImageManipulator($_FILES['cover_image']['tmp_name']);
-                    $newImage = $manipulator->resample(200, 180,FALSE);
+                    $newImage = $manipulator->resample(200, 180, FALSE);
                     $image = $newNamePrefix.$_FILES['cover_image']['name'];
                     // saving file to uploads folder
                     $manipulator->save('assets/images/'.$newNamePrefix.$_FILES['cover_image']['name']);
@@ -707,12 +1045,25 @@ class Gujarati extends CI_Controller {
             $uniqueviews = $this->User_model->uniqueviews($sid);
     		$data['admin_story_view'] = $this->User_model->admin_story_view($sid);
     		$data['new_series'] = $this->User_model->new_series($sid,$s_storyid);
+    		if($data['new_series']->num_rows() == 0){
+    		    $this->load->view('otherlangs/error');
+    		}
 		    $data['recentseries'] = $this->User_model->recentseries($sid,$s_storyid);
     		$data['comment_get'] = $this->User_model->comment_get($sid, 0,2);
     		$data['new_episode'] = $this->User_model->new_episode($s_storyid);
     		$data['userstorys'] = $this->User_model->userstorys();
     		$data['lastepisode'] = $this->User_model->checkforlastepisode($s_storyid);
     		$data['seriesftitle'] = $this->User_model->seriesftitle($s_storyid);
+    		$seriesftitle = $data['seriesftitle']->result(); $series_ftitle = $seriesftitle[0]->title;
+    		if(isset($data['new_series']) && ($data['new_series']->num_rows() > 0 )){
+    		    $metatags = $data['new_series']->result();
+    		    $urltitlecheck = preg_replace("~[^\p{M}\w]+~u", '-',$metatags[0]->title).'-'.$sid;
+    		    $episodeurltitlecheck = preg_replace("~[^\p{M}\w]+~u", '-',$series_ftitle).'-'.$s_storyid;
+    		    if(preg_replace("~[^\p{M}\w]+~u", '-',$metatags[0]->title) == preg_replace("~[^\p{M}\w]+~u", '-',$series_ftitle)){
+    		    }else if(($this->uri->segment(3) != '' && $this->uri->segment(4) != '') && (urldecode($this->uri->segment(3)) != $urltitlecheck) || (urldecode($this->uri->segment(4)) != $episodeurltitlecheck)){
+                    $this->load->view('otherlangs/error');
+    		    }
+    		}
     		$data['nextepisode'] = $this->User_model->nextepisode($sid,$s_storyid);
     		if(isset($sid, $s_storyid) && ($sid == $s_storyid)){
     		    $data['reviews'] = $this->User_model->reviews_series($sid);
@@ -794,9 +1145,20 @@ class Gujarati extends CI_Controller {
 		$data['userrating'] = $this->User_model->userrating($sid);
 		$data['comment_get'] = $this->User_model->comment_get($sid);
 		$data['new_series'] = $this->User_model->new_series($sid,$s_storyid);
+		$data['seriesftitle'] = $this->User_model->seriesftitle($s_storyid);
+		$seriesftitle = $data['seriesftitle']->result(); $series_ftitle = $seriesftitle[0]->title;
+		if($data['new_series']->num_rows() == 0){
+		    $this->load->view('otherlangs/error');
+		}
 		// For Meta tags social share end
 		if(isset($data['new_series']) && ($data['new_series']->num_rows() > 0 )){
 		    $metatags = $data['new_series']->result();
+		    $urltitlecheck = preg_replace("~[^\p{M}\w]+~u", '-',$metatags[0]->title).'-'.$sid;
+		    $episodeurltitlecheck = preg_replace("~[^\p{M}\w]+~u", '-',$series_ftitle).'-'.$s_storyid;
+		    if(preg_replace("~[^\p{M}\w]+~u", '-',$metatags[0]->title) == preg_replace("~[^\p{M}\w]+~u", '-',$series_ftitle)){
+		    }else if(($this->uri->segment(3) != '' && $this->uri->segment(4) != '') && (urldecode($this->uri->segment(3)) != $urltitlecheck) || (urldecode($this->uri->segment(4)) != $episodeurltitlecheck)){
+                $this->load->view('otherlangs/error');
+		    }
 		    $header['ogtitle'] = $metatags[0]->title;
 		    $header['ogetitle'] = $metatags[0]->etitle;
 		    $header['ogkeywords'] = $metatags[0]->keywords;
@@ -815,7 +1177,7 @@ class Gujarati extends CI_Controller {
 		$data['following'] = $this->User_model->following();
 		$data['subscriptions'] = $this->User_model->favoritreadlater('seriessubscribe',$s_storyid);
 		$data['countsubs'] = $this->User_model->seriesreadlater('seriessubscribe', $s_storyid);
-		$data['seriesftitle'] = $this->User_model->seriesftitle($s_storyid);
+		//$data['seriesftitle'] = $this->User_model->seriesftitle($s_storyid);
 		$this->load->view('otherlangs/header.php', $header);
 		$this->load->view('otherlangs/new_series.php',$data);
 		$this->load->view('otherlangs/footer.php');
@@ -827,6 +1189,7 @@ class Gujarati extends CI_Controller {
 	    $s_storyid  = end($series_storyid); // get series story_id & story_id in db table
 		$header['new_episode'] = $this->User_model->new_episode($s_storyid);
 		$header['seriesftitle'] = $this->User_model->seriesftitle($s_storyid);
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$header['story_id'] = $s_storyid;
 	    $this->load->view('otherlangs/newepisode.php',$header);
 	}
@@ -883,6 +1246,97 @@ class Gujarati extends CI_Controller {
             }else{
                 echo 0;
             }
+        }else if(isset($_POST['imagepath'], $_POST['seriesid']) && !empty($_POST['imagepath']) && !empty($_POST['seriesid'])) {
+			$serverimageurl = explode('/', $_POST['imagepath']);
+        	$serverimage = end($serverimageurl);
+			$imageextension = explode('.',$serverimage);
+			$filename = $_POST['imagepath'];
+			list($width, $height) = getimagesize($filename);
+			$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+			$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+			$targ_w=293;$targ_h=280;   $itarg_w=200;$itarg_h=180;
+			switch($imageextension[1]) {
+			    case 'gif' :
+			        $type ="gif";
+			        $img = imagecreatefromgif($filename);
+			        break;
+			    case 'GIF' :
+			        $type ="GIF";
+			        $img = imagecreatefromgif($filename);
+			        break;
+			    case 'png' :
+			        $type ="png";
+			        $img = imagecreatefrompng($filename);
+			        break;
+			    case 'PNG' :
+			        $type ="PNG";
+			        $img = imagecreatefrompng($filename);
+			        break;
+			    case 'jpg' :
+			        $type ="jpg";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'JPG' :
+			        $type ="JPG";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'jpeg' :
+			        $type ="jpg";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'JPEG' :
+			        $type ="JPEG";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    default : 
+			        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+			        break;
+			}
+			$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+			$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+			imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+			imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+			if($type=="gif" || $type=="GIF"){
+			    imagegif($dst_r, $pnewimagepath);
+			    imagegif($idst_r, $inewimagepath);
+			}elseif($type=="jpg" || $type=="JPG"){
+			    imagejpeg($dst_r, $pnewimagepath);
+			    imagejpeg($idst_r, $inewimagepath);
+			}elseif($type=="png" || $type=="PNG"){
+			    imagepng($dst_r, $pnewimagepath);
+			    imagepng($idst_r, $inewimagepath);
+			}elseif($type=="bmp" || $type=="BMP" || $type=="jpeg"){
+			    imagewbmp($dst_r, $pnewimagepath);
+			    imagewbmp($idst_r, $inewimagepath);
+			}
+			$urlpicture1 = explode('/', $pnewimagepath);
+			$picture1 = end($urlpicture1);
+			$urlimage = explode('/', $inewimagepath);
+			$image = end($urlimage);
+
+			$data = array('cover_image' => $picture1, 'image' => $image);
+                $returndata = array();
+                $returndata['picture'] = $picture1;
+                if(isset($_POST['seimage_sid']) && !empty($_POST['seimage_sid'])){
+                    $response = $this->User_model->uploaddraftimage($_POST['seimage_sid'], $data);
+                    echo json_encode($returndata);
+                }else{
+                    $siddata = array(
+                        'story_id' => $_POST['seriesid'],
+                        'user_id' => $this->session->userdata['logged_in']['user_id'],
+                        'draft' => 'draft',
+                        'type' => 'series',
+                    );
+                    $sidresponse = $this->User_model->addseriesepisode($siddata);
+                    if(!empty($sidresponse)){
+                        $response = $this->User_model->uploaddraftimage($sidresponse, $data);
+                        $returndata['sid'] = $sidresponse;
+                        echo json_encode($returndata);
+                    }else{
+                        echo 0;
+                    }
+                }
+
         }else{
             echo 0;
         }
@@ -965,6 +1419,7 @@ class Gujarati extends CI_Controller {
 		$header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
 		$header['story_info'] = $this->User_model->story_info($sid);
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$header['sid'] = $sid;
 		if(isset($header['story_info']) && $header['story_info']->num_rows() == 1){
 		    $result = $header['story_info']->result();
@@ -989,6 +1444,7 @@ class Gujarati extends CI_Controller {
         $header['gener'] = $this->User_model->gener();
         $header['languages'] = $this->User_model->language();
         $header['story_info'] = $this->User_model->story_info($sid);
+        $header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
         $header['sid'] = $sid;
         if(isset($_POST['editstorytype']) && ($_POST['editstorytype'] == 'seriespreface')){
             $this->form_validation->set_rules('title', 'title', 'trim|required');
@@ -1033,6 +1489,80 @@ class Gujarati extends CI_Controller {
                         $manipulator->save('assets/images/'.$newNamePrefix.$_FILES['cover_image']['name']);
                     }
                 }
+                if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+	            	$serverimageurl = explode('/', $_POST['cover_image']);
+	            	$serverimage = end($serverimageurl);
+					$imageextension = explode('.',$serverimage);
+					$filename = $_POST['cover_image'];
+					list($width, $height) = getimagesize($filename);
+					$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+					$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+					$targ_w=293;$targ_h=280;   $itarg_w=200;$itarg_h=180;
+					switch($imageextension[1]) {
+					    case 'gif' :
+					        $type ="gif";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'GIF' :
+					        $type ="GIF";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'png' :
+					        $type ="png";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'PNG' :
+					        $type ="PNG";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'jpg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPG' :
+					        $type ="JPG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'jpeg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPEG' :
+					        $type ="JPEG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    default : 
+					        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+					        break;
+					}
+					$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+					$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+					imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+					imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+					if($type=="gif" || $type=="GIF")
+					{
+					    imagegif($dst_r, $pnewimagepath);
+					    imagegif($idst_r, $inewimagepath);
+					}elseif($type=="jpg" || $type=="JPG"){
+					    imagejpeg($dst_r, $pnewimagepath);
+					    imagejpeg($idst_r, $inewimagepath);
+					}elseif($type=="png" || $type=="PNG"){
+					    imagepng($dst_r, $pnewimagepath);
+					    imagepng($idst_r, $inewimagepath);
+					}elseif($type=="bmp" || $type=="BMP" || $type=="jpeg"){
+					    imagewbmp($dst_r, $pnewimagepath);
+					    imagewbmp($idst_r, $inewimagepath);
+					}
+					$urlpicture1 = explode('/', $pnewimagepath);
+					$picture1 = end($urlpicture1);
+					$urlimage = explode('/', $inewimagepath);
+					$image = end($urlimage);
+	            }
+	            if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+	            	$picture1 = $_POST['cover_imagelocalp'];
+	            }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+	            	$image = $_POST['cover_imagelocali'];
+	            }
                 $updatedata = array(
                     'title' => $this->input->post('title'),
                     'etitle' => $this->input->post('etitle'),
@@ -1049,7 +1579,7 @@ class Gujarati extends CI_Controller {
                 }
                 $result  = $this->User_model->update_info($sid,$updatedata);
                 if($result){
-                    redirect(base_url($this->uri->segment(1).'/admin-series/'.preg_replace('/\s+/', '-',$this->input->post('title')).'-'.$sid.'/'.preg_replace('/\s+/', '-',$this->input->post('title')).'-'.$sid));
+                    redirect(base_url($this->uri->segment(1).'/admin-series/'.preg_replace("~[^\p{M}\w]+~u", '-',$this->input->post('title')).'-'.$sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-',$this->input->post('title')).'-'.$sid));
                 }else{
                     $header['preface'] = 'preface';
                     $this->load->view('otherlangs/editseries_info.php',$header);
@@ -1063,6 +1593,7 @@ class Gujarati extends CI_Controller {
 	    $header['gener'] = $this->User_model->gener();
         $header['languages'] = $this->User_model->language();
         $header['story_info'] = $this->User_model->story_info($sid);
+        $header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
         $header['sid'] = $sid;
         if(isset($_POST) && !empty($_POST)){
             $this->form_validation->set_rules('title', 'title', 'trim|required');
@@ -1106,6 +1637,80 @@ class Gujarati extends CI_Controller {
                         $manipulator->save('assets/images/'.$newNamePrefix.$_FILES['cover_image']['name']);
                     }
                 }
+                if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+	            	$serverimageurl = explode('/', $_POST['cover_image']);
+	            	$serverimage = end($serverimageurl);
+					$imageextension = explode('.',$serverimage);
+					$filename = $_POST['cover_image'];
+					list($width, $height) = getimagesize($filename);
+					$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+					$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+					$targ_w=293;$targ_h=280;   $itarg_w=200;$itarg_h=180;
+					switch($imageextension[1]) {
+					    case 'gif' :
+					        $type ="gif";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'GIF' :
+					        $type ="GIF";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'png' :
+					        $type ="png";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'PNG' :
+					        $type ="PNG";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'jpg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPG' :
+					        $type ="JPG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'jpeg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPEG' :
+					        $type ="JPEG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    default : 
+					        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+					        break;
+					}
+					$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+					$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+					imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+					imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+					if($type=="gif" || $type=="GIF")
+					{
+					    imagegif($dst_r, $pnewimagepath);
+					    imagegif($idst_r, $inewimagepath);
+					}elseif($type=="jpg" || $type=="JPG"){
+					    imagejpeg($dst_r, $pnewimagepath);
+					    imagejpeg($idst_r, $inewimagepath);
+					}elseif($type=="png" || $type=="PNG"){
+					    imagepng($dst_r, $pnewimagepath);
+					    imagepng($idst_r, $inewimagepath);
+					}elseif($type=="bmp" || $type=="BMP" || $type=="jpeg"){
+					    imagewbmp($dst_r, $pnewimagepath);
+					    imagewbmp($idst_r, $inewimagepath);
+					}
+					$urlpicture1 = explode('/', $pnewimagepath);
+					$picture1 = end($urlpicture1);
+					$urlimage = explode('/', $inewimagepath);
+					$image = end($urlimage);
+	            }
+	            if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+	            	$picture1 = $_POST['cover_imagelocalp'];
+	            }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+	            	$image = $_POST['cover_imagelocali'];
+	            }
                 $updatedata = array(
                     'title' => $this->input->post('title'),
                     'etitle' => $this->input->post('etitle'),
@@ -1122,7 +1727,7 @@ class Gujarati extends CI_Controller {
                 }
                 $result  = $this->User_model->update_info($sid,$updatedata);
                 if($result){
-                    redirect(base_url($this->uri->segment(1).'/admin-story/'.preg_replace('/\s+/', '-',$this->input->post('title')).'-'.$sid));
+                    redirect(base_url($this->uri->segment(1).'/admin-story/'.preg_replace("~[^\p{M}\w]+~u", '-',$this->input->post('title')).'-'.$sid));
                 }else{
                     $this->load->view('otherlangs/editstory_info.php',$header);
                 }
@@ -1135,6 +1740,7 @@ class Gujarati extends CI_Controller {
 	    $header['gener'] = $this->User_model->gener();
         $header['languages'] = $this->User_model->language();
         $header['story_info'] = $this->User_model->story_info($sid);
+        $header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
         $header['sid'] = $sid;
         if(isset($_POST) && !empty($_POST)){
             $this->form_validation->set_rules('title', 'title', 'trim|required');
@@ -1176,6 +1782,80 @@ class Gujarati extends CI_Controller {
                         $manipulator->save('assets/images/'.$newNamePrefix.$_FILES['cover_image']['name']);
                     }
                 }
+                if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+	            	$serverimageurl = explode('/', $_POST['cover_image']);
+	            	$serverimage = end($serverimageurl);
+					$imageextension = explode('.',$serverimage);
+					$filename = $_POST['cover_image'];
+					list($width, $height) = getimagesize($filename);
+					$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+					$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+					$targ_w=293;$targ_h=280;   $itarg_w=266;$itarg_h=165;
+					switch($imageextension[1]) {
+					    case 'gif' :
+					        $type ="gif";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'GIF' :
+					        $type ="GIF";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'png' :
+					        $type ="png";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'PNG' :
+					        $type ="PNG";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'jpg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPG' :
+					        $type ="JPG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'jpeg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPEG' :
+					        $type ="JPEG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    default : 
+					        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+					        break;
+					}
+					$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+					$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+					imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+					imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+
+					if($type=="gif" || $type=="GIF"){
+					    imagegif($dst_r, $pnewimagepath);
+					    imagegif($idst_r, $inewimagepath);
+					}elseif($type=="jpg" || $type=="JPG"){
+					    imagejpeg($dst_r, $pnewimagepath);
+					    imagejpeg($idst_r, $inewimagepath);
+					}elseif($type=="png" || $type=="PNG"){
+					    imagepng($dst_r, $pnewimagepath);
+					    imagepng($idst_r, $inewimagepath);
+					}elseif($type=="bmp" || $type=="BMP" || $type=="jpeg"){
+					    imagewbmp($dst_r, $pnewimagepath);
+					    imagewbmp($idst_r, $inewimagepath);
+					}
+					$urlpicture1 = explode('/', $pnewimagepath);
+					$picture1 = end($urlpicture1);
+					$urlimage = explode('/', $inewimagepath);
+					$image = end($urlimage);
+	            }
+	            if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+	            	$picture1 = $_POST['cover_imagelocalp'];
+	            }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+	            	$image = $_POST['cover_imagelocali'];
+	            }
                 $updatedata = array(
                     'title' => $this->input->post('title'),
                     'etitle' => $this->input->post('etitle'),
@@ -1194,7 +1874,7 @@ class Gujarati extends CI_Controller {
                 }
                 $result  = $this->User_model->updatelife_info($sid,$updatedata, $keywords);
                 if($result){
-                    redirect(base_url($this->uri->segment(1).'/admin-story/'.preg_replace('/\s+/', '-',$this->input->post('title')).'-'.$sid));
+                    redirect(base_url($this->uri->segment(1).'/admin-story/'.preg_replace("~[^\p{M}\w]+~u", '-',$this->input->post('title')).'-'.$sid));
                 }else{
                     $this->load->view('otherlangs/editlife_info.php',$header);
                 }
@@ -1234,14 +1914,15 @@ class Gujarati extends CI_Controller {
         }
         $data  = $this->User_model->story_info_uplode($sid,$updata);
         if($type == 'series'){
-      	    redirect(base_url($this->uri->segment(1).'/admin-series/'.preg_replace('/\s+/', '-',$title).'-'.$sid.'/'.preg_replace('/\s+/', '-',$title).'-'.$story_id));
+      	    redirect(base_url($this->uri->segment(1).'/admin-series/'.preg_replace("~[^\p{M}\w]+~u", '-',$title).'-'.$sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-',$title).'-'.$story_id));
       	} else {
-            redirect(base_url($this->uri->segment(1).'/admin-story/'.preg_replace('/\s+/', '-', $title).'-'.$sid));
+            redirect(base_url($this->uri->segment(1).'/admin-story/'.preg_replace("~[^\p{M}\w]+~u", '-', $title).'-'.$sid));
         }
     }*/
     public function series_edit($sid){
 	 	if($this->session->userdata('logged_in')==NULL) redirect(base_url().$this->uri->segment(1));
 		$header['series_edit'] = $this->User_model->series_edit($sid);
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
         $this->load->view('otherlangs/series_edit.php',$header);
 	}
 	public function updatestory() {
@@ -1255,7 +1936,10 @@ class Gujarati extends CI_Controller {
 		if ($this->form_validation->run() == FALSE) {
 		    redirect(base_url().$this->uri->segment(1).'/series_edit/'.$_POST['story_id']);
         } else {
-            $title = preg_replace('/\s+/', '-',$_POST['title']);
+            $title = preg_replace("~[^\p{M}\w]+~u", '-',$_POST['title']);
+            $ptitle = $title;
+            $pretitle = $this->User_model->prefacetitle($_POST['story_id']);
+            $ptitle = preg_replace("~[^\p{M}\w]+~u", '-',$pretitle);
         	$picture1 =''; $image =''; 
 			if(!empty($_FILES['cover_image']['name'])) {
                 $config['upload_path'] = 'assets/images/';
@@ -1287,6 +1971,79 @@ class Gujarati extends CI_Controller {
                     $manipulator->save('assets/images/'.$newNamePrefix.$_FILES['cover_image']['name']);
                 }
             }
+            if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+	        	$serverimageurl = explode('/', $_POST['cover_image']);
+	        	$serverimage = end($serverimageurl);
+				$imageextension = explode('.',$serverimage);
+				$filename = $_POST['cover_image'];
+				list($width, $height) = getimagesize($filename);
+				$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+				$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+				$targ_w=293;$targ_h=280;   $itarg_w=266;$itarg_h=165;
+				switch($imageextension[1]) {
+				    case 'gif' :
+				        $type ="gif";
+				        $img = imagecreatefromgif($filename);
+				        break;
+				    case 'GIF' :
+				        $type ="GIF";
+				        $img = imagecreatefromgif($filename);
+				        break;
+				    case 'png' :
+				        $type ="png";
+				        $img = imagecreatefrompng($filename);
+				        break;
+				    case 'PNG' :
+				        $type ="PNG";
+				        $img = imagecreatefrompng($filename);
+				        break;
+				    case 'jpg' :
+				        $type ="jpg";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'JPG' :
+				        $type ="JPG";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'jpeg' :
+				        $type ="jpg";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'JPEG' :
+				        $type ="JPEG";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    default : 
+				        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+				        break;
+				}
+				$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+				$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+				imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+				imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+				if($type=="gif" || $type=="GIF"){
+				    imagegif($dst_r, $pnewimagepath);
+				    imagegif($idst_r, $inewimagepath);
+				}elseif($type=="jpg" || $type=="JPG"){
+				    imagejpeg($dst_r, $pnewimagepath);
+				    imagejpeg($idst_r, $inewimagepath);
+				}elseif($type=="png" || $type=="PNG"){
+				    imagepng($dst_r, $pnewimagepath);
+				    imagepng($idst_r, $inewimagepath);
+				}elseif($type=="bmp" || $type=="BMP" || $type=="jpeg"){
+				    imagewbmp($dst_r, $pnewimagepath);
+				    imagewbmp($idst_r, $inewimagepath);
+				}
+				$urlpicture1 = explode('/', $pnewimagepath);
+				$picture1 = end($urlpicture1);
+				$urlimage = explode('/', $inewimagepath);
+				$image = end($urlimage);
+	        }
+	        if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+	        	$picture1 = $_POST['cover_imagelocalp'];
+	        }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+	        	$image = $_POST['cover_imagelocali'];
+	        }
     		$id = $this->input->post('hidden');
             $story = $this->input->post('story');	
             $story_id = $this->input->post('story_id');	
@@ -1305,7 +2062,7 @@ class Gujarati extends CI_Controller {
 				$inputdata['image'] = $image;
 			}
 			$res = $this->User_model->updatestory($inputdata,$id);
-			redirect(base_url($this->uri->segment(1).'/admin-series/'.$title.'-'.$id.'/'.$title.'-'.$story_id));
+			redirect(base_url($this->uri->segment(1).'/admin-series/'.$title.'-'.$id.'/'.$ptitle.'-'.$story_id));
     	}
 	}
 	public function saveupdatestory($storyid){
@@ -1349,6 +2106,92 @@ class Gujarati extends CI_Controller {
                 redirect(base_url().$this->uri->segment(1).'/admin_story_view/'.$storyid);
             }
         }
+        if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+        	$serverimageurl = explode('/', $_POST['cover_image']);
+        	$serverimage = end($serverimageurl);
+			$imageextension = explode('.',$serverimage);
+			$filename = $_POST['cover_image'];
+			list($width, $height) = getimagesize($filename);
+			$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+			$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+			$targ_w=293;$targ_h=280;   
+			if(isset($_POST['type']) && ($_POST['type'] == 'life')){
+				$itarg_w=266;$itarg_h=165;
+			}else{
+				$itarg_w=200;$itarg_h=180;
+			}
+			switch($imageextension[1]) {
+			    case 'gif' :
+			        $type ="gif";
+			        $img = imagecreatefromgif($filename);
+			        break;
+			    case 'GIF' :
+			        $type ="GIF";
+			        $img = imagecreatefromgif($filename);
+			        break;
+			    case 'png' :
+			        $type ="png";
+			        $img = imagecreatefrompng($filename);
+			        break;
+			    case 'PNG' :
+			        $type ="PNG";
+			        $img = imagecreatefrompng($filename);
+			        break;
+			    case 'jpg' :
+			        $type ="jpg";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'JPG' :
+			        $type ="JPG";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'jpeg' :
+			        $type ="jpg";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'JPEG' :
+			        $type ="JPEG";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    default : 
+			        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+			        break;
+			}
+			$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+			$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+			imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+			imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+
+			if($type=="gif" || $type=="GIF")
+			{
+			    imagegif($dst_r, $pnewimagepath);
+			    imagegif($idst_r, $inewimagepath);
+			}
+			elseif($type=="jpg" || $type=="JPG")
+			{
+			    imagejpeg($dst_r, $pnewimagepath);
+			    imagejpeg($idst_r, $inewimagepath);
+			}
+			elseif($type=="png" || $type=="PNG")
+			{
+			    imagepng($dst_r, $pnewimagepath);
+			    imagepng($idst_r, $inewimagepath);
+			}
+			elseif($type=="bmp" || $type=="BMP" || $type=="jpeg")
+			{
+			    imagewbmp($dst_r, $pnewimagepath);
+			    imagewbmp($idst_r, $inewimagepath);
+			}
+			$urlpicture1 = explode('/', $pnewimagepath);
+			$picture1 = end($urlpicture1);
+			$urlimage = explode('/', $inewimagepath);
+			$image = end($urlimage);
+        }
+        if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+        	$picture1 = $_POST['cover_imagelocalp'];
+        }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+        	$image = $_POST['cover_imagelocali'];
+        }
 	    $inputdata = array(
 			'story' => $this->input->post('story'),
 		);
@@ -1361,7 +2204,7 @@ class Gujarati extends CI_Controller {
 		}
 		$res = $this->User_model->updatestory($inputdata, $storyid);
 		if($res){
-		    redirect(base_url().$this->uri->segment(1).'/admin-story/'.preg_replace('/\s+/', '-',$title).'-'.$storyid);
+		    redirect(base_url().$this->uri->segment(1).'/admin-story/'.preg_replace("~[^\p{M}\w]+~u", '-',$title).'-'.$storyid);
 		}else{
 		    redirect(base_url().$this->uri->segment(1).'/admin_story_view/'.$storyid);
 		}
@@ -1421,8 +2264,7 @@ class Gujarati extends CI_Controller {
 	        }else{
 	            echo 0;
 	        }
-	    }else{
-	        echo 0;
+
 	    }
 	}
 	public function saveaddtodrafts($storyid){
@@ -1437,6 +2279,8 @@ class Gujarati extends CI_Controller {
     		}else{
     		    echo 0;
     		}
+	    }else{
+	        echo 0;
 	    }
 	}
 	public function deletedraft() {
@@ -1482,6 +2326,160 @@ class Gujarati extends CI_Controller {
     	    echo 0;
     	}
     }
+
+    public function searchimage(){
+    	if(isset($_POST['searchimage']) && !empty($_POST['searchimage'])){
+			$searchimages = $this->User_model->searchdimages($_POST['searchimage']);
+			if($searchimages->num_rows() > 0){
+				echo json_encode($searchimages->result());
+			}
+    	}
+
+    }
+    public function loadmoredimages(){
+    	if(isset($_POST['start'], $_POST['limit']) && !empty($_POST['start']) && !empty($_POST['limit'])){
+    		$searchimages = $this->User_model->loadmoredimages($_POST['start'], $_POST['limit']);
+			if($searchimages->num_rows() > 0){
+				echo json_encode($searchimages->result());
+			}
+    	}
+    }
+    public function localimage(){
+		if(isset($_FILES['file']['name']) && !empty($_FILES['file']['name'])){
+			$picture1 = ''; $image = '';
+			$config['upload_path'] = 'assets/images/';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['max_size']     = '2048';
+            $config['encrypt_name'] = TRUE;
+            $this->load->library('upload',$config);
+            $this->upload->initialize($config);
+            if($this->upload->do_upload('file')){
+                $uploadData = $this->upload->data();
+                $config['image_library'] = 'gd2';
+                $config['source_image'] = 'assets/images/'.$uploadData['file_name'];
+                $config['create_thumb'] = FALSE;
+                $config['maintain_ratio'] = FALSE;
+                $config['quality'] = '85%';
+                $config['width'] = 293;
+                $config['height'] = 280;
+                $this->load->library('image_lib', $config);
+                $this->image_lib->resize();
+                $picture1 = $uploadData['file_name'];
+
+                $validExtensions = array('.jpg', '.jpeg', '.gif', '.png'); //// array of valid extensions
+                $fileExtension = strrchr($_FILES['file']['name'], "."); //// get extension of the uploaded file
+                // check if file Extension is on the list of allowed ones
+                    $date = strtotime(date('Y-m-d h:i:s'));
+                    $newNamePrefix = $date.'_';
+                    $manipulator = new ImageManipulator($_FILES['file']['tmp_name']);
+                    if($_POST['type'] == 'life'){
+                    	$newImage = $manipulator->resample(266, 165, FALSE);
+                    }else{
+                    	$newImage = $manipulator->resample(200, 180, FALSE);
+                	}
+                    $image = $newNamePrefix.$_FILES['file']['name'];
+                    // saving file to uploads folder
+                    $manipulator->save('assets/images/'.$newNamePrefix.$_FILES['file']['name']);
+            }
+            $data['picture1'] = $picture1;
+            $data['image'] = $image;
+            echo json_encode($data);
+        }
+    }
+    public function urldraftimage(){
+    	if(isset($_POST['picture1'], $_POST['image'], $_POST['story_id']) && !empty($_POST['picture1']) && !empty($_POST['story_id'])){
+			$data = array('cover_image' => $_POST['picture1'], 'image' => $_POST['image']);
+			$response = $this->User_model->uploaddraftimage($_POST['story_id'], $data);
+			if($response == 1){
+			    echo 1;
+			}else{
+			    echo 0;
+			}
+    	}
+    }
+    public function serverurldraftimage(){
+    	if(isset($_POST['url'], $_POST['story_id']) && !empty($_POST['url']) && !empty($_POST['story_id'])){
+        	$serverimageurl = explode('/', $_POST['url']);
+        	$serverimage = end($serverimageurl);
+			$imageextension = explode('.',$serverimage);
+			$filename = $_POST['url'];
+			list($width, $height) = getimagesize($filename);
+			$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+			$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+			$targ_w=293;$targ_h=280;
+			if(isset($_POST['type']) && ($_POST['type'] == 'life')){
+				$itarg_w=266; $itarg_h=165;
+			}else{
+				$itarg_w=200; $itarg_h=180;
+			}
+			switch($imageextension[1]) {
+			    case 'gif' :
+			        $type ="gif";
+			        $img = imagecreatefromgif($filename);
+			        break;
+			    case 'GIF' :
+			        $type ="GIF";
+			        $img = imagecreatefromgif($filename);
+			        break;
+			    case 'png' :
+			        $type ="png";
+			        $img = imagecreatefrompng($filename);
+			        break;
+			    case 'PNG' :
+			        $type ="PNG";
+			        $img = imagecreatefrompng($filename);
+			        break;
+			    case 'jpg' :
+			        $type ="jpg";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'JPG' :
+			        $type ="JPG";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'jpeg' :
+			        $type ="jpg";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    case 'JPEG' :
+			        $type ="JPEG";
+			        $img = imagecreatefromjpeg($filename);
+			        break;
+			    default : 
+			        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+			        break;
+			}
+			$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+			$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+			imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+			imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+
+			if($type=="gif" || $type=="GIF"){
+			    imagegif($dst_r, $pnewimagepath);
+			    imagegif($idst_r, $inewimagepath);
+			}elseif($type=="jpg" || $type=="JPG"){
+			    imagejpeg($dst_r, $pnewimagepath);
+			    imagejpeg($idst_r, $inewimagepath);
+			}elseif($type=="png" || $type=="PNG"){
+			    imagepng($dst_r, $pnewimagepath);
+			    imagepng($idst_r, $inewimagepath);
+			}elseif($type=="bmp" || $type=="BMP" || $type=="jpeg"){
+			    imagewbmp($dst_r, $pnewimagepath);
+			    imagewbmp($idst_r, $inewimagepath);
+			}
+			$urlpicture1 = explode('/', $pnewimagepath);
+			$picture1 = end($urlpicture1);
+			$urlimage = explode('/', $inewimagepath);
+			$image = end($urlimage);
+			$data = array('cover_image' => $picture1, 'image' => $image);
+			$response = $this->User_model->uploaddraftimage($_POST['story_id'], $data);
+			if($response == 1){
+			    echo 1;
+			}else{
+			    echo 0;
+			}
+    	}
+    }
     public function uploadstoryimg(){
         list($type, $data) = explode(';', $_POST['file']);
         list(, $data) = explode(',', $data);
@@ -1513,7 +2511,7 @@ class Gujarati extends CI_Controller {
         	 list($width, $height) = getimagesize(base_url().$imagepath);
         	 if(isset($width) && ($width > 700)){
                 $manipulator = new ImageManipulator($imagepath);
-                $newImage = $manipulator->resample(700, 400,FALSE);
+                $newImage = $manipulator->resample(700, $height, FALSE);
                 $manipulator->save($imagepath);
                 echo base_url().$imagepath;
         	 }else{
@@ -1542,12 +2540,14 @@ class Gujarati extends CI_Controller {
         if($this->session->userdata('logged_in')==NULL) redirect(base_url());
 		$header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$this->load->view('otherlangs/story.php', $header);
 	}
 	public function story_story_uplode() {
 	    if($this->session->userdata('logged_in')==NULL) redirect(base_url().$this->uri->segment(1));
 	    $header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		if(isset($_POST) && !empty($_POST)){
     	    $this->form_validation->set_rules('language', 'Language','trim|required', array('required' => 'This field is required'));
     		$this->form_validation->set_rules('title', 'Title', 'trim|required', array('required' => 'This field is required'));
@@ -1570,7 +2570,6 @@ class Gujarati extends CI_Controller {
                     $this->load->library('upload',$config);
                     $this->upload->initialize($config);
                     if(!$this->upload->do_upload('cover_image')){
-                        $header['error'] = $this->upload->display_errors();
                 		$this->load->view('otherlangs/story.php', $header);
                     }else if($this->upload->do_upload('cover_image')){
                         $uploadData = $this->upload->data();
@@ -1598,9 +2597,89 @@ class Gujarati extends CI_Controller {
                             $manipulator->save('assets/images/'.$newNamePrefix.$_FILES['cover_image']['name']);
                         }
                     }else{
-                        $header['error'] = $this->upload->display_errors();
                 		$this->load->view('otherlangs/story.php', $header);
                     }
+                }
+                if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+                	$serverimageurl = explode('/', $_POST['cover_image']);
+                	$serverimage = end($serverimageurl);
+					$imageextension = explode('.',$serverimage);
+					$filename = $_POST['cover_image'];
+					list($width, $height) = getimagesize($filename);
+					$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+					$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+					$targ_w=293;$targ_h=280;   $itarg_w=200;$itarg_h=180;
+					switch($imageextension[1]) {
+					    case 'gif' :
+					        $type ="gif";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'GIF' :
+					        $type ="GIF";
+					        $img = imagecreatefromgif($filename);
+					        break;
+					    case 'png' :
+					        $type ="png";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'PNG' :
+					        $type ="PNG";
+					        $img = imagecreatefrompng($filename);
+					        break;
+					    case 'jpg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPG' :
+					        $type ="JPG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'jpeg' :
+					        $type ="jpg";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    case 'JPEG' :
+					        $type ="JPEG";
+					        $img = imagecreatefromjpeg($filename);
+					        break;
+					    default : 
+					        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+					        break;
+					}
+					$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+					$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+					imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+					imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+
+					if($type=="gif" || $type=="GIF")
+					{
+					    imagegif($dst_r, $pnewimagepath);
+					    imagegif($idst_r, $inewimagepath);
+					}
+					elseif($type=="jpg" || $type=="JPG")
+					{
+					    imagejpeg($dst_r, $pnewimagepath);
+					    imagejpeg($idst_r, $inewimagepath);
+					}
+					elseif($type=="png" || $type=="PNG")
+					{
+					    imagepng($dst_r, $pnewimagepath);
+					    imagepng($idst_r, $inewimagepath);
+					}
+					elseif($type=="bmp" || $type=="BMP" || $type=="jpeg")
+					{
+					    imagewbmp($dst_r, $pnewimagepath);
+					    imagewbmp($idst_r, $inewimagepath);
+					}
+					$urlpicture1 = explode('/', $pnewimagepath);
+					$picture1 = end($urlpicture1);
+					$urlimage = explode('/', $inewimagepath);
+					$image = end($urlimage);
+                }
+                if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+                	$picture1 = $_POST['cover_imagelocalp'];
+                }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+                	$image = $_POST['cover_imagelocali'];
                 }
                 $inputdata = array(
                     'title' => $this->input->post('title'),
@@ -1627,12 +2706,14 @@ class Gujarati extends CI_Controller {
 	public function series_story($lid) {
 		if($this->session->userdata('logged_in')==NULL) redirect(base_url().$this->uri->segment(1));
         $data['res']  = $this->User_model->edit_story($lid);
+        $data['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$this->load->view('otherlangs/series_story.php',$data);
 	}
 	public function admin_story_view($sid){
 	    $header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
 	    $header['editstory'] = $this->User_model->editstory($sid);
+	    $header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
         $this->load->view('otherlangs/admin_story_view.php',$header);
     }
     public function series_series($lid) {
@@ -1640,12 +2721,14 @@ class Gujarati extends CI_Controller {
         $data['res']  = $this->User_model->edit_story($lid);
         $data['new_episode'] = $this->User_model->new_episode_show($lid);
         $data['seriesftitle'] = $this->User_model->seriesftitle($lid);
+        $data['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$this->load->view('otherlangs/series_series.php',$data);
 	}
 	public function addstory($lid){
 	    $header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
 		$data['res']  = $this->User_model->edit_story($lid);
+		$data['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$this->form_validation->set_rules('story', 'story', 'trim|required');
 		$this->form_validation->set_rules('story_id', 'story_id', 'trim|required');
 		if ($this->form_validation->run() == FALSE) {
@@ -1722,13 +2805,18 @@ class Gujarati extends CI_Controller {
 		$header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
 		$header['tagslist'] = $this->User_model->lifetagslist();
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 		$this->load->view('otherlangs/life.php',$header);
 	}
     public function lifetagssearch(){
         if(isset($_GET['search']) && !empty($_GET['search'])){
             $response = $this->User_model->lifetagssearch($_GET['search']);
-            $data = array(); $i = 0; 
+            $data = array(); $i = 1; $j = 0;
             if($response->num_rows() > 0){ foreach($response->result() as $res){
+                if($_GET['search'] != $res->tagname){
+                    $data[$j]['value'] = $_GET['search'];
+                    $data[$j]['text'] = $_GET['search'];
+                }
                 $data[$i]['value'] = $res->tagname;
                 $data[$i]['text'] = $res->tagname."  -  Tag used in ".$res->tagcount." Life Events";
                 $i++;
@@ -1740,6 +2828,7 @@ class Gujarati extends CI_Controller {
 	    $header['gener'] = $this->User_model->gener();
 		$header['languages'] = $this->User_model->language();
 		$header['tagslist'] = $this->User_model->lifetagslist();
+		$header['defaultimages'] = $this->User_model->loadmoredimages(0,6);
 	    $this->form_validation->set_rules('language', 'Language','trim|required');
 		$this->form_validation->set_rules('title', 'Title', 'trim|required');
 		if(isset($_POST['language']) && ($_POST['language'] != 'en')){
@@ -1787,6 +2876,80 @@ class Gujarati extends CI_Controller {
                     $header['error'] = $this->upload->display_errors();
                     $this->load->view('otherlangs/life.php', $header);
                 }
+            }
+            if(isset($_POST['cover_image']) && !empty($_POST['cover_image'])){
+            	$serverimageurl = explode('/', $_POST['cover_image']);
+            	$serverimage = end($serverimageurl);
+				$imageextension = explode('.',$serverimage);
+				$filename = $_POST['cover_image'];
+				list($width, $height) = getimagesize($filename);
+				$pnewimagepath = 'assets/images/p'.Date('YmdHis').$serverimage;
+				$inewimagepath = 'assets/images/i'.Date('YmdHis').$serverimage;
+				$targ_w=293;$targ_h=280;   $itarg_w=266;$itarg_h=165;
+				switch($imageextension[1]) {
+				    case 'gif' :
+				        $type ="gif";
+				        $img = imagecreatefromgif($filename);
+				        break;
+				    case 'GIF' :
+				        $type ="GIF";
+				        $img = imagecreatefromgif($filename);
+				        break;
+				    case 'png' :
+				        $type ="png";
+				        $img = imagecreatefrompng($filename);
+				        break;
+				    case 'PNG' :
+				        $type ="PNG";
+				        $img = imagecreatefrompng($filename);
+				        break;
+				    case 'jpg' :
+				        $type ="jpg";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'JPG' :
+				        $type ="JPG";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'jpeg' :
+				        $type ="jpg";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    case 'JPEG' :
+				        $type ="JPEG";
+				        $img = imagecreatefromjpeg($filename);
+				        break;
+				    default : 
+				        die ("ERROR; UNSUPPORTED IMAGE TYPE");
+				        break;
+				}
+				$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+				$idst_r = ImageCreateTrueColor( $itarg_w, $itarg_h );
+				imagecopyresized($dst_r,$img,0,0,0,0,$targ_w,$targ_h, $width, $height);
+				imagecopyresized($idst_r,$img,0,0,0,0,$itarg_w,$itarg_h, $width, $height);
+
+				if($type=="gif" || $type=="GIF"){
+				    imagegif($dst_r, $pnewimagepath);
+				    imagegif($idst_r, $inewimagepath);
+				}elseif($type=="jpg" || $type=="JPG"){
+				    imagejpeg($dst_r, $pnewimagepath);
+				    imagejpeg($idst_r, $inewimagepath);
+				}elseif($type=="png" || $type=="PNG"){
+				    imagepng($dst_r, $pnewimagepath);
+				    imagepng($idst_r, $inewimagepath);
+				}elseif($type=="bmp" || $type=="BMP" || $type=="jpeg"){
+				    imagewbmp($dst_r, $pnewimagepath);
+				    imagewbmp($idst_r, $inewimagepath);
+				}
+				$urlpicture1 = explode('/', $pnewimagepath);
+				$picture1 = end($urlpicture1);
+				$urlimage = explode('/', $inewimagepath);
+				$image = end($urlimage);
+            }
+            if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp'])){
+            	$picture1 = $_POST['cover_imagelocalp'];
+            }if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali'])){
+            	$image = $_POST['cover_imagelocali'];
             }
             $keywords = '';
             if(isset($_POST['keywords']) && count($_POST['keywords']) > 0){
@@ -1881,7 +3044,7 @@ class Gujarati extends CI_Controller {
         	$title = $this->input->post('title');
         	$sid = $this->input->post('sid');
         	$to_idtext = $this->input->post('to_idtext');
-        	$redirect_uri = $this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-',$title)."-".$sid;
+        	$redirect_uri = $this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-',$title)."-".$sid;
         	if(isset($_POST['url']) && !empty($_POST['url'])){
         	    $redirect_uri = $this->input->post('url');
         	}
@@ -1970,53 +3133,86 @@ class Gujarati extends CI_Controller {
 	        $this->load->view('otherlangs/loadcommunities.php',$data);
 	    }
 	}
+	public function extractdatafromurl($url){
+        $tags = array();
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        $contents = curl_exec($ch);
+        curl_close($ch);
+        if (empty($contents)) {
+            return $tags;
+        } else if (preg_match_all('/<meta([^>]+)content="([^>]+)>/', $contents, $matches)) {
+            $doc = new DOMDocument();
+            /*$doc->loadHTML('<?xml encoding="utf-8" ?>' . implode($matches[0]));*/
+            @$doc->loadHTML($contents);
+            $tags = array();
+            foreach($doc->getElementsByTagName('meta') as $metaTag) {
+                if($metaTag->getAttribute('name') != "") {
+                    $tags[$metaTag->getAttribute('name')] = $metaTag->getAttribute('content');
+                }
+                elseif ($metaTag->getAttribute('property') != "") {
+                    $tags[$metaTag->getAttribute('property')] = $metaTag->getAttribute('content');
+                }
+            }
+            return $tags;
+        } else {
+            return $tags;
+        }
+	}
 	public function testing() {	
         if(isset($_POST['searchurl'])){
             $_POST['searchurl'] = (parse_url($_POST['searchurl'], PHP_URL_SCHEME) ? '' : 'http://') . $_POST['searchurl'];
         }
- 		$this->form_validation->set_rules('searchurl', ' Story', 'trim|valid_url');
+ 		$this->form_validation->set_rules('searchurl', ' Story', 'trim|callback_validurl');
  		$this->form_validation->set_rules('community_id','Community','trim|required');
 		if ($this->form_validation->run() == TRUE) {
 			$title = ''; $description = ''; $image = '';
-			$tags = get_meta_tags($_POST['searchurl']);
-			if(isset($tags['title']) && !empty($tags['title'])){
-				$title = $tags['title'];
-			}
-			if(isset($tags['description']) && !empty($tags['description'])){
-				$description = $tags['description'];
-			}
-			$fp = file_get_contents($_POST['searchurl']);
-	        $html_encoded = htmlentities($fp);
-	        if (!$fp) 
-	            $urlcontent = '';
-	        if($title == ''){
-		        $titleres = preg_match("/<title>(.*)<\/title>/siU", $fp, $title_matches);
-		        if (!$titleres) 
-		            $title = ''; 
-		        $title = preg_replace('/\s+/', ' ', $title_matches[1]);
-		        $title = trim($title);
-		    }
-
-	        $imageres = preg_match_all('@property="og:image" content="([^"]+)"@' , $fp, $image_matches);
-	        if(!$imageres)
-	       		$image = '';
-	       		if(isset($image_matches[1][0]) && !empty($image_matches[1][0]))
-	       			$image = $image_matches[1][0];
-	       		$user_id = $this->session->userdata['logged_in']['user_id'];
-				$name = $this->session->userdata['logged_in']['name'];
-	       		$data = array(
-					'user_id' => $user_id,
-					'name' => $name,
-					'comm_id' => $_POST['community_id'],
-					'story' => $description,
-					'titleurl' => $_POST['searchurl'],
-					'title' => $title,
-					'image' => $image,
-					'date' => DATE('Y-m-d'),
-					'type' =>'url',
-					'urldescription' => $_POST['urldescription'],
-				);
-				$this->output->set_output(json_encode($data));
+			$response = $this->extractdatafromurl($_POST['searchurl']);
+            if(isset($response) && !empty($response)){
+                if (array_key_exists("title",$response)) {
+                    $title = $response['title'];
+                }else if (array_key_exists("og:title",$response) && empty($title)) {
+                    $title = $response['og:title'];
+                }
+                if (array_key_exists("description",$response)) {
+                    $description = $response['description'];
+                }else if (array_key_exists("og:description",$response) && empty($description)) {
+                    $description = $response['og:description'];
+                }
+                if (array_key_exists("og:image",$response)) {
+                    $image = $response['og:image'];
+                }
+                if(empty($title)){
+                    $fp = file_get_contents($_POST['searchurl']);
+                    $titleres = preg_match("/<title>(.*)<\/title>/siU", $fp, $title_matches);
+                    $title = preg_replace('/\s+/', ' ', $title_matches[1]);
+                }
+                if(empty($image)){
+                    $fp = file_get_contents($_POST['searchurl']);
+                    $imageres = preg_match_all('@property="og:image" content="([^"]+)"@' , $fp, $image_matches);
+		       		if(isset($image_matches[1][0]) && !empty($image_matches[1][0])){
+		       			$image = $image_matches[1][0];
+		       		}
+                }
+            }
+            $user_id = $this->session->userdata['logged_in']['user_id'];
+            $name = $this->session->userdata['logged_in']['name'];
+            $data = array(
+                'user_id' => $user_id,
+                'name' => $name,
+                'comm_id' => $_POST['community_id'],
+                'story' => $description,
+                'titleurl' => $_POST['searchurl'],
+                'title' => $title,
+                'image' => $image,
+                'date' => DATE('Y-m-d'),
+                'type' =>'url',
+                'urldescription' => $_POST['urldescription'],
+            );
+            $this->output->set_output(json_encode($data));
 		}else{
 			$this->output->set_output(json_encode('wrongurl'));
 		}
@@ -2026,6 +3222,9 @@ class Gujarati extends CI_Controller {
         if($this->session->userdata('logged_in')==NULL) redirect(base_url().$this->uri->segment(1));
         if(isset($commname) && !empty($commname)){
             $commuid = $this->User_model->communityname($commname);
+            if(!isset($commuid) || ($commuid == '')){
+                $this->load->view('otherlangs/error');
+            }
             $header['languages'] = $this->User_model->language();
             $header['gener'] = $this->User_model->gener();
             $data['communities_story_get']=$this->User_model->communities_story_get($commuid,0,6);
@@ -2046,20 +3245,37 @@ class Gujarati extends CI_Controller {
             $this->load->view('otherlangs/footer.php');
         }
     }
+    public function communitymembers($commuid){
+        $data['comm_joines'] = $this->User_model->comm_joines($commuid,0,5);
+        $data['following'] = $this->User_model->following();
+        $data['commuid'] = $commuid;
+        $this->load->view('otherlangs/communitymembers.php',$data);
+    }
+    public function memloadcommu($commuid){
+        if(isset($_POST['limit'], $_POST['start']) && !empty($_POST['limit'])){
+            $data['comm_joines'] = $this->User_model->comm_joines($commuid,$_POST['limit'], $_POST['start']);
+            $data['following'] = $this->User_model->following();
+            $data['commuid'] = $commuid;
+            $this->load->view('otherlangs/loadmorecommumem.php',$data);
+        }
+    }
     public function community_about() {
         if(isset($_POST['comm_id']) && !empty($_POST['comm_id'])){
             $data['get_communities_adout'] = $this->User_model->get_communities_adout($_POST['comm_id']);
-            $this->load->view('co_viewtab.php',$data);    
+            $this->load->view('otherlangs/co_viewtab.php',$data);    
         }
     }
     public function community_tpost(){
-        if(isset($_POST['comm_id']) && !empty($_POST['comm_id'])){
-            $data['communities_story_get_likes'] = $this->User_model->communities_get_topstory($_POST['comm_id'],0,6);
-            $data['communities_story_weekback'] = $this->User_model->communities_story_weekback($_POST['comm_id']);
+        if(isset($_POST['comm_id'], $_POST['communitie_about']) && !empty($_POST['comm_id']) && !empty($_POST['communitie_about'])){
+            //$data['communities_story_get_likes'] = $this->User_model->communities_get_topstory($_POST['comm_id'],0,6);
+            //$data['communities_story_weekback'] = $this->User_model->communities_story_weekback($_POST['comm_id']);
+            $result = $this->User_model->communities_get_topstory($_POST['comm_id']);
+            $data['communities_story_get_likes'] = array_slice($result, 0, 6);
             $data['comm_comment_count'] = $this->User_model->comm_comment_count($_POST['comm_id']);
             $data['commstory_likes'] = $this->User_model->usercommstory_likes();
             $data['commuid'] = $_POST['comm_id'];
-            $this->load->view('co_viewtab.php',$data);    
+            $data['communitie_about'] = $_POST['communitie_about'];
+            $this->load->view('otherlangs/co_viewtab.php',$data);    
         }
     }
     public function commstoryview($commname, $comm_storyid){
@@ -2068,6 +3284,21 @@ class Gujarati extends CI_Controller {
             $header['languages'] = $this->User_model->language();
             $header['gener'] = $this->User_model->gener();
             $data['communities_story_get']=$this->User_model->commstoryview($commid, $comm_storyid);
+            if($data['communities_story_get']->num_rows() == 0){
+                $this->load->view('otherlangs/error');
+            }
+            // For Meta tags social share end
+            if(isset($data['communities_story_get']) && ($data['communities_story_get']->num_rows() > 0 )){
+                $metatags = $data['communities_story_get']->result();
+                    $header['ogtitle'] = $metatags[0]->title;
+                    $header['ogdescription'] = strip_tags($metatags[0]->story);
+                    $header['ogurl'] = base_url().$this->uri->segment(1).'/community-story/'.$commname.'/'.$comm_storyid;
+                if(isset($metatags[0]->image) && !empty($metatags[0]->image)){
+                    $header['ogimage'] = $metatags[0]->image;
+                }else{
+                    $header['ogimage'] = 'series-stories.jpg';
+                }
+            } // For Meta tags social share end
             $data['comm_comment_count'] = $this->User_model->comm_comment_count($commid,$comm_storyid);
             $data['commstory_likes'] = $this->User_model->usercommstory_likes();
             $data['get_communities_adout'] = $this->User_model->get_communities_adout($commid);
@@ -2080,25 +3311,40 @@ class Gujarati extends CI_Controller {
             $this->load->view('otherlangs/commstoryview.php',$data);    
             $this->load->view('otherlangs/footer.php');
         }else{
-            redirect(base_url().$this->uri->segment(1).'/community/'.$commname);
+            //redirect(base_url().$this->uri->segment(1).'/community/'.$commname);
+            $this->load->view('otherlangs/error');
         }
 	}
     public function loadcommustories($commuid){
- 	    if(isset($_POST['limit']) && !empty($_POST['start'])){
+ 	    if(isset($_POST['limit'], $_POST['communitie_about']) && !empty($_POST['start']) && !empty($_POST['communitie_about'])){
  	        $data['loadcommustories']=$this->User_model->communities_story_get($commuid,$_POST['start'], $_POST['limit']);
  	        $data['comm_comment_count'] = $this->User_model->comm_comment_count($commuid);
+ 	        $data['commstory_likes'] = $this->User_model->usercommstory_likes();
  	        $data['commuid'] = $commuid;
+ 	        $data['communitie_about'] = $_POST['communitie_about'];
  	        $this->load->view('otherlangs/loadcommustories.php',$data);
  	    }
  	}
- 	public function toploadcommustories($commuid){
- 	    if(isset($_POST['limit']) && !empty($_POST['start'])){
+    public function toploadcommustories($commuid){
+        if(isset($_POST['limit'], $_POST['communitie_about']) && !empty($_POST['start']) && !empty($_POST['communitie_about'])){
+            $result = $this->User_model->communities_get_topstory($commuid);
+            $data['toploadcommustories'] = array_slice($result, $_POST['start'], $_POST['limit']);
+            $data['comm_comment_count'] = $this->User_model->comm_comment_count($commuid);
+            $data['commstory_likes'] = $this->User_model->usercommstory_likes();
+            $data['commuid'] = $commuid;
+            $data['communitie_about'] = $_POST['communitie_about'];
+            $this->load->view('otherlangs/loadcommustories.php',$data);
+        }
+ 	}
+ 	/*public function toploadcommustories($commuid){
+ 	    if(isset($_POST['limit'], $_POST['communitie_about']) && !empty($_POST['start']) && !empty($_POST['communitie_about'])){
  	        $data['toploadcommustories']=$this->User_model->communities_get_topstory($commuid,$_POST['start'], $_POST['limit']);
  	        $data['comm_comment_count'] = $this->User_model->comm_comment_count($commuid);
  	        $data['commuid'] = $commuid;
+ 	        $data['communitie_about'] = $_POST['communitie_about'];
  	        $this->load->view('otherlangs/loadcommustories.php',$data);
  	    }
- 	}
+ 	}*/
     public function communities_joinform(){
         if(isset($this->session->userdata['logged_in']['user_id'])){
         	$user_id = $this->session->userdata['logged_in']['user_id'];
@@ -2113,7 +3359,7 @@ class Gujarati extends CI_Controller {
         		'status' => 'joined'
         	);
         	$response = $this->User_model->communities_join($data);
-        	redirect(base_url($this->uri->segment(1).'/community/'.preg_replace('/\s+/','-',$gener)));
+        	redirect(base_url($this->uri->segment(1).'/community/'.preg_replace("~[^\p{M}\w]+~u", '-',$gener)));
         }else{
             redirect($_SERVER['HTTP_REFERER']);
         }
@@ -2148,7 +3394,7 @@ class Gujarati extends CI_Controller {
 		$name = $this->session->userdata['logged_in']['name'];
 		if(isset($_POST['type']) && ($_POST['type'] == 'url')){
             $_POST['story'] = (parse_url($_POST['story'], PHP_URL_SCHEME) ? '' : 'http://') . $_POST['story'];
-			$this->form_validation->set_rules('story','Story', 'trim|required|valid_url');
+			$this->form_validation->set_rules('story','Story', 'trim|required|callback_validurl');
 			//$this->form_validation->set_rules('story','Story', 'trim|required|regex_match[/^(?:(ftp|http|https)?:\/\/)?(?:[\w-]+\.)+([a-z]|[A-Z]|[0-9]){2,6}$/gi]');
 			if ($this->form_validation->run() == FALSE) {
 				echo 'wrongurl';
@@ -2158,53 +3404,57 @@ class Gujarati extends CI_Controller {
 				$urldescription = $this->input->post('urldescription');
 				$title = ''; $description = ''; $image = '';
 				if(filter_var($story_url, FILTER_VALIDATE_URL)){
-    				$tags = get_meta_tags($story_url);
-    				if(isset($tags['title']) && !empty($tags['title'])){
-    					$title = $tags['title'];
-    				}
-    				if(isset($tags['description']) && !empty($tags['description'])){
-    					$description = $tags['description'];
-    				}
-    				$fp = file_get_contents($story_url);
-    		        $html_encoded = htmlentities($fp);
-    		        if (!$fp) 
-    		            $urlcontent = '';
-    		        if($title == ''){
-    			        $titleres = preg_match("/<title>(.*)<\/title>/siU", $fp, $title_matches);
-    			        if (!$titleres) 
-    			            $title = ''; 
-    			        $title = preg_replace('/\s+/', ' ', $title_matches[1]);
-    			        $title = trim($title);
-    			    }
-    		        $imageres = preg_match_all('@property="og:image" content="([^"]+)"@' , $fp, $image_matches);
-    		        if(!$imageres)
-    		       		$image = '';
-    		       		if(isset($image_matches[1][0]) && !empty($image_matches[1][0]))
-    		       			$image = $image_matches[1][0];
-    	       		$data = array(
-    					'user_id' => $user_id,
-    					'name' => $name,
-    					'comm_id' => $comm_id,
-    					'story' => $description,
-    					'titleurl' => $story_url,
-    					'title' => $title,
-    					'image' => $image,
-    					//'date' => DATE('Y-m-d'),
-    					'type' =>'url',
-    					'urldescription' => $urldescription,
-    				);
-    				if(!empty($title) || !empty($description)){
-    					$requestdata['insertedposts'] = $this->User_model->communities_story($data);
-    					if($requestdata['insertedposts']->num_rows() > 0){
-    					    $requestdata['commstory_likes'] = $this->User_model->usercommstory_likes();
-    					    $requestdata['comm_comment_count'] = $this->User_model->comm_comment_count($comm_id);
-    					    $this->load->view('otherlangs/posturlform', $requestdata);
-    					}else{
-    						echo 'fail';
-    					}
-    				}else{
-    					echo 'notvalid';
-    				}
+    				$response = $this->extractdatafromurl($story_url);
+    				if(isset($response) && !empty($response)){
+                        if (array_key_exists("title",$response)) {
+                            $title = $response['title'];
+                        }else if (array_key_exists("og:title",$response) && empty($title)) {
+                            $title = $response['og:title'];
+                        }
+                        if (array_key_exists("description",$response)) {
+                            $description = $response['description'];
+                        }else if (array_key_exists("og:description",$response) && empty($description)) {
+                            $description = $response['og:description'];
+                        }
+                        if (array_key_exists("og:image",$response)) {
+                            $image = $response['og:image'];
+                        }
+                        if(empty($title)){
+                            $fp = file_get_contents($_POST['searchurl']);
+                            $titleres = preg_match("/<title>(.*)<\/title>/siU", $fp, $title_matches);
+                            $title = preg_replace('/\s+/', ' ', $title_matches[1]);
+                        }
+                        if(empty($image)){
+                            $fp = file_get_contents($_POST['searchurl']);
+                            $imageres = preg_match_all('@property="og:image" content="([^"]+)"@' , $fp, $image_matches);
+                            if(isset($image_matches[1][0]) && !empty($image_matches[1][0])){
+                                $image = $image_matches[1][0];
+                            }
+                        }
+                    }
+                    $data = array(
+                        'user_id' => $user_id,
+                        'name' => $name,
+                        'comm_id' => $comm_id,
+                        'story' => $description,
+                        'titleurl' => $story_url,
+                        'title' => $title,
+                        'image' => $image,
+                        'type' =>'url',
+                        'urldescription' => $urldescription,
+				    );
+                    if(!empty($title) || !empty($description)){
+                        $requestdata['insertedposts'] = $this->User_model->communities_story($data);
+                        if($requestdata['insertedposts']->num_rows() > 0){
+                            $requestdata['commstory_likes'] = $this->User_model->usercommstory_likes();
+                            $requestdata['comm_comment_count'] = $this->User_model->comm_comment_count($comm_id);
+                            $this->load->view('otherlangs/posturlform', $requestdata);
+                        }else{
+                            echo 'fail';
+                        }
+                    }else{
+                        echo 'notvalid';
+                    }
 				}else{
 				    echo 'notvalid';
 				}
@@ -2256,56 +3506,62 @@ class Gujarati extends CI_Controller {
 		$name = $this->session->userdata['logged_in']['name'];
 		$comm_storyid = $this->input->post('comm_storyid');
 		if(isset($_POST['url']) && ($_POST['url'] == 'url')){
-		    $this->form_validation->set_rules('story','Story', 'trim|required|valid_url');
+		    $this->form_validation->set_rules('story','Story', 'trim|required|callback_validurl');
 		}
 		if ($this->form_validation->run() == TRUE) {
 			$story_url = $this->input->post('story');
 			$title = ''; $description = ''; $image = '';
-			$tags = get_meta_tags($story_url);
-			if(isset($tags['title']) && !empty($tags['title'])){
-				$title = $tags['title'];
+			$response = $this->extractdatafromurl($story_url);
+            if(isset($response) && !empty($response)){
+                if (array_key_exists("title",$response)) {
+                    $title = $response['title'];
+                }else if (array_key_exists("og:title",$response) && empty($title)) {
+                    $title = $response['og:title'];
+                }
+                if (array_key_exists("description",$response)) {
+                    $description = $response['description'];
+                }else if (array_key_exists("og:description",$response) && empty($description)) {
+                    $description = $response['og:description'];
+                }
+                if (array_key_exists("og:image",$response)) {
+                    $image = $response['og:image'];
+                }
+                if(empty($title)){
+                    $fp = file_get_contents($_POST['searchurl']);
+                    $titleres = preg_match("/<title>(.*)<\/title>/siU", $fp, $title_matches);
+                    $title = preg_replace('/\s+/', ' ', $title_matches[1]);
+                }
+                if(empty($image)){
+                    $fp = file_get_contents($_POST['searchurl']);
+                    $imageres = preg_match_all('@property="og:image" content="([^"]+)"@' , $fp, $image_matches);
+                    if(isset($image_matches[1][0]) && !empty($image_matches[1][0])){
+                        $image = $image_matches[1][0];
+                    }
+                }
+            }
+       		$user_id = $this->session->userdata['logged_in']['user_id'];
+			$name = $this->session->userdata['logged_in']['name'];
+       		$data = array(
+				'user_id' => $user_id,
+				'name' => $name,
+				'story' => $description,
+				'titleurl' => $story_url,
+				'title' => $title,
+				'image' => $image,
+				'date' => DATE('Y-m-d'),
+				'type' =>'url',
+				//'comm_language' => $this->session->userdata['language'],
+			);
+			$request = $this->User_model->updatecomm_post($data, $comm_storyid);
+			if($request) {
+				$response['status'] = 1;
+				$response['response'] = 'success';
+				echo json_encode($response);
+			}else{
+				$response['status'] = 1;
+				$response['response'] = 'fail';
+				echo json_encode($response);
 			}
-			if(isset($tags['description']) && !empty($tags['description'])){
-				$description = $tags['description'];
-			}
-			$fp = file_get_contents($story_url);
-	        $html_encoded = htmlentities($fp);
-	        if (!$fp) 
-	            $urlcontent = '';
-	        if($title == ''){
-		        $titleres = preg_match("/<title>(.*)<\/title>/siU", $fp, $title_matches);
-		        if (!$titleres) 
-		            $title = ''; 
-		        $title = preg_replace('/\s+/', ' ', $title_matches[1]);
-		        $title = trim($title);
-		    }
-	        $imageres = preg_match_all('@property="og:image" content="([^"]+)"@' , $fp, $image_matches);
-	        if(!$imageres)
-	       		$image = '';
-	       		if(isset($image_matches[1][0]) && !empty($image_matches[1][0]))
-	       			$image = $image_matches[1][0];
-	       		$user_id = $this->session->userdata['logged_in']['user_id'];
-				$name = $this->session->userdata['logged_in']['name'];
-	       		$data = array(
-					'user_id' => $user_id,
-					'name' => $name,
-					'story' => $description,
-					'titleurl' => $story_url,
-					'title' => $title,
-					'image' => $image,
-					'date' => DATE('Y-m-d'),
-					'type' =>'url',
-				);
-				$request = $this->User_model->updatecomm_post($data, $comm_storyid);
-				if($request) {
-    				$response['status'] = 1;
-    				$response['response'] = 'success';
-    				echo json_encode($response);
-    			}else{
-    				$response['status'] = 1;
-    				$response['response'] = 'fail';
-    				echo json_encode($response);
-    			}
 		}else{
 		    $this->form_validation->set_rules('story','Story', 'trim|required');
 		    if ($this->form_validation->run() == false) {
@@ -2431,22 +3687,24 @@ class Gujarati extends CI_Controller {
         }
     }
     public function comm_likes(){
-		$user_id=$this->session->userdata['logged_in']['user_id'];
-    	$name=$this->session->userdata['logged_in']['name'];
-    	$story_id=$this->input->post('story_id');
-    	$data = array(
-    		'user_id' => $user_id,
-    		'name' => $name,
-    		'story_id' => $story_id,
-    		'likes' => 'like',
-    		//'date' => DATE('Y-m-d'),
-    	);
-    	$response = $this->User_model->comm_likes($data,$story_id);
-    	if($response){
-    		echo 1;
-    	}else{
-    		echo 0;
-    	}
+        if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){
+            $user_id = $this->session->userdata['logged_in']['user_id'];
+            $name=$this->session->userdata['logged_in']['name'];
+            $story_id=$this->input->post('story_id');
+            $data = array(
+                'user_id' => $user_id,
+                'name' => $name,
+                'story_id' => $story_id,
+                'likes' => 'like',
+                //'date' => DATE('Y-m-d'),
+            );
+            $response = $this->User_model->comm_likes($data,$story_id);
+            if($response){
+                echo 1;
+            }else{
+                echo 0;
+            }
+        }
     }
     public function feed() {
         $header['gener'] = $this->User_model->gener();
@@ -2466,11 +3724,11 @@ class Gujarati extends CI_Controller {
 	
 	public function tab_yourfeed() {
 	    $data['yourfeeds'] = $this->User_model->yourfeeds(0,6);
-	    $this->load->view('feedyourfeed.php',$data);
+	    $this->load->view('otherlangs/feedyourfeed.php',$data);
 	}
 	public function tab_stories() {
 	    $data['storiesfeed'] = $this->User_model->storiesfeed(0,6);
-	    $this->load->view('feedstories.php',$data);
+	    $this->load->view('otherlangs/feedstories.php',$data);
 	}
 	
 	public function loadmorefeed(){
@@ -2571,17 +3829,24 @@ class Gujarati extends CI_Controller {
 	public function seriessubscribe(){
 	    if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){
             $userid = $this->session->userdata['logged_in']['user_id'];
-    	    $data['scseries'] = $this->User_model->libraryseries($userid, 'seriessubscribe');
-            $data['scstories'] = $this->User_model->librarystories($userid, 'seriessubscribe');
+            $data['scseries'] = $this->User_model->libraryseries($userid, 'seriessubscribe');
+            /*$data['scstories'] = $this->User_model->librarystories($userid, 'seriessubscribe');
             $data['sclife'] = $this->User_model->librarylife($userid, 'seriessubscribe');
             $data['reviews21'] = $this->User_model->reviews2();
             $data['allusers'] = $this->User_model->allusers();
             $data['favorites'] = $this->User_model->favorites();
             $data['favoriteslife'] = $this->User_model->favorites('life');
-            $data['subscribes'] = $this->User_model->subscribes();
+            $data['subscribes'] = $this->User_model->subscribes();*/
             $this->load->view('otherlangs/librarysubscribe',$data);
 	    }
 	}
+	public function libseriesloadmore(){
+        if(isset($_POST["limit"], $_POST["start"]) && !empty($_POST['limit'])){
+            $userid = $this->session->userdata['logged_in']['user_id'];
+            $data['scseries'] = $this->User_model->libraryseries($userid, 'seriessubscribe', $_POST["start"], $_POST["limit"]);
+            $this->load->view('otherlangs/loadmorelibsubscribe.php',$data);
+        }
+    }
 	public function storiesfavorite(){
 	    if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){
             $userid = $this->session->userdata['logged_in']['user_id'];
@@ -2676,8 +3941,15 @@ class Gujarati extends CI_Controller {
 	    $uniqueviews = $this->User_model->uniqueviews($storyid);
 		$data['admin_story_view'] = $this->User_model->admin_story_view1($storyid);
 		// For Meta tags social share end
+		if($data['admin_story_view']->num_rows()  == 0){
+		    $this->load->view('otherlangs/error');
+		}
 		if(isset($data['admin_story_view']) && ($data['admin_story_view']->num_rows() > 0 )){
 		    $metatags = $data['admin_story_view']->result();
+		    $urltitlecheck = preg_replace("~[^\p{M}\w]+~u", '-',$metatags[0]->title).'-'.$storyid;	
+		    if($this->uri->segment(3) !='' && (urldecode($this->uri->segment(3)) != $urltitlecheck)){		
+		        $this->load->view('otherlangs/error');		
+		    }
 		    if(isset($metatags[0]->type) && ($metatags[0]->type == 'nano')){
 		        $header['ogtitle'] = '[ Short Story ]';
 		        $header['ogetitle'] = '[ Nano Story ]';
@@ -2719,10 +3991,17 @@ class Gujarati extends CI_Controller {
 	    $storyname_id = explode('-', $storynameid);
 	    $storyid  = end($storyname_id);
 	    $data['admin_story_view'] = $this->User_model->admin_story_view($storyid);
+	    if($data['admin_story_view']->num_rows() == 0){
+            $this->load->view('otherlangs/error');
+        }
 	    //$uniqueviews = $this->User_model->uniqueviews($storyid);
 	    // For Meta tags social share end
 		if(isset($data['admin_story_view']) && ($data['admin_story_view']->num_rows() > 0 )){
 		    $metatags = $data['admin_story_view']->result();
+		    $urltitlecheck = preg_replace("~[^\p{M}\w]+~u", '-',$metatags[0]->title).'-'.$storyid;
+		    if($this->uri->segment(3) !='' && (urldecode($this->uri->segment(3)) != $urltitlecheck)){
+		        $this->load->view('otherlangs/error');
+		    }
 		    if(isset($metatags[0]->type) && ($metatags[0]->type == 'nano')){
 		        $header['ogtitle'] = '[ Short Story ]';
 		        $header['ogetitle'] = '[ Nano Story ]';
@@ -2888,6 +4167,9 @@ class Gujarati extends CI_Controller {
         $generid = 0;
         if(isset($genername) && !empty($genername)){
             $generid = $this->User_model->genername($genername);
+            if(!isset($generid) || ($generid == '')){
+                $this->load->view('otherlangs/error');
+            }
         }
         $header['gener'] = $this->User_model->gener();
         $header['languages'] = $this->User_model->language();
@@ -2949,6 +4231,9 @@ class Gujarati extends CI_Controller {
         }
 	}
     public function profile($profilename){
+        if(isset($this->session->userdata['logged_in']['email']) && !empty($this->session->userdata['logged_in']['email'])){
+            $sent_mailstatus = $this->User_model->sent_mailstatus($this->session->userdata['logged_in']['email']);
+        }
         if(isset($profilename) && !empty($profilename)){
             $userid = $this->User_model->userid($profilename);
             $header['gener'] = $this->User_model->gener();
@@ -2987,15 +4272,15 @@ class Gujarati extends CI_Controller {
         		$this->load->view('otherlangs/profile.php',$data);
                 $this->load->view('otherlangs/footer.php');
     	    }else{
-    	        $this->load->view('error.php');
+    	        $this->load->view('otherlangs/error.php');
     	    }
         }
     }
-    public function profilefollowing(){		
-        if(isset($_POST['userid']) && !empty($_POST['userid'])){		
-            $data['following_names'] = $this->User_model->following_names($_POST['userid'], 0,5);		
-            $data['following'] = $this->User_model->following();		
-            $this->load->view('otherlangs/following_names.php',$data);		
+    public function profilefollowing(){
+        if(isset($_POST['userid']) && !empty($_POST['userid'])){
+            $data['following_names'] = $this->User_model->following_names($_POST['userid'], 0,5);
+            $data['following'] = $this->User_model->following();
+            $this->load->view('otherlangs/following_names.php',$data);
         }		
     }
     public function profilereading(){
@@ -3080,9 +4365,10 @@ class Gujarati extends CI_Controller {
         $profilename = $this->User_model->hprofilename($id);
         if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $id)){
     		$header['languages'] = $this->User_model->language();
-    		$header['geners'] = $this->User_model->gener();
+    		$header['gener'] = $this->User_model->gener();
     		if(isset($id) && !empty($id)){
     			$data['editprofile'] = $this->User_model->editprofile($id);
+    			$data['geners'] = $this->User_model->gener();
     			$usercomms = $this->User_model->usercommunities_gener();
     			$data['usercomms'] = array();
     			foreach($usercomms->result() as $usercomm){
@@ -3099,8 +4385,86 @@ class Gujarati extends CI_Controller {
             redirect(base_url().$this->uri->segment(1));
         }
     }
-    
     public function updateprofile($id) {
+        $profilename = $this->User_model->hprofilename($id);
+        if( (isset($_FILES['banner_image']['name']) && !empty($_FILES['banner_image']['name'])) || (isset($_FILES['profile_image']['name']) && !empty($_FILES['profile_image']['name'])) ) {
+			$header['languages'] = $this->User_model->language();
+			$header['gener'] = $this->User_model->gener();
+			$data['editprofile'] = $this->User_model->editprofile($id);
+			if(isset($_FILES['banner_image']['name']) && !empty($_FILES['banner_image']['name'])) {
+				$picture1 = ''; $image = '';
+                $config['upload_path'] = 'assets/images/';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                //$config['max_size']     = '2048';
+                $config['encrypt_name'] = TRUE;
+                $this->load->library('upload',$config);
+                $this->upload->initialize($config);
+                if($this->upload->do_upload('banner_image')){
+                    $buploadData = $this->upload->data();
+                    $config['image_library'] = 'gd2';
+                    $config['source_image'] = 'assets/images/'.$buploadData['file_name'];
+                    $config['create_thumb'] = FALSE;
+                    $config['maintain_ratio'] = FALSE;
+                    $config['quality'] = '85%';
+                    $config['width'] = 1500;
+                    $config['height'] = 250;
+                    $this->load->library('image_lib', $config);
+                    $this->image_lib->resize();
+                    $picture1 = $buploadData['file_name'];
+                }
+	            $date = strtotime(date('Y-m-d h:i:s'));
+                $newNamePrefix = $date.'_';
+                $manipulator = new ImageManipulator($_FILES['banner_image']['tmp_name']);
+                $newImage = $manipulator->resample(265, 115, FALSE);
+                $image = $newNamePrefix.$_FILES['banner_image']['name'];
+                $manipulator->save('assets/images/'.$newNamePrefix.$_FILES['banner_image']['name']); // saving file to uploads folder
+                if(isset($picture1, $image) && !empty($picture1) && !empty($image)){
+                    $inputdata = array('banner_image' => $picture1, 'pbanner_image' => $image);
+                    $res = $this->User_model->updateprofile($inputdata,$id);
+                    if($res){
+                    	redirect(base_url().$this->uri->segment(1).'/my_profile/'.$id);
+                    }else{
+                        redirect(base_url().$this->uri->segment(1).'/'.$profilename);
+                    }
+                }else{
+                    redirect(base_url().$this->uri->segment(1).'/'.$profilename);
+                }
+            }else if(isset($_FILES['profile_image']['name']) && !empty($_FILES['profile_image']['name'])) {
+                $config['upload_path'] = 'assets/images/';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|JPG|GIF|JPEG|PNG';
+                $config['encrypt_name'] = TRUE;
+                $this->load->library('upload',$config);
+                $this->upload->initialize($config);
+                if($this->upload->do_upload('profile_image')){
+                    $uploadData = $this->upload->data();
+                    $config['image_library'] = 'gd2';
+                    $config['source_image'] = 'assets/images/'.$uploadData['file_name'];
+                    $config['create_thumb'] = FALSE;
+                    $config['maintain_ratio'] = FALSE;
+                    $config['quality'] = '85%';
+                    $config['width'] = 120;
+                    $config['height'] = 120;
+                    $this->load->library('image_lib', $config);
+                    $this->image_lib->resize();
+                    $picture2 = $uploadData['file_name'];
+                    $res = $this->User_model->updateprofile(array('profile_image' => $picture2), $id);
+                    if($res){
+                        $_SESSION['logged_in']['profile_image'] = $picture2;
+                        redirect(base_url().$this->uri->segment(1).'/my_profile/'.$id);
+                    }else{
+                        redirect(base_url().$this->uri->segment(1).'/'.$profilename);
+                    }
+                }else{
+                    redirect(base_url().$this->uri->segment(1).'/'.$profilename);
+                }
+            }else{
+                redirect(base_url().$this->uri->segment(1).'/'.$profilename);
+            }
+        }else{
+            redirect(base_url().$this->uri->segment(1).'/'.$profilename);
+        }
+    }
+    /*public function updateprofile($id) {
         $profilename = $this->User_model->hprofilename($id);
 		$header['languages'] = $this->User_model->language();
 		$data['editprofile'] = $this->User_model->editprofile($id);
@@ -3215,30 +4579,30 @@ class Gujarati extends CI_Controller {
 			}
 			redirect(base_url($this->uri->segment(1).'/'.$profilename));
 		}
+	}*/
+	public function removeprofilepic($profileid) {
+        //$profilename = $this->User_model->hprofilename($profileid);
+        if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $profileid)){
+            //$userid = $this->session->userdata['logged_in']['user_id'];
+            $inputdata = array('profile_image' => '');
+            $res = $this->User_model->updateprofile($inputdata,$profileid);
+			if($res){
+			    $_SESSION['logged_in']['profile_image'] = '';
+			    //$this->session->set_flashdata('editmsg', '<span class="text-success">Profile Image Deleted Successfully</span>');
+			}
+			redirect(base_url().$this->uri->segment(1).'/my_profile/'.$profileid);
+	    }
 	}
-	public function removeprofilepic($profileid) {		
-	    $profilename = $this->User_model->hprofilename($profileid);		
-	    if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $profileid)){		
-	        $userid = $this->session->userdata['logged_in']['user_id'];		
-	        $inputdata = array('profile_image' => '');		
-	        $res = $this->User_model->updateprofile($inputdata,$userid);		
-			if($res){		
-			    $_SESSION['logged_in']['profile_image'] = '';		
-			    $this->session->set_flashdata('editmsg', '<span class="text-success">Profile Image Deleted Successfully</span>');		
-			}		
-			redirect(base_url().$this->uri->segment(1).'/'.$profilename);		
-	    }		
-	}		
-	public function removeprofilecover($profileid) {		
-	    if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $profileid)){		
-	        $userid = $this->session->userdata['logged_in']['user_id'];		
-	        $inputdata = array('banner_image' => '', 'pbanner_image' => '');		
-	        $res = $this->User_model->updateprofile($inputdata,$userid);		
-			if($res){		
-			    $this->session->set_flashdata('editmsg', '<span class="text-success">Profile Banner Image Deleted Successfully</span>');		
-			}		
-			redirect(base_url().$this->uri->segment(1).'/'.$profilename);
-	    }		
+	public function removeprofilecover($profileid) {
+        if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $profileid)){
+            //$userid = $this->session->userdata['logged_in']['user_id'];
+            $inputdata = array('banner_image' => '', 'pbanner_image' => '');
+            $res = $this->User_model->updateprofile($inputdata,$profileid);
+			if($res){
+			    $this->session->set_flashdata('editmsg', '<span class="text-success">Profile Banner Image Deleted Successfully</span>');
+			}
+			redirect(base_url().$this->uri->segment(1).'/my_profile/'.$profileid);
+	    }
 	}
     public function profilecomments($profileid){
 	    if(isset($_POST['limitStart']) && !empty($_POST['limitStart'])){
@@ -3382,21 +4746,32 @@ class Gujarati extends CI_Controller {
 	    }
 	}
 	public function editnano($nanosid){
-        $result = $this->User_model->editnano($nanosid);
+        /*$result = $this->User_model->editnano($nanosid);
         $data['story'] = ''; $data['nanolang'] = '';
         if($result->num_rows() > 0){ foreach($result->result() as $result){
             $data['story'] = $result->story;
             $data['nanolang'] = $result->nanolang;
         }   }
-        echo json_encode($data);
+        echo json_encode($data);*/
+        $data['languages'] = $this->User_model->language();
+        $data['story'] = $this->User_model->editnano($nanosid);
+        $this->load->view('otherlangs/editnano.php',$data);
     }
     public function updatenano(){
-        if(isset($_POST['story']) && isset($_POST['nanosid'])){
+        /*if(isset($_POST['story']) && isset($_POST['nanosid'])){
             $result = $this->User_model->updatenano($_POST['story'] , $_POST['nanosid']);
             if($result){
                 echo 1;
             }else{
                 echo 0;
+            }
+        }*/
+        if(isset($_POST['story']) && isset($_POST['nanosid'])){
+            $result = $this->User_model->updatenano($_POST['story'] , $_POST['nanosid']);
+            if($result){
+                redirect(base_url().$this->uri->segment(1));
+            }else{
+            	redirect($_SERVER['HTTP_REFERER']);
             }
         }
     }
@@ -3412,7 +4787,7 @@ class Gujarati extends CI_Controller {
 	    if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){
             $header['gener'] = $this->User_model->gener();
     		$header['languages'] = $this->User_model->language();
-            $data['drafts'] = $this->User_model->drafts();
+            $data['drafts'] = $this->User_model->drafts(0, 10);
     		$this->load->view('otherlangs/header.php',$header);
     		$this->load->view('otherlangs/drafts.php', $data);
             $this->load->view('otherlangs/footer.php');
@@ -3420,11 +4795,16 @@ class Gujarati extends CI_Controller {
 	        redirect(base_url().$this->uri->segment(1));
 	    }
     }
-    
+    public function loadmoredrafts(){
+        if(isset($_POST['start'], $_POST['limit']) && !empty($_POST['start']) && !empty($_POST['limit'])) {
+            $data['drafts'] = $this->User_model->drafts($_POST['start'], $_POST['limit']);
+            $this->load->view('otherlangs/loadmoredrafts', $data);
+        }
+    }
     public function upload_profileimg(){
         if(isset($_FILES['profileimg']['name']) && !empty($_FILES['profileimg']['name'])){
             $config['upload_path'] = 'assets/images/';
-            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif|JPG|PNG|JPEG|GIF';
             //$config['max_size'] = '2048';
             $config['encrypt_name'] = TRUE;
             $this->load->library('upload', $config);
@@ -3435,7 +4815,7 @@ class Gujarati extends CI_Controller {
                 $config['source_image'] = 'assets/images/'.$uploadpimg['file_name'];
                 $config['create_thumb'] = FALSE;
                 $config['maintain_ratio'] = FALSE;
-                $config['quality'] = '100%';
+                $config['quality'] = '85%';
                 $config['width'] = 450;
                 $config['height'] = 340;
                 $this->load->library('image_lib', $config);
@@ -3893,47 +5273,47 @@ class Gujarati extends CI_Controller {
 	}
 	
 	public function reportstories(){
-	    if(isset($_POST['reportcmt']) && !empty($_POST['reportcmt']) && isset($_POST['report_storyid']) && 
-	        isset($_POST['report_userid']) && isset($_POST['type'])){
+	    if(isset($_POST['reportcmt']) && !empty($_POST['reportcmt']) && isset($_POST['report_storyid'], $_POST['report_userid'], 
+            $_POST['type'], $this->session->userdata['logged_in']['user_id'])){
     	    $data = array(
-    	        'posted_byid' => $_POST['report_userid'],
-    	        'reported_by' => $this->session->userdata['logged_in']['user_id'],
-        		'story_id' => $_POST['report_storyid'],
-        		'type' => $_POST['type'],
-        		'report_msg' => $_POST['reportcmt'],
-        	);
-    	    $result = $this->User_model->reportcomm_post($data);
-        	if($result){
-        	    echo 1;
-        	}else{
-        	    echo 0;
-        	}
-	    }else{
-	        echo 2;
-	    }
-	}
+                'posted_byid' => $_POST['report_userid'],
+                'reported_by' => $this->session->userdata['logged_in']['user_id'],
+                'story_id' => $_POST['report_storyid'],
+                'type' => $_POST['type'],
+                'report_msg' => $_POST['reportcmt'],
+            );
+            $result = $this->User_model->reportcomm_post($data);
+            if($result){
+                echo 1;
+            }else{
+                echo 0;
+            }
+        }else{
+            echo 2;
+        }
+    }
 	
 	public function reportstoriescomment(){
-	    if(isset($_POST['reportcmt']) && !empty($_POST['reportcmt']) && isset($_POST['reportcommentid']) && 
-	        isset($_POST['report_storyid']) && isset($_POST['report_userid'])){
-    	    $data = array(
-    	        'comment_id' => $_POST['reportcommentid'],
-    	        'posted_byid' => $_POST['report_userid'],
-    	        'reported_by' => $this->session->userdata['logged_in']['user_id'],
-        		'story_id' => $_POST['report_storyid'],
-        		'type' => $_POST['report_storytype'],
-        		'report_msg' => $_POST['reportcmt'],
-        	);
-    	    $result = $this->User_model->reportcomm_post($data);
-        	if($result){
-        	    echo 1;
-        	}else{
-        	    echo 0;
-        	}
-	    }else{
-	        echo 2;
-	    }
-	}
+        if(isset($_POST['reportcmt']) && !empty($_POST['reportcmt']) && isset($_POST['reportcommentid'], $_POST['report_storyid'], 
+            $_POST['report_userid'], $this->session->userdata['logged_in']['user_id'])){
+            $data = array(
+                'comment_id' => $_POST['reportcommentid'],
+                'posted_byid' => $_POST['report_userid'],
+                'reported_by' => $this->session->userdata['logged_in']['user_id'],
+                'story_id' => $_POST['report_storyid'],
+                'type' => $_POST['report_storytype'],
+                'report_msg' => $_POST['reportcmt'],
+            );
+            $result = $this->User_model->reportcomm_post($data);
+            if($result){
+                echo 1;
+            }else{
+                echo 0;
+            }
+        }else{
+            echo 2;
+        }
+    }
 	
 	/* monitize request start */
 	public function monitizeonreq(){
@@ -4169,7 +5549,20 @@ class Gujarati extends CI_Controller {
             }
 	    }
 	}
-	
+	public function lifeeventtags(){
+        $header['languages'] = $this->User_model->language();
+        $header['gener'] = $this->User_model->gener();
+        $data['lifeeventtags'] = $this->User_model->lifetagslist(50);
+        $this->load->view('otherlangs/header.php', $header);
+        $this->load->view('otherlangs/lifeeventtags.php', $data);
+        $this->load->view('otherlangs/footer.php');
+	}
+	public function lifeeventtagsloadmore(){
+	    if(isset($_POST['start'], $_POST['limit']) && !empty($_POST['start'])){
+    	    $data['lifeeventtags'] = $this->User_model->lifetagslist($_POST['start'], $_POST['limit']);
+    	    $this->load->view('otherlangs/lifeeventtagsloadmore.php', $data);
+	    }
+	}
 	
 	
 	
@@ -4222,12 +5615,12 @@ class Gujarati extends CI_Controller {
 	       $response = $this->User_model->contact($data);
 	       if($response){
 	           $this->session->set_flashdata('msg','<div class="alert alert-success text-center">Email Sent Successfully, We will get back you soon.</div>');
-	           $this->load->view('contact.php');
+	           $this->load->view('otherlangs/contact.php');
 	       }else{
-	           $this->load->view('contact.php');
+	           $this->load->view('otherlangs/contact.php');
 	       }
 	    }else{
-	        $this->load->view('contact.php');
+	        $this->load->view('otherlangs/contact.php');
 	    }
 	}
 	
@@ -4236,7 +5629,7 @@ class Gujarati extends CI_Controller {
 	public function blogsearch() {
         if(isset($_POST['search']) && !empty($_POST['search'])) {
 			$dataresult = array();
-            $response = $this->User_model->blogsearch($_POST['search']);
+            $response = $this->User_model->blogsearch($_POST['search'], $this->uri->segment(1));
         }
     }
 		

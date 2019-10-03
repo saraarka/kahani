@@ -1972,12 +1972,35 @@ class Aenglish extends CI_Controller {
 		$response = $this->Admin_model->sentamountmoni();
 		echo '<pre>';print_r($response);
 	}
+
 	public function scanalytics(){
 		$language = 'en';
-		$data['language'] = 'English';
+		$data['languages'] = $this->Admin_model->languages();
 		$data['allstories'] = $this->Admin_model->allstories();
-		$data['allstorieslang'] = $this->Admin_model->allstories($language);
 		$this->load->view('admin/scanalytics', $data);
+	}
+	public function scanalyticslang(){
+		if(isset($_POST['lang']) && !empty($_POST['lang'])){
+			$result = $this->Admin_model->allstories($_POST['lang']);
+			echo json_encode($result);
+		}else{
+			echo 0;
+		}
+	}
+	public function scgenres(){
+		$data['languages'] = $this->Admin_model->languages();
+		$data['stories'] = $this->Admin_model->allgenre('story');
+		$data['series'] = $this->Admin_model->allgenre('series');
+		$this->load->view('admin/scgenres', $data);
+	}
+	public function scgenreslang(){
+		if(isset($_POST['lang']) && !empty($_POST['lang'])){
+			$data['stories'] = $this->Admin_model->allgenre('story', $_POST['lang']);
+			$data['series'] = $this->Admin_model->allgenre('series', $_POST['lang']);
+			echo json_encode($data);
+		}else{
+			echo 0;
+		}
 	}
 	/* Analytics end */
 

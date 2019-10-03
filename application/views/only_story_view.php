@@ -59,7 +59,7 @@
                     <?php } ?>
                 </li>
     			<li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color:#23678e;"><i class="fa fa-share-alt"></i></a>
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:#23678e;"><i class="fa fa-share-alt"></i></a>
                     <ul class="dropdown-menu pull-right">
                         <li onclick="groupsuggest(<?php echo $row->sid; ?>);">
             				<a href="" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users pr-10"></i>COMMUNITY</a>
@@ -75,7 +75,7 @@
                     </ul>
                 </li>
     			<li class="dropdown mg-5">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color:#23678e;"><i class="fa fa-ellipsis-v"></i></a>
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:#23678e;"><i class="fa fa-ellipsis-v"></i></a>
                     <ul class="dropdown-menu pull-right" style="right:10px;">
                         <li style="display:inline;">
         			        <a href="javascript:void(0);" class="fb-share-button" onclick="reportstories(<?php echo $row->user_id;?>,<?php echo $row->sid;?>)"> 
@@ -115,7 +115,7 @@
                         </ul>
                     </li>
                     <li class="dropdown mg-5">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color:#23678e;"><i class="fa fa-ellipsis-v"></i></a>
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:#23678e;"><i class="fa fa-ellipsis-v"></i></a>
                         <ul class="dropdown-menu pull-right" style="right:10px;">
                             <li style="display:inline;">
                                 <a href="javascript:void(0);" class="fb-share-button" onclick="reportstories(<?php echo $row->user_id;?>,<?php echo $row->sid;?>)">
@@ -132,7 +132,7 @@
                         </a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color:#23678e;"><i class="fa fa-share-alt"></i></a>
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:#23678e;"><i class="fa fa-share-alt"></i></a>
                         <ul class="dropdown-menu pull-right">
                             <li><a href="javascript:void(0);" class="notloginmodal" title="COMMUNITY"><i class="fa fa-users pr-10"></i>COMMUNITY</a></li>
                             <li><a href="javascript:void(0);" class="notloginmodal" title="SUGGEST"><i class="fa fa-user pr-10"></i>SUGGEST</a></li>
@@ -142,7 +142,7 @@
                         </ul>
                     </li>
                     <li class="dropdown mg-5">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color:#23678e;"><i class="fa fa-ellipsis-v"></i></a>
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="background-color:#23678e;"><i class="fa fa-ellipsis-v"></i></a>
                         <ul class="dropdown-menu pull-right" style="right:10px;">
                             <li style="display:inline;"><a href="javascript:void(0);" class="notloginmodal"><i class="fa fa-exclamation"></i> REPORT</a></li>
                         </ul>
@@ -677,7 +677,7 @@
                                                                 </span>
                                                             <?php } else if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){ ?>
                                                                 <span class="dropdown" style="float:right;">
-                                                                    <a href="#" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
+                                                                    <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
                                                                         <i class="fa fa-ellipsis-v "></i>
                                                                     </a>
                                                                     <ul class="dropdown-menu pull-right">
@@ -688,7 +688,7 @@
                                                                 </span>
                                                             <?php } else { ?>
                                                                 <span class="dropdown" style="float:right;">
-                                                                    <a href="#" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
+                                                                    <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
                                                                         <i class="fa fa-ellipsis-v "></i>
                                                                     </a>
                                                                     <ul class="dropdown-menu pull-right">
@@ -802,8 +802,8 @@
 		</div>
 	</div>
 </div>
-<!-- popup code ---- -->
 
+<!-- popup code ---- -->
 <div class="modal fade" id="report_comment" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -922,7 +922,7 @@
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-<!-- Social popup ---- -->
+<!-- Social popup end---- -->
 
 
 
@@ -957,7 +957,7 @@
 		}else{
 		    $('.btn.btn-success.btn-flat.btnspinner').html('POST');
 		    $('#snackbar').text('Enter Comment text.').addClass('show');
-    		setTimeout(function(){ $('#snackbar').removeClass('show'); }, 5000);
+    		setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
 		}
 	});
 </script>

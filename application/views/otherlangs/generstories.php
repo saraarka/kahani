@@ -2,7 +2,7 @@
     <?php foreach($loadgenerstories->result() as $loadgenerstory) { ?>
         <div class="cardls">
         	<div class="book-typels"><?php echo $loadgenerstory->gener;?></div>
-                <a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $loadgenerstory->title).'-'.$loadgenerstory->sid);?>" class="imagesls-style">
+                <a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $loadgenerstory->title).'-'.$loadgenerstory->sid);?>" class="imagesls-style">
         		    <?php if(isset($loadgenerstory->image) && !empty($loadgenerstory->image)) { ?>
                 	    <img src="<?php echo base_url();?>assets/images/<?php echo $loadgenerstory->image; ?>" alt="<?php echo $loadgenerstory->title;?>" class="imagemels">
                 	<?php }else{ ?>
@@ -11,7 +11,7 @@
                 </a>
             <div>
             	<font class="max-linesls">
-            		<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace('/\s+/', '-', $loadgenerstory->title).'-'.$loadgenerstory->sid);?>" class="product-title"><?php echo $loadgenerstory->title;?></a>
+            		<a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $loadgenerstory->title).'-'.$loadgenerstory->sid);?>" class="product-title"><?php echo $loadgenerstory->title;?></a>
             	</font> 
             </div>
         							
@@ -57,18 +57,16 @@
     		    <span class=""><i class="fa fa-plus"></i></span>
     	    </button>
     	    <ul class="dropdown-menu list-inline dropvk">
-        		<li onclick="groupsuggest(<?php echo $loadgenerstory->sid; ?>);">
-        			<a href="javascript:void(0)" data-toggle="modal" data-target="#groupsuggest" title="COMMUNITY"><i class="fa fa-users"></i></a>
-        		</li>
-        		<li onclick="friend(<?php echo $loadgenerstory->sid;?>);">
-        			<a href="javascript:void(0)" data-toggle="modal" data-target="#friendsuggest" title="SUGGEST"><i class="fa fa-user"></i></a>
-        		</li>
-        		<li onclick="socialshare(<?php echo $loadgenerstory->sid;?>, 'story');">
-        			<a data-toggle="modal" data-target="#soc" href="javascript:void(0)" title="SOCIAL">
-        				<i class="fa fa-share-alt"></i>
-        			</a>
-        		</li>
-        	</ul>
+                <li onclick="groupsuggest(<?php echo $loadgenerstory->sid; ?>);">
+                    <a href="javascript:void(0)" title="COMMUNITY"><i class="fa fa-users"></i></a>
+                </li>
+                <li onclick="friend(<?php echo $loadgenerstory->sid;?>);">
+                    <a href="javascript:void(0)" title="SUGGEST"><i class="fa fa-user"></i></a>
+                </li>
+                <li onclick="socialshare(<?php echo $loadgenerstory->sid;?>, 'story');">
+                    <a data-toggle="modal" data-target="#soc" href="javascript:void(0)" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
+                </li>
+            </ul>
         </div>
 	</div>
 <?php } } ?>

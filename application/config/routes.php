@@ -156,6 +156,7 @@ $route['(:any)/addepisode/(:any)/(:any)'] = '$1/addepisode/$2/$3';
 $route['(:any)/series_edit/(:any)'] = '$1/series_edit/$2';
 $route['(:any)/story_info/(:any)'] = '$1/story_info/$2';
 $route['(:any)/updatestory'] = '$1/updatestory';
+$route['(:any)/nano_update'] = '$1/updatenano';
 $route['(:any)/write-story'] = '$1/story';
 $route['(:any)/story_story_uplode'] = '$1/story_story_uplode';
 $route['(:any)/series_story/(:any)'] = '$1/series_story/$2';
