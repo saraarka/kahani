@@ -360,7 +360,7 @@
             data: {'lang':lang},
             dataType: "json",
             success: function(result){
-                console.log(result);
+                //console.log(result);
                 var scgenre=''; var scgenres_story=''; var scgenres_series='';
                 if(result.stories != '' || result.stories != 0){
                     var scgenres_story = '<h3>All Stories Genre Counts</h3>'+
@@ -383,5 +383,209 @@
             }
         });
     }
+
+    function scprofile(lang){
+        $.ajax({
+            url: "<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/scprofilelang",
+            type: "POST",
+            data: {'lang':lang},
+            dataType: "json",
+            success: function(result){
+                if(result != '' || result != 0){
+                    var scanalytics = '';
+                    $.each(result,function (p,q){
+                        scanalytics+= '<div class="tagcards"><div class="tagtext"><a href="javascript:void(0);">User Count</a></div><div class="tagnumbertext">'+q.pcount+'</div></div>';
+                    });
+                    $('.scprofile').html(scanalytics);
+                }
+            }
+        });
+    }
+
+    function sctags(lang){
+        $.ajax({
+            url: "<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/sctagscountlang",
+            type: "POST",
+            data: {'lang':lang},
+            dataType: "json",
+            success: function(result){
+                if(result != '' || result != 0){
+                    var scanalytics = '';
+                    $.each(result,function (p,q){
+                        scanalytics+= '<div class="tagcards"><div class="tagtext"><a href="javascript:void(0);">Life Event Tags</a></div><div class="tagnumbertext">'+q.tagscount+'</div></div>';
+                    });
+                    $('.tagpagemaindiv').html(scanalytics);
+                }
+            }
+        });
+    }
     
+    function scmvstories(lang){
+        $.ajax({
+            url: "<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/scmvstorieslang",
+            type: "POST",
+            data: {'lang':lang},
+            dataType: "json",
+            success: function(result){
+                var scmvstories=''; 
+                var scmvstories_series=''; var scmvstories_story='';
+                var scmvstories_life=''; var scmvstories_nano='';
+                if(result.series != '' || result.series != 0){
+                    var scmvstories_series = '<h3>Series in a Week</h3><div class="tagpagemaindiv">';
+                    $.each(result.series,function (p,q){
+                        scmvstories_series+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">'+q.title+'</a></div><div class="tagnumbertext">'+q.week_views+'</div></div>';
+                    });
+                    scmvstories_series+= '</div>';
+                }
+                if(result.story != '' || result.story != 0){
+                    var scmvstories_story = '<h3>Stories in a Week</h3><div class="tagpagemaindiv">';
+                    $.each(result.story,function (p,q){
+                        scmvstories_story+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">'+q.title+'</a></div><div class="tagnumbertext">'+q.week_views+'</div></div>';
+                    });
+                    scmvstories_story+= '</div>';
+                }
+                if(result.life != '' || result.life != 0){
+                    var scmvstories_life = '<h3>Life events in a Week</h3><div class="tagpagemaindiv">';
+                    $.each(result.life,function (p,q){
+                        scmvstories_life+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">'+q.title+'</a></div><div class="tagnumbertext">'+q.week_views+'</div></div>';
+                    });
+                    scmvstories_life+= '</div>';
+                }
+                if(result.nano != '' || result.nano != 0){
+                    var scmvstories_nano = '<h3>Nano Stories in a Week</h3><div class="tagpagemaindiv">';
+                    $.each(result.nano,function (p,q){
+                        scmvstories_nano+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">'+q.story+'</a></div><div class="tagnumbertext">'+q.week_views+'</div></div>';
+                    });
+                    scmvstories_nano+= '</div>';
+                }
+                
+                scmvstories = scmvstories_series+scmvstories_story+scmvstories_life+scmvstories_nano+'</div>';
+                $('.scmvstories').html(scmvstories);
+            }
+        });
+    }
+
+    function scstorieswmy(lang){
+        $.ajax({
+            url: "<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/scstorieswmy",
+            type: "POST",
+            data: {'lang':lang},
+            dataType: "json",
+            success: function(result){
+                var serieswmy = ''; var storieswmy = '';
+                var lifewmy = ''; var nanowmy = '';
+
+                if(result.seweek != '' || result.seweek != 0){
+                    $.each(result.seweek,function (p,q){
+                        serieswmy+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">Week</a></div><div class="tagnumbertext">'+q.secount+'</div></div>';
+                    });
+                    serieswmy+= '</div>';
+                }
+                if(result.semonth != '' || result.semonth != 0){
+                    $.each(result.semonth,function (p,q){
+                        serieswmy+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">Month</a></div><div class="tagnumbertext">'+q.secount+'</div></div>';
+                    });
+                    serieswmy+= '</div>';
+                }
+                if(result.seyear != '' || result.seyear != 0){
+                    $.each(result.seyear,function (p,q){
+                        serieswmy+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">Year</a></div><div class="tagnumbertext">'+q.secount+'</div></div>';
+                    });
+                    serieswmy+= '</div>';
+                }
+                $('.serieswmy').html(serieswmy);
+
+                if(result.sweek != '' || result.sweek != 0){
+                    $.each(result.sweek,function (p,q){
+                        storieswmy+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">Week</a></div><div class="tagnumbertext">'+q.scount+'</div></div>';
+                    });
+                    storieswmy+= '</div>';
+                }
+                if(result.smonth != '' || result.smonth != 0){
+                    $.each(result.smonth,function (p,q){
+                        storieswmy+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">Month</a></div><div class="tagnumbertext">'+q.scount+'</div></div>';
+                    });
+                    storieswmy+= '</div>';
+                }
+                if(result.syear != '' || result.syear != 0){
+                    $.each(result.syear,function (p,q){
+                        storieswmy+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">Year</a></div><div class="tagnumbertext">'+q.scount+'</div></div>';
+                    });
+                    storieswmy+= '</div>';
+                }
+                $('.storieswmy').html(storieswmy);
+
+                if(result.lweek != '' || result.lweek != 0){
+                    $.each(result.lweek,function (p,q){
+                        lifewmy+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">Week</a></div><div class="tagnumbertext">'+q.scount+'</div></div>';
+                    });
+                    lifewmy+= '</div>';
+                }
+                if(result.lmonth != '' || result.lmonth != 0){
+                    $.each(result.lmonth,function (p,q){
+                        lifewmy+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">Month</a></div><div class="tagnumbertext">'+q.scount+'</div></div>';
+                    });
+                    lifewmy+= '</div>';
+                }
+                if(result.lyear != '' || result.lyear != 0){
+                    $.each(result.lyear,function (p,q){
+                        lifewmy+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">Year</a></div><div class="tagnumbertext">'+q.scount+'</div></div>';
+                    });
+                    lifewmy+= '</div>';
+                }
+                $('.lifewmy').html(lifewmy);
+
+                if(result.nweek != '' || result.nweek != 0){
+                    $.each(result.nweek,function (p,q){
+                        nanowmy+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">Week</a></div><div class="tagnumbertext">'+q.scount+'</div></div>';
+                    });
+                    nanowmy+= '</div>';
+                }
+                if(result.nmonth != '' || result.nmonth != 0){
+                    $.each(result.nmonth,function (p,q){
+                        nanowmy+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">Month</a></div><div class="tagnumbertext">'+q.scount+'</div></div>';
+                    });
+                    nanowmy+= '</div>';
+                }
+                if(result.nyear != '' || result.nyear != 0){
+                    $.each(result.nyear,function (p,q){
+                        nanowmy+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">Year</a></div><div class="tagnumbertext">'+q.scount+'</div></div>';
+                    });
+                    nanowmy+= '</div>';
+                }
+                $('.nanowmy').html(nanowmy);
+            }
+        });
+    }
+
+    function scusercount(lang){
+        $.ajax({
+            url: "<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/scuserscountlang",
+            type: "POST",
+            data: {'lang':lang},
+            dataType: "json",
+            success: function(result){
+                var scusercount = ''; 
+                if(result.uweek != '' || result.uweek != 0){
+                    $.each(result.uweek,function (p,q){
+                        scusercount+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">Week</a></div><div class="tagnumbertext">'+q.pcount+'</div></div>';
+                    });
+                    scusercount+= '</div>';
+                }
+                if(result.umonth != '' || result.umonth != 0){
+                    $.each(result.umonth,function (p,q){
+                        scusercount+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">Month</a></div><div class="tagnumbertext">'+q.pcount+'</div></div>';
+                    });
+                    scusercount+= '</div>';
+                }
+                if(result.uyear != '' || result.uyear != 0){
+                    $.each(result.uyear,function (p,q){
+                        scusercount+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">Year</a></div><div class="tagnumbertext">'+q.pcount+'</div></div>';
+                    });
+                    scusercount+= '</div>';
+                }
+                $('.scusercount').html(scusercount);
+            }
+        });
+    }
 </script>

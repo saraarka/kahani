@@ -53,11 +53,11 @@
 }
 </style>
   <div class="main">
-    <h3>Genre Counts </h3>
+    <h3>Tags Counts </h3>
     
     <h5>
         <span class="pull-right">
-            <select class="form-control" onchange="scgenres(this.value);">
+            <select class="form-control" onchange="sctags(this.value);">
                 <option value=""> -- By Language -- </option>
                 <?php if(isset($languages) && ($languages->num_rows() > 0)){ foreach($languages->result() as $language){ ?>
                 <option value="<?php echo $language->code;?>"><?php echo $language->language;?> </option>
@@ -65,26 +65,14 @@
             </select>
         </span>
     </h5>
-    <div class="scgenreslang">
-        <?php if(isset($stories) && count($stories > 0)){ ?>
-          <h3>All Stories Genre Counts</h3>
+    <div class="sctags">
+        <?php if(isset($tagscount) && count($tagscount > 0)){ ?>
+          <h3>All Life event tags Count</h3>
             <div class="tagpagemaindiv">
-                <?php foreach($stories as $story) { ?>
+                <?php foreach($tagscount as $tagcount) { ?>
                     <div class="tagcards">
-                        <div class="tagtext"><a href="javascript:void(0);"><?php echo $story['gener']; ?></a></div>
-                        <div class="tagnumbertext"><?php echo $story['storiescount'];?></div>
-                    </div>
-                <?php } ?>
-            </div>
-        <?php } ?>
-
-        <?php if(isset($series) && count($series > 0)){ ?>
-          <h3>All Series Genre Counts</h3>
-            <div class="tagpagemaindiv">
-                <?php foreach($series as $seriesrow) { ?>
-                    <div class="tagcards">
-                        <div class="tagtext"><a href="javascript:void(0);"><?php echo $seriesrow['gener']; ?></a></div>
-                        <div class="tagnumbertext"><?php echo $seriesrow['storiescount'];?></div>
+                        <div class="tagtext"><a href="javascript:void(0);">Life Event Tags</a></div>
+                        <div class="tagnumbertext"><?php echo $tagcount['tagscount'];?></div>
                     </div>
                 <?php } ?>
             </div>

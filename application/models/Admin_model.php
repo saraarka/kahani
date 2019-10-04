@@ -944,21 +944,40 @@ public function testbrowseimage(){
 		$this->db->group_by('stories.genre');
 		return $this->db->get()->result_array();
 	}
-	public function allprofiles(){
-		return $this->db->select('COUNT(user_id) as pcount')->from('signup')->where('admin_status','unblock')->get()->result_array();
+	public function allprofiles($language = false){
+		$this->db->select('COUNT(user_id) as pcount');
+		$this->db->from('signup');
+		$this->db->where('admin_status','unblock');
+		if(isset($language) && !empty($language)){
+			$this->db->where('writer_language', $language);
+		}
+		return $this->db->get()->result_array();
 	}
-	public function tagscount(){
-		return $this->db->select('COUNT(id) as tagscount')->from('tags')->where('type','life')->get()->result_array();
+	public function tagscount($language = false){
+		$this->db->select('COUNT(id) as tagscount')->from('tags');
+		$this->db->where('type','life');
+		if(isset($language) && !empty($language)){
+			$this->db->where('language', $language);
+		}
+		return $this->db->get()->result_array();
 	}
-	public function mostviewedstories($timing, $type = false){
+	public function mostviewedstories($timing, $type, $language = false){
 		$todaydate = date('Y-m-d H:i:s');
 		$date = strtotime($todaydate);
 		$from_date = strtotime("-".$timing." day", $date);
 		$fromdate = date('Y-m-d H:i:s', $from_date);
 		if (isset($type) && ($type == 'series')) {
-			return $this->db->select('title, sid, week_views')->from('stories')->where('updated_at <="'.$todaydate.'" AND updated_at >="'.$fromdate.'"')->where('type', 'series')->where('sid', 'story_id')->order_by('week_views','DESC')->get()->result_array();
-		}else{
-			return $this->db->select('title, sid, week_views')->from('stories')->where('updated_at <="'.$todaydate.'" AND updated_at >="'.$fromdate.'"')->where('type !=', '')->group_by('type')->order_by('week_views','DESC')->get()->result_array();
+			$this->db->select('title, sid, week_views')->from('stories')->where('updated_at <="'.$todaydate.'" AND updated_at >="'.$fromdate.'"')->where('type', 'series')->where('sid=story_id')->order_by('week_views','DESC');
+			if(isset($language) && !empty($language)){
+				$this->db->where('language', $language);
+			}
+			return $this->db->get()->result_array();
+		}else if(isset($type) && ($type != 'series')){
+			$this->db->select('title, sid, story, week_views')->from('stories')->where('updated_at <="'.$todaydate.'" AND updated_at >="'.$fromdate.'"')->where('type', $type)->order_by('week_views','DESC');
+			if(isset($language) && !empty($language)){
+				$this->db->where('language', $language);
+			}
+			return $this->db->get()->result_array();
 		}
 	}
 	public function monetizedprofiles(){
@@ -967,27 +986,41 @@ public function testbrowseimage(){
 	public function monetizedstories($type){
 		if($type == 'story'){
 			return $this->db->select('type, COUNT(sid) as mscount')->from('stories')->where('pay_story','Y')->where('smonetisation','yes')->where('status','active')->where('type','story')->get()->result_array();
+		}else if($type == 'life'){
+			return $this->db->select('type, COUNT(sid) as mlcount')->from('stories')->where('pay_story','Y')->where('smonetisation','yes')->where('status','active')->where('type','life')->get()->result_array();
 		}else if($type == 'series'){
 			return $this->db->select('type, COUNT(sid) as msecount')->from('stories')->where('pay_story','Y')->where('smonetisation','yes')->where('status','active')->where('type', 'series')->where('sid=story_id')->get()->result_array();
 		}
 	}
-	public function storiescount($timing, $type = false){
+	public function storiescount($timing, $type, $language = false){
 		$todaydate = date('Y-m-d H:i:s');
 		$date = strtotime($todaydate);
 		$from_date = strtotime("-".$timing." day", $date);
 		$fromdate = date('Y-m-d H:i:s', $from_date);
 		if (isset($type) && ($type == 'series')) {
-			return $this->db->select('type, COUNT(sid) as secount')->from('stories')->where('date <="'.$todaydate.'" AND date >="'.$fromdate.'"')->where('type', 'series')->where('sid=story_id')->get()->result_array();
-		}else{
-			return $this->db->select('type, COUNT(sid) as scount')->from('stories')->where('date <="'.$todaydate.'" AND date >="'.$fromdate.'"')->where('type !=', '')->group_by('type')->get()->result_array();
+			$this->db->select('type, COUNT(sid) as secount')->from('stories')->where('date <="'.$todaydate.'" AND date >="'.$fromdate.'"')->where('type', 'series')->where('sid=story_id');
+			if(isset($language) && !empty($language)){
+				$this->db->where('language', $language);
+			}
+			return $this->db->get()->result_array();
+		}else if (isset($type) && ($type != 'series')) {
+			$this->db->select('type, COUNT(sid) as scount')->from('stories')->where('date <="'.$todaydate.'" AND date >="'.$fromdate.'"')->where('type !=', '')->where('type', $type)->group_by('type');
+			if(isset($language) && !empty($language)){
+				$this->db->where('language', $language);
+			}
+			return $this->db->get()->result_array();
 		}
 	}
-	public function userscount($timing){
+	public function userscount($timing, $language = false){
 		$todaydate = date('Y-m-d H:i:s');
 		$date = strtotime($todaydate);
 		$from_date = strtotime("-".$timing." day", $date);
 		$fromdate = date('Y-m-d H:i:s', $from_date);
-		return $this->db->select('COUNT(user_id) as pcount')->from('signup')->where('created_at <="'.$todaydate.'" AND created_at >="'.$fromdate.'"')->where('admin_status','unblock')->get()->result_array();
+		$this->db->select('COUNT(user_id) as pcount')->from('signup')->where('created_at <="'.$todaydate.'" AND created_at >="'.$fromdate.'"')->where('admin_status','unblock');
+			if(isset($language) && !empty($language)){
+				$this->db->where('writer_language', $language);
+			}
+		return $this->db->get()->result_array();
 	}
 	public function genersusercount($language){
 		$data = array();
@@ -1004,16 +1037,23 @@ public function testbrowseimage(){
 	public function emailverifiedcount(){
 		return $this->db->select('COUNT(user_id) as evcount')->from('signup')->where('user_activation',1)->get()->row_array();
 	}
-	public function totalviewscount($language){
-		return $this->db->select('type, SUM(views) as totalviewcount')->from('stories')->where('type !=','')->where('draft !=','draft')->where('status', 'active')->where('language', $language)->group_by('type')->get()->result_array();
+	public function totalviewscount($language = false){
+		$this->db->select('type, SUM(views) as totalviewcount, type')->from('stories')->where('type !=','')->where('draft !=','draft')->where('status', 'active');
+			if(isset($language) && !empty($language)){
+				$this->db->where('language', $language);
+			}
+		return $this->db->group_by('type')->get()->result_array();
 	}
-	public function uniqueviewscount($language){
-		return $this->db->select('stories.type, COUNT(story_views.id) as uniqueviewcount')->from('stories')
+	public function uniqueviewscount($language = false){
+		$this->db->select('stories.type, COUNT(story_views.id) as uniqueviewcount, type')->from('stories')
 			->join('story_views', 'story_views.story_id = stories.sid','left')
 			->where('stories.type !=','')->where('stories.draft !=','draft')
-			->where('stories.status', 'active')
-			->where('stories.language', $language)->group_by('stories.type')
-			->get()->result_array();
+			->where('stories.status', 'active');
+			if(isset($language) && !empty($language)){
+				$this->db->where('stories.language', $language);
+			}
+		$this->db->group_by('stories.type');
+		return $this->db->get()->result_array();
 	}
 	public function numberoflangs(){
 		return $this->db->select('COUNT(id) as langcount')->from('language')->get()->row_array();

@@ -56,7 +56,7 @@
     <h3>Stories Counts </h3>
     
     <h5>
-        <span class="pull-right" id="storiessearch">
+        <span class="pull-right">
             <select class="form-control" onchange="languagecount(this.value);">
                 <option value=""> -- By Language -- </option>
                 <?php if(isset($languages) && ($languages->num_rows() > 0)){ foreach($languages->result() as $language){ ?>

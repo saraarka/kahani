@@ -1867,12 +1867,7 @@ class Aenglish extends CI_Controller {
 
 	/* Payment Details end */
 
-
-
-
-
-
-		// default images 
+	// default images 
 	public function testbrowseimage(){
 		$data['listimages'] = $this->Admin_model->testbrowseimage();
 		$this->load->view('admin/testbrowseimage', $data);
@@ -1884,7 +1879,7 @@ class Aenglish extends CI_Controller {
 
 
 	/* Analytics Start */
-	public function allstories(){
+	/*public function allstories(){
 		$language = 'en';
 		$data['allstories'] = $this->Admin_model->allstories();
 		$data['allstorieslang'] = $this->Admin_model->allstories($language);
@@ -1940,7 +1935,7 @@ class Aenglish extends CI_Controller {
 		$language = 'en';
 		$response = $this->Admin_model->genersusercount($language);
 		echo '<pre>';print_r($response);
-	}
+	}*/
 	public function emailverifiedcount(){
 		$response = $this->Admin_model->emailverifiedcount();
 		echo '<pre>';print_r($response);
@@ -2001,6 +1996,123 @@ class Aenglish extends CI_Controller {
 		}else{
 			echo 0;
 		}
+	}
+	public function scprofiles(){
+		$data['languages'] = $this->Admin_model->languages();
+		$data['monetizp'] = $this->Admin_model->monetizedprofiles();
+		$data['profilecount'] = $this->Admin_model->allprofiles();
+		$this->load->view('admin/scprofiles', $data);
+	}
+	public function scprofilelang(){
+		if(isset($_POST['lang']) && !empty($_POST['lang'])){
+			$result = $this->Admin_model->allprofiles($_POST['lang']);
+			echo json_encode($result);
+		}
+	}
+	public function sctagscount(){
+		$data['languages'] = $this->Admin_model->languages();
+		$data['tagscount'] = $this->Admin_model->tagscount();
+		$this->load->view('admin/sctags', $data);
+	}
+	public function sctagscountlang(){
+		if(isset($_POST['lang']) && !empty($_POST['lang'])){
+			$result = $this->Admin_model->tagscount($_POST['lang']);
+			echo json_encode($result);
+		}
+	}
+	public function scmostviewstories(){
+		$data['languages'] = $this->Admin_model->languages();
+		$data['story'] = $this->Admin_model->mostviewedstories(7,'story'); //week
+		$data['life'] = $this->Admin_model->mostviewedstories(7,'life'); //week
+		$data['nano'] = $this->Admin_model->mostviewedstories(7,'nano'); //week
+		$data['series'] = $this->Admin_model->mostviewedstories(7,'series'); //week
+		$this->load->view('admin/scmostviewstories', $data);
+	}
+	public function scmvstorieslang(){
+		if(isset($_POST['lang']) && !empty($_POST['lang'])){
+			$data['story'] = $this->Admin_model->mostviewedstories(7,'story', $_POST['lang']); //week
+			$data['life'] = $this->Admin_model->mostviewedstories(7,'life', $_POST['lang']); //week
+			$data['nano'] = $this->Admin_model->mostviewedstories(7,'nano', $_POST['lang']); //week
+			$data['series'] = $this->Admin_model->mostviewedstories(7,'series', $_POST['lang']); //week
+			echo json_encode($data);
+		}else{
+			echo 0;
+		}
+	}
+	public function scmonetizstories(){
+		$data['story'] = $this->Admin_model->monetizedstories('story');
+		$data['life'] = $this->Admin_model->monetizedstories('life');
+		$data['series'] = $this->Admin_model->monetizedstories('series');
+		$this->load->view('admin/scmonetizstories', $data);
+	}
+
+	public function scstoriescount(){
+		$data['languages'] = $this->Admin_model->languages();
+
+		$data['seweek'] = $this->Admin_model->storiescount(7,'series');
+		$data['semonth'] = $this->Admin_model->storiescount(30,'series');
+		$data['seyear'] = $this->Admin_model->storiescount(365,'series');
+
+		$data['sweek'] = $this->Admin_model->storiescount(7,'story');
+		$data['smonth'] = $this->Admin_model->storiescount(30, 'story');
+		$data['syear'] = $this->Admin_model->storiescount(365, 'story');
+
+		$data['lweek'] = $this->Admin_model->storiescount(7,'life');
+		$data['lmonth'] = $this->Admin_model->storiescount(30,'life');
+		$data['lyear'] = $this->Admin_model->storiescount(365,'life');
+
+		$data['nweek'] = $this->Admin_model->storiescount(7,'nano');
+		$data['nmonth'] = $this->Admin_model->storiescount(30,'nano');
+		$data['nyear'] = $this->Admin_model->storiescount(365,'nano');
+		$this->load->view('admin/scstoriescount', $data);
+	}
+	public function scstorieswmy(){
+		if(isset($_POST['lang']) && !empty($_POST['lang'])){
+			$data['seweek'] = $this->Admin_model->storiescount(7,'series', $_POST['lang']);
+			$data['semonth'] = $this->Admin_model->storiescount(30,'series', $_POST['lang']);
+			$data['seyear'] = $this->Admin_model->storiescount(365,'series', $_POST['lang']);
+
+			$data['sweek'] = $this->Admin_model->storiescount(7,'story', $_POST['lang']);
+			$data['smonth'] = $this->Admin_model->storiescount(30, 'story', $_POST['lang']);
+			$data['syear'] = $this->Admin_model->storiescount(365, 'story', $_POST['lang']);
+
+			$data['lweek'] = $this->Admin_model->storiescount(7,'life', $_POST['lang']);
+			$data['lmonth'] = $this->Admin_model->storiescount(30,'life', $_POST['lang']);
+			$data['lyear'] = $this->Admin_model->storiescount(365,'life', $_POST['lang']);
+
+			$data['nweek'] = $this->Admin_model->storiescount(7,'nano', $_POST['lang']);
+			$data['nmonth'] = $this->Admin_model->storiescount(30,'nano', $_POST['lang']);
+			$data['nyear'] = $this->Admin_model->storiescount(365,'nano', $_POST['lang']);
+			echo json_encode($data);
+		}else{
+			echo 0;
+		}
+	}
+	public function scuserscount(){
+		$language = 'en';
+		$data['languages'] = $this->Admin_model->languages();
+		$data['uweek'] = $this->Admin_model->userscount(7);
+		$data['umonth'] = $this->Admin_model->userscount(30);
+		$data['uyear'] = $this->Admin_model->userscount(365);
+		$data['usergenre'] = $this->Admin_model->genersusercount($language);
+		$this->load->view('admin/scuserscount', $data);
+	}
+	public function scuserscountlang(){
+		if(isset($_POST['lang']) && !empty($_POST['lang'])){
+			$users['uweek'] = $this->Admin_model->userscount(7, $_POST['lang']);
+			$users['umonth'] = $this->Admin_model->userscount(30, $_POST['lang']);
+			$users['uyear'] = $this->Admin_model->userscount(365, $_POST['lang']);
+			echo json_encode($users);
+		}else{
+			echo 0;
+		}
+	}
+
+	public function sctotalviews(){
+		$data['languages'] = $this->Admin_model->languages();
+		$data['views'] = $this->Admin_model->totalviewscount();
+		$data['uqviews'] = $this->Admin_model->uniqueviewscount();
+		$this->load->view('admin/sctotalviews', $data);
 	}
 	/* Analytics end */
 
