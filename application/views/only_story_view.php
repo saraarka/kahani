@@ -21,7 +21,95 @@
         padding-bottom: 5px !important;
         margin-top: -8px !important;
     }
-</style>
+
+        .whitebody{
+            background: #FFF !important;
+            color:black;
+        }
+        .blackbody{
+            background: #000 !important;
+            color:white;
+        }
+        #reading-modebut{
+            cursor: pointer;
+            border: 1px solid #ddd;
+            background: #eeeeee;
+            color: black;
+            box-shadow: 1px 1px 0px 0px #00000059;
+            font-size: 0.9em;
+            padding: 9px;
+            letter-spacing: 0.04em;
+            border-radius: 3px;
+        }
+        #reading-modebut:hover{
+            background: #ddd;
+        }
+         .reading-mode-bg {
+             display: none;
+             font-family: 'Verdana', 'Geneva', sans-serif; 
+             padding: 20px 0 20px 0;
+         }
+         .reading-mode-header{
+             position: fixed;
+             height: 62px;
+             left: 0;
+             right: 0;
+             background: white;
+             top: 0;
+             box-shadow: 0 3px 2px -2px rgba(200,200,200,0.2);
+             border-bottom: 1px solid #ddd;
+         }
+         .reading-mode-header-inner{
+             width: 1000px;
+             max-width: 90%;
+             margin: 0 auto;
+             color: #000;
+         }
+         .reading-mode-header-inner button{
+             border: 1px solid #ddd;
+             font-size: 1em;
+             padding: 10px;
+             min-width:30px;
+             margin-top: 10px;
+             outline: none;
+             cursor: pointer;
+             background: #eeeeee;
+             border-radius: 3px;
+         }
+
+         .reading-mode-header-innerbody{
+             width: 1000px;
+             max-width: 90%;
+             margin: 0 auto;
+         }
+
+         .read-settings{
+             float: right;
+         }
+         .night-mode{
+             margin-left: 25px;
+         }
+         .font-minus, .font-plus{
+             margin: 8px;
+         }
+         .font-num{
+             color: black;
+         }
+         .read-modestory p{
+            font-family: 'Verdana', 'Geneva', sans-serif; 
+             line-height: 2em;
+             letter-spacing: .03em;
+             font-size: 16px;
+         }
+         @media screen and (max-width:500px){
+         .night-modetext{
+             display: none;
+         }
+         .night-mode{
+            margin-left: 18px;
+         }
+         }
+      </style>
 
 <?php $cmttype = ''; if(isset($admin_story_view) && ($admin_story_view->num_rows() == 1)){ foreach($admin_story_view->result() as $row) {
     if(isset($this->session->userdata['logged_in']['user_id']) && ($row->user_id == $this->session->userdata['logged_in']['user_id'])){
@@ -233,17 +321,19 @@
 				</div>
 				<!-- /.col -->
 			    
-			    <?php $parablock1 = ''; $parablock2 = ''; $parablock3 = ''; $parablock1count = 0; $parablock2count = 0; ?>
+			    <?php $storytitle = $row->title; $story = $row->story; $parablock1 = ''; $parablock2 = ''; $parablock3 = ''; $parablock1count = 0; $parablock2count = 0; ?>
 				<div class="storyread pd-10-0 storeadpt">
 					<div class="box box-widget widget-user boxshv boxshv1"><br>
 						<center><h3 style="padding-left:10px;padding-right:10px;"><b><?php echo $row->title; ?></b></h3></center>
 						<div style="padding:20px 20px 0 20px;">
-						    <span class="text-right">
+						    <!--<span class="text-right">
 						    	<span class="font-size-label" style="display: inline-block; padding-right:10px;">Zoom</span>
 						    	<a id="up" class="plus">+</a>
 						    	<span id="font-size" style="margin: 0 5px;width: 30px;height: 30px;"></span>
 						    	<a id="down"  class="plus">-</a>
-						    </span>
+                                
+						    </span>-->
+                            <button id="reading-modebut"><i class="fa fa-book"></i> READING MODE</button>
 						    <?php if(($row->type == 'series') && ($row->sid == $row->story_id)){
 								$seriesongo_stop = get_seriesongo_stop($row->story_id); if(isset($seriesongo_stop) && !empty($seriesongo_stop)) { ?>
 								<span style="float:right"><i class="fa fa-clock-o"></i> <span><?php echo $seriesongo_stop;?></span></span>
@@ -925,6 +1015,32 @@
 <!-- Social popup end---- -->
 
 
+</div> <!-- div all close reading story view page-->
+
+
+<div class="reading-mode-bg">
+    <div class="reading-mode-header">
+       <div class="reading-mode-header-inner">
+          <div class="read-settings">
+             <button class="font-plus fontsize" onclick="fontincrese()">+</button>
+             <span class="font-num">16</span>
+             <button class="font-minus fontsize" onclick="fontdecrese()">-</button>
+             <button class="night-mode"><img src="<?php echo base_url();?>assets/default/moon-solid.svg" style="height: 12px;"> <span class="night-modetext">NIGHT MODE</span>
+             </button> 
+          </div>
+          <button class="reading-mode-close"><i class="fa fa-arrow-left"></i><span> BACK</span>
+          </button>
+       </div>
+    </div>
+    <div class="reading-mode-header-innerbody" id="reading-mode-bg">
+        <h2 style="text-align: center;margin-bottom: 25px;"><?php echo $storytitle; ?></h2>
+        <div class="read-modestory"> <?php echo $story;?>
+        </div>
+    </div>
+</div>
+
+
+
 
 <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript">
@@ -1006,7 +1122,7 @@
     });
 </script>
 <script>
-    function getSize() {
+    /*function getSize() {
         size = $(".resizable").css("font-size");
         size = parseInt(size, 10);
         $( "#font-size" ).text(  size  );
@@ -1025,7 +1141,7 @@
             $( ".resizable" ).css( "font-size", "-=2" );
             $( "#font-size" ).text(  size -= 2  );
         }
-    });
+    });*/
 </script>
 
 <script> // comments
@@ -1413,3 +1529,51 @@ $(containerl).on("mouseup touchend", function(e) {
         setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
     }
 </script>
+
+<script>
+    let change = true;
+      $("#reading-modebut").click(()=>{
+          $(".div-all").css('display','none')
+          $("body").addClass('whitebody')
+          $(".reading-mode-bg").css('display','block')
+      })
+      
+      $(".night-mode").click(()=>{
+          if(change){
+          $("body").addClass('blackbody')
+          //$(".reading-mode-bg").css({"color":"white"})
+          $(".night-mode").css('background','lightyellow')
+          change = false;
+          } else {
+          change = true;
+          $("body").removeClass('blackbody').addClass('whitebody')
+          //$(".reading-mode-bg").css({"color":"black"})
+          $(".night-mode").css('background','#eeeeee')
+          }
+      })
+      
+      $(".reading-mode-close").click(()=>{
+          $(".reading-mode-bg").css({'display':'none'})
+          $("body").removeClass('blackbody').removeClass('whitebody')
+          $(".div-all").css('display','block')
+          $(".night-mode").css('background','#eeeeee')
+      })
+
+    function fontincrese(){
+        var fontsize = parseInt($('.font-num').text());
+        if(fontsize < 24){
+            fontsize+=2;
+            $('.read-modestory p').css('font-size', fontsize+'px');
+            $('.font-num').text(fontsize);
+        }
+    }
+
+    function fontdecrese(){
+        var fontsize = parseInt($('.font-num').text());
+        if(fontsize > 16){
+            fontsize-=2;
+            $('.read-modestory p').css('font-size', fontsize+'px');
+            $('.font-num').text(fontsize);
+        }
+    }
+  </script>
