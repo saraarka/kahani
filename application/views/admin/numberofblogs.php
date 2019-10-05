@@ -53,11 +53,11 @@
 }
 </style>
   <div class="main">
-    <h3>User Counts</h3>
+    <h3>Blogs</h3>
     
     <h5>
         <span class="pull-right">
-            <select class="form-control" onchange="sctotalviews(this.value);">
+            <select class="form-control" onchange="scblogs(this.value);">
                 <option value=""> -- By Language -- </option>
                 <?php if(isset($languages) && ($languages->num_rows() > 0)){ foreach($languages->result() as $language){ ?>
                 <option value="<?php echo $language->code;?>"><?php echo $language->language;?> </option>
@@ -65,39 +65,15 @@
             </select>
         </span>
     </h5>
-    <div class="">
+    <div class="scblogs">
       
-      <?php if(isset($views) && count($views > 0)){ ?>
-        <h3>Total Views Count</h3>
-          <div class="tagpagemaindiv scviews">
-              <?php foreach($views as $viewrow) { ?>
+      <?php if(isset($noofblogs) && count($noofblogs > 0)){ ?>
+        <h3>Total Blogs Count</h3>
+          <div class="tagpagemaindiv">
+              <?php foreach($noofblogs as $noofblog) { ?>
                   <div class="tagcards">
-                      <div class="tagtext"><a href="javascript:void(0);"><?php echo $viewrow['type']; ?></a></div>
-                      <div class="tagnumbertext"><?php echo $viewrow['totalviewcount'];?></div>
-                  </div>
-              <?php } ?>
-          </div>
-      <?php } ?>
-
-      <?php if(isset($uqviews) && count($uqviews > 0)){ ?>
-        <h3>Unique Views Count</h3>
-          <div class="tagpagemaindiv scuviews">
-              <?php foreach($uqviews as $uqviewrow) { ?>
-                  <div class="tagcards">
-                      <div class="tagtext"><a href="javascript:void(0);"><?php echo $uqviewrow['type']; ?></a></div>
-                      <div class="tagnumbertext"><?php echo $uqviewrow['uniqueviewcount'];?></div>
-                  </div>
-              <?php } ?>
-          </div>
-      <?php } ?>
-
-      <?php if(isset($emailvcount) && count($emailvcount > 0)){ ?>
-        <h3>Email Verified Count</h3>
-          <div class="tagpagemaindiv everified">
-              <?php foreach($emailvcount as $emailv) { ?>
-                  <div class="tagcards">
-                      <div class="tagtext"><a href="javascript:void(0);">Emails Verified</a></div>
-                      <div class="tagnumbertext"><?php echo $emailv['evcount'];?></div>
+                      <div class="tagtext"><a href="javascript:void(0);">Blogs Count</a></div>
+                      <div class="tagnumbertext"><?php echo $noofblog['blogcount'];?></div>
                   </div>
               <?php } ?>
           </div>

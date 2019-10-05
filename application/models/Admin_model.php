@@ -872,17 +872,6 @@ class Admin_model extends CI_model {
 	}
 	/* Webmail end */
 
-
-
-
-
-
-public function testbrowseimage(){
-	return $this->db->select('cover_image as image')->from('stories')->limit(9)->get();
-}
-
-
-
 	/* Analytics Start */
 	/*public function allstories($language = false){
 		$this->db->select('COUNT(sid) as storiescount, (SELECT COUNT(sid) FROM stories WHERE type="series" AND draft != "draft" AND status = "active" AND sid=story_id) as seriescount, type');
@@ -1034,8 +1023,12 @@ public function testbrowseimage(){
 		$i++;}	}
 		return $data;
 	}
-	public function emailverifiedcount(){
-		return $this->db->select('COUNT(user_id) as evcount')->from('signup')->where('user_activation',1)->get()->row_array();
+	public function emailverifiedcount($language = false){
+		$this->db->select('COUNT(user_id) as evcount')->from('signup');
+		if(isset($language) && !empty($language)){
+			$this->db->where('writer_language', $language);
+		}
+		return $this->db->where('user_activation',1)->get()->result_array();
 	}
 	public function totalviewscount($language = false){
 		$this->db->select('type, SUM(views) as totalviewcount, type')->from('stories')->where('type !=','')->where('draft !=','draft')->where('status', 'active');
@@ -1056,17 +1049,22 @@ public function testbrowseimage(){
 		return $this->db->get()->result_array();
 	}
 	public function numberoflangs(){
-		return $this->db->select('COUNT(id) as langcount')->from('language')->get()->row_array();
+		return $this->db->select('COUNT(id) as langcount')->from('language')->get()->result_array();
 	}
-	public function numberofblogs($language){
-		return $this->db->select('COUNT(id) as blogcount')->from('banner')->where('language',$language)->where('type', 'blog')->where('status','active')->get()->row_array();
+	public function numberofblogs($language = false){
+		$this->db->select('COUNT(id) as blogcount')->from('banner');
+		$this->db->where('language',$language)->where('type', 'blog');
+		if(isset($language) && !empty($language)){
+			$this->db->where('language', $language);
+		}
+		return $this->db->where('status','active')->get()->result_array();
 	}
 	public function noofgenderusers(){
 		return $this->db->select('gender, COUNT(user_id) as usercount')->from('signup')->group_by('gender')->get()->result_array();
 	}
 	public function sentamountmoni(){
 		//return $this->db->select('user_id,paid_amount')->from('signup')->get()->result_array();
-		return $this->db->select('SUM(paid_amount) as paidamount, SUM(tobe_payamount) as tobepay')->from('signup')->get()->row_array();
+		return $this->db->select('SUM(paid_amount) as paidamount, SUM(tobe_payamount) as tobepay')->from('signup')->get()->result_array();
 	}
 	/* Analytics end */
 

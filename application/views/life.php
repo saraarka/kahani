@@ -563,6 +563,10 @@
                             }
                         });
 
+                        $('body').toggleClass('hide-body-scroll');
+                        $('.modal-wrapper').removeClass('open');
+                        return false;
+
                         var fileReader = new FileReader();
                         fileReader.onload = (function(e) {
                             var file = e.target;

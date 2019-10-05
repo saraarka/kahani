@@ -6,13 +6,16 @@ class Ahindi extends CI_Controller {
     {
         parent::__construct();
 		$this->load->model('Admin_model');
-		$this->load->library(array('user_agent','pagination'));
+		$this->load->library(array('user_agent', 'pagination', 'ImageManipulator'));
 		$this->load->helper('url');
 		$this->load->helper('custom');
 		$this->load->helper('form');
 		$this->load->library('upload');
 		$this->load->library('session');
 		$this->load->library('form_validation');
+		if(!isset($this->session->userdata['alogin']['aemail']) || empty($this->session->userdata['alogin']['aemail'])){
+			redirect(base_url().'welcome/adminlogin');
+		}
 	}
 	public function index() {
 	    echo 'Hindi Admin';
@@ -466,6 +469,22 @@ class Ahindi extends CI_Controller {
 	        echo 0;
 	    }
 	}
+
+	// users +  authors list		
+	public function auserslist(){		
+	    $language = 'hi';		
+	    $data['languages'] = $this->Admin_model->languages();		
+	    $data['geners'] = $this->Admin_model->generslist($language);		
+	    $data['auserslist'] = $this->Admin_model->auserslist($language);		
+	    $this->load->view('admin/auserslist', $data);		
+	}		
+	public function ausersearch(){		
+		$language = 'hi';		
+	    if(isset($_POST) && !empty($_POST)){		
+	        $data['ausersearch'] = $this->Admin_model->ausersearch($language, $_POST);		
+	        $this->load->view('admin/ausersearch', $data);		
+	    }		
+	}		
 	/*Users List End*/
 	
 	/*Stories List start*/
@@ -511,6 +530,14 @@ class Ahindi extends CI_Controller {
             //redirect(base_url().'index.php/ahindi/storieslist');
 	    }
 	}
+	public function removeadminchoice($sid){		
+		$response = $this->Admin_model->removeadminchoice($sid);		
+	    if($response){		
+	        echo 1;		
+	    }else{		
+	    	echo 0;		
+	    }
+	}
 	public function storiessearch(){
 	    $language = 'hi';
 	    $data['storiessearch'] = $this->Admin_model->storiessearch($language, $_POST);
@@ -535,19 +562,38 @@ class Ahindi extends CI_Controller {
     		if ($this->form_validation->run() == false) {
     			$this->load->view('admin/addblog');
     		}else{
-    		    $blogimage = '';
-				$config['upload_path'] = 'assets/images/';  
+		        $blogimage = ''; $image = '';
+                $config['upload_path'] = 'assets/images/';  
 				$config['allowed_types'] = 'jpg|jpeg|png|gif';
 				$config['file_name'] = $_FILES['blogimage']['name']; 
 				$config['encrypt_name'] = TRUE;
-				$this->load->library('upload',$config);
-				$this->upload->initialize($config);   
-				if($this->upload->do_upload('blogimage')){
-					$uploadData = $this->upload->data();
-					$blogimage = $uploadData['file_name'];
+                $this->load->library('upload',$config);
+                $this->upload->initialize($config);
+                if($this->upload->do_upload('blogimage')){
+                    $uploadData = $this->upload->data();
+                    $config['image_library'] = 'gd2';
+                    $config['source_image'] = 'assets/images/'.$uploadData['file_name'];
+                    $config['create_thumb'] = FALSE;
+                    $config['maintain_ratio'] = FALSE;
+                    $config['quality'] = '85%';
+                    $config['width'] = 230;
+                    $config['height'] = 170;
+                    $this->load->library('image_lib', $config);
+                    $this->image_lib->resize();
+                    $blogimage = $uploadData['file_name'];
+                    
+                    $date = strtotime(date('Y-m-d h:i:s'));
+                    $newNamePrefix = $date.'_';
+                    $manipulator = new ImageManipulator($_FILES['blogimage']['tmp_name']);
+                    $newImage = $manipulator->resample(730, 540, FALSE);
+                    $image = $newNamePrefix.$_FILES['blogimage']['name'];
+                    // saving file to uploads folder
+                    $manipulator->save('assets/images/'.$newNamePrefix.$_FILES['blogimage']['name']);
+                        
                     $inputdata = array(
                         'caption' => $this->input->post('title'),
                         'slideimage' => $blogimage,
+                        'image' => $image,
                         'description' => $this->input->post('description'),
                         'language' => $language,
                         'type' => 'blog',
@@ -582,7 +628,7 @@ class Ahindi extends CI_Controller {
 		if ($this->form_validation->run() == false) {
 			$this->load->view('admin/editblog', $data);
 		}else{
-		    $blogimage = '';
+		    $blogimage = ''; $image = '';
 		    if(isset($_FILES['blogimage']['name']) && !empty($_FILES['blogimage']['name'])) {
     			$config['upload_path'] = 'assets/images/';  
     			$config['allowed_types'] = 'jpg|jpeg|png|gif';
@@ -592,7 +638,24 @@ class Ahindi extends CI_Controller {
     			$this->upload->initialize($config);   
     			if($this->upload->do_upload('blogimage')){
     				$uploadData = $this->upload->data();
-    				$blogimage = $uploadData['file_name'];
+                    $config['image_library'] = 'gd2';
+                    $config['source_image'] = 'assets/images/'.$uploadData['file_name'];
+                    $config['create_thumb'] = FALSE;
+                    $config['maintain_ratio'] = FALSE;
+                    $config['quality'] = '90%';
+                    $config['width'] = 230;
+                    $config['height'] = 170;
+                    $this->load->library('image_lib', $config);
+                    $this->image_lib->resize();
+                    $blogimage = $uploadData['file_name'];
+                    
+                    $date = strtotime(date('Y-m-d h:i:s'));
+                    $newNamePrefix = $date.'_';
+                    $manipulator = new ImageManipulator($_FILES['blogimage']['tmp_name']);
+                    $newImage = $manipulator->resample(730, 540, FALSE);
+                    $image = $newNamePrefix.$_FILES['blogimage']['name'];
+                    // saving file to uploads folder
+                    $manipulator->save('assets/images/'.$newNamePrefix.$_FILES['blogimage']['name']);
     			}
 		    }else{
 			    $error = array('error' => $this->upload->display_errors());
@@ -605,6 +668,9 @@ class Ahindi extends CI_Controller {
             );
             if(!empty($blogimage)){
                 $inputdata['slideimage'] = $blogimage;
+            }
+            if(!empty($image)){
+                $inputdata['image'] = $image;
             }
             $response = $this->Admin_model->updateblog($inputdata, $id);
             if($response){
@@ -1087,6 +1153,11 @@ class Ahindi extends CI_Controller {
             }
 	    }
 	}
+	public function paidtrans(){		
+		$language = 'hi';		
+	    $data['transreqs'] = $this->Admin_model->paidtrans($language);		
+	    $this->load->view('admin/paidtrans', $data);		
+	}
 	/* transactions requests monetisation end */
 	
 	/* Landing page text start */
@@ -1381,6 +1452,568 @@ class Ahindi extends CI_Controller {
         }
 	}
 	/* static pages text end */
+
+	/* Blocked Profiles start */
+	public function blockedprofiles(){
+		$language = 'hi';
+		$data['bprofiles'] = $this->Admin_model->blockedprofiles($language);
+		$this->load->view('admin/blockedprofiles', $data);
+	}
+	/* Blocked Profiles end */
 	
-	
+	/* Blocked Stories start */
+	public function blockedstories(){
+		$language = 'hi';
+		$data['bstories'] = $this->Admin_model->blockedstories($language);
+		$this->load->view('admin/blockedstories', $data);
+	}
+	/* Blocked Stories end */
+
+	/* Website logos start */
+	public function logos(){
+		$data['logos'] = $this->Admin_model->logos();
+		if(isset($_POST, $_POST['type']) && !empty($_POST) && !empty($_POST['type'])){
+			if(isset($_FILES['logo']['name']) && !empty($_FILES['logo']['name'])){
+				$config['upload_path'] = 'assets/images/';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                $config['max_size']     = '2048';
+                $config['encrypt_name'] = TRUE;
+                $this->load->library('upload',$config);
+                $this->upload->initialize($config);
+
+				if($this->upload->do_upload('logo')){
+	                $uploadData = $this->upload->data();
+	                $config['image_library'] = 'gd2';
+	                $config['source_image'] = 'assets/images/'.$uploadData['file_name'];
+	                $config['create_thumb'] = FALSE;
+	                $config['maintain_ratio'] = FALSE;
+	                $config['quality'] = '100%';
+	                if($_POST['type'] == "landing_logo" || $_POST['type'] == "site_logo"){
+		                $config['width'] = 170;
+		                $config['height'] = 26;
+		            }else if ($_POST['type'] == "landing_mlogo") {
+		            	$config['width'] = 69;
+		                $config['height'] = 40;
+		            }else if ($_POST['type'] == "site_mlogo") {
+		            	$config['width'] = 70;
+		                $config['height'] = 38;
+		            }
+	                $this->load->library('image_lib', $config);
+	                $this->image_lib->resize();
+	                $logo = $uploadData['file_name'];
+	                if(!empty($logo)){
+	                	$ldata = array('slideimage'=>$logo,'type'=>$_POST['type']);
+	                	$response = $this->Admin_model->logoinsert($ldata);
+	                	if($response){
+	                		$this->session->set_flashdata('msg','<div class="alert alert-success">Logo added Success.</div>');
+            				redirect(base_url().'index.php/ahindi/logos');
+	                	}else{
+	                		$this->session->set_flashdata('msg','<div class="alert alert-danger"> Failed to add Logo.</div>');
+            				redirect(base_url().'index.php/ahindi/logos');
+	                	}
+	                }else{
+	                	$this->session->set_flashdata('msg','<div class="alert alert-warning">Logo not uploaded properly. Try again!</div>');
+            			redirect(base_url().'index.php/ahindi/logos');
+	                }
+	            }else{
+	            	$this->session->set_flashdata('msg','<div class="alert alert-warning">Logo not added.Try again!</div>');
+            		redirect(base_url().'index.php/ahindi/logos');
+	            }
+	        }else{
+	        	$this->session->set_flashdata('nologo','Logo image not Choosen');
+            	redirect(base_url().'index.php/ahindi/logos');
+	        }
+		}else{
+			$this->load->view('admin/logos', $data);
+		}
+	}
+
+	public function editlogo($logoid){
+		$data['logos'] = $this->Admin_model->logos();
+		$data['editlogo'] = $this->Admin_model->logoedit($logoid);
+		if(isset($_POST, $_POST['type']) && !empty($_POST) && !empty($_POST['type'])){
+			if(isset($_FILES['logo']['name']) && !empty($_FILES['logo']['name'])){
+				$config['upload_path'] = 'assets/images/';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                $config['max_size']     = '2048';
+                $config['encrypt_name'] = TRUE;
+                $this->load->library('upload',$config);
+                $this->upload->initialize($config);
+
+				if($this->upload->do_upload('logo')){
+	                $uploadData = $this->upload->data();
+	                $config['image_library'] = 'gd2';
+	                $config['source_image'] = 'assets/images/'.$uploadData['file_name'];
+	                $config['create_thumb'] = FALSE;
+	                $config['maintain_ratio'] = FALSE;
+	                $config['quality'] = '100%';
+	                if($_POST['type'] == "landing_logo" || $_POST['type'] == "site_logo"){
+		                $config['width'] = 170;
+		                $config['height'] = 26;
+		            }else if ($_POST['type'] == "landing_mlogo") {
+		            	$config['width'] = 69;
+		                $config['height'] = 40;
+		            }else if ($_POST['type'] == "site_mlogo") {
+		            	$config['width'] = 70;
+		                $config['height'] = 38;
+		            }
+	                $this->load->library('image_lib', $config);
+	                $this->image_lib->resize();
+	                $logo = $uploadData['file_name'];
+
+	                if(!empty($logo)){
+	                	$udata = array('slideimage'=>$logo,'type'=>$_POST['type']);
+	                	$response = $this->Admin_model->logoupdate($udata,$logoid);
+	                	if($response){
+	                		$this->session->set_flashdata('msg','<div class="alert alert-success">Logo updated Success.</div>');
+            				redirect(base_url().'index.php/ahindi/logos');
+	                	}else{
+	                		$this->session->set_flashdata('msg','<div class="alert alert-danger"> Failed to update Logo.</div>');
+            				redirect(base_url().'index.php/ahindi/logos');
+	                	}
+	                }else{
+	                	$this->session->set_flashdata('msg','<div class="alert alert-warning">Logo not uploaded properly. Try again!</div>');
+            			redirect(base_url().'index.php/ahindi/logos');
+	                }
+	            }else{
+	            	$this->session->set_flashdata('msg','<div class="alert alert-warning">Logo not updated.Try again!</div>');
+            		redirect(base_url().'index.php/ahindi/logos');
+	            }
+	        }
+			$this->load->view('admin/logos', $data);
+		}else{
+			$this->load->view('admin/logos', $data);
+		}
+	}
+	public function deletelogo($logoid){
+		$response = $this->Admin_model->deletelogo($logoid);
+		if($response){
+			$this->session->set_flashdata('msg','<div class="alert alert-success">Logo deleted Success. </div>');
+			redirect(base_url().'index.php/ahindi/logos');
+		}else{
+	    	$this->session->set_flashdata('msg','<div class="alert alert-danger">Logo delete Failed.</div>');
+			redirect(base_url().'index.php/ahindi/logos');
+	    }
+	}
+	/* Website logos  end */
+
+	/* Default images start */
+	public function defaultimages(){
+		$data['dimages'] = $this->Admin_model->defaultimages();
+		if(isset($_FILES['defaultimage']['name']) && !empty($_FILES['defaultimage']['name'])) {
+			$config['upload_path'] = 'assets/images/';  
+			$config['allowed_types'] = 'gif|jpg|png|jpeg|GIF|JPG|JPEG|PNG';
+			$config['max_size'] = 0;
+			$config['max_width'] = 0;
+			$config['max_height'] = 0;
+			$config['encrypt_name'] = TRUE;
+			$this->load->library('upload', $config);
+			$this->upload->initialize($config);
+			$keywords = $_POST['search_keywords'];
+			if($this->upload->do_upload('defaultimage')){
+				$uploadData = $this->upload->data();
+				$defaultimage = $uploadData['file_name'];				
+				$insertdata = array('dimage' => $defaultimage, 'type' => 'storyimage', 'search_keywords' => $keywords);
+				$response = $this->Admin_model->insertimages($insertdata);
+				if($response){
+					$this->session->set_flashdata('msg','<div class="alert alert-success">Default images added success. </div>');
+					redirect(base_url().'index.php/ahindi/defaultimages');
+				}else{
+					$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to add default images.</div>');
+					redirect(base_url().'index.php/ahindi/defaultimages');
+				}
+			}else{
+				$img_errors['upload_errors'] = $this->upload->display_errors();
+			}
+			$this->load->view('admin/defaultimages', $data);
+		}else{
+			$this->load->view('admin/defaultimages', $data);
+		}
+	}
+	public function edit_dimage($id){
+		$data['dimages'] = $this->Admin_model->defaultimages();
+		$data['edit_dimages'] = $this->Admin_model->edit_dimage($id);
+		$defaultimage = '';
+		if(isset($_POST) && !empty($_POST)){
+			if(isset($_FILES['defaultimage']['name']) && !empty($_FILES['defaultimage']['name'])) {
+				$defaultimage = '';
+				$config['upload_path'] = 'assets/images/';  
+				$config['allowed_types'] = 'gif|jpg|png|jpeg|GIF|JPG|JPEG|PNG';
+				$config['max_size'] = 0;
+				$config['max_width'] = 0;
+				$config['max_height'] = 0;
+				$config['encrypt_name'] = TRUE;
+				$this->load->library('upload', $config);
+				$this->upload->initialize($config);
+				if($this->upload->do_upload('defaultimage')){
+					$uploadData = $this->upload->data();
+					$defaultimage = $uploadData['file_name'];
+				}else{
+					$img_errors['upload_errors'] = $this->upload->display_errors();
+				}
+			}
+			$updatedata = array();
+			if(isset($defaultimage) && !empty($defaultimage)){
+				$updatedata['dimage'] = $defaultimage;
+			}
+			if (isset($_POST['search_keywords']) && !empty($_POST['search_keywords'])) {
+				$updatedata['search_keywords'] = $_POST['search_keywords'];
+			}
+			$response = $this->Admin_model->updateimages($updatedata, $id);
+			if($response){
+				$this->session->set_flashdata('msg','<div class="alert alert-success">Default images updated success. </div>');
+				redirect(base_url().'index.php/ahindi/defaultimages');
+			}else{
+				$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to update default images.</div>');
+				redirect(base_url().'index.php/ahindi/defaultimages');
+			}
+			$this->load->view('admin/defaultimages', $data);
+		}else{
+			$this->load->view('admin/defaultimages', $data);
+		}
+	}
+	public function delete_dimage($dimgid){
+		$response = $this->Admin_model->delete_dimage($dimgid);
+		if($response){
+			$this->session->set_flashdata('msg','<div class="alert alert-success">Default images deleted success. </div>');
+			redirect(base_url().'index.php/ahindi/defaultimages');
+		}else{
+			$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to delete default images.</div>');
+			redirect(base_url().'index.php/ahindi/defaultimages');
+		}
+	}
+
+	/* Default images end */
+
+	/* Custom notifications to users start */
+	public function customnotifies(){
+		$data['customnotifies'] = $this->Admin_model->customnotifies();
+		if(isset($_POST) && !empty($_POST)){
+			$this->form_validation->set_rules('title', 'Title','trim|required|min_length[5]');
+			$this->form_validation->set_rules('description', 'Description', 'trim|required|min_length[10]');
+			$this->form_validation->set_rules('redirect_uri', 'Redirect URL');
+			if ($this->form_validation->run() == false) {
+				$this->load->view('admin/customnotifies', $data);
+			}else{
+				$insertdata = array(
+					'title' => $this->input->post('title'),
+					'description' => $this->input->post('description'),
+					'redirect_uri' => $this->input->post('redirect_uri'),
+					'type' => 'admin_notify',
+					'from_name' => 'Story Carry',
+				);
+				$response = $this->Admin_model->insert_notifies($insertdata);
+				if($response){
+					$this->session->set_flashdata('msg','<div class="alert alert-success">Notification Added success. </div>');
+					redirect(base_url().'index.php/ahindi/customnotifies');
+				}else{
+					$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to add Notification.</div>');
+					redirect(base_url().'index.php/ahindi/customnotifies');
+				}
+			}
+		}else{
+			$this->load->view('admin/customnotifies', $data);
+		}
+	}
+	public function deletenotify($id){
+		$response = $this->Admin_model->deletenotify($id);
+		if($response){
+			$this->session->set_flashdata('msg','<div class="alert alert-success">Admin Notification deleted success. </div>');
+			redirect(base_url().'index.php/ahindi/customnotifies');
+		}else{
+			$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to delete Admin Notification.</div>');
+			redirect(base_url().'index.php/ahindi/customnotifies');
+		}
+	}
+	/* Custom notifications to users end */	
+
+	/* Faqs to start */
+	public function faqs(){
+		$data['faqs'] = $this->Admin_model->faqs();
+		if(isset($_POST) && !empty($_POST)){
+			$this->form_validation->set_rules('caption', 'Title','trim|required|min_length[5]');
+			$this->form_validation->set_rules('description', 'Description', 'trim|required|min_length[10]');
+			if ($this->form_validation->run() == false) {
+				$this->load->view('admin/faqs', $data);
+			}else{
+				$insertdata = array(
+					'caption' => $this->input->post('caption'),
+					'description' => $this->input->post('description'),
+					'type' => 'faq',
+				);
+				$response = $this->Admin_model->insertfaq($insertdata);
+				if($response){
+					$this->session->set_flashdata('msg','<div class="alert alert-success">Faq Added success. </div>');
+					redirect(base_url().'index.php/ahindi/faqs');
+				}else{
+					$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to add Faq.</div>');
+					redirect(base_url().'index.php/ahindi/faqs');
+				}
+			}
+		}else{
+			$this->load->view('admin/faqs', $data);
+		}
+	}
+	public function editfaqs($id){
+		$data['faqs'] = $this->Admin_model->faqs();
+		$data['editfaqs'] = $this->Admin_model->editfaqs($id);
+		if(isset($_POST) && !empty($_POST)){
+			$this->form_validation->set_rules('caption', 'Title','trim|required|min_length[5]');
+			$this->form_validation->set_rules('description', 'Description', 'trim|required|min_length[10]');
+			if ($this->form_validation->run() == false) {
+				$this->load->view('admin/faqs', $data);
+			}else{
+				$updatedata = array(
+					'caption' => $this->input->post('caption'),
+					'description' => $this->input->post('description'),
+				);
+				$response = $this->Admin_model->updatefaq($updatedata, $id);
+				if($response){
+					$this->session->set_flashdata('msg','<div class="alert alert-success">Faq Updated success. </div>');
+					redirect(base_url().'index.php/ahindi/faqs');
+				}else{
+					$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Update Faq.</div>');
+					redirect(base_url().'index.php/ahindi/faqs');
+				}
+			}
+		}else{
+			$this->load->view('admin/faqs', $data);
+		}
+	}
+	public function deletefaq($id){
+		$response = $this->Admin_model->deletefaq($id);
+		if($response){
+			$this->session->set_flashdata('msg','<div class="alert alert-success">Faq deleted success. </div>');
+			redirect(base_url().'index.php/ahindi/faqs');
+		}else{
+			$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to delete Faq.</div>');
+			redirect(base_url().'index.php/ahindi/faqs');
+		}
+	}
+	/* Faqs to end */
+
+	/* Webmail start */
+	public function mailfromadmin(){
+		$data['sentmails'] = $this->Admin_model->sentmaillist();
+		if(isset($_POST) && !empty($_POST)){
+			$this->form_validation->set_rules('email', 'Email','trim|required');
+			$this->form_validation->set_rules('subject', 'Subject','trim|required');
+			$this->form_validation->set_rules('message', 'Message', 'trim|required|min_length[10]');
+			if ($this->form_validation->run() == false) {
+				$this->load->view('admin/mailfromadmin', $data);
+			}else{
+				$insertdata = array(
+					'email' => $this->input->post('email'),
+					'subject' => $this->input->post('subject'),
+					'message' => $this->input->post('message'),
+				);
+				$response = $this->Admin_model->insertmail($insertdata);
+				if($response){
+					$this->session->set_flashdata('msg','<div class="alert alert-success">Mail sent success. </div>');
+					redirect(base_url().'index.php/ahindi/mailfromadmin');
+				}else{
+					$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to sent Mail.</div>');
+					redirect(base_url().'index.php/ahindi/mailfromadmin');
+				}
+			}
+		}else{
+			$this->load->view('admin/mailfromadmin', $data);
+		}
+	}
+	/* Webmail end */
+
+	/* Payment Details start */
+	public function paymentdetails(){
+		$language = 'hi';
+		$data['paymentdetails'] = $this->Admin_model->auserslist($language);
+		$this->load->view('admin/paymentdetails', $data);
+	}
+
+	/* Payment Details end */
+
+	/* Analytics Start */
+	public function scanalytics(){
+		$language = 'hi';
+		$data['languages'] = $this->Admin_model->languages();
+		$data['allstories'] = $this->Admin_model->allstories();
+		$this->load->view('admin/scanalytics', $data);
+	}
+	public function scanalyticslang(){
+		if(isset($_POST['lang']) && !empty($_POST['lang'])){
+			$result = $this->Admin_model->allstories($_POST['lang']);
+			echo json_encode($result);
+		}else{
+			echo 0;
+		}
+	}
+	public function scgenres(){
+		$data['languages'] = $this->Admin_model->languages();
+		$data['stories'] = $this->Admin_model->allgenre('story');
+		$data['series'] = $this->Admin_model->allgenre('series');
+		$this->load->view('admin/scgenres', $data);
+	}
+	public function scgenreslang(){
+		if(isset($_POST['lang']) && !empty($_POST['lang'])){
+			$data['stories'] = $this->Admin_model->allgenre('story', $_POST['lang']);
+			$data['series'] = $this->Admin_model->allgenre('series', $_POST['lang']);
+			echo json_encode($data);
+		}else{
+			echo 0;
+		}
+	}
+	public function scprofiles(){
+		$data['languages'] = $this->Admin_model->languages();
+		$data['monetizp'] = $this->Admin_model->monetizedprofiles();
+		$data['profilecount'] = $this->Admin_model->allprofiles();
+		$this->load->view('admin/scprofiles', $data);
+	}
+	public function scprofilelang(){
+		if(isset($_POST['lang']) && !empty($_POST['lang'])){
+			$result = $this->Admin_model->allprofiles($_POST['lang']);
+			echo json_encode($result);
+		}
+	}
+	public function sctagscount(){
+		$data['languages'] = $this->Admin_model->languages();
+		$data['tagscount'] = $this->Admin_model->tagscount();
+		$this->load->view('admin/sctags', $data);
+	}
+	public function sctagscountlang(){
+		if(isset($_POST['lang']) && !empty($_POST['lang'])){
+			$result = $this->Admin_model->tagscount($_POST['lang']);
+			echo json_encode($result);
+		}
+	}
+	public function scmostviewstories(){
+		$data['languages'] = $this->Admin_model->languages();
+		$data['story'] = $this->Admin_model->mostviewedstories(7,'story'); //week
+		$data['life'] = $this->Admin_model->mostviewedstories(7,'life'); //week
+		$data['nano'] = $this->Admin_model->mostviewedstories(7,'nano'); //week
+		$data['series'] = $this->Admin_model->mostviewedstories(7,'series'); //week
+		$this->load->view('admin/scmostviewstories', $data);
+	}
+	public function scmvstorieslang(){
+		if(isset($_POST['lang']) && !empty($_POST['lang'])){
+			$data['story'] = $this->Admin_model->mostviewedstories(7,'story', $_POST['lang']); //week
+			$data['life'] = $this->Admin_model->mostviewedstories(7,'life', $_POST['lang']); //week
+			$data['nano'] = $this->Admin_model->mostviewedstories(7,'nano', $_POST['lang']); //week
+			$data['series'] = $this->Admin_model->mostviewedstories(7,'series', $_POST['lang']); //week
+			echo json_encode($data);
+		}else{
+			echo 0;
+		}
+	}
+	public function scmonetizstories(){
+		$data['story'] = $this->Admin_model->monetizedstories('story');
+		$data['life'] = $this->Admin_model->monetizedstories('life');
+		$data['series'] = $this->Admin_model->monetizedstories('series');
+		$this->load->view('admin/scmonetizstories', $data);
+	}
+
+	public function scstoriescount(){
+		$data['languages'] = $this->Admin_model->languages();
+
+		$data['seweek'] = $this->Admin_model->storiescount(7,'series');
+		$data['semonth'] = $this->Admin_model->storiescount(30,'series');
+		$data['seyear'] = $this->Admin_model->storiescount(365,'series');
+
+		$data['sweek'] = $this->Admin_model->storiescount(7,'story');
+		$data['smonth'] = $this->Admin_model->storiescount(30, 'story');
+		$data['syear'] = $this->Admin_model->storiescount(365, 'story');
+
+		$data['lweek'] = $this->Admin_model->storiescount(7,'life');
+		$data['lmonth'] = $this->Admin_model->storiescount(30,'life');
+		$data['lyear'] = $this->Admin_model->storiescount(365,'life');
+
+		$data['nweek'] = $this->Admin_model->storiescount(7,'nano');
+		$data['nmonth'] = $this->Admin_model->storiescount(30,'nano');
+		$data['nyear'] = $this->Admin_model->storiescount(365,'nano');
+		$this->load->view('admin/scstoriescount', $data);
+	}
+	public function scstorieswmy(){
+		if(isset($_POST['lang']) && !empty($_POST['lang'])){
+			$data['seweek'] = $this->Admin_model->storiescount(7,'series', $_POST['lang']);
+			$data['semonth'] = $this->Admin_model->storiescount(30,'series', $_POST['lang']);
+			$data['seyear'] = $this->Admin_model->storiescount(365,'series', $_POST['lang']);
+
+			$data['sweek'] = $this->Admin_model->storiescount(7,'story', $_POST['lang']);
+			$data['smonth'] = $this->Admin_model->storiescount(30, 'story', $_POST['lang']);
+			$data['syear'] = $this->Admin_model->storiescount(365, 'story', $_POST['lang']);
+
+			$data['lweek'] = $this->Admin_model->storiescount(7,'life', $_POST['lang']);
+			$data['lmonth'] = $this->Admin_model->storiescount(30,'life', $_POST['lang']);
+			$data['lyear'] = $this->Admin_model->storiescount(365,'life', $_POST['lang']);
+
+			$data['nweek'] = $this->Admin_model->storiescount(7,'nano', $_POST['lang']);
+			$data['nmonth'] = $this->Admin_model->storiescount(30,'nano', $_POST['lang']);
+			$data['nyear'] = $this->Admin_model->storiescount(365,'nano', $_POST['lang']);
+			echo json_encode($data);
+		}else{
+			echo 0;
+		}
+	}
+	public function scuserscount(){
+		$language = 'hi';
+		$data['languages'] = $this->Admin_model->languages();
+		$data['uweek'] = $this->Admin_model->userscount(7);
+		$data['umonth'] = $this->Admin_model->userscount(30);
+		$data['uyear'] = $this->Admin_model->userscount(365);
+		$data['usergenre'] = $this->Admin_model->genersusercount($language);
+		$this->load->view('admin/scuserscount', $data);
+	}
+	public function scuserscountlang(){
+		if(isset($_POST['lang']) && !empty($_POST['lang'])){
+			$users['uweek'] = $this->Admin_model->userscount(7, $_POST['lang']);
+			$users['umonth'] = $this->Admin_model->userscount(30, $_POST['lang']);
+			$users['uyear'] = $this->Admin_model->userscount(365, $_POST['lang']);
+			echo json_encode($users);
+		}else{
+			echo 0;
+		}
+	}
+
+	public function sctotalviews(){
+		$data['languages'] = $this->Admin_model->languages();
+		$data['views'] = $this->Admin_model->totalviewscount();
+		$data['uqviews'] = $this->Admin_model->uniqueviewscount();
+		$data['emailvcount'] = $this->Admin_model->emailverifiedcount();
+		$this->load->view('admin/sctotalviews', $data);
+	}
+	public function sctotalviewslang(){
+		if(isset($_POST['lang']) && !empty($_POST['lang'])){
+			$data['views'] = $this->Admin_model->totalviewscount($_POST['lang']);
+			$data['uqviews'] = $this->Admin_model->uniqueviewscount($_POST['lang']);
+			$data['emailvcount'] = $this->Admin_model->emailverifiedcount($_POST['lang']);
+			echo json_encode($data);
+		}else{
+			echo 0;
+		}
+	}
+
+	public function sclanguages(){
+		$data['languages'] = $this->Admin_model->numberoflangs();
+		$this->load->view('admin/sclanguages', $data);
+	}
+	public function scblogs(){
+		$data['languages'] = $this->Admin_model->languages();
+		$data['noofblogs'] = $this->Admin_model->numberofblogs();
+		$this->load->view('admin/numberofblogs', $data);
+	}
+	public function scblogslang(){
+		if(isset($_POST['lang']) && !empty($_POST['lang'])){
+			$data['noofblogs'] = $this->Admin_model->numberofblogs($_POST['lang']);
+			echo json_encode($data);
+		}
+	}
+	public function scgenderusers(){
+		$data['languages'] = $this->Admin_model->languages();
+		$data['genderusers'] = $this->Admin_model->noofgenderusers();
+		$this->load->view('admin/scgenderusers', $data);
+	}
+	public function scsentamountmoni(){
+		$data['moniamount'] = $this->Admin_model->sentamountmoni();
+		$this->load->view('admin/scsentamountmoni', $data);
+	}
+	/* Analytics end */
+
 }

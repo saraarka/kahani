@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 date_default_timezone_set('Asia/Kolkata');
-class Aenglish extends CI_Controller {
+class Atelugu extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
@@ -18,16 +18,16 @@ class Aenglish extends CI_Controller {
 		}
 	}
 	public function index() {
-	    echo 'English Admin';
+	    echo 'Telugu Admin';
 	}
 	/*header Menu Language change Start*/
 	public function headmenulist(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['menulist'] = $this->Admin_model->headmenulist($language);
 	    $this->load->view('admin/headmenulist', $data);
 	}
 	public function addheadmenu(){
-	    $language = 'en';
+	    $language = 'te';
 	    if(isset($_POST) && !empty($_POST)){
 	        $this->form_validation->set_rules('navbartype', 'Navbar type','trim|required');
     		$this->form_validation->set_rules('menu_type', 'Menu Type', 'trim|required');
@@ -46,10 +46,10 @@ class Aenglish extends CI_Controller {
                 $response = $this->Admin_model->addheadmenu($inputdata);
                 if($response){
                     $this->session->set_flashdata('msg','<div class="alert alert-success">Menu Added Successfully.</div>');
-                    redirect(base_url().'index.php/aenglish/addheadmenu');
+                    redirect(base_url().'index.php/atelugu/addheadmenu');
                 }else{
                     $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Add Menu.</div>');
-                    redirect(base_url().'index.php/aenglish/addheadmenu');
+                    redirect(base_url().'index.php/atelugu/addheadmenu');
                 }
     		}
 	    }else{
@@ -57,12 +57,12 @@ class Aenglish extends CI_Controller {
 	    }
 	}
 	public function editheadmenu($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['editmenu'] = $this->Admin_model->editheadmenu($language, $id);
 	    $this->load->view('admin/editheadmenu', $data);
 	}
 	public function updateheadmenu($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['editmenu'] = $this->Admin_model->editheadmenu($language, $id);
 	    $this->form_validation->set_rules('navbartype', 'Navbar type','trim|required');
 		$this->form_validation->set_rules('menu_type', 'Menu Type', 'trim|required');
@@ -81,35 +81,35 @@ class Aenglish extends CI_Controller {
             $response = $this->Admin_model->updateheadmenu($inputdata, $id);
             if($response){
                 $this->session->set_flashdata('msg','<div class="alert alert-success">Menu Updated Successfully.</div>');
-                redirect(base_url().'index.php/aenglish/headmenulist');
+                redirect(base_url().'index.php/atelugu/headmenulist');
             }else{
                 $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Update Menu.</div>');
-                redirect(base_url().'index.php/aenglish/editheadmenu/'.$id);
+                redirect(base_url().'index.php/atelugu/editheadmenu/'.$id);
             }
 		}
 	}
 	public function deleteheadmenu($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $response = $this->Admin_model->deleteheadmenu($language, $id);
 	    if($response){
 	        $this->session->set_flashdata('msg','<div class="alert alert-success">Menu Deleted Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/headmenulist');
+            redirect(base_url().'index.php/atelugu/headmenulist');
 	    }else{
 	        $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Delete a Menu.</div>');
-            redirect(base_url().'index.php/aenglish/headmenulist');
+            redirect(base_url().'index.php/atelugu/headmenulist');
 	    }
 	}
 	/*header Menu Language change End*/
 	
 	/*Left Menu Language change Start*/
 	public function leftmenulist(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['leftmenulist'] = $this->Admin_model->leftmenulist($language);
 	    $this->load->view('admin/leftmenulist', $data);
 	}
 	public function addleftmenu(){
 	    $data['geners'] = $this->Admin_model->generslist();
-	    $language = 'en';
+	    $language = 'te';
 	    if(isset($_POST) && !empty($_POST)){
 	        $this->form_validation->set_rules('navbartype', 'Navbar type','trim|required');
     		$this->form_validation->set_rules('menu_type', 'Menu Type', 'trim|required');
@@ -128,10 +128,10 @@ class Aenglish extends CI_Controller {
                 $response = $this->Admin_model->addleftmenu($inputdata);
                 if($response){
                     $this->session->set_flashdata('msg','<div class="alert alert-success">Menu Added Successfully.</div>');
-                    redirect(base_url().'index.php/aenglish/addleftmenu');
+                    redirect(base_url().'index.php/atelugu/addleftmenu');
                 }else{
                     $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Add Menu.</div>');
-                    redirect(base_url().'index.php/aenglish/addleftmenu');
+                    redirect(base_url().'index.php/atelugu/addleftmenu');
                 }
     		}
 	    }else{
@@ -139,13 +139,13 @@ class Aenglish extends CI_Controller {
 	    }
 	}
 	public function editleftmenu($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['geners'] = $this->Admin_model->generslist();
 	    $data['editleftmenu'] = $this->Admin_model->editleftmenu($language, $id);
 	    $this->load->view('admin/editleftmenu', $data);
 	}
 	public function updateleftmenu($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['geners'] = $this->Admin_model->generslist();
 	    $data['editleftmenu'] = $this->Admin_model->editleftmenu($language, $id);
 	    $this->form_validation->set_rules('navbartype', 'Navbar type','trim|required');
@@ -165,34 +165,34 @@ class Aenglish extends CI_Controller {
             $response = $this->Admin_model->updateleftmenu($inputdata, $id);
             if($response){
                 $this->session->set_flashdata('msg','<div class="alert alert-success">Menu Updated Successfully.</div>');
-                redirect(base_url().'index.php/aenglish/leftmenulist');
+                redirect(base_url().'index.php/atelugu/leftmenulist');
             }else{
                 $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Update Menu.</div>');
-                redirect(base_url().'index.php/aenglish/editleftmenu/'.$id);
+                redirect(base_url().'index.php/atelugu/editleftmenu/'.$id);
             }
 		}
 	}
 	public function deleteleftmenu($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $response = $this->Admin_model->deleteleftmenu($language, $id);
 	    if($response){
 	        $this->session->set_flashdata('msg','<div class="alert alert-success">Menu Deleted Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/leftmenulist');
+            redirect(base_url().'index.php/atelugu/leftmenulist');
 	    }else{
 	        $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Delete a Menu.</div>');
-            redirect(base_url().'index.php/aenglish/leftmenulist');
+            redirect(base_url().'index.php/atelugu/leftmenulist');
 	    }
 	}
 	/*Left Menu Language change End*/
 	
 	/*Profile Menu Language change Start*/
 	public function profilemenulist(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['profilemenulist'] = $this->Admin_model->profilemenulist($language);
 	    $this->load->view('admin/profilemenulist', $data);
 	}
 	public function addprofilemenu(){
-	    $language = 'en';
+	    $language = 'te';
 	    if(isset($_POST) && !empty($_POST)){
 	        $this->form_validation->set_rules('navbartype', 'Navbar type','trim|required');
     		$this->form_validation->set_rules('menu_type', 'Menu Type', 'trim|required');
@@ -211,10 +211,10 @@ class Aenglish extends CI_Controller {
                 $response = $this->Admin_model->addprofilemenu($inputdata);
                 if($response){
                     $this->session->set_flashdata('msg','<div class="alert alert-success">Menu Added Successfully.</div>');
-                    redirect(base_url().'index.php/aenglish/addprofilemenu');
+                    redirect(base_url().'index.php/atelugu/addprofilemenu');
                 }else{
                     $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Add Menu.</div>');
-                    redirect(base_url().'index.php/aenglish/addprofilemenu');
+                    redirect(base_url().'index.php/atelugu/addprofilemenu');
                 }
     		}
 	    }else{
@@ -222,12 +222,12 @@ class Aenglish extends CI_Controller {
 	    }
 	}
 	public function editprofilemenu($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['editprofilemenu'] = $this->Admin_model->editprofilemenu($language, $id);
 	    $this->load->view('admin/editprofilemenu', $data);
 	}
 	public function updateprofilemenu($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['editprofilemenu'] = $this->Admin_model->editprofilemenu($language, $id);
 	    $this->form_validation->set_rules('navbartype', 'Navbar type','trim|required');
 		$this->form_validation->set_rules('menu_type', 'Menu Type', 'trim|required');
@@ -246,34 +246,34 @@ class Aenglish extends CI_Controller {
             $response = $this->Admin_model->updateprofilemenu($inputdata, $id);
             if($response){
                 $this->session->set_flashdata('msg','<div class="alert alert-success">Menu Updated Successfully.</div>');
-                redirect(base_url().'index.php/aenglish/profilemenulist');
+                redirect(base_url().'index.php/atelugu/profilemenulist');
             }else{
                 $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Update Menu.</div>');
-                redirect(base_url().'index.php/aenglish/editprofilemenu/'.$id);
+                redirect(base_url().'index.php/atelugu/editprofilemenu/'.$id);
             }
 		}
 	}
 	public function deleteprofilemenu($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $response = $this->Admin_model->deleteprofilemenu($language, $id);
 	    if($response){
 	        $this->session->set_flashdata('msg','<div class="alert alert-success">Menu Deleted Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/profilemenulist');
+            redirect(base_url().'index.php/atelugu/profilemenulist');
 	    }else{
 	        $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Delete a Menu.</div>');
-            redirect(base_url().'index.php/aenglish/profilemenulist');
+            redirect(base_url().'index.php/atelugu/profilemenulist');
 	    }
 	}
 	/*Profile Menu Language change End*/
 	
 	/* home page slide show images & links start */
 	public function homeslides(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['homeslides'] = $this->Admin_model->homeslides($language);
 	    $this->load->view('admin/homeslides', $data);
 	}
 	public function addhomeslide(){
-	    $language = 'en';
+	    $language = 'te';
 	    if(isset($_POST) && !empty($_POST)){
 	        $this->form_validation->set_rules('caption', 'Caption','trim|min_length[5]|max_length[200]');
 	        if(!isset($_FILES['slideimage']['name']) || empty($_FILES['slideimage']['name'])) {
@@ -303,10 +303,10 @@ class Aenglish extends CI_Controller {
                     $response = $this->Admin_model->addhomeslide($inputdata);
                     if($response){
                         $this->session->set_flashdata('msg','<div class="alert alert-success">Slide added Successfully.</div>');
-                        redirect(base_url().'index.php/aenglish/addhomeslide');
+                        redirect(base_url().'index.php/atelugu/addhomeslide');
                     }else{
                         $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to add Slide.</div>');
-                        redirect(base_url().'index.php/aenglish/addhomeslide');
+                        redirect(base_url().'index.php/atelugu/addhomeslide');
                     }
 				}else{
 				    $error = array('error' => $this->upload->display_errors());
@@ -318,12 +318,12 @@ class Aenglish extends CI_Controller {
 	    }
 	}
 	public function edithomeslide($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['editslide'] = $this->Admin_model->edithomeslide($language,$id);
 	    $this->load->view('admin/edithomeslide', $data);
 	}
 	public function updatehomeslide($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['editslide'] = $this->Admin_model->edithomeslide($id,$language);
 	    $this->form_validation->set_rules('caption', 'Caption','trim|min_length[5]|max_length[200]');
 		$this->form_validation->set_rules('slideurl', 'Slide URL', 'trim|valid_url');
@@ -357,10 +357,10 @@ class Aenglish extends CI_Controller {
             $response = $this->Admin_model->updatehomeslide($inputdata, $id);
             if($response){
                 $this->session->set_flashdata('msg','<div class="alert alert-success">Slide updated Successfully.</div>');
-                redirect(base_url().'index.php/aenglish/homeslides');
+                redirect(base_url().'index.php/atelugu/homeslides');
             }else{
                 $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to update Slide.</div>');
-                redirect(base_url().'index.php/aenglish/addhomeslide/'.$id);
+                redirect(base_url().'index.php/atelugu/addhomeslide/'.$id);
             }
 		}
 	}
@@ -368,23 +368,23 @@ class Aenglish extends CI_Controller {
 	    $response = $this->Admin_model->deletehomeslide($id);
         if($response){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Slide deleted Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/homeslides');
+            redirect(base_url().'index.php/atelugu/homeslides');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to delete Slide.</div>');
-            redirect(base_url().'index.php/aenglish/homeslides');
+            redirect(base_url().'index.php/atelugu/homeslides');
         }
 	}
 	/* home page slide show images & links end */
 	
 	/*Users List Start */
 	public function userslist(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['languages'] = $this->Admin_model->languages();
 	    $data['userslist'] = $this->Admin_model->userslist($language);
 	    $this->load->view('admin/userslist', $data);
 	}
 	public function profilestories($userid){ // writer Stories, series, life events, nano stories list
-	    $language = 'en';
+	    $language = 'te';
 	    $data['profilestories'] = $this->Admin_model->profilestories($language,$userid);
 	    $this->load->view('admin/profilestories', $data);
 	}
@@ -392,62 +392,62 @@ class Aenglish extends CI_Controller {
 	    $response = $this->Admin_model->blockprofile($userid);
 	    if($response){
 	        $this->session->set_flashdata('msg','<div class="alert alert-success">User Blocked Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/userslist');
+            redirect(base_url().'index.php/atelugu/userslist');
 	    }else{
 	        $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Block User.</div>');
-            redirect(base_url().'index.php/aenglish/userslist');
+            redirect(base_url().'index.php/atelugu/userslist');
 	    }
 	}
 	public function unblockprofile($userid){
 	    $response = $this->Admin_model->unblockprofile($userid);
 	    if($response){
 	        $this->session->set_flashdata('msg','<div class="alert alert-success">User Unblocked Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/userslist');
+            redirect(base_url().'index.php/atelugu/userslist');
 	    }else{
 	        $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Unblock User.</div>');
-            redirect(base_url().'index.php/aenglish/userslist');
+            redirect(base_url().'index.php/atelugu/userslist');
 	    }
 	}
 	public function verifyprofile($userid){
 	    $response = $this->Admin_model->verifyprofile($userid);
 	    if($response){
 	        $this->session->set_flashdata('msg','<div class="alert alert-success">User Verified Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/userslist');
+            redirect(base_url().'index.php/atelugu/userslist');
 	    }else{
 	        $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Verify User.</div>');
-            redirect(base_url().'index.php/aenglish/userslist');
+            redirect(base_url().'index.php/atelugu/userslist');
 	    }
 	}
 	public function notverifyprofile($userid){
 	    $response = $this->Admin_model->notverifyprofile($userid);
 	    if($response){
 	        $this->session->set_flashdata('msg','<div class="alert alert-success">User Un Verified Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/userslist');
+            redirect(base_url().'index.php/atelugu/userslist');
 	    }else{
 	        $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Un Verify User.</div>');
-            redirect(base_url().'index.php/aenglish/userslist');
+            redirect(base_url().'index.php/atelugu/userslist');
 	    }
 	}
 	public function deleteprofile(){
 	    $response = $this->Admin_model->deleteprofile($userid);
 	    if($response){
 	        $this->session->set_flashdata('msg','<div class="alert alert-success">User Deleted Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/userslist');
+            redirect(base_url().'index.php/atelugu/userslist');
 	    }else{
 	        $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Delete User.</div>');
-            redirect(base_url().'index.php/aenglish/userslist');
+            redirect(base_url().'index.php/atelugu/userslist');
 	    }
 	}
 	
 	public function usersearch(){
-	    $language = 'en';
+	    $language = 'te';
 	    if(isset($_POST) && !empty($_POST)){
 	        $data['usersearch'] = $this->Admin_model->usersearch($language, $_POST);
 	        $this->load->view('admin/usersearch', $data);
 	    }
 	}
 	public function pstoriessearch($userid){
-	    $language = 'en';
+	    $language = 'te';
 	    if(isset($_POST['type']) && !empty($_POST['type'])){
             $data['pstoriessearch'] = $this->Admin_model->pstoriessearch($language, $userid, $_POST['type']);
     	    $this->load->view('admin/pstoriessearch', $data);
@@ -457,7 +457,7 @@ class Aenglish extends CI_Controller {
 	    }
 	}
 	public function addearningcount(){
-	    $language = 'en';
+	    $language = 'te';
 	    if(isset($_POST['userid']) && !empty($_POST['userid']) && isset($_POST['earningcount']) && !empty($_POST['earningcount'])){
 	        $response = $this->Admin_model->addearningcount($language, $_POST['userid'], $_POST['earningcount']);
     	    if($response == 1){
@@ -472,14 +472,14 @@ class Aenglish extends CI_Controller {
 
 	// users +  authors list
 	public function auserslist(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['languages'] = $this->Admin_model->languages();
 	    $data['geners'] = $this->Admin_model->generslist($language);
 	    $data['auserslist'] = $this->Admin_model->auserslist($language);
 	    $this->load->view('admin/auserslist', $data);
 	}
 	public function ausersearch(){
-		$language = 'en';
+		$language = 'te';
 	    if(isset($_POST) && !empty($_POST)){
 	        $data['ausersearch'] = $this->Admin_model->ausersearch($language, $_POST);
 	        $this->load->view('admin/ausersearch', $data);
@@ -489,7 +489,7 @@ class Aenglish extends CI_Controller {
 	
 	/*Stories List start*/
 	public function storieslist(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['geners'] = $this->Admin_model->generslist($language);
 	    $data['storieslist'] = $this->Admin_model->storieslist($language);
 	    $this->load->view('admin/storieslist', $data);
@@ -502,20 +502,20 @@ class Aenglish extends CI_Controller {
 	    $response = $this->Admin_model->deletestory($sid);
 	    if($response){
 	        $this->session->set_flashdata('msg','<div class="alert alert-success">Story Deleted Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/storieslist');
+            redirect(base_url().'index.php/atelugu/storieslist');
 	    }else{
 	        $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Delete Story.</div>');
-            redirect(base_url().'index.php/aenglish/storieslist');
+            redirect(base_url().'index.php/atelugu/storieslist');
 	    }
 	}
 	public function deleteseries($sid){
 	    $response = $this->Admin_model->deleteseries($sid);
 	    if($response){
 	        $this->session->set_flashdata('msg','<div class="alert alert-success">Series Deleted Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/storieslist');
+            redirect(base_url().'index.php/atelugu/storieslist');
 	    }else{
 	        $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Delete Series.</div>');
-            redirect(base_url().'index.php/aenglish/storieslist');
+            redirect(base_url().'index.php/atelugu/storieslist');
 	    }
 	}
 	public function adminchoice($sid){ // story as admin choice
@@ -523,11 +523,11 @@ class Aenglish extends CI_Controller {
 	    if($response){
 	        echo 1;
 	        //$this->session->set_flashdata('msg','<div class="alert alert-success">Story Moved into Admin Choice Successfully.</div>');
-            //redirect(base_url().'index.php/aenglish/storieslist');
+            //redirect(base_url().'index.php/atelugu/storieslist');
 	    }else{
 	        echo 0;
 	       // $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Admin Choice Story.</div>');
-            //redirect(base_url().'index.php/aenglish/storieslist');
+            //redirect(base_url().'index.php/atelugu/storieslist');
 	    }
 	}
 	public function removeadminchoice($sid){
@@ -539,7 +539,7 @@ class Aenglish extends CI_Controller {
 	    }
 	}
 	public function storiessearch(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['storiessearch'] = $this->Admin_model->storiessearch($language, $_POST);
 	    $this->load->view('admin/storiessearch', $data);
 	}
@@ -547,12 +547,12 @@ class Aenglish extends CI_Controller {
 	
 	/* Blog Posts start */
 	public function blogs(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['blogs'] = $this->Admin_model->blogs($language);
 	    $this->load->view('admin/blogs', $data);
 	}
 	public function addblog(){
-	    $language = 'en';
+	    $language = 'te';
 	    if(isset($_POST) && !empty($_POST)){
 	        $this->form_validation->set_rules('title', 'Title','trim|required|min_length[5]|max_length[200]');
 	        if(!isset($_FILES['blogimage']['name']) || empty($_FILES['blogimage']['name'])) {
@@ -601,10 +601,10 @@ class Aenglish extends CI_Controller {
                     $response = $this->Admin_model->addblog($inputdata);
                     if($response){
                         $this->session->set_flashdata('msg','<div class="alert alert-success">Blog added Successfully.</div>');
-                        redirect(base_url().'index.php/aenglish/addblog');
+                        redirect(base_url().'index.php/atelugu/addblog');
                     }else{
                         $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to add Blog.</div>');
-                        redirect(base_url().'index.php/aenglish/addblog');
+                        redirect(base_url().'index.php/atelugu/addblog');
                     }
 				}else{
 				    $error = array('error' => $this->upload->display_errors());
@@ -616,12 +616,12 @@ class Aenglish extends CI_Controller {
 	    }
 	}
 	public function editblog($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['editblog'] = $this->Admin_model->editblog($language,$id);
 	    $this->load->view('admin/editblog', $data);
 	}
 	public function updateblog($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['editblog'] = $this->Admin_model->editblog($language,$id);
 	    $this->form_validation->set_rules('title', 'Title','trim|required|min_length[5]|max_length[200]');
     	$this->form_validation->set_rules('description', 'Description', 'trim|required|min_length[10]');
@@ -675,10 +675,10 @@ class Aenglish extends CI_Controller {
             $response = $this->Admin_model->updateblog($inputdata, $id);
             if($response){
                 $this->session->set_flashdata('msg','<div class="alert alert-success">Blog updated Successfully.</div>');
-                redirect(base_url().'index.php/aenglish/blogs');
+                redirect(base_url().'index.php/atelugu/blogs');
             }else{
                 $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to update Blog.</div>');
-                redirect(base_url().'index.php/aenglish/editblog/'.$id);
+                redirect(base_url().'index.php/atelugu/editblog/'.$id);
             }
 		}
 	}
@@ -686,10 +686,10 @@ class Aenglish extends CI_Controller {
 	    $response = $this->Admin_model->deleteblog($id);
         if($response){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Blog deleted Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/blogs');
+            redirect(base_url().'index.php/atelugu/blogs');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to delete Blog.</div>');
-            redirect(base_url().'index.php/aenglish/blogs');
+            redirect(base_url().'index.php/atelugu/blogs');
         }
 	}
 	/* Blog Posts end */
@@ -703,44 +703,44 @@ class Aenglish extends CI_Controller {
 	    $response = $this->Admin_model->reportblockstory($sid);
         if($response){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Story Blocked Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/reports');
+            redirect(base_url().'index.php/atelugu/reports');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Block Story.</div>');
-            redirect(base_url().'index.php/aenglish/reports');
+            redirect(base_url().'index.php/atelugu/reports');
         }
 	}
 	public function reportblockseries($sid){
 	    $response = $this->Admin_model->reportblockseries($sid);
         if($response){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Series Blocked Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/reports');
+            redirect(base_url().'index.php/atelugu/reports');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Block Series.</div>');
-            redirect(base_url().'index.php/aenglish/reports');
+            redirect(base_url().'index.php/atelugu/reports');
         }
 	}
 	public function reportdeletestory($sid){
 	    $response = $this->Admin_model->reportdeletestory($sid);
         if($response){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Story deleted Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/reports');
+            redirect(base_url().'index.php/atelugu/reports');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to delete Story.</div>');
-            redirect(base_url().'index.php/aenglish/reports');
+            redirect(base_url().'index.php/atelugu/reports');
         }
 	}
 	public function reportdeleteseries($sid){
 	    $response = $this->Admin_model->reportdeleteseries($sid);
         if($response){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Series deleted Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/reports');
+            redirect(base_url().'index.php/atelugu/reports');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to delete Series.</div>');
-            redirect(base_url().'index.php/aenglish/reports');
+            redirect(base_url().'index.php/atelugu/reports');
         }
 	}
 	public function reportstypesearch(){
-	    $language = 'en';
+	    $language = 'te';
 	    if(isset($_POST['reportstype']) && !empty($_POST['reportstype'])){
 	        $data['reportssearch'] = $this->Admin_model->reportstypesearch($language, $_POST['reportstype']);
 	        $this->load->view('admin/reportssearch', $data);
@@ -750,59 +750,59 @@ class Aenglish extends CI_Controller {
 	
 	/* Stories Reports start */
 	public function storiesreports(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['reports'] = $this->Admin_model->storiesreports($language);
 	    $this->load->view('admin/storiesreports',$data);
 	}
 	public function blockstory($storyid){
-	    $language = 'en';
+	    $language = 'te';
 	    $response = $this->Admin_model->blockstory($language, $storyid);
 	    if($response == 1){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Story Blocked Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/storiesreports');
+            redirect(base_url().'index.php/atelugu/storiesreports');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to block Story.</div>');
-            redirect(base_url().'index.php/aenglish/storiesreports');
+            redirect(base_url().'index.php/atelugu/storiesreports');
         }
 	}
 	public function blockseries($seriesid){
-	    $language = 'en';
+	    $language = 'te';
 	    $response = $this->Admin_model->blockseries($language, $seriesid);
 	    if($response == 1){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Series Blocked Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/storiesreports');
+            redirect(base_url().'index.php/atelugu/storiesreports');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to block Series.</div>');
-            redirect(base_url().'index.php/aenglish/storiesreports');
+            redirect(base_url().'index.php/atelugu/storiesreports');
         }
 	}
 	public function unblockstory($storyid){
-	    $language = 'en';
+	    $language = 'te';
 	    $response = $this->Admin_model->unblockstory($language, $storyid);
 	    if($response == 1){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Story Unblocked Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/storiesreports');
+            redirect(base_url().'index.php/atelugu/storiesreports');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Unblock Story.</div>');
-            redirect(base_url().'index.php/aenglish/storiesreports');
+            redirect(base_url().'index.php/atelugu/storiesreports');
         }
 	}
 	public function unblockseries($seriesid){
-	    $language = 'en';
+	    $language = 'te';
 	    $response = $this->Admin_model->unblockseries($language, $seriesid);
 	    if($response == 1){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Series Unblocked Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/storiesreports');
+            redirect(base_url().'index.php/atelugu/storiesreports');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Unblock Series.</div>');
-            redirect(base_url().'index.php/aenglish/storiesreports');
+            redirect(base_url().'index.php/atelugu/storiesreports');
         }
 	}
 	/* Stories Reports end */
 	
 	/* Stories comments Reports start */
 	public function storiescmtreports(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['storiescmtreports'] = $this->Admin_model->storiescmtreports($language);
 	    $this->load->view('admin/storiescmtreports',$data);
 	}
@@ -810,94 +810,94 @@ class Aenglish extends CI_Controller {
 	
 	/* communities Reports start */
 	public function communitiesreports(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['commreports'] = $this->Admin_model->communitiesreports($language);
 	    $this->load->view('admin/communitiesreports',$data);
 	}
 	public function blockcommreportstory($comm_story_id){
-	    $language = 'en';
+	    $language = 'te';
 	    $response = $this->Admin_model->blockcommreportstory($language, $comm_story_id);
 	    if($response == 1){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Community Story Blocked Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/communitiesreports');
+            redirect(base_url().'index.php/atelugu/communitiesreports');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to block Community Story.</div>');
-            redirect(base_url().'index.php/aenglish/communitiesreports');
+            redirect(base_url().'index.php/atelugu/communitiesreports');
         }
 	}
 	public function unblockcommreportstory($comm_story_id){
-	    $language = 'en';
+	    $language = 'te';
 	    $response = $this->Admin_model->unblockcommreportstory($language, $comm_story_id);
 	    if($response == 1){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Community Story un blocked Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/communitiesreports');
+            redirect(base_url().'index.php/atelugu/communitiesreports');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Un block Community Story.</div>');
-            redirect(base_url().'index.php/aenglish/communitiesreports');
+            redirect(base_url().'index.php/atelugu/communitiesreports');
         }
 	}
 	public function deletecommreportstory($comm_story_id){
-	    $language = 'en';
+	    $language = 'te';
 	    $response = $this->Admin_model->deletecommreportstory($language, $comm_story_id);
 	    if($response == 1){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Community Story deleted Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/communitiesreports');
+            redirect(base_url().'index.php/atelugu/communitiesreports');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to delete Community Story.</div>');
-            redirect(base_url().'index.php/aenglish/communitiesreports');
+            redirect(base_url().'index.php/atelugu/communitiesreports');
         }
 	}
 	/* communities Reports end */
 	
 	/* communities Comments Reports start */
 	public function communitiescmtreports(){
-	    $language = 'en';
+	    $language = 'te';
         $data['communitiescmtreports'] = $this->Admin_model->communitiescmtreports($language);
         $this->load->view('admin/communitiescmtreports', $data);
 	}
 	public function unblockcommcmtreport($comm_commentid){
-	    $language = 'en';
+	    $language = 'te';
 	    $response = $this->Admin_model->unblockcommcmtreport($language, $comm_commentid);
 	    if($response == 1){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Community comment Unblocked Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/communitiescmtreports');
+            redirect(base_url().'index.php/atelugu/communitiescmtreports');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Un block Community Comment.</div>');
-            redirect(base_url().'index.php/aenglish/communitiescmtreports');
+            redirect(base_url().'index.php/atelugu/communitiescmtreports');
         }
 	}
 	public function blockcommcmtreport($comm_commentid){
-	    $language = 'en';
+	    $language = 'te';
 	    $response = $this->Admin_model->blockcommcmtreport($language, $comm_commentid);
 	    if($response == 1){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Community comment Blocked Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/communitiescmtreports');
+            redirect(base_url().'index.php/atelugu/communitiescmtreports');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Block Community Comment.</div>');
-            redirect(base_url().'index.php/aenglish/communitiescmtreports');
+            redirect(base_url().'index.php/atelugu/communitiescmtreports');
         }
 	}
 	public function deletecommcmtreport($comm_commentid){
-	    $language = 'en';
+	    $language = 'te';
 	    $response = $this->Admin_model->deletecommcmtreport($language, $comm_commentid);
 	    if($response == 1){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Community comment Deleted Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/communitiescmtreports');
+            redirect(base_url().'index.php/atelugu/communitiescmtreports');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Delete Community Comment.</div>');
-            redirect(base_url().'index.php/aenglish/communitiescmtreports');
+            redirect(base_url().'index.php/atelugu/communitiescmtreports');
         }
 	}
 	/* communities Comments Reports end */
 	
 	/* communities start */
 	public function communities(){
-	    $language = 'en';
+	    $language = 'te';
         $data['communities'] = $this->Admin_model->communities($language);
         $this->load->view('admin/communities', $data);
 	}
 	public function addcommunity(){
-	    $language = 'en';
+	    $language = 'te';
         $data['geners'] = $this->Admin_model->generslist();
         if(isset($_POST) && !empty($_POST)){
 	        $this->form_validation->set_rules('gener', 'Gener','trim|required');
@@ -927,10 +927,10 @@ class Aenglish extends CI_Controller {
                     $response = $this->Admin_model->addcommunity($inputdata);
                     if($response == 1){
                         $this->session->set_flashdata('msg','<div class="alert alert-success">Community added Successfully.</div>');
-                        redirect(base_url().'index.php/aenglish/communities');
+                        redirect(base_url().'index.php/atelugu/communities');
                     }else{
                         $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to add Community.</div>');
-                        redirect(base_url().'index.php/aenglish/communities');
+                        redirect(base_url().'index.php/atelugu/communities');
                     }
 				}else{
 				    $data = array('error' => $this->upload->display_errors());
@@ -942,13 +942,13 @@ class Aenglish extends CI_Controller {
 	    }
 	}
 	public function editcommunity($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['geners'] = $this->Admin_model->generslist();
         $data['editcommunity'] = $this->Admin_model->editcommunity($language, $id);
         $this->load->view('admin/editcommunity', $data);
 	}
 	public function updatecommunity($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['geners'] = $this->Admin_model->generslist();
         $data['editcommunity'] = $this->Admin_model->editcommunity($language, $id);
         
@@ -984,10 +984,10 @@ class Aenglish extends CI_Controller {
             $response = $this->Admin_model->updatecommunity($inputdata,$id);
             if($response == 1){
                 $this->session->set_flashdata('msg','<div class="alert alert-success">Community updated Successfully.</div>');
-                redirect(base_url().'index.php/aenglish/communities');
+                redirect(base_url().'index.php/atelugu/communities');
             }else{
                 $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to update Community.</div>');
-                redirect(base_url().'index.php/aenglish/communities');
+                redirect(base_url().'index.php/atelugu/communities');
             }
 		}
 	}
@@ -995,10 +995,10 @@ class Aenglish extends CI_Controller {
 	    $response = $this->Admin_model->deletecommunity($id);
         if($response){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Community deleted Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/communities');
+            redirect(base_url().'index.php/atelugu/communities');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to delete Community.</div>');
-            redirect(base_url().'index.php/aenglish/communities');
+            redirect(base_url().'index.php/atelugu/communities');
         }
 	}
 	/* communities end */
@@ -1010,10 +1010,10 @@ class Aenglish extends CI_Controller {
 	        $response = $this->Admin_model->updategener($id, $_POST['gener']);
 	        if($response){
                 $this->session->set_flashdata('msg','<div class="alert alert-success">Gener Updated Successfully.</div>');
-                redirect(base_url().'index.php/aenglish/geners');
+                redirect(base_url().'index.php/atelugu/geners');
             }else{
                 $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to update Gener.</div>');
-                redirect(base_url().'index.php/aenglish/geners');
+                redirect(base_url().'index.php/atelugu/geners');
             }
 	    }else if(isset($id) && !empty($id) && (!isset($_POST['gener']) || empty($_POST['gener']))){
 	        $data['editgener'] = $this->Admin_model->editgener($id);
@@ -1021,10 +1021,10 @@ class Aenglish extends CI_Controller {
 	        $addresponse = $this->Admin_model->addgener($_POST['gener']);
 	        if($addresponse){
                 $this->session->set_flashdata('msg','<div class="alert alert-success">Gener added Successfully.</div>');
-                redirect(base_url().'index.php/aenglish/geners');
+                redirect(base_url().'index.php/atelugu/geners');
             }else{
                 $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to add Gener.</div>');
-                redirect(base_url().'index.php/aenglish/geners');
+                redirect(base_url().'index.php/atelugu/geners');
             }
 	    }
         $this->load->view('admin/geners', $data);
@@ -1033,10 +1033,10 @@ class Aenglish extends CI_Controller {
 	    $response = $this->Admin_model->deletegener($id);
 	    if($response){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Gener deleted Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/geners');
+            redirect(base_url().'index.php/atelugu/geners');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to delete Gener.</div>');
-            redirect(base_url().'index.php/aenglish/geners');
+            redirect(base_url().'index.php/atelugu/geners');
         }
 	}
 	/* Geners end */
@@ -1069,27 +1069,27 @@ class Aenglish extends CI_Controller {
 	
 	/* stories monetisation start */
 	public function storiesmonetize(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['mstories'] = $this->Admin_model->storiesmonetize($language);
 	    $this->load->view('admin/storiesmonetize', $data);
 	}
 	public function enablestoriesmonetize(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['enablemstories'] = $this->Admin_model->storiesmonetize($language);
 	    $this->load->view('admin/enablestoriesmonetize', $data);
 	}
 	public function disablestoriesmonetize(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['disablemstories'] = $this->Admin_model->storiesmonetize($language);
 	    $this->load->view('admin/disablestoriesmonetize', $data);
 	}
 	public function removestoriesmonetize(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['removemstories'] = $this->Admin_model->storiesmonetize($language);
 	    $this->load->view('admin/removestoriesmonetize', $data);
 	}
 	public function enablesmonetize(){
-	    $language = 'en';
+	    $language = 'te';
 	    if(isset($_POST['storyid']) && !empty($_POST['storyid'])){
 	        $response = $this->Admin_model->enablesmonetize($language, $_POST['storyid']);
 	        if($response == 1){
@@ -1100,7 +1100,7 @@ class Aenglish extends CI_Controller {
 	    }
 	}
 	public function adsstory(){
-	    $language = 'en';
+	    $language = 'te';
 	    if(isset($_POST['storyid']) && !empty($_POST['storyid']) && isset($_POST['adscript']) && !empty($_POST['adscript'])){
 	        $response = $this->Admin_model->adsstory($language, $_POST);
 	        if($response == 1){
@@ -1113,7 +1113,7 @@ class Aenglish extends CI_Controller {
 	    }
 	}
 	public function disablesmonetize(){
-	    $language = 'en';
+	    $language = 'te';
 	    if(isset($_POST['storyid']) && !empty($_POST['storyid'])){
 	        $response = $this->Admin_model->disablesmonetize($language, $_POST['storyid']);
 	        if($response == 1){
@@ -1124,7 +1124,7 @@ class Aenglish extends CI_Controller {
 	    }
 	}
 	public function removead(){
-	    $language = 'en';
+	    $language = 'te';
 	    if(isset($_POST['storyid']) && !empty($_POST['storyid']) && isset($_POST['ads']) && !empty($_POST['ads'])){
 	        $response = $this->Admin_model->removead($language, $_POST);
 	        if($response == 1){
@@ -1138,12 +1138,12 @@ class Aenglish extends CI_Controller {
 	
 	/* transactions requests monetisation start */
 	public function transreqs(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['transreqs'] = $this->Admin_model->transreqs($language);
 	    $this->load->view('admin/transreqs', $data);
 	}
 	public function payment(){
-	    $language = 'en';
+	    $language = 'te';
 	    if(isset($_POST['id']) && !empty($_POST['id'])){
     	    $response = $this->Admin_model->payment($language, $_POST['id']);
     	    if($response == 1){
@@ -1154,7 +1154,7 @@ class Aenglish extends CI_Controller {
 	    }
 	}
 	public function paidtrans(){
-		$language = 'en';
+		$language = 'te';
 	    $data['transreqs'] = $this->Admin_model->paidtrans($language);
 	    $this->load->view('admin/paidtrans', $data);
 	}
@@ -1162,12 +1162,12 @@ class Aenglish extends CI_Controller {
 	
 	/* Landing page text start */
 	public function landingpage(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['landingpages'] = $this->Admin_model->landingpage($language);
 	    $this->load->view('admin/landingpage', $data);
 	}
 	public function addlandingpage(){
-	    $language = 'en';
+	    $language = 'te';
 	    if(isset($_POST) && !empty($_POST)){
 	        $this->form_validation->set_rules('title', 'Title','trim|required|min_length[5]|max_length[200]');
 	        if(!isset($_FILES['landimage']['name']) || empty($_FILES['landimage']['name'])) {
@@ -1201,10 +1201,10 @@ class Aenglish extends CI_Controller {
                     $response = $this->Admin_model->addlandingpage($inputdata);
                     if($response){
                         $this->session->set_flashdata('msg','<div class="alert alert-success">Landing page text added Successfully.</div>');
-                        redirect(base_url().'index.php/aenglish/addlandingpage');
+                        redirect(base_url().'index.php/atelugu/addlandingpage');
                     }else{
                         $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to add Landing page text.</div>');
-                        redirect(base_url().'index.php/aenglish/addlandingpage');
+                        redirect(base_url().'index.php/atelugu/addlandingpage');
                     }
 				}else{
 				    $error = array('error' => $this->upload->display_errors());
@@ -1216,12 +1216,12 @@ class Aenglish extends CI_Controller {
 	    }
 	}
 	public function editlandingpage($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['editlandpage'] = $this->Admin_model->editlandingpage($language,$id);
 	    $this->load->view('admin/editlandingpage', $data);
 	}
 	public function updatelandingpage($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['editlandpage'] = $this->Admin_model->editlandingpage($language,$id);
 	    $this->form_validation->set_rules('title', 'Title','trim|required|min_length[5]|max_length[200]');
     	$this->form_validation->set_rules('description', 'Description', 'trim|required|min_length[10]');
@@ -1259,10 +1259,10 @@ class Aenglish extends CI_Controller {
             $response = $this->Admin_model->updatelandingpage($inputdata, $id);
             if($response){
                 $this->session->set_flashdata('msg','<div class="alert alert-success">Landing page content updated Successfully.</div>');
-                redirect(base_url().'index.php/aenglish/landingpage');
+                redirect(base_url().'index.php/atelugu/landingpage');
             }else{
                 $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to update Landing page content.</div>');
-                redirect(base_url().'index.php/aenglish/editlandingpage/'.$id);
+                redirect(base_url().'index.php/atelugu/editlandingpage/'.$id);
             }
 		}
 	}
@@ -1270,17 +1270,17 @@ class Aenglish extends CI_Controller {
 	    $response = $this->Admin_model->deletelandingpage($id);
         if($response){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Landing page content deleted Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/landingpage');
+            redirect(base_url().'index.php/atelugu/landingpage');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to delete Landing page content.</div>');
-            redirect(base_url().'index.php/aenglish/landingpage');
+            redirect(base_url().'index.php/atelugu/landingpage');
         }
 	}
 	/*  Landing page text end*/
 	
 	/*  Type write for landing page start */
 	public function typewrites(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['typewrites'] = $this->Admin_model->typewrites($language);
 	    if(isset($_POST) && !empty($_POST)){
 	        $this->form_validation->set_rules('typewrite', 'Type Write','trim|required|min_length[3]|max_length[50]');
@@ -1294,10 +1294,10 @@ class Aenglish extends CI_Controller {
     		    $response = $this->Admin_model->addtypewrite($inputdata);
     		    if($response){
                     $this->session->set_flashdata('msg','<div class="alert alert-success">Type write added Successfully.</div>');
-                    redirect(base_url().'index.php/aenglish/typewrites');
+                    redirect(base_url().'index.php/atelugu/typewrites');
                 }else{
                     $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to add Type write.</div>');
-                    redirect(base_url().'index.php/aenglish/typewrites');
+                    redirect(base_url().'index.php/atelugu/typewrites');
                 }
     		}
 	    }else{
@@ -1305,7 +1305,7 @@ class Aenglish extends CI_Controller {
 	    }
 	}
 	public function edittypewrite($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['typewrites'] = $this->Admin_model->typewrites($language);
 	    $data['edittypewrite'] = $this->Admin_model->edittypewrite($id);
 	    if(isset($_POST) && !empty($_POST)){
@@ -1320,10 +1320,10 @@ class Aenglish extends CI_Controller {
     		    $response = $this->Admin_model->updatetypewrite($inputdata, $id);
     		    if($response){
                     $this->session->set_flashdata('msg','<div class="alert alert-success">Type write Updated Successfully.</div>');
-                    redirect(base_url().'index.php/aenglish/typewrites');
+                    redirect(base_url().'index.php/atelugu/typewrites');
                 }else{
                     $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Update Type write.</div>');
-                    redirect(base_url().'index.php/aenglish/typewrites');
+                    redirect(base_url().'index.php/atelugu/typewrites');
                 }
     		}
 	    }else{
@@ -1334,22 +1334,22 @@ class Aenglish extends CI_Controller {
 	    $response = $this->Admin_model->deletetypewrite($id);
 	    if($response){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Type write Deleted Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/typewrites');
+            redirect(base_url().'index.php/atelugu/typewrites');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Delete Type write.</div>');
-            redirect(base_url().'index.php/aenglish/typewrites');
+            redirect(base_url().'index.php/atelugu/typewrites');
         }
 	}
 	/*  Type write for landing page end*/
 	
 	/*  static pages text start */
 	public function staticpages(){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['staticpages'] = $this->Admin_model->staticpages($language);
 	    $this->load->view('admin/staticpages', $data);
 	}
 	public function addstaticpage(){
-	    $language = 'en';
+	    $language = 'te';
 	    if(isset($_POST) && !empty($_POST)){
 	        $this->form_validation->set_rules('pagetype', 'Page','trim|required|min_length[5]');
     		$this->form_validation->set_rules('description', 'Description', 'trim|required|min_length[10]');
@@ -1382,10 +1382,10 @@ class Aenglish extends CI_Controller {
                 $response = $this->Admin_model->addstaticpage($inputdata);
                 if($response){
                     $this->session->set_flashdata('msg','<div class="alert alert-success">Static page added Successfully.</div>');
-                    redirect(base_url().'index.php/aenglish/addstaticpage');
+                    redirect(base_url().'index.php/atelugu/addstaticpage');
                 }else{
                     $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to add static page.</div>');
-                    redirect(base_url().'index.php/aenglish/addstaticpage');
+                    redirect(base_url().'index.php/atelugu/addstaticpage');
                 }
     		}
 	    }else{
@@ -1393,12 +1393,12 @@ class Aenglish extends CI_Controller {
 	    }
 	}
 	public function editstaticpage($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['editstaticpage'] = $this->Admin_model->editstaticpage($language,$id);
 	    $this->load->view('admin/editstaticpage', $data);
 	}
 	public function updatestaticpage($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $data['editstaticpage'] = $this->Admin_model->editstaticpage($language,$id);
         $this->form_validation->set_rules('pagetype', 'Page','trim|required');
 		$this->form_validation->set_rules('description', 'Description', 'trim|required|min_length[10]');
@@ -1433,22 +1433,22 @@ class Aenglish extends CI_Controller {
             $response = $this->Admin_model->updatestaticpage($inputdata, $id);
             if($response){
                 $this->session->set_flashdata('msg','<div class="alert alert-success">Static page updated Successfully.</div>');
-                redirect(base_url().'index.php/aenglish/staticpages');
+                redirect(base_url().'index.php/atelugu/staticpages');
             }else{
                 $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to update Static page.</div>');
-                redirect(base_url().'index.php/aenglish/editstaticpage/'.$id);
+                redirect(base_url().'index.php/atelugu/editstaticpage/'.$id);
             }
 		}
 	}
 	public function deletestaticpage($id){
-	    $language = 'en';
+	    $language = 'te';
 	    $response = $this->Admin_model->deletestaticpage($language,$id);
         if($response){
             $this->session->set_flashdata('msg','<div class="alert alert-success">Static page deleted Successfully.</div>');
-            redirect(base_url().'index.php/aenglish/staticpages');
+            redirect(base_url().'index.php/atelugu/staticpages');
         }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to delete Static page.</div>');
-            redirect(base_url().'index.php/aenglish/staticpages');
+            redirect(base_url().'index.php/atelugu/staticpages');
         }
 	}
 	/* static pages text end */
@@ -1456,7 +1456,7 @@ class Aenglish extends CI_Controller {
 
 	/* Blocked Profiles start */
 	public function blockedprofiles(){
-		$language = 'en';
+		$language = 'te';
 		$data['bprofiles'] = $this->Admin_model->blockedprofiles($language);
 		$this->load->view('admin/blockedprofiles', $data);
 	}
@@ -1464,7 +1464,7 @@ class Aenglish extends CI_Controller {
 	
 	/* Blocked Stories start */
 	public function blockedstories(){
-		$language = 'en';
+		$language = 'te';
 		$data['bstories'] = $this->Admin_model->blockedstories($language);
 		$this->load->view('admin/blockedstories', $data);
 	}
@@ -1507,22 +1507,22 @@ class Aenglish extends CI_Controller {
 	                	$response = $this->Admin_model->logoinsert($ldata);
 	                	if($response){
 	                		$this->session->set_flashdata('msg','<div class="alert alert-success">Logo added Success.</div>');
-            				redirect(base_url().'index.php/aenglish/logos');
+            				redirect(base_url().'index.php/atelugu/logos');
 	                	}else{
 	                		$this->session->set_flashdata('msg','<div class="alert alert-danger"> Failed to add Logo.</div>');
-            				redirect(base_url().'index.php/aenglish/logos');
+            				redirect(base_url().'index.php/atelugu/logos');
 	                	}
 	                }else{
 	                	$this->session->set_flashdata('msg','<div class="alert alert-warning">Logo not uploaded properly. Try again!</div>');
-            			redirect(base_url().'index.php/aenglish/logos');
+            			redirect(base_url().'index.php/atelugu/logos');
 	                }
 	            }else{
 	            	$this->session->set_flashdata('msg','<div class="alert alert-warning">Logo not added.Try again!</div>');
-            		redirect(base_url().'index.php/aenglish/logos');
+            		redirect(base_url().'index.php/atelugu/logos');
 	            }
 	        }else{
 	        	$this->session->set_flashdata('nologo','Logo image not Choosen');
-            	redirect(base_url().'index.php/aenglish/logos');
+            	redirect(base_url().'index.php/atelugu/logos');
 	        }
 		}else{
 			$this->load->view('admin/logos', $data);
@@ -1567,18 +1567,18 @@ class Aenglish extends CI_Controller {
 	                	$response = $this->Admin_model->logoupdate($udata,$logoid);
 	                	if($response){
 	                		$this->session->set_flashdata('msg','<div class="alert alert-success">Logo updated Success.</div>');
-            				redirect(base_url().'index.php/aenglish/logos');
+            				redirect(base_url().'index.php/atelugu/logos');
 	                	}else{
 	                		$this->session->set_flashdata('msg','<div class="alert alert-danger"> Failed to update Logo.</div>');
-            				redirect(base_url().'index.php/aenglish/logos');
+            				redirect(base_url().'index.php/atelugu/logos');
 	                	}
 	                }else{
 	                	$this->session->set_flashdata('msg','<div class="alert alert-warning">Logo not uploaded properly. Try again!</div>');
-            			redirect(base_url().'index.php/aenglish/logos');
+            			redirect(base_url().'index.php/atelugu/logos');
 	                }
 	            }else{
 	            	$this->session->set_flashdata('msg','<div class="alert alert-warning">Logo not updated.Try again!</div>');
-            		redirect(base_url().'index.php/aenglish/logos');
+            		redirect(base_url().'index.php/atelugu/logos');
 	            }
 	        }
 			$this->load->view('admin/logos', $data);
@@ -1590,10 +1590,10 @@ class Aenglish extends CI_Controller {
 		$response = $this->Admin_model->deletelogo($logoid);
 		if($response){
 			$this->session->set_flashdata('msg','<div class="alert alert-success">Logo deleted Success. </div>');
-			redirect(base_url().'index.php/aenglish/logos');
+			redirect(base_url().'index.php/atelugu/logos');
 		}else{
 	    	$this->session->set_flashdata('msg','<div class="alert alert-danger">Logo delete Failed.</div>');
-			redirect(base_url().'index.php/aenglish/logos');
+			redirect(base_url().'index.php/atelugu/logos');
 	    }
 	}
 	/* Website logos  end */
@@ -1618,10 +1618,10 @@ class Aenglish extends CI_Controller {
 				$response = $this->Admin_model->insertimages($insertdata);
 				if($response){
 					$this->session->set_flashdata('msg','<div class="alert alert-success">Default images added success. </div>');
-					redirect(base_url().'index.php/aenglish/defaultimages');
+					redirect(base_url().'index.php/atelugu/defaultimages');
 				}else{
 					$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to add default images.</div>');
-					redirect(base_url().'index.php/aenglish/defaultimages');
+					redirect(base_url().'index.php/atelugu/defaultimages');
 				}
 			}else{
 				$img_errors['upload_errors'] = $this->upload->display_errors();
@@ -1663,10 +1663,10 @@ class Aenglish extends CI_Controller {
 			$response = $this->Admin_model->updateimages($updatedata, $id);
 			if($response){
 				$this->session->set_flashdata('msg','<div class="alert alert-success">Default images updated success. </div>');
-				redirect(base_url().'index.php/aenglish/defaultimages');
+				redirect(base_url().'index.php/atelugu/defaultimages');
 			}else{
 				$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to update default images.</div>');
-				redirect(base_url().'index.php/aenglish/defaultimages');
+				redirect(base_url().'index.php/atelugu/defaultimages');
 			}
 			$this->load->view('admin/defaultimages', $data);
 		}else{
@@ -1677,10 +1677,10 @@ class Aenglish extends CI_Controller {
 		$response = $this->Admin_model->delete_dimage($dimgid);
 		if($response){
 			$this->session->set_flashdata('msg','<div class="alert alert-success">Default images deleted success. </div>');
-			redirect(base_url().'index.php/aenglish/defaultimages');
+			redirect(base_url().'index.php/atelugu/defaultimages');
 		}else{
 			$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to delete default images.</div>');
-			redirect(base_url().'index.php/aenglish/defaultimages');
+			redirect(base_url().'index.php/atelugu/defaultimages');
 		}
 	}
 
@@ -1706,10 +1706,10 @@ class Aenglish extends CI_Controller {
 				$response = $this->Admin_model->insert_notifies($insertdata);
 				if($response){
 					$this->session->set_flashdata('msg','<div class="alert alert-success">Notification Added success. </div>');
-					redirect(base_url().'index.php/aenglish/customnotifies');
+					redirect(base_url().'index.php/atelugu/customnotifies');
 				}else{
 					$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to add Notification.</div>');
-					redirect(base_url().'index.php/aenglish/customnotifies');
+					redirect(base_url().'index.php/atelugu/customnotifies');
 				}
 			}
 		}else{
@@ -1720,10 +1720,10 @@ class Aenglish extends CI_Controller {
 		$response = $this->Admin_model->deletenotify($id);
 		if($response){
 			$this->session->set_flashdata('msg','<div class="alert alert-success">Admin Notification deleted success. </div>');
-			redirect(base_url().'index.php/aenglish/customnotifies');
+			redirect(base_url().'index.php/atelugu/customnotifies');
 		}else{
 			$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to delete Admin Notification.</div>');
-			redirect(base_url().'index.php/aenglish/customnotifies');
+			redirect(base_url().'index.php/atelugu/customnotifies');
 		}
 	}
 	/* Custom notifications to users end */	
@@ -1745,10 +1745,10 @@ class Aenglish extends CI_Controller {
 				$response = $this->Admin_model->insertfaq($insertdata);
 				if($response){
 					$this->session->set_flashdata('msg','<div class="alert alert-success">Faq Added success. </div>');
-					redirect(base_url().'index.php/aenglish/faqs');
+					redirect(base_url().'index.php/atelugu/faqs');
 				}else{
 					$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to add Faq.</div>');
-					redirect(base_url().'index.php/aenglish/faqs');
+					redirect(base_url().'index.php/atelugu/faqs');
 				}
 			}
 		}else{
@@ -1771,10 +1771,10 @@ class Aenglish extends CI_Controller {
 				$response = $this->Admin_model->updatefaq($updatedata, $id);
 				if($response){
 					$this->session->set_flashdata('msg','<div class="alert alert-success">Faq Updated success. </div>');
-					redirect(base_url().'index.php/aenglish/faqs');
+					redirect(base_url().'index.php/atelugu/faqs');
 				}else{
 					$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to Update Faq.</div>');
-					redirect(base_url().'index.php/aenglish/faqs');
+					redirect(base_url().'index.php/atelugu/faqs');
 				}
 			}
 		}else{
@@ -1785,10 +1785,10 @@ class Aenglish extends CI_Controller {
 		$response = $this->Admin_model->deletefaq($id);
 		if($response){
 			$this->session->set_flashdata('msg','<div class="alert alert-success">Faq deleted success. </div>');
-			redirect(base_url().'index.php/aenglish/faqs');
+			redirect(base_url().'index.php/atelugu/faqs');
 		}else{
 			$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to delete Faq.</div>');
-			redirect(base_url().'index.php/aenglish/faqs');
+			redirect(base_url().'index.php/atelugu/faqs');
 		}
 	}
 	/* Faqs to end */
@@ -1811,10 +1811,10 @@ class Aenglish extends CI_Controller {
 				$response = $this->Admin_model->insertmail($insertdata);
 				if($response){
 					$this->session->set_flashdata('msg','<div class="alert alert-success">Mail sent success. </div>');
-					redirect(base_url().'index.php/aenglish/mailfromadmin');
+					redirect(base_url().'index.php/atelugu/mailfromadmin');
 				}else{
 					$this->session->set_flashdata('msg','<div class="alert alert-danger">Failed to sent Mail.</div>');
-					redirect(base_url().'index.php/aenglish/mailfromadmin');
+					redirect(base_url().'index.php/atelugu/mailfromadmin');
 				}
 			}
 		}else{
@@ -1825,7 +1825,7 @@ class Aenglish extends CI_Controller {
 
 	/* Payment Details start */
 	public function paymentdetails(){
-		$language = 'en';
+		$language = 'te';
 		$data['paymentdetails'] = $this->Admin_model->auserslist($language);
 		$this->load->view('admin/paymentdetails', $data);
 	}
@@ -1834,7 +1834,7 @@ class Aenglish extends CI_Controller {
 
 	/* Analytics Start */
 	/*public function allstories(){
-		$language = 'en';
+		$language = 'te';
 		$data['allstories'] = $this->Admin_model->allstories();
 		$data['allstorieslang'] = $this->Admin_model->allstories($language);
 		//$this->load->view('admin/allstories', $data);
@@ -1886,7 +1886,7 @@ class Aenglish extends CI_Controller {
 		echo '<pre>';print_r($users);
 	}
 	public function genersusercount(){
-		$language = 'en';
+		$language = 'te';
 		$response = $this->Admin_model->genersusercount($language);
 		echo '<pre>';print_r($response);
 	}
@@ -1895,12 +1895,12 @@ class Aenglish extends CI_Controller {
 		echo '<pre>';print_r($response);
 	}
 	public function totalviewscount(){
-		$language = 'en';
+		$language = 'te';
 		$response = $this->Admin_model->totalviewscount($language);
 		echo '<pre>';print_r($response);
 	}
 	public function uniqueviewscount(){
-		$language = 'en';
+		$language = 'te';
 		$response = $this->Admin_model->uniqueviewscount($language);
 		echo '<pre>';print_r($response);
 	}
@@ -1909,7 +1909,7 @@ class Aenglish extends CI_Controller {
 		echo '<pre>';print_r($response);
 	}
 	public function numberofblogs(){
-		$language = 'en';
+		$language = 'te';
 		$response = $this->Admin_model->numberofblogs($language);
 		echo '<pre>';print_r($response);
 	}
@@ -1923,7 +1923,7 @@ class Aenglish extends CI_Controller {
 	}*/
 
 	public function scanalytics(){
-		$language = 'en';
+		$language = 'te';
 		$data['languages'] = $this->Admin_model->languages();
 		$data['allstories'] = $this->Admin_model->allstories();
 		$this->load->view('admin/scanalytics', $data);
@@ -2043,7 +2043,7 @@ class Aenglish extends CI_Controller {
 		}
 	}
 	public function scuserscount(){
-		$language = 'en';
+		$language = 'te';
 		$data['languages'] = $this->Admin_model->languages();
 		$data['uweek'] = $this->Admin_model->userscount(7);
 		$data['umonth'] = $this->Admin_model->userscount(30);

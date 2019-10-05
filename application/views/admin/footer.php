@@ -588,4 +588,58 @@
             }
         });
     }
+
+    function sctotalviews(lang){
+        $.ajax({
+            url: "<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/sctotalviewslang",
+            type: "POST",
+            data: {'lang':lang},
+            dataType: "json",
+            success: function(result){
+                if(result.views != '' || result.views != 0){
+                    var scviews = ''; 
+                    $.each(result.views,function (p,q){
+                        scviews+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">'+q.type+'</a></div><div class="tagnumbertext">'+q.totalviewcount+'</div></div>';
+                    });
+                    scviews+= '</div>';
+                    $('.scviews').html(scviews);
+                }
+                if(result.uqviews != '' || result.uqviews != 0){
+                    var scuviews = '';
+                    $.each(result.uqviews,function (p,q){
+                        scuviews+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">'+q.type+'</a></div><div class="tagnumbertext">'+q.uniqueviewcount+'</div></div>';
+                    });
+                    scuviews+= '</div>';
+                }
+                $('.scuviews').html(scuviews);
+
+                if(result.emailvcount != '' || result.emailvcount != 0){
+                    var everified = '';
+                    $.each(result.emailvcount,function (p,q){
+                        everified+= '<div class="tagcards"> <div class="tagtext"><a href="javascript:void(0);">Emails Verified</a></div><div class="tagnumbertext">'+q.evcount+'</div></div>';
+                    });
+                    everified+= '</div>';
+                }
+                $('.everified').html(everified);
+            }
+        });
+    }
+
+    function scblogs(lang){
+        $.ajax({
+            url: "<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/scblogslang",
+            type: "POST",
+            data: {'lang':lang},
+            dataType: "json",
+            success: function(result){
+                if(result.noofblogs != '' || result.noofblogs != 0){
+                    var scblogs = '';
+                    $.each(result.noofblogs,function (p,q){
+                        scblogs+= '<div class="tagcards"><div class="tagtext"><a href="javascript:void(0);">Blogs Count</a></div><div class="tagnumbertext">'+q.blogcount+'</div></div>';
+                    });
+                    $('.tagpagemaindiv').html(scblogs);
+                }
+            }
+        });
+    }
 </script>
