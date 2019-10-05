@@ -98,6 +98,10 @@
 </head>
 
 <body class="main-story">
+
+<div class="div-all">
+
+
     <?php $this->load->view('fbg_login.php'); ?>
 <header class="navbar" id="navbar">
     <a href="javascript:void(0);" data-toggle="modal" data-target="#nvmenu" style="font-size:18.5px;"  class="icon5"><i class="fa fa-bars" aria-hidden="true"></i></a>
