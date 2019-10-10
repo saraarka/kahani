@@ -195,7 +195,7 @@ class Welcome extends CI_Controller {
 				    $usercommunities = $this->User_model->checkfbgusercomm($result[0]->user_id);
 				    if(isset($usercommunities) && ($usercommunities->num_rows() >= 2)){
 				        $this->session->set_userdata('logged_in', $session_data);
-				        $this->session->set_userdata('language', $result[0]->writer_language);
+				        //$this->session->set_userdata('language', $result[0]->writer_language);
 				        $preferedlang = $this->User_model->langfullname($result[0]->writer_language);
     				    $data['status'] = 1;
         				$data['response'] = 'success';
