@@ -500,9 +500,9 @@
 					                    	<div class="book-type" style="z-index:0"><?php echo $recentstory->gener;?></div>
 					                    	<a href="<?php echo base_url('series/'.preg_replace("~[^\p{M}\w]+~u",'-', $recentstory->title).'-'.$recentstory->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $recentstory->title).'-'.$recentstory->story_id);?>" class="imagess-style">
 					                    		<?php if(isset($recentstory->image) && !empty($recentstory->image)) { ?>
-					                    		    <img src="<?php echo base_url();?>assets/images/<?php echo $recentstory->image; ?>" alt="<?php echo $recentstory->title; ?>" class="imageme">
+					                    		    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/images/<?php echo $recentstory->image; ?>" alt="<?php echo $recentstory->title; ?>" class="imageme lazy">
 					                    		<?php }else{ ?>
-					                    			<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $recentstory->title; ?>" class="imageme">
+					                    			<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $recentstory->title; ?>" class="imageme lazy">
 					                    		<?php } ?>
 					                    	</a>
 					                    	<div>
@@ -1427,4 +1427,9 @@ function mobileaddepisode(){
     if( isMobile.iOS() ) document.getElementById("apptext").innerHTML = `DOWNLOAD <a style="color:blue" href="https://play.google.com/store/apps/details?id=com.reverie.swalekh&hl=en">SWALEKHA</a> KEYBOARD & <a href="<?php echo base_url();?>episode/<?php echo $this->uri->segment(3).'/'.$this->uri->segment(3);?>" style="color:blue">ADD EPISODE</a> IN INDIAN LANGUAGES.`
     if( isMobile.Windows() ) document.getElementById("apptext").innerHTML = `OPEN SITE ON DESKTOP`
 }
+</script>
+<script>
+    var lazyLoadInstance = new LazyLoad({
+        elements_selector: ".lazy"
+    });
 </script>

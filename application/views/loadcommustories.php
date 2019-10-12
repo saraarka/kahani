@@ -13,7 +13,7 @@
 				    <a href="<?php echo base_url().$key->profile_name;?>"><?php echo $key->name;?></a> 
 				    <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($key->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
 						<span class="dropdown" style="float:right;">
-							<a href="#" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
+							<a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
 								<i class="fa fa-ellipsis-v"></i>
 							</a>
 							<ul class="dropdown-menu pull-right">
@@ -23,9 +23,9 @@
 						</span>
 	                <?php } else { ?>
 	                    <span class="dropdown" style="float:right;">
-							<a href="#" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v pull-right"></i></a>
+							<a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v pull-right"></i></a>
 							<ul class="dropdown-menu pull-right">
-								<li><a href="#" class="" style="" onclick="reportcomm_post(<?php echo $key->id;?>, <?php echo $key->user_id;?>)"><i class="fa fa-exclamation-triangle"></i> REPORT </a>
+								<li><a href="javascript:void(0);" class="" style="" onclick="reportcomm_post(<?php echo $key->id;?>, <?php echo $key->user_id;?>)"><i class="fa fa-exclamation-triangle"></i> REPORT </a>
 								</li>
 							</ul>
 					    </span>
@@ -206,7 +206,7 @@
     						        <span class="more <?php echo $comment->id;?>"><?php echo $comment->comment; ?></span>
     						    <?php } ?>
     							<div style="margin:5px 0;" class="">
-                                    <a href="javascript:void(0)" onClick="postReplycomment(<?php echo $comment->id;?>,<?php echo $comment->comm_id;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a> <a href="" class="pull-left replycv">I</a>
+                                    <a href="javascript:void(0)" onClick="postReplycomment(<?php echo $comment->id;?>,<?php echo $comment->comm_id;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a> <a href="javascript:void(0);" class="pull-left replycv">I</a>
                                     <a href="javascript:void(0)" onClick="displayreplies(<?php echo $comment->id;?>,<?php echo $comment->comm_id;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Replies"> 
                                         <span class="old_subcmtcount<?php echo $comment->id;?>"><?php echo get_subcmtcount($comment->id);?></span> REPLIES</a>
                                 </div>
@@ -293,11 +293,11 @@
 				    <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($topkey->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
 	                <?php } else { ?>
 	                <span class="dropdown" style="float:right;">
-		                <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="false">
+		                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="false">
 					        <i class="fa fa-ellipsis-v pull-right"></i>
 					    </a>
 					    <ul class="dropdown-menu pull-right">
-		                    <li><a href="#" class="" style="" onclick="reportcomm_post(<?php echo $topkey->id;?>, <?php echo $topkey->user_id;?>)"><i class="fa fa-exclamation-triangle"></i> REPORT </a></li>
+		                    <li><a href="javascript:void(0);" class="" style="" onclick="reportcomm_post(<?php echo $topkey->id;?>, <?php echo $topkey->user_id;?>)"><i class="fa fa-exclamation-triangle"></i> REPORT </a></li>
 		                </ul>
 	                </span>
 	                <?php } ?>
@@ -477,7 +477,7 @@
 							        <span class="more <?php echo $comment->id;?>"><?php echo $comment->comment; ?></span>
 							    <?php } ?>
 								<div style="margin:5px 0;" class="">
-                                    <a href="javascript:void(0)" onClick="toppostReplycomment(<?php echo $comment->id;?>,<?php echo $comment->comm_id;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a> <a href="" class="pull-left replycv">I</a>
+                                    <a href="javascript:void(0)" onClick="toppostReplycomment(<?php echo $comment->id;?>,<?php echo $comment->comm_id;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a> <a href="javascript:void(0);" class="pull-left replycv">I</a>
                                     <a href="javascript:void(0)" onClick="toppostdisplayreplies(<?php echo $comment->id;?>,<?php echo $comment->comm_id;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Replies"> 
                                         <span class="told_subcmtcount<?php echo $comment->id;?>"><?php echo get_subcmtcount($comment->id);?></span> REPLIES</a>
                                 </div>

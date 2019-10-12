@@ -3,7 +3,7 @@
 	    foreach($notifications['suggestions']->result() as $suggestion) { 
             if($suggestion->type == 'suggestion') { ?>
                 <div class="user-block">
-                    <a href="#" data-toggle="modal" data-target="#sugnotifymodalp<?php echo $suggestion->id;?>">
+                    <a href="javascript:void(0);" data-toggle="modal" data-target="#sugnotifymodalp<?php echo $suggestion->id;?>">
     			    <?php if(!empty($suggestion->profile_image)) { ?>
     				    <img class="user-blockvi" src="<?php echo base_url();?>assets/images/<?php echo $suggestion->profile_image;?>" alt="<?php echo $suggestion->sname;?>">
     				<?php } else { ?> 

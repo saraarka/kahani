@@ -88,7 +88,7 @@
     							</div>
     							<div class="col-sm-4 col-xs-4 col-md-4 col-lg-2 border-right pd-0">
         							<div class="description-block">
-        							    <a href="#" data-toggle="modal" data-target="#modal-defaultf">
+        							    <a href="javascript:void(0);" data-toggle="modal" data-target="#modal-defaultf">
             								<h5 class="description-header" id="follcount<?php echo $row->user_id;?>">
             								<?php $abcdfollowers = 0; if(isset($follow_count) && ($follow_count->num_rows()>0)){
             								    foreach($follow_count->result() as $reviews2){ 
@@ -177,7 +177,7 @@
         							<div class="description-block  profile1" style="float:right; margin-top:14px; cursor:pointer;">
         								<a href="<?php echo base_url();?>my_profile/<?php echo $this->session->userdata['logged_in']['user_id'];?>" style="color:#fff;" class="btn btn-successv">EDIT PROFILE</a>
         							</div>
-    								<span class="profile1" style="padding-left:25px;"><a href="" class=""></a></span>
+    								<span class="profile1" style="padding-left:25px;"><a href="javascript:void(0);" class=""></a></span>
     								
     								<div class="description-block profile2 btnv" style="padding-top:4px; cursor:pointer;">
         								<a href="<?php echo base_url();?>my_profile/<?php echo $this->session->userdata['logged_in']['user_id'];?>" style="color:#fff;" class="btn btn-successv">EDIT PROFILE</a>
@@ -556,7 +556,7 @@
 			                        					    <a href="<?php echo base_url($wnanorow->profile_name);?>" style="color:#000;"><?php echo $wnanorow->name;?></a>
 			                        					    <?php if($wnanorow->user_id == $this->session->userdata['logged_in']['user_id']){ ?>
 			                        					    <span class="dropdown" style="float:right; margin-top:-2.8px;">
-			                        		                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			                        		                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			                        		                        <i class="fa fa-ellipsis-v" style="font-size:14px;"></i>
 			                        		                    </a>
 			                        		                    <ul class="dropdown-menu pull-right">
@@ -571,7 +571,7 @@
 			                        				<div>
 			                        					<hr style="width:100%;margin-top: 12px;">
 			                        					<font class="text-in-nanostory">
-			                        					    <a href="#" style="color:#000;" data-toggle="modal" data-target="#modal-default<?php echo $wnanorow->sid;?>">
+			                        					    <a href="javascript:void(0);" style="color:#000;" data-toggle="modal" data-target="#modal-default<?php echo $wnanorow->sid;?>">
 			                        					    <?php echo $wnanorow->story; ?>
 			                        					    </a>
 			                        					</font>
@@ -680,7 +680,7 @@
                                                         <?php } ?>
                                                     </li>
                                                 	<li class="pull-right">
-                                                		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
+                                                		<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
                                                         <ul class="dropdown-menu list-inline dropvknano1" style="margin-top:2px;">
                                                             <li onclick="groupsuggest(<?php echo $wmnanorow->sid; ?>);">
                                                 				<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
@@ -977,7 +977,7 @@ $("#profilecomments").submit(function(event) {
                         '<img src="<?php echo base_url();?>assets/images/'+profile_image+'" style="border-radius: 50%;width:40px !important;height: 40px !important;margin-right: 10px;" alt="'+result.response[0].name+'">'+
                         '</a></div><div class="comment_right clearfix"><div class="comment_info" style="padding-left:10px;">'+
                         '<div class="namers1"><a href="<?php echo base_url();?>'+result.response[0].profile_name+'">'+result.response[0].name+'</a></div>'+
-                        '<span class="dropdown" style="float:right;"><a href="#" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
+                        '<span class="dropdown" style="float:right;"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
                             '<i class="fa fa-ellipsis-v"></i></a>'+
                             '<ul class="dropdown-menu pull-right">'+
                                 '<li><a style="cursor:pointer;"><span class="" onClick="editpro_comment('+result.response[0].cid+');">'+
@@ -1030,7 +1030,7 @@ $("#profilecomments").submit(function(event) {
                         '<img src="<?php echo base_url();?>assets/images/'+profile_image+'" style="border-radius: 50%;width:40px !important;height: 40px !important;margin-right: 10px;" alt="'+result.response[0].name+'">'+
                         '</a></div><div class="comment_right clearfix"><div class="comment_info" style="padding-left:10px;">'+
                         '<div class="namers1"><a href="<?php echo base_url();?>'+result.response[0].profile_name+'">'+result.response[0].name+'</a></div>'+
-                        '<span class="dropdown" style="float:right;"><a href="#" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
+                        '<span class="dropdown" style="float:right;"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
                         '<i class="fa fa-ellipsis-v"></i></a> <ul class="dropdown-menu pull-right">'+
                         '<li><a href="javascript:void(0);"><span onClick="editpro_comment('+result.response[0].cid+');"><i class="fa fa-pencil"></i> EDIT</span></a></li>'+
                         '<li><a href="javascript:void(0);"><span onClick="deletepro_comment('+result.response[0].cid+');"><i class="fa fa-trash"></i> DELETE</span></a></li></ul></span>'+
@@ -1222,7 +1222,7 @@ function editpro_comment(commentid){
                     		        '<div class="media"><div class="media-left" style="padding-right:5px;">'+
                                     '<img src="<?php echo base_url();?>assets/images/'+profile_image+'" style="border-radius: 50%;width:30px !important;height: 30px !important;" alt="'+datares.response[0].name+'">'+
                                     '</div><div class="media-body" style="background-color:#ddd; padding-left:8px; border-radius: 10px;">'+
-                                    '<b><div class="namers"><a href="">'+datares.response[0].name+'</a></div></b><span class="dropdown" style="float:right;">'+
+                                    '<b><div class="namers"><a href="javascript:void(0);">'+datares.response[0].name+'</a></div></b><span class="dropdown" style="float:right;">'+
                                         '<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
                                             '<i class="fa fa-ellipsis-v"></i></a>'+
                                         '<ul class="dropdown-menu pull-right">'+

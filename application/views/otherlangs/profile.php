@@ -82,7 +82,7 @@
                                 </div> <!-- /.col -->
                                 <div class="col-sm-4 col-xs-4 col-md-4 col-lg-2 border-right pd-0">
         							<div class="description-block">
-        								<a href="#" data-toggle="modal" data-target="#fmodal-defaultf">
+        								<a href="jav" data-toggle="modal" data-target="#fmodal-defaultf">
             								<h5 class="description-header" id="follcount<?php echo $row->user_id;?>">
             								<?php $abcdfollowers = 0; if(isset($follow_count) && ($follow_count->num_rows()>0)){
             								    foreach($follow_count->result() as $reviews2){ 
@@ -590,7 +590,7 @@
     		                        				</div>
     		                        				<div>
     		                        					<hr style="width:100%;margin-top: 12px;">
-    		                        					<a href="#" style="color:#000" data-toggle="modal" data-target="#modal-default<?php echo $wnanorow->sid;?>">
+    		                        					<a href="jav" style="color:#000" data-toggle="modal" data-target="#modal-default<?php echo $wnanorow->sid;?>">
                         								    <font class="text-in-nanostory" onclick="nanoviewsadd(<?php echo $wnanorow->sid;?>);"><?php echo $wnanorow->story; ?></font>
                         								</a>
     		                        				</div>
@@ -696,7 +696,7 @@
                                                         <?php } ?>
                                                     </li>
                                                     <li class="pull-right">
-                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
+                                                        <a href="jav" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
                                                         <ul class="dropdown-menu list-inline dropvknano1">
                                                             <li onclick="groupsuggest(<?php echo $wmnanorow->sid; ?>);">
                                                                 <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>

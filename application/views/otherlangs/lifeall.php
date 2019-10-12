@@ -20,7 +20,7 @@
 			                </div>
 			            </div>
 			            <button id="right-btnt" class="right-btnt right-btnt" style="padding-right: 20px;"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
-			        	<div class="brv1 hidden-xs view" style="margin-right:0px; width:10%;"><a href="<?php echo base_url().$this->uri->segment(1);?>lifeeventtags"> View More </a></div>
+			        	<div class="brv1 hidden-xs view" style="margin-right:0px; width:10%;"><a href="<?php echo base_url().$this->uri->segment(1);?>/lifeeventtags"> View More </a></div>
 			    </div>
 			    <?php } ?>
 			</div>

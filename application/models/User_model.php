@@ -11,8 +11,10 @@ class User_model extends CI_model {
 		}
 	}
 	public function gener() {
-		return $this->db->select('gener.*, COUNT(stories.genre) as gstorycount')->from('gener')
-		    ->join('stories','gener.id = stories.genre','left')->group_by('gener.id')->order_by('gstorycount','DESC')->get();
+		/*return $this->db->select('gener.*, COUNT(stories.genre) as gstorycount')->from('gener')
+		    ->join('stories','gener.id = stories.genre','left')->group_by('gener.id')->order_by('gstorycount','DESC')->get();*/
+		$language = $this->langshortname($this->uri->segment(1));
+		return $this->db->select('gener.*, COUNT(stories.genre) as gstorycount')->from('gener')->join('stories','gener.id = stories.genre AND (stories.type="story" OR (stories.type="series" AND stories.sid != stories.story_id)) AND stories.draft !="draft" AND stories.status="active" AND stories.language="'.$language.'"','left')->group_by('gener.id')->order_by('gstorycount','DESC')->get();
 	}
 	public function genername($genername) {
 	    $gener_name = preg_replace('/-/', ' ', $genername);
@@ -108,7 +110,7 @@ class User_model extends CI_model {
 		$this->db->from('signup')->where('admin_status','unblock');
 		if(isset($search) && !empty($search)){
 		    $user_id = $this->session->userdata['logged_in']['user_id'];
-		    $this->db->where('user_id !=',$user_id)->like('name',$search, 'both')->limit(10);
+		    $this->db->where('user_id !=',$user_id)->like('name',$search, 'both')->or_like('profile_name',$search, 'both')->limit(10);
 		}
 		return $this->db->get();
 	}

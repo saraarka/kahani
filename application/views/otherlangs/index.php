@@ -251,8 +251,10 @@
     				</div>
 			    </div>
 		    </div>
-	        <button id="right-btnyn" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i> </button>
-	    	<button id="left-btnyn" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i> </button>
+            <?php if($yournetworks->num_rows() > 4){ ?>
+    	        <button id="right-btnyn" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i> </button>
+    	    	<button id="left-btnyn" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i> </button>
+            <?php } ?>
 	    <?php } ?>
 	    </div><!-- // Your network STORIES end-->
 
@@ -339,9 +341,11 @@
     					<?php } ?>
 				    </div>
 			    </div>
-		        <button id="right-btn" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
-		    	<button id="left-btn" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
-		    <?php } ?>
+                <?php if($top_get_series->num_rows() > 4){ ?>
+    		        <button id="right-btn" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
+    		    	<button id="left-btn" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
+                <?php } ?>
+            <?php } ?>
 		</div>	<!-- // Top SERIES end -->
 		<div class="clear-fix"></div>
 		
@@ -428,9 +432,11 @@
     					<?php } ?>
     				</div>
     			</div>
-    			<button id="right-btnls" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i> </button>
-    			<button id="left-btnls" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i> </button>
-		    <?php } ?>
+                <?php if($get_series->num_rows() > 4){ ?>
+        			<button id="right-btnls" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i> </button>
+        			<button id="left-btnls" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i> </button>
+                <?php } ?>
+            <?php } ?>
 		</div><!-- // Latest SERIES end-->
 	    <div class="clear-fix"></div>
 	    
@@ -528,8 +534,10 @@
 					<?php } ?>
 					</div>
 				</div>
-				<button id="right-btnts" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
-				<button id="left-btnts" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
+                <?php if($top_get_storys->num_rows() > 4){ ?>
+    				<button id="right-btnts" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
+    				<button id="left-btnts" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
+                <?php } ?>
 			</div>
 			<?php } ?>
 		</div> <!-- // TOP STORIES end -->
@@ -630,9 +638,11 @@
     				</div>
 			    </div>
 		    </div>
-	        <button id="right-btntsl" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i> </button>
-	    	<button id="left-btntsl" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i> </button>
-	    <?php } ?>
+            <?php if($get_storys->num_rows() > 4){ ?>
+    	        <button id="right-btntsl" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i> </button>
+    	    	<button id="left-btntsl" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i> </button>
+	        <?php } ?>
+        <?php } ?>
 	    </div> <!-- // LATEST STORIES end-->
 		<div class="clear-fix"></div>
 		
@@ -717,9 +727,11 @@
 					<?php } ?>
 				</div>
 			</div>
-    		<button id="right-btnl" class="right-btn right-btnl"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
-			<button id="left-btnl" class="left-btn right-btnl"><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
-		<?php } ?>
+            <?php if($top_get_life->num_rows() > 3) { ?>
+        		<button id="right-btnl" class="right-btn right-btnl"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
+    			<button id="left-btnl" class="left-btn right-btnl"><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
+            <?php } ?>
+        <?php } ?>
 		</div>
 		<div class="clear-fix"></div><!-- TOP LIFE EVENTS end -->
 		
@@ -806,9 +818,11 @@
 					<?php } ?>
 				</div>
 		    </div>
-	        <button id="right-btnll" class="right-btn right-btnl"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
-		    <button id="left-btnll" class="left-btn right-btnl"><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
+            <?php if($get_life->num_rows() > 3){ ?>
+    	        <button id="right-btnll" class="right-btn right-btnl"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
+    		    <button id="left-btnll" class="left-btn right-btnl"><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
 	        <?php } ?>
+            <?php } ?>
 	    </div><!-- // LATEST LIFE EVENTS end-->
 	    <div class="clear-fix"></div>
 	    
@@ -901,9 +915,11 @@
 					<?php } ?>
 				</div>
 			</div>
-			<button id="right-btnn" class="right-btn right-btnn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
-			<button id="left-btnn" class="left-btn left-btnn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
+            <?php if($get_nano->num_rows() > 3) {  ?>
+    			<button id="right-btnn" class="right-btn right-btnn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
+    			<button id="left-btnn" class="left-btn left-btnn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
 			<?php } ?>
+            <?php } ?>
 		</div>
 			
 		<?php if(isset($get_nano) && ($get_nano->num_rows() > 0)){ foreach($get_nano->result() as $nanomodalrow) { ?>
@@ -1065,8 +1081,10 @@
 					<?php } ?>
     	            </div>
                 </div>
-                <button id="right-btnw" class="right-btn right-btnw"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
-    	        <button id="left-btnw" class="left-btn left-btnw"><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
+                <?php if($get_writer->num_rows() > 3){ ?>
+                    <button id="right-btnw" class="right-btn right-btnw"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
+        	        <button id="left-btnw" class="left-btn left-btnw"><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
+                <?php } ?>
             <?php } ?>
 	    </div> <!-- // WRITERS -->
 	    <div class="clear-fix"></div>
@@ -1091,10 +1109,10 @@
                     Copyright <i class="fa fa-copyright" aria-hidden="true" style="font-size:12px;"></i> 2018 Being Reader
                 </font>
                 <div class="socialbtns">
-                    <a href="" class="socialshare"><i class="fa fa-facebook-square hover-tems" aria-hidden="true" style="margin-right:8px"></i></a>
-                    <a href="" class="socialshare"><i class="fa fa-instagram hover-tems" aria-hidden="true" style="margin-right:6px"></i></a>
-                    <a href="" class="socialshare"><i class="fa fa-twitter-square hover-tems" aria-hidden="true" style="margin-right:6px"></i></a>
-                    <a href="" class="socialshare"><i class="fa fa-youtube-square hover-tems" aria-hidden="true"></i></a>
+                    <a href="javascript:void(0);" class="socialshare"><i class="fa fa-facebook-square hover-tems" aria-hidden="true" style="margin-right:8px"></i></a>
+                    <a href="javascript:void(0);" class="socialshare"><i class="fa fa-instagram hover-tems" aria-hidden="true" style="margin-right:6px"></i></a>
+                    <a href="javascript:void(0);" class="socialshare"><i class="fa fa-twitter-square hover-tems" aria-hidden="true" style="margin-right:6px"></i></a>
+                    <a href="javascript:void(0);" class="socialshare"><i class="fa fa-youtube-square hover-tems" aria-hidden="true"></i></a>
                 </div>
             </div>
             <div class="footer1">
@@ -1150,20 +1168,20 @@
 <!-- Social popup ---- -->
 <!-- group suggest popup code ---- -->
 <div class="modal fade" id="groupsuggest" role="dialog">
-	<div class="modal-dialog modaldialogs">
-		<div class="modal-content">
-			<div class="storysuggesttogroup"></div>
-		</div>
-	</div>
+    <div class="modal-dialog modaldialogs">
+        <div class="modal-content">
+            <div class="storysuggesttogroup"></div>
+        </div>
+    </div>
 </div>
 <!-- group suggest popup code -->
 <!-- frind popup code ------>
 <div class="modal fade" id="friendsuggest" role="dialog" aria-hidden="true">
-	<div class="modal-dialog modaldialogs">
-		<div class="modal-content">
-			<div class="storysuggesttofriend"></div>
-		</div>
-	</div>
+    <div class="modal-dialog modaldialogs">
+        <div class="modal-content">
+            <div class="storysuggesttofriend"></div>
+        </div>
+    </div>
 </div>
 <!--frind popup end ------------->
 

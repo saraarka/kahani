@@ -359,9 +359,9 @@
 			                    	<div class="book-type" style="z-index:0"><?php echo $recentstory->gener;?></div>
 			                    	<a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u", '-', $recentstory->title).'-'.$recentstory->sid);?>" class="imagess-style">
 			                    		<?php if(isset($recentstory->image) && !empty($recentstory->image)) { ?>
-			                    		    <img src="<?php echo base_url();?>assets/images/<?php echo $recentstory->image; ?>" alt="<?php echo $recentstory->title;?>" class="imageme">
+			                    		    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $recentstory->image; ?>" alt="<?php echo $recentstory->title;?>" class="imageme lazy">
 			                    		<?php }else{ ?>
-			                    			<img src="<?php echo base_url();?>assets/images/series-stories.jpg" alt="<?php echo $recentstory->title;?>" class="imageme">
+			                    			<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/series-stories.jpg" alt="<?php echo $recentstory->title;?>" class="imageme lazy">
 			                    		<?php } ?>
 			                    	</a>
 			                    	<div>
@@ -439,10 +439,9 @@
 				            <?php foreach ($recentstorieslife->result() as $recentlife) { ?>
                                 <div class="card1">
                                     <a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u", '-', $recentlife->title).'-'.$recentlife->sid);?>" class="imagebcg">
-                                        <?php if(isset($recentlife->image) && !empty($recentlife->image)) { ?>
-                                        	<img src="<?php echo base_url();?>assets/images/<?php echo $recentlife->image; ?>" alt="<?php echo $recentlife->title;?>" class="imageme1" style="max-width:266px;max-height:165px;">
+                                        	<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/images/<?php echo $recentlife->image; ?>" alt="<?php echo $recentlife->title;?>" class="imageme1 lazy" style="max-width:266px;max-height:165px;">
                                         <?php } else { ?>
-                                        	<img src="<?php echo base_url();?>assets/images/series-stories.jpg" alt="<?php echo $recentlife->title;?>" class="imageme1" style="max-width:266px;max-height:165px;">
+                                        	<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/images/series-stories.jpg" alt="<?php echo $recentlife->title;?>" class="imageme1 lazy" style="max-width:266px;max-height:165px;">
                                         <?php } ?>
                                     </a>	
                                     <div>
@@ -1405,4 +1404,9 @@ function mobilestoryedit(sid){
     if( isMobile.iOS() ) document.getElementById("apptext").innerHTML = `DOWNLOAD <a style="color:blue" href="https://play.google.com/store/apps/details?id=com.reverie.swalekh&hl=en">SWALEKHA</a> KEYBOARD & <a href="<?php echo base_url();?>admin_story_view/${sid}" style="color:blue">EDIT STORY</a> OR <a href="<?php echo base_url();?>story_info/${sid}" style="color:blue">EDIT STORY INFO</a> IN INDIAN LANGUAGES.`
     if( isMobile.Windows() ) document.getElementById("apptext").innerHTML = `OPEN SITE ON DESKTOP`
 }
+</script>
+<script>
+    var lazyLoadInstance = new LazyLoad({
+        elements_selector: ".lazy"
+    });
 </script>

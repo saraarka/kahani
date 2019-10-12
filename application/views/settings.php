@@ -284,7 +284,7 @@ body{
                 <div class="inner-settings">
                     <div>
                         <span class="community-heading"><b>PREFERRED GENRES</b></span>
-                        <a class="edit-btn-communities" href="" data-toggle="modal" data-target="#choosecommunitypedit">EDIT</a>
+                        <a class="edit-btn-communities" href="javascript:void(0);" data-toggle="modal" data-target="#choosecommunitypedit">EDIT</a>
                     </div>
                     <hr>
                     <div class="selected-community-div">
@@ -307,7 +307,7 @@ body{
                 <div class="inner-settings">
                     <div>
                         <span class="community-heading"><b>PREFERRED LANGUAGE</b></span>
-                        <a class="edit-btn-communities" href="" data-toggle="modal" data-target="#chooselanguagepedit">EDIT</a>
+                        <a class="edit-btn-communities" href="javascript:void(0);" data-toggle="modal" data-target="#chooselanguagepedit">EDIT</a>
                     </div>
                     <hr>
                     <div class="selected-community-div">

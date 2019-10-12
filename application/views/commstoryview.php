@@ -120,7 +120,7 @@
                         				<div class="row pt-0">
                         					<div class="col-md-12 pd-0" style="padding-left:5px;">
                         					    <span class="pull-left" style="padding-top:8px;">
-                        					        <a href="" style="text-transform:uppercase; padding-top:10px; text-overflow:ellipsis;"><b><?php echo $row->gener; ?></b></a>
+                        					        <a href="javascript:void(0);" style="text-transform:uppercase; padding-top:10px; text-overflow:ellipsis;"><b><?php echo $row->gener; ?></b></a>
                         					    </span>
                         					    <span class="pull-right">
                 								    <button class="btn btn-success join<?php echo $row->id;?>" style="border-radius:4px!important;" onclick="commujoin(<?php echo $row->id;?>,'<?php echo $row->gener;?>')"> JOIN </button>
@@ -182,7 +182,7 @@
                 												    <a href="<?php echo base_url().$key->profile_name;?>"><?php echo $key->name;?></a> 
                 												    <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($key->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
         																<span class="dropdown" style="float:right;">
-            																<a href="#" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
+            																<a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
             																	<i class="fa fa-ellipsis-v"></i>
             																</a>
             																<ul class="dropdown-menu pull-right">
@@ -192,9 +192,9 @@
             															</span>
                                 					                <?php } else { ?>
                                 					                    <span class="dropdown" style="float:right;">
-            																<a href="#" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v pull-right"></i></a>
+            																<a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v pull-right"></i></a>
             																<ul class="dropdown-menu pull-right">
-            																	<li><a href="#" class="" style="" onclick="reportcomm_post(<?php echo $key->id;?>, <?php echo $key->user_id;?>)"><i class="fa fa-exclamation-triangle"></i> REPORT </a>
+            																	<li><a href="javascript:void(0);" class="" style="" onclick="reportcomm_post(<?php echo $key->id;?>, <?php echo $key->user_id;?>)"><i class="fa fa-exclamation-triangle"></i> REPORT </a>
             																	</li>
             																</ul>
         															    </span>
@@ -369,9 +369,9 @@
                     														        <div class="more <?php echo $comment->id;?>"><?php echo $comment->comment; ?></div>
                     														    <?php } ?>
                     															<div style="margin:5px 0;" class="">
-                                                                                    <a href="javascript:void(0)" onClick="postReplycomment(<?php echo $comment->id;?>,<?php echo $comment->comm_id;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a>
-                                                                                    <a href="" class="pull-left replycv">I</a>
-                                                                                    <a href="javascript:void(0)" onClick="displayreplies(<?php echo $comment->id;?>,<?php echo $comment->comm_id;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Replies"> 
+                                                                                    <a href="javascript:void(0);" onClick="postReplycomment(<?php echo $comment->id;?>,<?php echo $comment->comm_id;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a>
+                                                                                    <a href="javascript:void(0);" class="pull-left replycv">I</a>
+                                                                                    <a href="javascript:void(0);" onClick="displayreplies(<?php echo $comment->id;?>,<?php echo $comment->comm_id;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Replies"> 
                                                                                         <span class="old_subcmtcount<?php echo $comment->id;?>"><?php echo get_subcmtcount($comment->id);?></span> REPLIES</a>
                                                                                 </div>
                     														</div><br>
@@ -464,7 +464,7 @@
                 				<div class="row pt-0">
                 					<div class="col-md-12 pd-0" style="padding-left:5px;">
                 					    <span class="pull-left" style="padding-top:8px;">
-                					        <a href="" style="text-transform:uppercase; padding-top:10px; text-overflow:ellipsis;"><b><?php echo $row->gener; ?></b></a>
+                					        <a href="javascript:void(0);" style="text-transform:uppercase; padding-top:10px; text-overflow:ellipsis;"><b><?php echo $row->gener; ?></b></a>
                 					    </span>
                 					    <span class="pull-right">
                 					        <!--<?php if(in_array($row->id, $join_comm)) { ?>
@@ -686,9 +686,9 @@
                         '</span>'+
     			        '<span class="text-muted pull-right datecv">1 minute ago</span></span></div>'+
     		            '<div style="margin:8px 0 6px 2px" class="comment-text"><div class="more '+result.response.id+'">'+result.response.comment+'</div>'+
-                        '<div style="margin:5px 0;"><a href="javascript:void(0)" onclick="postReplycomment('+result.response.id+','+result.response.comm_id+','+result.response.story_id+')" class="pull-left replycv" title="Reply">REPLY</a>'+
-                        '<a href="" class="pull-left replycv">I</a> '+
-                        '<a href="javascript:void(0)" onClick="displayreplies('+result.response.id+','+result.response.comm_id+','+result.response.story_id+')" class="pull-left replycv" title="Reply">'+
+                        '<div style="margin:5px 0;"><a href="javascript:void(0);" onclick="postReplycomment('+result.response.id+','+result.response.comm_id+','+result.response.story_id+')" class="pull-left replycv" title="Reply">REPLY</a>'+
+                        '<a href="javascript:void(0);" class="pull-left replycv">I</a> '+
+                        '<a href="javascript:void(0);" onClick="displayreplies('+result.response.id+','+result.response.comm_id+','+result.response.story_id+')" class="pull-left replycv" title="Reply">'+
                         '<span class="old_subcmtcount'+result.response.id+'">0</span> REPLIES</a></div></div><br>'+
                         '<div class="comment-text"><div class="input-group postreplycomment'+result.response.id+'" style="margin-bottom:5px;"></div></div>'+
     		        

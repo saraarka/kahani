@@ -151,7 +151,7 @@
 				<h3 class="name-nanostories" style="vertical-align:middle;overflow: inherit;">
 				    <a href="<?php echo base_url($this->uri->segment(1).'/'.$vahnanorow->profile_name);?>" style="color:#000"><?php echo $vahnanorow->name;?></a>
 				    <span class="dropdown"  style="float:right;margin-top:-2.8px">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-ellipsis-v" style="font-size:14px;"></i>
                         </a>
                         <ul class="dropdown-menu pull-right">

@@ -1,201 +1,201 @@
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/editmy_profile.css">
     <script src="<?php echo base_url();?>assets/dist/js/js/jquery.Jcrop.min.js"></script>
 <style>
-*{
-  -webkit-tap-highlight-color:  transparent; 
-}
-.settings{
-  min-width: 856px;
-  width: 60%;
-  max-width: 1050px;
-  border-radius: 3px;
-  margin: 30px auto;
-  padding: 0 10px;
-  font-family: "Arial", sans-serif;
-}
-
-.inner-settings{
-  background: white;
-  padding: 10px;
-  box-sizing: border-box;
-  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
-  border-radius: 3px;
-  margin: 30px 0;
-}
-
-.inner-settings h3, .community-heading{
-  font-size: 22px;
-  margin: 0;
-}
-
-.inner-settings hr{
-  border: 0;
-  height: 1px;
-  background: #ddd;
-  margin-bottom: 20px;
-  width: 100%;
-}
-
-.inner-settings textarea{
-  margin: 10px 0 15px 0;
-  padding: 10px;
-  resize: none;
-  width: 100%;
-  height: 125px;
-  box-sizing: border-box;
-  font-size: 16px;
-  line-height: 26px;
-  border: 1px solid #ddd;
-  font-family: "Arial", sans-serif;
-  overflow-y: auto;
-  background-clip: padding-box;
-}
-
-.inner-settings input, .inner-settings select{
-  margin: 10px 0 20px 0;
-  box-sizing: border-box;
-  width: 100%;
-  border: 1px solid #ddd;
-  height: 50px;
-  font-size: 20px !important;
-  padding: 0px 10px;
-  background: transparent;
-  background-clip: padding-box;
-}
-
-.update-btn-div{
-  text-align: center;
-}
-
-label {
-    font-weight:400 !important;
-    font-size:16px;
-}
-
-.update-btn-div button{
-  border: none;
-  background: #3c8dbc;
-  color: white;
-  height: 40px;
-  font-size: 15px;
-  width: 130px;
-  border-radius: 3px;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-.selected-community-div{
-  text-align: center;
-}
-
-.community-btn-selected{
-  padding: 10px;
-  text-align: center;
-  max-width: 163px;
-  background: #3c8dbc;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  color: white;
-  margin: 8px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  display: inline-block;
-}
-
-.email-verification-btn, .edit-btn-communities, .username-change-btn{
-  float: right;
-  color: #3c8dbc;
-  cursor: pointer;
-  font-size:16px;
-  line-height: 28px;
-}
-
-/*.edit-btn-communities{
-  line-height: 28px;
-  font-size:16px;
-} */
-
-.private-public-btn{
-  display: flex;
-  padding-top: 4px;
-  float: right;
-  cursor: pointer;
-}
-
-.private-public-btn input{
-  margin: 0 0 0 10px;
-  height: 18px;
-  width: 18px;
-}
-
-@media screen and (max-width:870px){
-  .settings{
-    min-width: 100%;
-    width: 100%;
-    max-width: 100%;
-  }
-  .inner-settings h3, .community-heading{
-    font-size: 18px;
-  }
-  .inner-settings input, .inner-settings select{
-    font-size: 17px !important;
-  }
-  .edit-btn-communities{
-    line-height: 20px;
-  }
-  .private-public-btn{
-    padding-top: 0;
-  }
-}
-
-
-/*Small devices (landscape phones, less than 768px)*/
-@media (max-width: 767px) {
-    .pos_ab{
-    position: absolute;
-    top: 62px;
-    left: 80px;
-    padding: 2px 6px;
-    border-radius: 50%;
+    *{
+      -webkit-tap-highlight-color:  transparent; 
     }
-}
-.pos_ab{
-    position: absolute;
-    top: 62px;
-    left: 80px;
-    padding: 2px 6px;
-    border-radius: 50%;
-}
+    .settings{
+      min-width: 856px;
+      width: 60%;
+      max-width: 1050px;
+      border-radius: 3px;
+      margin: 30px auto;
+      padding: 0 10px;
+      font-family: "Arial", sans-serif;
+    }
 
-#mobile-upload-file-profile{
-    display: none;
-    cursor: pointer;
-}
-.modal.fade .modal-dialog {
-    -webkit-transition: -webkit-transform .3s ease-out;
-    -o-transition: -o-transform .3s ease-out;
-    transition: transform .3s ease-out;
-    -webkit-transform: translate(0,-25%);
-    -ms-transform: translate(0,-25%);
-    -o-transform: translate(0,-25%);
-    transform: translate(0,-25%);
-    margin: auto;
-    min-width: 300px;
-    max-width: 50% !important;
-    height: auto;
-}
-.modal-footer {
-     padding: 0px;
-    text-align: right;
-border-top: 0px solid #e5e5e5 !important;
-}
-.modal-header {
-    padding: 15px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #e5e5e5;
-}
+    .inner-settings{
+      background: white;
+      padding: 10px;
+      box-sizing: border-box;
+      box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+      border-radius: 3px;
+      margin: 30px 0;
+    }
+
+    .inner-settings h3, .community-heading{
+      font-size: 22px;
+      margin: 0;
+    }
+
+    .inner-settings hr{
+      border: 0;
+      height: 1px;
+      background: #ddd;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .inner-settings textarea{
+      margin: 10px 0 15px 0;
+      padding: 10px;
+      resize: none;
+      width: 100%;
+      height: 125px;
+      box-sizing: border-box;
+      font-size: 16px;
+      line-height: 26px;
+      border: 1px solid #ddd;
+      font-family: "Arial", sans-serif;
+      overflow-y: auto;
+      background-clip: padding-box;
+    }
+
+    .inner-settings input, .inner-settings select{
+      margin: 10px 0 20px 0;
+      box-sizing: border-box;
+      width: 100%;
+      border: 1px solid #ddd;
+      height: 50px;
+      font-size: 20px !important;
+      padding: 0px 10px;
+      background: transparent;
+      background-clip: padding-box;
+    }
+
+    .update-btn-div{
+      text-align: center;
+    }
+
+    label {
+        font-weight:400 !important;
+        font-size:16px;
+    }
+
+    .update-btn-div button{
+      border: none;
+      background: #3c8dbc;
+      color: white;
+      height: 40px;
+      font-size: 15px;
+      width: 130px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    .selected-community-div{
+      text-align: center;
+    }
+
+    .community-btn-selected{
+      padding: 10px;
+      text-align: center;
+      max-width: 163px;
+      background: #3c8dbc;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      color: white;
+      margin: 8px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: inline-block;
+    }
+
+    .email-verification-btn, .edit-btn-communities, .username-change-btn{
+      float: right;
+      color: #3c8dbc;
+      cursor: pointer;
+      font-size:16px;
+      line-height: 28px;
+    }
+
+    /*.edit-btn-communities{
+      line-height: 28px;
+      font-size:16px;
+    } */
+
+    .private-public-btn{
+      display: flex;
+      padding-top: 4px;
+      float: right;
+      cursor: pointer;
+    }
+
+    .private-public-btn input{
+      margin: 0 0 0 10px;
+      height: 18px;
+      width: 18px;
+    }
+
+    @media screen and (max-width:870px){
+      .settings{
+        min-width: 100%;
+        width: 100%;
+        max-width: 100%;
+      }
+      .inner-settings h3, .community-heading{
+        font-size: 18px;
+      }
+      .inner-settings input, .inner-settings select{
+        font-size: 17px !important;
+      }
+      .edit-btn-communities{
+        line-height: 20px;
+      }
+      .private-public-btn{
+        padding-top: 0;
+      }
+    }
+
+
+    /*Small devices (landscape phones, less than 768px)*/
+    @media (max-width: 767px) {
+        .pos_ab{
+        position: absolute;
+        top: 62px;
+        left: 80px;
+        padding: 2px 6px;
+        border-radius: 50%;
+        }
+    }
+    .pos_ab{
+        position: absolute;
+        top: 62px;
+        left: 80px;
+        padding: 2px 6px;
+        border-radius: 50%;
+    }
+
+    #mobile-upload-file-profile{
+        display: none;
+        cursor: pointer;
+    }
+    .modal.fade .modal-dialog {
+        -webkit-transition: -webkit-transform .3s ease-out;
+        -o-transition: -o-transform .3s ease-out;
+        transition: transform .3s ease-out;
+        -webkit-transform: translate(0,-25%);
+        -ms-transform: translate(0,-25%);
+        -o-transform: translate(0,-25%);
+        transform: translate(0,-25%);
+        margin: auto;
+        min-width: 300px;
+        max-width: 50% !important;
+        height: auto;
+    }
+    .modal-footer {
+         padding: 0px;
+        text-align: right;
+    border-top: 0px solid #e5e5e5 !important;
+    }
+    .modal-header {
+        padding: 15px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #e5e5e5;
+    }
 </style>
 <?php $writerlanguage = ''; if(isset($editprofile) && ($editprofile->num_rows()>0)){ foreach($editprofile->result() as $row){
         $writerlanguage = $row->writer_language; ?>
@@ -276,8 +276,8 @@ border-top: 0px solid #e5e5e5 !important;
                     <div class="box-footer">
                         <div class="row">
                             <div class="col-sm-10 col-xs-10 col-md-10">
-                                <center><?php echo $this->session->flashdata('editmsg');?></center>
-                                </div>
+                              <!--<center><?php echo $this->session->flashdata('editmsg');?></center>-->
+                            </div>
                         	<div class="col-sm-2 col-xs-2 col-md-2">
                         		<div class="description-block" style="float:right">
                         		    <button type='submit' name='edit' class='btn btn-primary'> Update profile </button>

@@ -492,9 +492,9 @@
                                         <div class="book-type" style="z-index:0"><?php echo $recentstory->gener;?></div>
                                         <a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u",'-', $recentstory->title).'-'.$recentstory->sid);?>" class="imagess-style">
                                             <?php if(isset($recentstory->image) && !empty($recentstory->image)) { ?>
-                                                <img src="<?php echo base_url();?>assets/images/<?php echo $recentstory->image; ?>" alt="<?php echo $recentstory->title; ?>" class="imageme">
+                                                <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $recentstory->image; ?>" alt="<?php echo $recentstory->title; ?>" class="imageme lazy">
                                             <?php }else{ ?>
-                                                <img src="<?php echo base_url();?>assets/images/series-stories.jpg" alt="<?php echo $recentstory->title; ?>" class="imageme" style="max-width:200px;max-height:180px;">
+                                                <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/series-stories.jpg" alt="<?php echo $recentstory->title; ?>" class="imageme lazy" style="max-width:200px;max-height:180px;">
                                             <?php } ?>
                                         </a>
                                         <div>
@@ -578,9 +578,9 @@
                                     <div class="card1">
                                         <a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u",'-', $recentlife->title).'-'.$recentlife->sid);?>" class="imagebcg">
                                             <?php if(isset($recentlife->image) && !empty($recentlife->image)) { ?>
-                                                <img src="<?php echo base_url();?>assets/images/<?php echo $recentlife->image; ?>" alt="<?php echo $recentlife->title;?>" class="imageme1" style="max-width:266px;max-height:165px;">
+                                                <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" src="<?php echo base_url();?>assets/images/<?php echo $recentlife->image; ?>" alt="<?php echo $recentlife->title;?>" class="imageme1 lazy" style="max-width:266px;max-height:165px;">
                                             <?php }else{ ?>
-                                                <img src="<?php echo base_url();?>assets/images/series-stories.jpg" alt="<?php echo $recentlife->title;?>" class="imageme1" style="max-width:266px;max-height:165px;">
+                                                <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/series-stories.jpg" alt="<?php echo $recentlife->title;?>" class="imageme1 lazy" style="max-width:266px;max-height:165px;">
                                             <?php } ?>
                                         </a>	
                                         <div>
@@ -1583,4 +1583,9 @@ $(containerl).on("mouseup touchend", function(e) {
             $('.font-num').text(fontsize);
         }
     }
+</script>
+<script>
+    var lazyLoadInstance = new LazyLoad({
+        elements_selector: ".lazy"
+    });
 </script>

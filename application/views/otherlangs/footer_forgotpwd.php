@@ -209,7 +209,7 @@
 						    <div style="float:right; width:49%"><button data-onsuccess="onSignIn" class="g-signin2 btn bg-google" style="width:100%"> Google</button></div>
 						</div>
 		                <center style="margin-top:50px;">
-		                    <p class="text-centervv" style="margin-bottom:0;">By signing up, you agree to our <a href="" style="color:#0e92af">Terms of Use</a> and <a href="" style="color:#0e92af">Privacy Policy</a>.</p>
+		                    <p class="text-centervv" style="margin-bottom:0;">By signing up, you agree to our <a href="javascript:void(0);" style="color:#0e92af">Terms of Use</a> and <a href="javascript:void(0);" style="color:#0e92af">Privacy Policy</a>.</p>
 		                </center>
 					</div> <hr style="margin-top:-10px; border:1px solid rgba(221, 221, 221, 1);">
 					<div class="">
@@ -377,7 +377,7 @@
 				</div>
 				<div class="">
 					<center>
-					    <a href=""><img src="<?php echo base_url();?>assets/landing/storycarry app.png" /></a><br>
+					    <a href="javascript:void(0);"><img src="<?php echo base_url();?>assets/landing/storycarry app.png" /></a><br>
 					</center>
 				</div>
 			</div>

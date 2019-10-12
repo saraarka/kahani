@@ -60,10 +60,10 @@
         </font>
         <div class="socialbtns">
             <!--<font style="font-size:14px;color:black;font-family: 'Varela Round', sans-serif;" class="socialmedia">SOCIAL MEDIA : </font>-->
-            <a href="" class="socialshare"><i class="fa fa-facebook-square hover-tems" aria-hidden="true" style="margin-right:8px"></i></a>
-            <a href="" class="socialshare"><i class="fa fa-instagram hover-tems" aria-hidden="true" style="margin-right:6px"></i></a>
-            <a href="" class="socialshare"><i class="fa fa-twitter-square hover-tems" aria-hidden="true" style="margin-right:6px"></i></a>
-            <a href="" class="socialshare"><i class="fa fa-youtube-square hover-tems" aria-hidden="true"></i></a>
+            <a href="javascript:void(0);" class="socialshare"><i class="fa fa-facebook-square hover-tems" aria-hidden="true" style="margin-right:8px"></i></a>
+            <a href="javascript:void(0);" class="socialshare"><i class="fa fa-instagram hover-tems" aria-hidden="true" style="margin-right:6px"></i></a>
+            <a href="javascript:void(0);" class="socialshare"><i class="fa fa-twitter-square hover-tems" aria-hidden="true" style="margin-right:6px"></i></a>
+            <a href="javascript:void(0);" class="socialshare"><i class="fa fa-youtube-square hover-tems" aria-hidden="true"></i></a>
         </div>
     </div>
     <div class="footer1">

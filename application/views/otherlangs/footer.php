@@ -100,9 +100,9 @@
 <div id="snackbar"></div>
 
 <!-- Login Modal popup start -->      
-<div id="loginmodal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
-	<div class="modal-dialog msv">
-		<div class="modal-contentv">
+<div id="loginmodal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" style="padding-left: 0px;">
+	<div class="modal-dialog">
+		<div class="modal-content">
 			<div class="modal-body">
 				<div class="login-logo">
 					<span class="headsvj"><b>SIGN IN</b>
@@ -132,7 +132,7 @@
 					<div class=""> 
 						<center><p class="text-centerv" style="margin:3px;"> - or - </p></center>
 						<div class="flex">
-						    <div style="float:left; width:49%"><button onclick="fbLogin()" id="fbLink" class=" bg-fb" style="width:100%;cursor:pointer;">facebook</button></div>
+						    <div style="float:left; width:49%"><button onclick="fbLogin()" id="fbLink" class="bg-fb" style="width:100%;cursor:pointer;">facebook</button></div>
 						    <div style="width:2%"></div>
 						    <div style="float:right; width:49%"><button data-onsuccess="onSignIn" class="g-signin2 bg-google" style="width:100%;cursor:pointer;">google</button></div>
 						</div>
@@ -412,7 +412,7 @@
 						</div>
 					</form>
 					<div class="" style="margin-bottom:20px;"><center>
-		                <p class="text-centervv" style="margin-bottom:0;">By signing up, you agree to our <a href="" style="color:#0e92af">Terms of Use</a> and <a href="" style="color:#0e92af">Privacy Policy</a>.</p>
+		                <p class="text-centervv" style="margin-bottom:0;">By signing up, you agree to our <a href="javascript:void(0);" style="color:#0e92af">Terms of Use</a> and <a href="javascript:void(0);" style="color:#0e92af">Privacy Policy</a>.</p>
                     </center></div> <hr style="margin-top:-10px; border:1px solid rgba(221, 221, 221, 1);">
 					<div class="">
 					    <center>
@@ -457,7 +457,7 @@
 				<div class="">
 					<center>
 					    INSTALL OUR APP <br>
-					    <a href="">
+					    <a href="javascript:void(0);">
 					        <img src="<?php echo base_url();?>assets/landing/storycarry-app.png" />
 					    </a><br>
 					    <p>(Or)</p>
@@ -565,7 +565,34 @@
 <script type="text/javascript">	
 	$( "form#signup" ).submit(function( event ) {
 		event.preventDefault();
-		$.post("<?php echo base_url().$this->uri->segment(1);?>/signup",$("form#signup").serialize(),function(resultdata, status) {
+		$('span.text-danger').empty();
+				$.ajax({
+            type: 'POST',
+            url: "<?php echo base_url().$this->uri->segment(1);?>/signup",
+            data: $("form#signup").serialize(),
+            beforeSend: function() {
+                $('.btnsignupspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
+            },
+            success: function(resultdata, status) {
+                $('.btnsignupspinner').html('Sign Up');
+                var result=JSON.parse(resultdata);
+    			if(result.status == -1){
+    				$.each(result.validations,function (p,q){
+    					$('span.'+p).text(q);
+    				});
+    			}else if((result.status == 1) && (result.response)){
+    				$('input').val('');
+    				$('#userid').val(result.response);
+    				$('#signupmodal').modal('hide');
+    				$('#chooselanguage').modal('show');
+    			}else{
+    				alert('Registration failed please try again.');
+    				location.reload();
+    			}
+            }
+		});
+
+		/*$.post("<?php echo base_url().$this->uri->segment(1);?>/signup",$("form#signup").serialize(),function(resultdata, status) {
 			$('span.text-danger').empty();
 			var result=JSON.parse(resultdata);
 			if(result.status == -1){
@@ -582,7 +609,7 @@
 				alert('Registration failed please try again.');
 				location.reload();
 			}
-		});
+		});*/
 	});
 	
 	//// Login  Script	
@@ -709,8 +736,8 @@
 	//Sign up choose language
 	function chooselanguage(){
 	    var choselanguage = $('#cslang').val();
-	    if(choselanguage){		
-	    	$('.btnlangspin').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');	
+	    if(choselanguage){
+	    	$('.btnlangspin').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
 	    }
 	    var userid = $('#userid').val();
 		$.ajax({
@@ -1008,8 +1035,8 @@
     				//setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     			}else{
     				//console.log('writerfollow fail');
-    				//$('#snackbar').text('Follow fail').addClass('show');
-    				//setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    				$('#snackbar').text('Follow fail').addClass('show');
+    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     			}
     		}
     	});
@@ -1034,8 +1061,8 @@
     				//setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     			}else{
     				//console.log('writerunfollow fail');
-    				//$('#snackbar').text('Unfollow fail').addClass('show');
-    				//setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    				$('#snackbar').text('Unfollow fail').addClass('show');
+    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     			}
     		}
     	});
@@ -1238,39 +1265,49 @@ $(function() {
 <!-- Suggest story to group for reading -->
 <script type="text/javascript">
     function groupsuggest(id){
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url().$this->uri->segment(1);?>/get_story_groupdata",
-            data: {'id': id},
-            success: function(data) {
-                if(data == 'notlogin'){
-                    $('#notloginmodal').trigger('click');
-                    $('#groupsuggest').removeClass('in');
-                    $('#groupsuggest').css('display', 'block');
-    			}else if(data) {
-    			    $('.storysuggesttogroup').html(data);
-                	$('#groupsuggest').modal('show');
-              	}
-            }
-    	});
+    	var loggedinuid = $('#loggedinuid').val();
+    	if(loggedinuid){
+	        $.ajax({
+	            type: "POST",
+	            url: "<?php echo base_url().$this->uri->segment(1);?>/get_story_groupdata",
+	            data: {'id': id},
+	            success: function(data) {
+	                if(data == 'notlogin'){
+	                    $('#notloginmodal').trigger('click');
+	                    //$('#groupsuggest').removeClass('in');
+	                    //$('#groupsuggest').css('display', 'block');
+	    			}else if(data) {
+	    			    $('.storysuggesttogroup').html(data);
+	                	$('#groupsuggest').modal('show');
+	              	}
+	            }
+	    	});
+	    }else{
+	    	$('#notloginmodal').trigger('click');
+	    }
     }
     
     function friend(id){
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url().$this->uri->segment(1);?>/get_story_data",
-            data: {'id':id},
-            success: function(data) {
-                if(data == 'notlogin'){
-                    $('#notloginmodal').trigger('click');
-                    $('#friendsuggest').removeClass('in');
-                    $('#friendsuggest').css('display', 'block');
-    			}else if(data) {
-                	$('.storysuggesttofriend').html(data);
-                	$('#friendsuggest').modal('show');
-              	}
-            }
-    	});
+    	var loggedinuid = $('#loggedinuid').val();
+    	if(loggedinuid){
+	        $.ajax({
+	            type: "POST",
+	            url: "<?php echo base_url().$this->uri->segment(1);?>/get_story_data",
+	            data: {'id':id},
+	            success: function(data) {
+	                if(data == 'notlogin'){
+	                    $('#notloginmodal').trigger('click');
+	                    //$('#friendsuggest').removeClass('in');
+	                    //$('#friendsuggest').css('display', 'block');
+	    			}else if(data) {
+	                	$('.storysuggesttofriend').html(data);
+	                	$('#friendsuggest').modal('show');
+	              	}
+	            }
+	    	});
+	    }else{
+	    	$('#notloginmodal').trigger('click');
+	    }
     }
     
     function socialshare(id, seristorytype) {
@@ -1330,8 +1367,7 @@ $(function() {
     		    if(data == 1){
     		        //$('.favbtn'+storyid).removeClass('fa-heart-o').addClass('fa-heart');
     		        $('.nanolikecount'+storyid).text(parseInt(nanolikecount)+1);
-    		        $('.nanolike'+storyid).removeAttr('onclick');
-    		        $('.nanolike'+storyid).attr('onclick','nanodislike('+storyid+')');
+    		        $('.nanolike'+storyid).removeAttr('onclick').attr('onclick','nanodislike('+storyid+')');
     			    $('#snackbar').text('Liked Nano story.').addClass('show');
     				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     			}else{
@@ -1353,8 +1389,7 @@ $(function() {
     		    if(data == 2){
     		        //$('.favbtn'+storyid).removeClass('fa-heart').addClass('fa-heart-o');
     		        $('.nanolikecount'+storyid).text(parseInt(nanolikecount)-1);
-    		        $('.nanolike'+storyid).removeAttr('onclick');
-    		        $('.nanolike'+storyid).attr('onclick','nanolike('+storyid+')');
+    		        $('.nanolike'+storyid).removeAttr('onclick').attr('onclick','nanolike('+storyid+')');
     			    $('#snackbar').text('Unliked Nano story.').addClass('show');
     				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     			}else{
@@ -1447,8 +1482,8 @@ var isMobile = {
         return navigator.userAgent.match(/IEMobile/i);
     },
 };
-if( isMobile.Android() ) document.getElementById("apptext").innerHTML = `DOWNLOAD <a style="color:blue;" href="https://play.google.com/store/apps/details?id=com.google.android.apps.inputmethod.hindi&hl=en_IN">GOOGLE INDIC</a> KEYBOARD & <a href="#" data-toggle="modal" data-target="#modalRegister" id="acts" style="color:blue">START WRITING</a> IN INDIAN LANGUAGES.`
-if( isMobile.iOS() ) document.getElementById("apptext").innerHTML = `DOWNLOAD <a href="https://apps.apple.com/ml/app/indic-keyboard-swalekh-flip/id1212717313" style="color:blue">SWALEKHA</a> KEYBOARD & <a href="#" data-toggle="modal" data-target="#modalRegister" id="acts" style="color:blue">START WRITING</a> IN INDIAN LANGUAGES.`
+if( isMobile.Android() ) document.getElementById("apptext").innerHTML = `DOWNLOAD <a style="color:blue;" href="https://play.google.com/store/apps/details?id=com.google.android.apps.inputmethod.hindi&hl=en_IN">GOOGLE INDIC</a> KEYBOARD & <a href="javascript:void(0);" data-toggle="modal" data-target="#modalRegister" id="acts" style="color:blue">START WRITING</a> IN INDIAN LANGUAGES.`
+if( isMobile.iOS() ) document.getElementById("apptext").innerHTML = `DOWNLOAD <a href="https://apps.apple.com/ml/app/indic-keyboard-swalekh-flip/id1212717313" style="color:blue">SWALEKHA</a> KEYBOARD & <a href="javascript:void(0);" data-toggle="modal" data-target="#modalRegister" id="acts" style="color:blue">START WRITING</a> IN INDIAN LANGUAGES.`
 if( isMobile.Windows() ) document.getElementById("apptext").innerHTML = `OPEN SITE ON DESKTOP`
 </script>
     </body>

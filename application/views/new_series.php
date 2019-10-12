@@ -551,9 +551,9 @@
                                         		<!--<a href="<?php echo base_url('new_series?id='.$recentstory->sid.'&story_id='.$recentstory->story_id);?>">-->
                                         	<a href="<?php echo base_url('series/'.preg_replace("~[^\p{M}\w]+~u",'-', $recentstory->title).'-'.$recentstory->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $recentstory->title).'-'.$recentstory->story_id);?>" class="imagess-style">
                                         		<?php if(isset($recentstory->image) && !empty($recentstory->image)) { ?>
-                                        		    <img src="<?php echo base_url();?>assets/images/<?php echo $recentstory->image; ?>" alt="<?php echo $recentstory->image; ?>" class="imageme">
+                                        		    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/images/<?php echo $recentstory->image; ?>" alt="<?php echo $recentstory->image; ?>" class="imageme lazy">
                                         		<?php }else{ ?>
-                                        			<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $recentstory->image; ?>" class="imageme">
+                                        			<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $recentstory->image; ?>" class="imageme lazy">
                                         		<?php } ?>
                                         	</a>
                                         	<div>
@@ -1552,4 +1552,9 @@ function hasScrolleds() {
             $('.font-num').text(fontsize);
         }
     }
+</script>
+<script>
+    var lazyLoadInstance = new LazyLoad({
+        elements_selector: ".lazy"
+    });
 </script>

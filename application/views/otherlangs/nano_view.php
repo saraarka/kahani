@@ -18,7 +18,7 @@
 							<h3 class="name-nanostories">
 							    <a href="<?php echo base_url($this->uri->segment(1)."/".$nanorow->profile_name);?>" style="color:#000"><?php echo $nanorow->name;?></a>
 							    <span style="float:right;">
-			                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 			                            <i class="fa fa-ellipsis-v" style="font-size:14px;"></i>
 			                        </a>
 			                        <ul class="dropdown-menu" style="top:50px; float:right; left: 127px;">

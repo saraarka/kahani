@@ -218,7 +218,7 @@
         		    <a href="<?php echo base_url($valoadnanorow->profile_name);?>" style="color:#000"><?php echo $valoadnanorow->name;?></a>
         		    <?php if($valoadnanorow->user_id == $this->session->userdata['logged_in']['user_id']){ ?>
             		    <span class="dropdown" style="float:right;margin-top:-2.8px;">
-            		        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            		        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
             		            <i class="fa fa-ellipsis-v" style="font-size:14px;"></i>
             		        </a>
             		        <ul class="dropdown-menu pull-right">
@@ -231,7 +231,7 @@
             </div>
         	<div>
         		<hr style="width:100%;">
-        		<a href="#" style="color:#000" data-toggle="modal" data-target="#modal-default<?php echo $valoadnanorow->sid;?>">
+        		<a href="javascript:void(0);" style="color:#000" data-toggle="modal" data-target="#modal-default<?php echo $valoadnanorow->sid;?>">
 				    <font class="text-in-nanostory" onclick="nanoviewsadd(<?php echo $valoadnanorow->sid;?>);"><?php echo $valoadnanorow->story; ?></font>
 				</a>
         	</div>
@@ -334,7 +334,7 @@
                                 <?php } ?>
                             </li>
 							<li class="pull-right">
-                            	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
+                            	<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
                                 <ul class="dropdown-menu list-inline dropvknano1">
                                     <li onclick="groupsuggest(<?php echo $vamodalnanorow->sid; ?>);">
 									    <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>

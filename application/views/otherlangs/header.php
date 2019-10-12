@@ -91,17 +91,22 @@
         .main-story{
             display:block;
         }
+        textarea {
+            resize: none;
+        }
     </style>
 </head>
 
 <body class="main-story">
-    <?php $this->load->view('fbg_login.php');       $headmenus = get_headmenus(); $leftmenus = get_leftmenus(); ?>
+<div class="div-all">
+    <?php $this->load->view('fbg_login.php'); 
+    $headmenus = get_headmenus(); $leftmenus = get_leftmenus(); ?>
 <header class="navbar" id="navbar">
     <a href="javascript:void(0);" data-toggle="modal" data-target="#nvmenu" style="font-size:18.5px;"  class="icon5"><i class="fa fa-bars" aria-hidden="true"></i></a>
     <!-- Modal -->
     <div class="modal modalvjk left fade" id="nvmenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialogv" role="document">
-            <div class="modal-content" style="border-radius:0!important; border:0!important;">
+            <div class="modal-content" style="border-radius:0!important; border:0!important;padding:0px;">
                 <div class="modal-header" style="border-bottom-color: #f4f4f4;">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top:4px;"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">StoryCarry</h4>
@@ -122,13 +127,13 @@
                         </li>
                         <?php if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])) { ?>
                         <li class="avj2" id="lib">
-                            <a href="<?php echo base_url('library');?>">
+                            <a href="<?php echo base_url($this->uri->segment(1).'/library');?>">
                                 <span class="btn btn-flat btn-info" style="background:#34a853; border-color:#34a853;"><i class="fa fa-book fa-2x"></i></span>
                                 <span class="sidea"> <?php if(isset($leftmenus['library']) && !empty($leftmenus['library'])){ echo $leftmenus['library']; }else{ ?> Library <?php } ?> </span>
                             </a>
                         </li>
                         <li class="avj5">
-                            <a href="<?php echo base_url('drafts');?>">
+                            <a href="<?php echo base_url($this->uri->segment(1).'/drafts');?>">
                                 <span class="btn btn-flat btn-primary" style="background:dimgrey; border-color:dimgrey;"><i class="fa fa-file fa-2x"></i></span>
                                 <span class="sidea"> <?php if(isset($leftmenus['drafts']) && !empty($leftmenus['drafts'])){ echo $leftmenus['drafts']; }else{ ?> Drafts <?php } ?> </span>
                             </a>
@@ -148,7 +153,7 @@
                         </li>
                         <?php } ?>
                         <li class="treeview menu-open avj4">
-                            <a href="#">
+                            <a href="javascript:void(0);">
                                 <span class="btn btn-flat btn-warning" style="background:orangered; border-color:orangered;"><i class="fa fa-folder fa-2x"></i></span>
                                 <span class="sidea"> <?php if(isset($leftmenus['geners']) && !empty($leftmenus['geners'])){ echo $leftmenus['geners']; }else{ ?> Genres <?php } ?> </span>
                                 <span class="pull-right-container">
@@ -159,8 +164,8 @@
                                 <?php if(isset($gener) && ($gener->num_rows() > 0)) { foreach($gener->result() as $key) { ?>
                                     <!--<li><a href="<?php echo base_url($this->uri->segment(1).'/geners/'.preg_replace('/\s+/', '-',$key->gener)); ?>">
                                     <li><a href="<?php echo base_url($this->uri->segment(1).'/genre/'.preg_replace('/\s+/', '-',$key->gener)); ?>">
-                                        <?php echo $key->gener;?> </a></li> -->
-                                    <li><a href="#"></a></li>
+                                        <?php echo $key->gener;?> </a></li>
+                                    <li><a href="javascript:void(0);"></a></li> -->
                                     <li><a href="<?php echo base_url($this->uri->segment(1).'/genre/'.preg_replace('/\s+/', '-',$key->gener)); ?>">
                                         <?php if(isset($leftmenus) && !empty($leftmenus) && array_key_exists($key->id, $leftmenus)){ echo $leftmenus[$key->id]; }else{ echo $key->gener; }?></a></li>
                                 <?php } } ?>
@@ -174,40 +179,40 @@
                 
 <style>
     .modalvjk {
-  padding-top: 0px!important; /* Location of the box */
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 100%; /* Full width */
-  height: -webkit-fill-available; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-}
-body.modal-open {
-    overflow: hidden!important;
-}
-.modal-open .modal {
-    overflow-x: hidden;
-    overflow-y: -webkit-paged-y;
-    -webkit-mask-position-y: initial;
-}
+        padding-top: 0px!important; /* Location of the box */
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%; /* Full width */
+        height: -webkit-fill-available; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+    }
+    body.modal-open {
+        overflow: hidden!important;
+    }
+    .modal-open .modal {
+        overflow-x: hidden;
+        overflow-y: -webkit-paged-y;
+        -webkit-mask-position-y: initial;
+    }
     @media(max-width:768px){
         .modal-backdrop {
             background-color: none!important;
             position: relative!important;
         }
-         .modalvjk {
-             height:100%;
-         }
+        .modalvjk {
+            height:100%;
+        }
     }
     .modal-backdrop {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1001;
-    background-color: #00000036;
-}
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1001;
+        background-color: #00000036;
+    }
     .modal.left .modal-dialogv,
     .modal.right .modal-dialogv {
         position: fixed;
@@ -225,13 +230,13 @@ body.modal-open {
         height: 100%;
         overflow-y: auto;
     }
-    
+
     .modal.left .modal-body,
     .modal.right .modal-body {
         padding: 0px;
     }
 
-/*Left*/
+    /*Left*/
     .modal.left.fade .modal-dialogv{
         left: -320px;
         -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
@@ -242,6 +247,45 @@ body.modal-open {
     .modal.left.fade.in .modal-dialogv{
         left: 0;
     }
+
+
+    @supports (-webkit-overflow-scrolling: touch) {
+        .dropvk {
+            margin-top: -80px !important;
+            float: right;
+            position: relative;
+            padding-left: 3px;
+        }
+        .dropvklife {
+            margin-top: -50px !important;
+            float: right;
+            position: relative;
+            padding-left: 3px;
+        }
+    }
+    @supports not (-webkit-overflow-scrolling: touch) {
+        .dropvk {
+            margin-top: -112px !important;
+            float: right;
+            position: relative;
+            padding-left: 3px;
+        }
+        .dropvklife {
+            margin-top: -80px !important;
+            float: right;
+            position: relative;
+            padding-left: 3px;
+        }
+    }
+</style>
+
+<style type="text/css">
+    div#friendsuggest div.modal-content {
+        min-height: 200px;
+    }
+    div#groupsuggest div.modal-content {
+        min-height: 200px;
+    }
 </style>
     
     <?php if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){
@@ -250,7 +294,7 @@ body.modal-open {
     <a href="<?php echo base_url().$this->uri->segment(1);?>"><img src="<?php echo base_url();?>assets/dist/img/logoicon2.png" alt="StoryCarry" title="StoryCarry" class="logoimage2"></a>
     
     <div class="login dropdown profile">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> 
+        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> 
             <?php if(isset($this->session->userdata['logged_in']['profile_image']) && 
                 !empty($this->session->userdata['logged_in']['profile_image'])) { ?>
                 <img src="<?php echo base_url();?>assets/images/<?php echo $this->session->userdata['logged_in']['profile_image']; ?>" class="img-circlep" alt="<?php if($this->session->userdata['logged_in']['name']){ echo $this->session->userdata['logged_in']['name']; } ?>">
@@ -279,13 +323,13 @@ body.modal-open {
     <a href="<?php echo base_url().$this->uri->segment(1);?>"><img src="<?php echo base_url();?>assets/landing/storylogoland.png" alt="StoryCarry" title="StoryCarry" class="logoimage1"></a>
     <a href="<?php echo base_url().$this->uri->segment(1);?>"><img src="<?php echo base_url();?>assets/dist/img/logoicon2.png" alt="StoryCarry" title="StoryCarry" class="logoimage2"></a>
     <div class="login" style="">
-        <a href="" style="color:#fff; font-size:26px;" data-toggle="modal" data-target="#loginmodal" id="notloginmodal"><i class="fa fa-user" aria-hidden="true"></i></a>
+        <a href="javascript:void(0);" style="color:#fff; font-size:26px;" data-toggle="modal" data-target="#loginmodal" id="notloginmodal"><i class="fa fa-user" aria-hidden="true"></i></a>
     </div>
     <?php } else{ ?>
     <a href="<?php echo base_url();?>"><img src="<?php echo base_url();?>assets/landing/storylogoland.png" alt="StoryCarry" title="StoryCarry" class="logoimage1"></a>
     <a href="<?php echo base_url();?>"><img src="<?php echo base_url();?>assets/dist/img/logoicon2.png" alt="StoryCarry" title="StoryCarry" class="logoimage2"></a>
     <div class="login" style="">
-        <a href="" style="color:#fff; font-size:26px;" data-toggle="modal" data-target="#loginmodal" id="notloginmodal"><i class="fa fa-user" aria-hidden="true"></i></a>
+        <a href="javascript:void(0);" style="color:#fff; font-size:26px;" data-toggle="modal" data-target="#loginmodal" id="notloginmodal"><i class="fa fa-user" aria-hidden="true"></i></a>
     </div>
     <?php } ?>
     
@@ -318,13 +362,13 @@ body.modal-open {
             <?php } ?>
         </div>
         <div class="dropdown write-m">
-            <a href="" data-toggle="modal" data-target="#writeapp" id="notloginmodal"> 
+            <a href="javascript:void(0);" data-toggle="modal" data-target="#writeapp" id="notloginmodal"> 
                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 <p><?php if(isset($headmenus['write']) && !empty($headmenus['write'])){ echo $headmenus['write']; }else{ ?> WRITE <?php } ?></p>
             </a>
         </div>
         <div class="dropdown write-d">
-            <a href="#" class="dropdown-toggle" title="WRITE" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> 
+            <a href="javascript:void(0);" class="dropdown-toggle" title="WRITE" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> 
                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 <p><?php if(isset($headmenus['write']) && !empty($headmenus['write'])){ echo $headmenus['write']; }else{ ?> WRITE <?php } ?></p>
             </a>
@@ -339,13 +383,13 @@ body.modal-open {
                     <li style="border-bottom:1px solid #f4f4f4;"><a class="dropk" href="<?php echo base_url($this->uri->segment(1).'/write-life'); ?>" title="Life Events"><i class="fa fa-star pr-10"></i> 
                         <?php if(isset($headmenus['life']) && !empty($headmenus['life'])){ echo $headmenus['life']; }else{ ?> LIFE EVENTS <?php } ?></a></li>
                 <?php } else{ ?>
-                    <li style="border-bottom:1px solid #f4f4f4;"><a class="dropk notloginmodal" href="#" title="Series"><i class="fa fa-indent pr-10"></i> 
+                    <li style="border-bottom:1px solid #f4f4f4;"><a class="dropk notloginmodal" href="javascript:void(0);" title="Series"><i class="fa fa-indent pr-10"></i> 
                         <?php if(isset($headmenus['series']) && !empty($headmenus['series'])){ echo $headmenus['series']; }else{ ?> SERIES <?php } ?></a></li>
-                    <li style="border-bottom:1px solid #f4f4f4;"><a class="dropk notloginmodal" href="#" title="Story"><i class="fa fa-clipboard pr-10"></i> 
+                    <li style="border-bottom:1px solid #f4f4f4;"><a class="dropk notloginmodal" href="javascript:void(0);" title="Story"><i class="fa fa-clipboard pr-10"></i> 
                         <?php if(isset($headmenus['story']) && !empty($headmenus['story'])){ echo $headmenus['story']; }else{ ?> STORY <?php } ?></a></li>
-                    <li style="border-bottom:1px solid #f4f4f4;"><a class="dropk notloginmodal" href="#" title="Nano Story"><i class="fa fa-pie-chart pr-10"></i> 
+                    <li style="border-bottom:1px solid #f4f4f4;"><a class="dropk notloginmodal" href="javascript:void(0);" title="Nano Story"><i class="fa fa-pie-chart pr-10"></i> 
                         <?php if(isset($headmenus['nano']) && !empty($headmenus['nano'])){ echo $headmenus['nano']; }else{ ?> NANO STORY <?php } ?></a></li>
-                    <li style="border-bottom:1px solid #f4f4f4;"><a class="dropk notloginmodal" href="#" title="Life Events"><i class="fa fa-star pr-10"></i>
+                    <li style="border-bottom:1px solid #f4f4f4;"><a class="dropk notloginmodal" href="javascript:void(0);" title="Life Events"><i class="fa fa-star pr-10"></i>
                         <?php if(isset($headmenus['life']) && !empty($headmenus['life'])){ echo $headmenus['life']; }else{ ?> LIFE EVENTS <?php } ?></a></li>
                <?php } ?>
             </ul>
@@ -361,7 +405,7 @@ body.modal-open {
             <i class="fa fa-rss-square" aria-hidden="true"></i>
                 <p><?php if(isset($headmenus['your_feed']) && !empty($headmenus['your_feed'])){ echo $headmenus['your_feed']; }else{ ?> YOUR FEED<?php } ?></p></a>
             <?php } else{ ?>
-                <a href="#" class="dropdown-toggle notloginmodal" title="Your Feed"><i class="fa fa-rss-square"></i>
+                <a href="javascript:void(0);" class="dropdown-toggle notloginmodal" title="Your Feed"><i class="fa fa-rss-square"></i>
                 <p><?php if(isset($headmenus['your_feed']) && !empty($headmenus['your_feed'])){ echo $headmenus['your_feed']; }else{ ?> YOUR FEED<?php } ?></p></a>
             <?php } ?>
         </div>
@@ -373,7 +417,7 @@ body.modal-open {
         <?php if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])) { ?>
         <!-- NOTIFICATIONS start -->
         <div class="dropdown" style="padding-top:13px; padding-left:16px; width:65px; background:none;">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
                 <i class="fa fa-bell-o" aria-hidden="true"></i>
                 <!--<sup style="background:#fefefe; padding:2px 5px; color:red; border-radius:5px;">2</sup>-->
                 <?php $notificationsclist = get_notifications(); ?>
@@ -407,9 +451,14 @@ body.modal-open {
                                     </a>
                                     <hr class="user-blockv-hr">
                                 </li>
-                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'comment')) { ?>
+                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'comment')) { 
+                                    $segmenturi = '';
+                                    $segmentlang = get_langfullname($notseennotify->storylang); 
+                                    if(!empty($segmentlang)){ 
+                                        $segmenturi = $segmentlang.'/';
+                                    }   ?>
                                 <li>
-                                    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+                                    <a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
                                         <div class="user-block user-blockv" style="border-left:none;">
                                             <?php if(!empty($notseennotify->profile_image)){ ?>
                                                 <img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>"> 
@@ -425,9 +474,14 @@ body.modal-open {
                                     </a>
                                     <hr class="user-blockv-hr">
                                 </li>
-                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'replycomment')) { ?>
+                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'replycomment')) { 
+                                    $segmenturi = '';
+                                    $segmentlang = get_langfullname($notseennotify->storylang); 
+                                    if(!empty($segmentlang)){ 
+                                        $segmenturi = $segmentlang.'/';
+                                    }   ?>
                                 <li>
-                                    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+                                    <a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
                                         <div class="user-block user-blockv" style="border-left:none;">
                                             <?php if(!empty($notseennotify->profile_image)){ ?>
                                                 <img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -443,9 +497,13 @@ body.modal-open {
                                     </a>
                                     <hr class="user-blockv-hr">
                                 </li>
-                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'rating')) { ?>
+                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'rating')) { $segmenturi = '';
+                                    $segmentlang = get_langfullname($notseennotify->storylang); 
+                                    if(!empty($segmentlang)){ 
+                                        $segmenturi = $segmentlang.'/';
+                                    }   ?>
                                 <li>
-                                    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+                                    <a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
                                         <div class="user-block user-blockv" style="border-left:none;">
                                             <?php if(!empty($notseennotify->profile_image)){ ?>
                                                 <img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -461,9 +519,13 @@ body.modal-open {
                                     </a>
                                     <hr class="user-blockv-hr">
                                 </li>
-                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'nanolike')) { ?>
+                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'nanolike')) { $segmenturi = '';
+                                    $segmentlang = get_langfullname($notseennotify->storylang); 
+                                    if(!empty($segmentlang)){ 
+                                        $segmenturi = $segmentlang.'/';
+                                    } ?>
                                 <li>
-                                    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$this->uri->segment(1).'/'.$notseennotify->profile_name;?>" style="padding-top:0px;">
+                                    <a href="<?php echo base_url().$segmenturi.$notseennotify->profile_name;?>" style="padding-top:0px;">
                                         <div class="user-block user-blockv" style="border-left:none;">
                                             <?php if(!empty($notseennotify->profile_image)){ ?>
                                                 <img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -478,9 +540,14 @@ body.modal-open {
                                     </a>
                                     <hr class="user-blockv-hr">
                                 </li>
-                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'seriessubscribe')) { ?>
+                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'seriessubscribe')) { 
+                                    $segmenturi = '';
+                                    $segmentlang = get_langfullname($notseennotify->storylang); 
+                                    if(!empty($segmentlang)){ 
+                                        $segmenturi = $segmentlang.'/';
+                                    }   ?>
                                 <li>
-                                    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+                                    <a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
                                         <div class="user-block user-blockv" style="border-left:none;">
                                             <?php if(!empty($notseennotify->profile_image)){ ?>
                                                 <img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -496,9 +563,14 @@ body.modal-open {
                                     </a>
                                     <hr class="user-blockv-hr">
                                 </li>
-                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'seriesepisode')) { ?>
+                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'seriesepisode')) { 
+                                    $segmenturi = '';
+                                    $segmentlang = get_langfullname($notseennotify->storylang); 
+                                    if(!empty($segmentlang)){ 
+                                        $segmenturi = $segmentlang.'/';
+                                    }   ?>
                                 <li>
-                                    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+                                    <a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
                                         <div class="user-block user-blockv" style="border-left:none;">
                                             <?php if(!empty($notseennotify->profile_image)){ ?>
                                                 <img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -512,7 +584,7 @@ body.modal-open {
                                                     $seriesname = get_seriesname($notseennotify->title_id);
                                                     if(isset($seriesname[0]->title)){  $seriestitle = $seriesname[0]->title;  }
                                                     if(isset($seriesname[0]->sid) && !empty($seriesname[0]->sid)){
-                                                    $seriesuri=$this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $seriesname[0]->title).'-'.$seriesname[0]->sid.'/'.preg_replace('/\s+/', '-', $seriesname[0]->title).'-'.$seriesname[0]->sid;
+                                                    $seriesuri=$this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $seriesname[0]->title).'-'.$seriesname[0]->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $seriesname[0]->title).'-'.$seriesname[0]->sid;
                                                     }
                                                 } ?>
                                                 <b class="user-blockv-title"><?php echo $seriestitle;?></b><br>
@@ -522,9 +594,14 @@ body.modal-open {
                                     </a>
                                     <hr class="user-blockv-hr">
                                 </li>
-                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'startseries')) { ?>
+                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'startseries')) { 
+                                    $segmenturi = '';
+                                    $segmentlang = get_langfullname($notseennotify->storylang); 
+                                    if(!empty($segmentlang)){ 
+                                        $segmenturi = $segmentlang.'/';
+                                    }   ?>
                                 <li>
-                                    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+                                    <a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
                                         <div class="user-block user-blockv" style="border-left:none;">
                                             <?php if(!empty($notseennotify->profile_image)){ ?>
                                                 <img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -540,9 +617,13 @@ body.modal-open {
                                     </a>
                                     <hr class="user-blockv-hr">
                                 </li>
-                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'newstory')) { ?>
+                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'newstory')) { $segmenturi = '';
+                                    $segmentlang = get_langfullname($notseennotify->storylang); 
+                                    if(!empty($segmentlang)){ 
+                                        $segmenturi = $segmentlang.'/';
+                                    }   ?>
                                 <li>
-                                    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+                                    <a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
                                         <div class="user-block user-blockv" style="border-left:none;">
                                             <?php if(!empty($notseennotify->profile_image)){ ?>
                                                 <img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -558,9 +639,13 @@ body.modal-open {
                                     </a>
                                     <hr class="user-blockv-hr">
                                 </li>
-                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'newnano')) { ?>
+                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'newnano')) { $segmenturi = '';
+                                    $segmentlang = get_langfullname($notseennotify->storylang); 
+                                    if(!empty($segmentlang)){ 
+                                        $segmenturi = $segmentlang.'/';
+                                    }   ?>
                                 <li>
-                                    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$notseennotify->profile_name;?>" style="padding-top:0px;">
+                                    <a href="<?php echo base_url().$segmenturi.$notseennotify->profile_name;?>" style="padding-top:0px;">
                                         <div class="user-block user-blockv" style="border-left:none;">
                                             <?php if(!empty($notseennotify->profile_image)){ ?>
                                                 <img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -576,9 +661,13 @@ body.modal-open {
                                     </a>
                                     <hr class="user-blockv-hr">
                                 </li>
-                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'favorite')) { ?>
+                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'favorite')) { $segmenturi = '';
+                                    $segmentlang = get_langfullname($notseennotify->storylang); 
+                                    if(!empty($segmentlang)){ 
+                                        $segmenturi = $segmentlang.'/';
+                                    }   ?>
                                 <li>
-                                    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+                                    <a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
                                         <div class="user-block user-blockv" style="border-left:none;">
                                             <?php if(!empty($notseennotify->profile_image)){ ?>
                                                 <img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -628,9 +717,14 @@ body.modal-open {
                                     </a>
                                     <hr class="user-blockv-hr">
                                 </li>
-                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'groupsuggestion')) { ?>
+                                <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'groupsuggestion')) { 
+                                    $segmenturi = '';
+                                    $segmentlang = get_langfullname($notseennotify->storylang); 
+                                    if(!empty($segmentlang)){ 
+                                        $segmenturi = $segmentlang.'/';
+                                    }   ?>
                                 <li>
-                                    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
+                                    <a href="<?php echo base_url().$segmenturi.$notseennotify->redirect_uri;?>" style="padding-top:0px;">
                                         <div class="user-block user-blockv" style="border-left:none;">
                                             <?php if(!empty($notseennotify->profile_image)){ ?>
                                                 <img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -654,7 +748,7 @@ body.modal-open {
                                 </li>
                                 <?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'suggestion')) { ?>
                                 <li>
-                                    <a href="#" data-toggle="modal" data-target="#sugnotifymodal<?php echo $notseennotify->id;?>" style="padding-top:0px;">
+                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#sugnotifymodal<?php echo $notseennotify->id;?>" style="padding-top:0px;">
                                         <div class="user-block user-blockv" style="border-left:none;">
                                             <?php if(!empty($notseennotify->profile_image)){ ?>
                                                 <img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -693,9 +787,14 @@ body.modal-open {
                                         </a>
                                         <hr class="user-blockv-hr">
                                     </li>
-                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'comment')) { ?>
+                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'comment')) { 
+                                        $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
                                     <li>
-                                        <a href="<?php echo base_url().$this->uri->segment(1).'/'.$seennotify->redirect_uri;?>" style="padding-top:0px;">
+                                        <a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>" style="padding-top:0px;">
                                             <div class="user-block user-blockv" style="border-left:none;">
                                                 <?php if(!empty($seennotify->profile_image)){ ?>
                                                     <img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -711,9 +810,13 @@ body.modal-open {
                                         </a>
                                         <hr class="user-blockv-hr">
                                     </li>
-                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'replycomment')) { ?>
+                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'replycomment')) { $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
                                     <li>
-                                        <a href="<?php echo base_url().$this->uri->segment(1).'/'.$seennotify->redirect_uri;?>" style="padding-top:0px;">
+                                        <a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>" style="padding-top:0px;">
                                             <div class="user-block user-blockv" style="border-left:none;">
                                                 <?php if(!empty($seennotify->profile_image)){ ?>
                                                     <img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -729,9 +832,14 @@ body.modal-open {
                                         </a>
                                         <hr class="user-blockv-hr">
                                     </li>
-                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'rating')) { ?>
+                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'rating')) { 
+                                        $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        } ?>
                                     <li>
-                                        <a href="<?php echo base_url().$this->uri->segment(1).'/'.$seennotify->redirect_uri;?>" style="padding-top:0px;">
+                                        <a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>" style="padding-top:0px;">
                                             <div class="user-block user-blockv" style="border-left:none;">
                                                 <?php if(!empty($seennotify->profile_image)){ ?>
                                                     <img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -763,9 +871,13 @@ body.modal-open {
                                         </a>
                                         <hr class="user-blockv-hr">
                                     </li>
-                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'seriessubscribe')) { ?>
+                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'seriessubscribe')) { $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
                                     <li>
-                                        <a href="<?php echo base_url().$this->uri->segment(1).'/'.$seennotify->redirect_uri;?>" style="padding-top:0px;">
+                                        <a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>" style="padding-top:0px;">
                                             <div class="user-block user-blockv" style="border-left:none;">
                                                 <?php if(!empty($seennotify->profile_image)){ ?>
                                                     <img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -781,9 +893,13 @@ body.modal-open {
                                         </a>
                                         <hr class="user-blockv-hr">
                                     </li>
-                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'seriesepisode')) { ?>
+                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'seriesepisode')) { $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
                                     <li>
-                                        <a href="<?php echo base_url().$this->uri->segment(1).'/'.$seennotify->redirect_uri;?>" style="padding-top:0px;">
+                                        <a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>" style="padding-top:0px;">
                                             <div class="user-block user-blockv" style="border-left:none;">
                                                 <?php if(!empty($seennotify->profile_image)){ ?>
                                                     <img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -797,7 +913,7 @@ body.modal-open {
                                                         $seriesname = get_seriesname($seennotify->title_id);
                                                         if(isset($seriesname[0]->title)){  $seriestitle = $seriesname[0]->title;  }
                                                         if(isset($seriesname[0]->sid) && !empty($seriesname[0]->sid)){
-                                                        $seriesuri=$this->uri->segment(1).'/series/'.preg_replace('/\s+/', '-', $seriesname[0]->title).'-'.$seriesname[0]->sid.'/'.preg_replace('/\s+/', '-', $seriesname[0]->title).'-'.$seriesname[0]->sid;
+                                                        $seriesuri=$this->uri->segment(1).'/series/'.preg_replace("~[^\p{M}\w]+~u",'-', $seriesname[0]->title).'-'.$seriesname[0]->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $seriesname[0]->title).'-'.$seriesname[0]->sid;
                                                         }
                                                     } ?>
                                                 <!--<a href="<?php echo base_url().$seriesuri;?>" style="display: contents;"> -->
@@ -808,9 +924,14 @@ body.modal-open {
                                         </a>
                                         <hr class="user-blockv-hr">
                                     </li>
-                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'startseries')) { ?>
+                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'startseries')) { 
+                                        $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
                                     <li>
-                                        <a href="<?php echo base_url().$this->uri->segment(1).'/'.$seennotify->redirect_uri;?>" style="padding-top:0px;">
+                                        <a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>" style="padding-top:0px;">
                                             <div class="user-block user-blockv" style="border-left:none;">
                                                 <?php if(!empty($seennotify->profile_image)){ ?>
                                                     <img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -826,9 +947,14 @@ body.modal-open {
                                         </a>
                                         <hr class="user-blockv-hr">
                                     </li>
-                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'newstory')) { ?>
+                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'newstory')) { 
+                                        $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
                                     <li>
-                                        <a href="<?php echo base_url().$this->uri->segment(1).'/'.$seennotify->redirect_uri;?>" style="padding-top:0px;">
+                                        <a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>" style="padding-top:0px;">
                                             <div class="user-block user-blockv" style="border-left:none;">
                                                 <?php if(!empty($seennotify->profile_image)){ ?>
                                                     <img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -844,9 +970,14 @@ body.modal-open {
                                         </a>
                                         <hr class="user-blockv-hr">
                                     </li>
-                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'newnano')) { ?>
+                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'newnano')) { 
+                                        $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
                                     <li>
-                                        <a href="<?php echo base_url().$this->uri->segment(1).'/'.$seennotify->redirect_uri;?>" style="padding-top:0px;">
+                                        <a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>" style="padding-top:0px;">
                                             <div class="user-block user-blockv" style="border-left:none;">
                                                 <?php if(!empty($seennotify->profile_image)){ ?>
                                                     <img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -862,9 +993,14 @@ body.modal-open {
                                         </a>
                                         <hr class="user-blockv-hr">
                                     </li>
-                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'favorite')) { ?>
+                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'favorite')) { 
+                                        $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
                                     <li>
-                                        <a href="<?php echo base_url().$this->uri->segment(1).'/'.$seennotify->redirect_uri;?>"  style="padding-top:0px;">
+                                        <a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>"  style="padding-top:0px;">
                                             <div class="user-block user-blockv" style="border-left:none;">
                                                 <?php if(!empty($seennotify->profile_image)){ ?>
                                                     <img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -914,9 +1050,13 @@ body.modal-open {
                                         </a>
                                         <hr class="user-blockv-hr">
                                     </li>
-                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'groupsuggestion')) { ?>
+                                    <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'groupsuggestion')) { $segmenturi = '';
+                                        $segmentlang = get_langfullname($seennotify->storylang); 
+                                        if(!empty($segmentlang)){ 
+                                            $segmenturi = $segmentlang.'/';
+                                        }   ?>
                                     <li>
-                                        <a href="<?php echo base_url().$this->uri->segment(1).'/'.$seennotify->redirect_uri;?>"   style="padding-top:0px;">
+                                        <a href="<?php echo base_url().$segmenturi.$seennotify->redirect_uri;?>"   style="padding-top:0px;">
                                             <div class="user-block user-blockv" style="border-left:none;">
                                                 <?php if(!empty($seennotify->profile_image)){ ?>
                                                     <img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -940,7 +1080,7 @@ body.modal-open {
                                     </li>
                                     <?php $i++; }elseif(($i < 5) && ($seennotify->type == 'suggestion')) { ?>
                                     <li>
-                                        <a href="#" data-toggle="modal" data-target="#sugnotifymodal<?php echo $seennotify->id;?>" style="padding-top:0px;">
+                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#sugnotifymodal<?php echo $seennotify->id;?>" style="padding-top:0px;">
                                             <div class="user-block user-blockv" style="border-left:none;">
                                                 <?php if(!empty($seennotify->profile_image)){ ?>
                                                     <img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -975,7 +1115,7 @@ body.modal-open {
         <!-- NOTIFICATIONS end -->
         
         <div class="dropdown" style="border-left:none; width:50px; padding-top:6.5px; background:none;">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" style="width: 45px; height:45px; vertical-align: middle; padding-top:0px;"> 
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" style="width: 45px; height:45px; vertical-align: middle; padding-top:0px;"> 
                 
                 <?php if(isset($this->session->userdata['logged_in']['profile_image']) && 
                     !empty($this->session->userdata['logged_in']['profile_image'])) { ?>
@@ -1001,9 +1141,9 @@ body.modal-open {
                 </li>
                 <div class="vjd" style="border-left:none;">
                     <a href="<?php echo base_url().$this->uri->segment(1);?>about" class="adiv"><?php if(isset($headmenus['about']) && !empty($headmenus['about'])){ echo $headmenus['about']; }else{ ?> About <?php } ?></a>
-                    <a href="" class="adiv">I</a>
+                    <a href="javascript:void(0);" class="adiv">I</a>
                     <a href="<?php echo base_url().$this->uri->segment(1);?>blog" class="adiv"><?php if(isset($headmenus['blog']) && !empty($headmenus['blog'])){ echo $headmenus['blog']; }else{ ?> Blog <?php } ?></a>
-                    <a href="" class="adiv">I</a>
+                    <a href="javascript:void(0);" class="adiv">I</a>
                     <a href="<?php echo base_url().$this->uri->segment(1);?>faq" class="adiv"><?php if(isset($headmenus['faq']) && !empty($headmenus['faq'])){ echo $headmenus['faq']; }else{ ?> Faq <?php } ?></a>
                 </div>
             </ul>
@@ -1022,7 +1162,7 @@ body.modal-open {
         </div>
         <?php } else { ?>
             <div style="border-right:1px solid rgba(0,0,0,0.1);">
-                <a href="#" data-toggle="modal" data-target="#loginmodal" id="notloginmodal"><i class="fa fa-user" aria-hidden="true"></i>
+                <a href="javascript:void(0);" data-toggle="modal" data-target="#loginmodal" id="notloginmodal"><i class="fa fa-user" aria-hidden="true"></i>
                     <p><?php if(isset($headmenus['login']) && !empty($headmenus['login'])){ echo $headmenus['login']; }else{ ?> LOGIN <?php } ?></p>
                 </a>
             </div>
@@ -1093,16 +1233,16 @@ body.modal-open {
         <a href="<?php echo base_url($this->uri->segment(1).'/feed'); ?>" title="YOUR FEED"><i class="fa fa-rss-square" aria-hidden="true"></i>
             <p><?php if(isset($headmenus['your_feed']) && !empty($headmenus['your_feed'])){ echo $headmenus['your_feed']; }else{ ?> YOUR FEED<?php } ?></p></a>
         <?php } else{ ?>
-        <a href="#" class="dropdown-toggle notloginmodal" title="Your Feed"><i class="fa fa-rss-square"></i>
+        <a href="javascript:void(0);" class="dropdown-toggle notloginmodal" title="Your Feed"><i class="fa fa-rss-square"></i>
             <p><?php if(isset($headmenus['your_feed']) && !empty($headmenus['your_feed'])){ echo $headmenus['your_feed']; }else{ ?> YOUR FEED<?php } ?></p></a>
         <?php } ?>
     </div>
     <div>
         <?php if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){ ?>
-        <a href="" data-toggle="modal" data-target="#writeapp" id="notloginmodal" title="WRITE"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        <a href="javascript:void(0);" data-toggle="modal" data-target="#writeapp" id="notloginmodal" title="WRITE"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
             <p><?php if(isset($headmenus['write']) && !empty($headmenus['write'])){ echo $headmenus['write']; }else{ ?> WRITE STORY <?php } ?></p></a>
         <?php } else { ?>
-        <a href="#" class="dropdown-toggle notloginmodal" title="WRITE"><i class="fa fa-pencil-square-o"></i>
+        <a href="javascript:void(0);" class="dropdown-toggle notloginmodal" title="WRITE"><i class="fa fa-pencil-square-o"></i>
             <p><?php if(isset($headmenus['write']) && !empty($headmenus['write'])){ echo $headmenus['write']; }else{ ?> WRITE STORY <?php } ?></p></a>
         <?php } ?>
     </div>  
@@ -1135,16 +1275,16 @@ body.modal-open {
 <?php if(isset($notificationsclist['seennotifys']) && ($notificationsclist['seennotifys']->num_rows() > 0)){ 
     foreach($notificationsclist['seennotifys']->result() as $seennotify){ if($seennotify->type == 'suggestion'){ ?>
     <div id="sugnotifymodal<?php echo $seennotify->id;?>" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="max-width:500px;">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="modal-header" style="padding: 0px 0px 12px 0px;">
+                    <button type="button" class="close" data-dismiss="modal" style="margin: 0px 0px 0px 5px;">&times;</button>
                     <h4 class="modal-title">
                         <a href="<?php echo base_url().$this->uri->segment(1).'/'.$seennotify->profile_name;?>">
                         <b><?php echo $seennotify->sname;?> </b></a>suggested you a story 
                         <b><?php echo $seennotify->stitle;?> </b>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="margin-top:6px;">
                     <p><h5> Read the following Story, it consists of some eye opening facts. </h5></p><br>
                     <p><?php echo $seennotify->description;?></p>
                     <center><a class="btn btn-primary" href="<?php echo base_url().$this->uri->segment(1).'/'.$seennotify->redirect_uri;?>">Open Link</a></center>
@@ -1157,12 +1297,23 @@ body.modal-open {
     </div>
 <?php } } } ?>
 <script>
-   $(window).load(function(){
-      var url = window.location.href;
-      $('sidebar_menu li').find('.active').removeClass('active');
-      $('sidebar_menu li a').filter(function(){
-          return this.href == url;
-      }).parent().addClass('active');
-  });
+    $(window).load(function(){
+        var url = window.location.href;
+        $('sidebar_menu li').find('.active').removeClass('active');
+        $('sidebar_menu li a').filter(function(){
+            return this.href == url;
+        }).parent().addClass('active');
+    });
 </script>
 <script src="<?php echo base_url();?>assets/js/header.js"></script>
+
+<input type="hidden" id="loggedinuid" value="<?php if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){ echo $this->session->userdata['logged_in']['user_id']; } ?>">
+<!-- Page reload scroll position -->
+<script type="text/javascript">
+    window.onload = function () {
+        if ( window.location.href.indexOf('page_y') != -1 ) {
+            var match = window.location.href.split('?')[1].split("&")[0].split("=");
+            document.getElementsByTagName("body")[0].scrollTop = match[1];
+        }
+    }
+</script>

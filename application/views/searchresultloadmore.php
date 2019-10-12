@@ -152,7 +152,7 @@
 				</div>
 				<div class="flextest">
 					<?php if(($liferow->writing_style == 'anonymous') && ($liferow->type == 'life')){ ?>
-						<font class="byname">By<font class="namehere"><a href="" style="color:#000"> Anonymous</a></font></font><br>
+						<font class="byname">By<font class="namehere"><a href="javascript:void(0);" style="color:#000"> Anonymous</a></font></font><br>
 					<?php } else { ?>
 						<font class="byname">By<font class="namehere">
 						    <a href="<?php echo base_url($liferow->profile_name);?>" style="color:#000"> <?php echo $liferow->name;?></a></font></font>

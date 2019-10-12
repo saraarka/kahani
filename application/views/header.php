@@ -155,7 +155,7 @@
                         </li>
                         <?php } ?>
 						<li class="treeview menu-open avj4">
-							<a href="#">
+							<a href="javascript:void(0);">
 								<span class="btn btn-flat btn-warning" style="background:orangered; border-color:orangered;"><i class="fa fa-folder fa-2x"></i></span>
 								<span class="sidea"> Geners </span>
 								<span class="pull-right-container">
@@ -182,105 +182,105 @@
     </div><!-- modal -->
 
 <style>
-.modalvjk {
-  padding-top: 0px!important; /* Location of the box */
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 100%; /* Full width */
-  height: -webkit-fill-available; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-}
-body.modal-open {
-    overflow: hidden!important;
-}
-.modal-open .modal {
-    overflow-x: hidden;
-    overflow-y: -webkit-paged-y;
-    -webkit-mask-position-y: initial;
-}
-@media(max-width:768px){
+    .modalvjk {
+        padding-top: 0px!important; /* Location of the box */
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%; /* Full width */
+        height: -webkit-fill-available; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+    }
+    body.modal-open {
+        overflow: hidden!important;
+    }
+    .modal-open .modal {
+        overflow-x: hidden;
+        overflow-y: -webkit-paged-y;
+        -webkit-mask-position-y: initial;
+    }
+    @media(max-width:768px){
+        .modal-backdrop {
+            background-color: none!important;
+            position: relative!important;
+        }
+        .modalvjk {
+            height:100%;
+        }
+    }
     .modal-backdrop {
-        background-color: none!important;
-        position: relative!important;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1001;
+        background-color: #00000036;
     }
-     .modalvjk {
-         height:100%;
-     }
-}
-.modal-backdrop {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1001;
-    background-color: #00000036;
-}
-.modal.left .modal-dialogv,
-.modal.right .modal-dialogv {
-	position: fixed;
-	margin: auto;
-	width: 200px;
-	height: 100%;
-	-webkit-transform: translate3d(0%, 0, 0);
-	    -ms-transform: translate3d(0%, 0, 0);
-	     -o-transform: translate3d(0%, 0, 0);
-	        transform: translate3d(0%, 0, 0);
-}
+    .modal.left .modal-dialogv,
+    .modal.right .modal-dialogv {
+        position: fixed;
+        margin: auto;
+        width: 200px;
+        height: 100%;
+        -webkit-transform: translate3d(0%, 0, 0);
+            -ms-transform: translate3d(0%, 0, 0);
+             -o-transform: translate3d(0%, 0, 0);
+                transform: translate3d(0%, 0, 0);
+    }
 
-.modal.left .modal-content,
-.modal.right .modal-content {
-	height: 100%;
-	overflow-y: auto;
-}
+    .modal.left .modal-content,
+    .modal.right .modal-content {
+        height: 100%;
+        overflow-y: auto;
+    }
 
-.modal.left .modal-body,
-.modal.right .modal-body {
-	padding: 0px;
-}
+    .modal.left .modal-body,
+    .modal.right .modal-body {
+        padding: 0px;
+    }
 
-/*Left*/
-.modal.left.fade .modal-dialogv{
-	left: -320px;
-	-webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
-	   -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
-	     -o-transition: opacity 0.3s linear, left 0.3s ease-out;
-	        transition: opacity 0.3s linear, left 0.3s ease-out;
-}
-.modal.left.fade.in .modal-dialogv{
-	left: 0;
-}
+    /*Left*/
+    .modal.left.fade .modal-dialogv{
+        left: -320px;
+        -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+           -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+             -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+                transition: opacity 0.3s linear, left 0.3s ease-out;
+    }
+    .modal.left.fade.in .modal-dialogv{
+        left: 0;
+    }
 
 
-@supports (-webkit-overflow-scrolling: touch) {
-    .dropvk {
-        margin-top: -80px !important;
-        float: right;
-        position: relative;
-        padding-left: 3px;
+    @supports (-webkit-overflow-scrolling: touch) {
+        .dropvk {
+            margin-top: -80px !important;
+            float: right;
+            position: relative;
+            padding-left: 3px;
+        }
+        .dropvklife {
+            margin-top: -50px !important;
+            float: right;
+            position: relative;
+            padding-left: 3px;
+        }
     }
-    .dropvklife {
-        margin-top: -50px !important;
-        float: right;
-        position: relative;
-        padding-left: 3px;
+    @supports not (-webkit-overflow-scrolling: touch) {
+        .dropvk {
+            margin-top: -112px !important;
+            float: right;
+            position: relative;
+            padding-left: 3px;
+        }
+        .dropvklife {
+            margin-top: -80px !important;
+            float: right;
+            position: relative;
+            padding-left: 3px;
+        }
     }
-}
-@supports not (-webkit-overflow-scrolling: touch) {
-    .dropvk {
-        margin-top: -112px !important;
-        float: right;
-        position: relative;
-        padding-left: 3px;
-    }
-    .dropvklife {
-        margin-top: -80px !important;
-        float: right;
-        position: relative;
-        padding-left: 3px;
-    }
-}
 </style>
 
 <style type="text/css">
@@ -297,7 +297,7 @@ body.modal-open {
     <a href="<?php echo base_url();?>english"><img src="<?php echo base_url();?>assets/landing/storylogoland.png" alt="StoryCarry" title="StoryCarry" class="logoimage1"></a>
     <a href="<?php echo base_url();?>english"><img src="<?php echo base_url();?>assets/dist/img/logoicon2.png" alt="StoryCarry" title="StoryCarry" class="logoimage2"></a>
     <div class="login dropdown profile">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> 
+        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> 
 			<?php if(isset($this->session->userdata['logged_in']['profile_image']) && 
             	!empty($this->session->userdata['logged_in']['profile_image'])) { ?>
             	<img src="<?php echo base_url();?>assets/images/<?php echo $this->session->userdata['logged_in']['profile_image']; ?>" class="img-circlep" alt="<?php if($this->session->userdata['logged_in']['name']){ echo $this->session->userdata['logged_in']['name']; } ?>">
@@ -322,7 +322,7 @@ body.modal-open {
 	<a href="<?php echo base_url();?>"><img src="<?php echo base_url();?>assets/landing/storylogoland.png" alt="StoryCarry" title="StoryCarry" class="logoimage1"></a>
     <a href="<?php echo base_url();?>"><img src="<?php echo base_url();?>assets/dist/img/logoicon2.png" alt="StoryCarry" title="StoryCarry" class="logoimage2"></a>
 	<div class="login" style="">
-		<a href="" style="color:#fff; font-size:26px;" data-toggle="modal" data-target="#loginmodal" id="notloginmodal"><i class="fa fa-user" aria-hidden="true"></i></a>
+		<a href="javascript:void(0);" style="color:#fff; font-size:26px;" data-toggle="modal" data-target="#loginmodal" id="notloginmodal"><i class="fa fa-user" aria-hidden="true"></i></a>
 	</div>
 	<?php } ?>
     
@@ -355,12 +355,12 @@ body.modal-open {
             <?php } ?>
 		</div>
 		<div class="dropdown write-m">
-			<a href="" data-toggle="modal" data-target="#writeapp" id="notloginmodal"> 
+			<a href="javascript:void(0);" data-toggle="modal" data-target="#writeapp" id="notloginmodal"> 
 		        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> <p>WRITE</p>
 		    </a>
 		</div>
 		<div class="dropdown write-d">
-			<a href="#" class="dropdown-toggle" title="WRITE" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> 
+			<a href="javascript:void(0);" class="dropdown-toggle" title="WRITE" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> 
 		        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> <p>WRITE</p>
 		    </a>
 			<ul class="dropdown-menu pull-left" style="right:0!important; left:auto;">
@@ -370,10 +370,10 @@ body.modal-open {
 					<li style="border-bottom:1px solid #f4f4f4;"><a class="dropk" href="<?php echo base_url('write-nanostory'); ?>" title="Nano Story"><i class="fa fa-pie-chart pr-10"></i> NANO STORY</a></li>
 					<li style="border-bottom:1px solid #f4f4f4;"><a class="dropk" href="<?php echo base_url('write-life'); ?>" title="Life Events"><i class="fa fa-star pr-10"></i> LIFE EVENTS</a></li>
 					<?php } else{ ?>
-					<li style="border-bottom:1px solid #f4f4f4;"><a class="dropk notloginmodal" href="#" title="Series"><i class="fa fa-indent pr-10"></i> SERIES</a></li>
-					<li style="border-bottom:1px solid #f4f4f4;"><a class="dropk notloginmodal" href="#" title="Story"><i class="fa fa-clipboard pr-10"></i> STORY</a></li>
-					<li style="border-bottom:1px solid #f4f4f4;"><a class="dropk notloginmodal" href="#" title="Nano Story"><i class="fa fa-pie-chart pr-10"></i> NANO STORY</a></li>
-					<li style="border-bottom:1px solid #f4f4f4;"><a class="dropk notloginmodal" href="#" title="Life Events"><i class="fa fa-star pr-10"></i> LIFE EVENTS</a></li>
+					<li style="border-bottom:1px solid #f4f4f4;"><a class="dropk notloginmodal" href="javascript:void(0);" title="Series"><i class="fa fa-indent pr-10"></i> SERIES</a></li>
+					<li style="border-bottom:1px solid #f4f4f4;"><a class="dropk notloginmodal" href="javascript:void(0);" title="Story"><i class="fa fa-clipboard pr-10"></i> STORY</a></li>
+					<li style="border-bottom:1px solid #f4f4f4;"><a class="dropk notloginmodal" href="javascript:void(0);" title="Nano Story"><i class="fa fa-pie-chart pr-10"></i> NANO STORY</a></li>
+					<li style="border-bottom:1px solid #f4f4f4;"><a class="dropk notloginmodal" href="javascript:void(0);" title="Life Events"><i class="fa fa-star pr-10"></i> LIFE EVENTS</a></li>
                <?php } ?>
             </ul>
 		</div>
@@ -384,7 +384,7 @@ body.modal-open {
 			<a href="<?php echo base_url('feed'); ?>" title="YOUR FEED">
 			<i class="fa fa-rss-square" aria-hidden="true"></i><p>YOUR FEED</p></a>
 			<?php } else{ ?>
-            	<a href="#" class="dropdown-toggle notloginmodal" title="Your Feed">
+            	<a href="javascript:void(0);" class="dropdown-toggle notloginmodal" title="Your Feed">
             		<i class="fa fa-rss-square"></i><p>YOUR FEED</p>
             	</a>
             <?php } ?>
@@ -396,7 +396,7 @@ body.modal-open {
 		<?php if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])) { ?>
 		<!-- NOTIFICATIONS start -->
 		<div class="dropdown" style="padding-top:13px; padding-left:16px; width:65px; background:none;">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+			<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
 				<i class="fa fa-bell-o" aria-hidden="true"></i>
 				<!--<sup style="background:#fefefe; padding:2px 5px; color:red; border-radius:5px;">2</sup>-->
 				<?php $notificationsclist = get_notifications(); ?>
@@ -563,7 +563,7 @@ body.modal-open {
     													$seriesname = get_seriesname($notseennotify->title_id);
     													if(isset($seriesname[0]->title)){  $seriestitle = $seriesname[0]->title;  }
     													if(isset($seriesname[0]->sid) && !empty($seriesname[0]->sid)){
-    													$seriesuri='series/'.preg_replace('/\s+/', '-', $seriesname[0]->title).'-'.$seriesname[0]->sid.'/'.preg_replace('/\s+/', '-', $seriesname[0]->title).'-'.$seriesname[0]->sid;
+    													$seriesuri='series/'.preg_replace("~[^\p{M}\w]+~u",'-', $seriesname[0]->title).'-'.$seriesname[0]->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $seriesname[0]->title).'-'.$seriesname[0]->sid;
     													}
     												} ?>
     												<b class="user-blockv-title"><?php echo $seriestitle;?></b><br>
@@ -698,7 +698,7 @@ body.modal-open {
 										</a>
 										<hr class="user-blockv-hr">
 									</li>
-									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'groupsuggestion')) {$segmenturi = '';
+									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'groupsuggestion')) { $segmenturi = '';
                                         $segmentlang = get_langfullname($notseennotify->storylang); 
                                         if(!empty($segmentlang)){ 
                                             $segmenturi = $segmentlang.'/';
@@ -728,7 +728,7 @@ body.modal-open {
 									</li>
 									<?php $i++; }elseif(($i < 5) && ($notseennotify->type == 'suggestion')) { ?>
 									<li>
-										<a href="#" data-toggle="modal" data-target="#sugnotifymodal<?php echo $notseennotify->id;?>" style="padding-top:0px;">
+										<a href="javascript:void(0);" data-toggle="modal" data-target="#sugnotifymodal<?php echo $notseennotify->id;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($notseennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $notseennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $notseennotify->sname;?>">
@@ -892,7 +892,7 @@ body.modal-open {
     													$seriesname = get_seriesname($seennotify->title_id);
     													if(isset($seriesname[0]->title)){  $seriestitle = $seriesname[0]->title;  }
     													if(isset($seriesname[0]->sid) && !empty($seriesname[0]->sid)){
-    													$seriesuri='series/'.preg_replace('/\s+/', '-', $seriesname[0]->title).'-'.$seriesname[0]->sid.'/'.preg_replace('/\s+/', '-', $seriesname[0]->title).'-'.$seriesname[0]->sid;
+    													$seriesuri='series/'.preg_replace("~[^\p{M}\w]+~u",'-', $seriesname[0]->title).'-'.$seriesname[0]->sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $seriesname[0]->title).'-'.$seriesname[0]->sid;
     													}
     												} ?>
     											<!--<a href="<?php echo base_url().$seriesuri;?>" style="display: contents;"> -->
@@ -1058,7 +1058,7 @@ body.modal-open {
 									</li>
 									<?php $i++; }elseif(($i < 5) && ($seennotify->type == 'suggestion')) { ?>
 									<li>
-										<a href="#" data-toggle="modal" data-target="#sugnotifymodal<?php echo $seennotify->id;?>" style="padding-top:0px;">
+										<a href="javascript:void(0);" data-toggle="modal" data-target="#sugnotifymodal<?php echo $seennotify->id;?>" style="padding-top:0px;">
 											<div class="user-block user-blockv" style="border-left:none;">
     										    <?php if(!empty($seennotify->profile_image)){ ?>
     												<img src="<?php echo base_url();?>assets/images/<?php echo $seennotify->profile_image;?>" class="user-blockv-img" alt="<?php echo $seennotify->sname;?>">
@@ -1092,7 +1092,7 @@ body.modal-open {
 		<!-- NOTIFICATIONS end -->
 		
 		<div class="dropdown" style="border-left:none; width:50px; padding-top:6.5px; background:none;">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" style="width: 45px; height:45px; vertical-align: middle; padding-top:0px;"> 
+			<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" style="width: 45px; height:45px; vertical-align: middle; padding-top:0px;"> 
 				
 				<?php if(isset($this->session->userdata['logged_in']['profile_image']) && 
 					!empty($this->session->userdata['logged_in']['profile_image'])) { ?>
@@ -1112,9 +1112,9 @@ body.modal-open {
 				    ><i class="fa fa-sign-out pr-10"></i> SIGN OUT</a></li>
 				<div class="vjd" style="border-left:none;">
 				    <a href="<?php echo base_url();?>about" class="adiv" title="About">About</a>
-				    <a href="" class="adiv">I</a>
+				    <a href="javascript:void(0);" class="adiv">I</a>
 				    <a href="<?php echo base_url();?>blog" class="adiv" title="Blog">Blog</a>
-				    <a href="" class="adiv">I</a>
+				    <a href="javascript:void(0);" class="adiv">I</a>
 				    <a href="<?php echo base_url();?>faq" class="adiv" title="Faq">Faq</a>
 				</div>
 			</ul>
@@ -1132,7 +1132,7 @@ body.modal-open {
 			</style>
 		</div>
 		<?php } else { ?>
-		<div style="border-right:1px solid rgba(0,0,0,0.1);"><a href="#" data-toggle="modal" data-target="#loginmodal" id="notloginmodal"><i class="fa fa-user" aria-hidden="true"></i><p>LOGIN</p></a></div>
+		<div style="border-right:1px solid rgba(0,0,0,0.1);"><a href="javascript:void(0);" data-toggle="modal" data-target="#loginmodal" id="notloginmodal"><i class="fa fa-user" aria-hidden="true"></i><p>LOGIN</p></a></div>
 		<?php } ?>
     </div>
 	
@@ -1198,16 +1198,16 @@ body.modal-open {
 		<a href="<?php echo base_url('feed'); ?>" title="YOUR FEED">
 		<i class="fa fa-rss-square" aria-hidden="true"></i><p>YOUR FEED</p></a>
 		<?php } else{ ?>
-        	<a href="#" class="dropdown-toggle notloginmodal" title="Your Feed">
+        	<a href="javascript:void(0);" class="dropdown-toggle notloginmodal" title="Your Feed">
         		<i class="fa fa-rss-square"></i><p>YOUR FEED</p>
         	</a>
         <?php } ?>
 	</div>
 	<div>
 	    <?php if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){ ?>
-	    <a href="" data-toggle="modal" data-target="#writeapp" id="notloginmodal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i><p>WRITE STORY</p></a>
+	    <a href="javascript:void(0);" data-toggle="modal" data-target="#writeapp" id="notloginmodal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i><p>WRITE STORY</p></a>
 	    <?php } else { ?>
-	        <a href="#" class="dropdown-toggle notloginmodal"><i class="fa fa-pencil-square-o"></i><p>WRITE STORY</p></a>
+	        <a href="javascript:void(0);" class="dropdown-toggle notloginmodal"><i class="fa fa-pencil-square-o"></i><p>WRITE STORY</p></a>
 	    <?php } ?>
 	</div>
 </div>
@@ -1255,13 +1255,13 @@ body.modal-open {
     </div>
 <?php } } } ?>
 <script>
-   $(window).load(function(){
-      var url = window.location.href;
-      $('sidebar_menu li').find('.active').removeClass('active');
-      $('sidebar_menu li a').filter(function(){
-          return this.href == url;
-      }).parent().addClass('active');
-  });
+    $(window).load(function(){
+        var url = window.location.href;
+        $('sidebar_menu li').find('.active').removeClass('active');
+        $('sidebar_menu li a').filter(function(){
+            return this.href == url;
+        }).parent().addClass('active');
+    });
 </script>
 <script src="<?php echo base_url();?>assets/js/header.js"></script>
 

@@ -147,7 +147,7 @@
 			</div>
 			<div>
 				<hr style="width:100%;">
-				<a href="#" style="color:#000" data-toggle="modal" data-target="#modal-default<?php echo $vahnanorow->sid;?>">
+				<a href="javascript:void(0);" style="color:#000" data-toggle="modal" data-target="#modal-default<?php echo $vahnanorow->sid;?>">
 				    <font class="text-in-nanostory"><?php echo ($vahnanorow->story); ?></font>
 				</a>
 			</div>

@@ -160,7 +160,7 @@
 <!-- Signup Modal popup langue start -->
 <div class="modal fade modal-signup" id="signupmodal" role="dialog" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog">
-		<div class="modal-content ">
+		<div class="modal-content">
 			<div class="modal-body">
 				<div class="login-logo">
 					<span class="headsvj"><b>SIGN UP</b>
@@ -189,7 +189,7 @@
                         <span class="text-danger password" style="color:red;font-family:sans-serif;font-size:14px;"></span>
                         <div class="row" style="margin-top:2px;">
 							<div class="col-xs-12">
-								<center><button type="submit" class=" bg-green btnsignupspinner" style="cursor:pointer;">Sign Up</button></center>
+								<center><button type="submit" class="bg-green btnsignupspinner" style="cursor:pointer;">Sign Up</button></center>
 							</div>
 						</div>
 					</form>
@@ -198,11 +198,11 @@
 						<center><p class="text-centerv" style="margin:2px;"> - or - </p></center>
 						<div class="flex" style="margin-top:5px">
 						    <div style="float:left; width:49%">
-						        <button onclick="fbLogin()" id="fbLink" class=" bg-fb" style="cursor:pointer;width:100%;">Facebook</button>
+						        <button onclick="fbLogin()" id="fbLink" class="bg-fb" style="cursor:pointer;width:100%;">Facebook</button>
 						    </div>
 						    <div style="width:2%"></div>
 						    <div style="float:right; width:49%">
-						        <button data-onsuccess="onSignIn" class="g-signin2  bg-google" style="cursor:pointer;width:100%;"> Google</button>
+						        <button data-onsuccess="onSignIn" class="g-signin2 bg-google" style="cursor:pointer;width:100%;"> Google</button>
 						    </div>
 						</div>
 		                <center style="margin-top:50px;">
@@ -211,7 +211,7 @@
 		                <div style=" margin-top:6px; border-top:1px solid rgba(221, 221, 221, 1); margin-bottom:10px;"></div>
 					</div>
 					<!--<hr style="margin-top:-10px; border:1px solid rgba(221, 221, 221, 1);">-->
-					<div class="" >
+					<div class="">
 					    <center>
 					        <p class="text-centerv" style="margin-bottom:0;margin-top:13px;">Already have an account? <a href="#loginmodal" data-toggle="modal" data-target="#loginmodal" data-dismiss="modal" style="color:#0e92af">Sign In</a></p>
 					    </center>
@@ -413,7 +413,7 @@
 						</div>
 					</form>
 					<div class="" style="margin-bottom:20px;"><center>
-		                <p class="text-centervv" style="margin-bottom:0;">By signing up, you agree to our <a href="" style="color:#0e92af">Terms of Use</a> and <a href="" style="color:#0e92af">Privacy Policy</a>.</p>
+		                <p class="text-centervv" style="margin-bottom:0;">By signing up, you agree to our <a href="javascript:void(0);" style="color:#0e92af">Terms of Use</a> and <a href="javascript:void(0);" style="color:#0e92af">Privacy Policy</a>.</p>
                     </center></div> <hr style="margin-top:-10px; border:1px solid rgba(221, 221, 221, 1);">
 					<div class="">
 					    <center>
@@ -458,7 +458,7 @@
 				<div class="">
 					<center>
 					    INSTALL OUR APP <br>
-					    <a href="">
+					    <a href="javascript:void(0);">
 					        <img src="<?php echo base_url();?>assets/landing/storycarry-app.png" />
 					    </a><br>
 					    <p>(Or)</p>
@@ -1313,7 +1313,7 @@ $(function() {
 				        //$('#groupsuggest').css('display', 'block');
 					}else if(data) {
 					    $('.storysuggesttogroup').html(data);
-				    	//$('#groupsuggest').modal('show');
+				    	$('#groupsuggest').modal('show');
 				  	}
 				}
 			});
@@ -1337,7 +1337,7 @@ $(function() {
 				        //$('#friendsuggest').css('display', 'block');
 					}else if(data) {
 				    	$('.storysuggesttofriend').html(data);
-				    	//$('#friendsuggest').modal('show');
+				    	$('#friendsuggest').modal('show');
 				  	}
 				}
 			});
@@ -1519,8 +1519,8 @@ var isMobile = {
 };
 
 
-if( isMobile.Android() ) document.getElementById("apptext").innerHTML = `DOWNLOAD <a style="color:blue;" href="https://play.google.com/store/apps/details?id=com.google.android.apps.inputmethod.hindi&hl=en_IN">GOOGLE INDIC</a> KEYBOARD & <a href="#" data-toggle="modal" data-target="#modalRegister" id="acts" style="color:blue">START WRITING</a> IN INDIAN LANGUAGES.`
-if( isMobile.iOS() ) document.getElementById("apptext").innerHTML = `DOWNLOAD <a href="https://apps.apple.com/ml/app/indic-keyboard-swalekh-flip/id1212717313" style="color:blue">SWALEKHA</a> KEYBOARD & <a href="#" data-toggle="modal" data-target="#modalRegister" id="acts" style="color:blue">START WRITING</a> IN INDIAN LANGUAGES.`
+if( isMobile.Android() ) document.getElementById("apptext").innerHTML = `DOWNLOAD <a style="color:blue;" href="https://play.google.com/store/apps/details?id=com.google.android.apps.inputmethod.hindi&hl=en_IN">GOOGLE INDIC</a> KEYBOARD & <a href="javascript:void(0);" data-toggle="modal" data-target="#modalRegister" id="acts" style="color:blue">START WRITING</a> IN INDIAN LANGUAGES.`
+if( isMobile.iOS() ) document.getElementById("apptext").innerHTML = `DOWNLOAD <a href="https://apps.apple.com/ml/app/indic-keyboard-swalekh-flip/id1212717313" style="color:blue">SWALEKHA</a> KEYBOARD & <a href="javascript:void(0);" data-toggle="modal" data-target="#modalRegister" id="acts" style="color:blue">START WRITING</a> IN INDIAN LANGUAGES.`
 if( isMobile.Windows() ) document.getElementById("apptext").innerHTML = `OPEN SITE ON DESKTOP`
 
 </script>

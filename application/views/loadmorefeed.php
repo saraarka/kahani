@@ -163,7 +163,7 @@
 							        <div class="more <?php echo $comment->id;?>"><?php echo $comment->comment; ?></div>
 							    <?php } ?>
 								<div style="margin:5px 0;" class="">
-                                    <a href="javascript:void(0)" onClick="postReplycomment(<?php echo $comment->id;?>,<?php echo $comment->comm_id;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a> <a href="" class="pull-left replycv">I</a>
+                                    <a href="javascript:void(0)" onClick="postReplycomment(<?php echo $comment->id;?>,<?php echo $comment->comm_id;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a> <a href="javascript:void(0);" class="pull-left replycv">I</a>
                                     <a href="javascript:void(0)" onClick="displayreplies(<?php echo $comment->id;?>,<?php echo $comment->comm_id;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Replies"> 
                                         <span class="old_subcmtcount<?php echo $comment->id;?>"><?php echo get_subcmtcount($comment->id);?></span> REPLIES</a>
                                 </div>
@@ -404,7 +404,7 @@
 								        <div style="word-break:break-word;" class="more pcomment<?php echo $ycomment->id;?>"><?php echo $ycomment->comment;?></div>
 								    <?php } ?>
 									<div style="" class="">
-                                        <a href="javascript:void(0)" onClick="toppostReplycomment(<?php echo $ycomment->id;?>,<?php echo $ycomment->comm_id;?>,<?php echo $ycomment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a> <a href="" class="pull-left replycv">I</a>
+                                        <a href="javascript:void(0)" onClick="toppostReplycomment(<?php echo $ycomment->id;?>,<?php echo $ycomment->comm_id;?>,<?php echo $ycomment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a> <a href="javascript:void(0);" class="pull-left replycv">I</a>
                                         <a href="javascript:void(0)" onClick="toppostdisplayreplies(<?php echo $ycomment->id;?>,<?php echo $ycomment->comm_id;?>,<?php echo $ycomment->story_id;?>)" class="pull-left replycv" title="Replies"> 
                                             <span class="told_subcmtcount<?php echo $ycomment->id;?>"><?php echo get_subcmtcount($ycomment->id);?></span> REPLIES</a>
                                     </div>
@@ -589,7 +589,7 @@
 						        <div class="fsmore <?php echo $fscomment->cid;?>" style="word-wrap: break-word;"><?php echo $fscomment->comment; ?></div>
 						    <?php } ?>
     						<div style="margin:5px 0;" class="">
-                                <a href="javascript:void(0)" onClick="fspostReplycomment(<?php echo $fscomment->cid;?>,<?php echo $fscomment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a> <a href="" class="pull-left replycv">I</a>
+                                <a href="javascript:void(0)" onClick="fspostReplycomment(<?php echo $fscomment->cid;?>,<?php echo $fscomment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a> <a href="javascript:void(0);" class="pull-left replycv">I</a>
                                 <a href="javascript:void(0)" onClick="fsdisplayreplies(<?php echo $fscomment->cid;?>,<?php echo $fscomment->story_id;?>)" class="pull-left replycv" title="Replies"> 
                                     <span class="fsold_subcmtcount<?php echo $fscomment->cid;?>"><?php echo get_storysubcmtcount($fscomment->cid, $fscomment->story_id); ?></span> REPLIES</a>
                             </div>

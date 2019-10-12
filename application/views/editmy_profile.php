@@ -277,8 +277,8 @@ border-top: 0px solid #e5e5e5 !important;
                     <div class="box-footer">
                         <div class="row">
                             <div class="col-sm-10 col-xs-10 col-md-10">
-                                <center><?php echo $this->session->flashdata('editmsg');?></center>
-                                </div>
+                              <!--<center><?php echo $this->session->flashdata('editmsg');?></center>-->
+                            </div>
                         	<div class="col-sm-2 col-xs-2 col-md-2">
                         		<div class="description-block" style="float:right">
                         		    <button type='submit' name='edit' class='btn btn-primary'> Update profile </button>

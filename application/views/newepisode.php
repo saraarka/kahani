@@ -549,7 +549,7 @@
             <div class="draft-btn">DRAFT</div>
             <div class="dropdown-content">
                 <a href="javascript:void(0);" type="submit" onclick="addtodrafts()">SAVE DRAFT</a>
-                <a href="#">DELETE DRAFT</a>
+                <a href="javascript:void(0);">DELETE DRAFT</a>
             </div>
             <a href="<?php echo base_url();?>english" style="text-decoration:none;color:#fff;">
                 <div class="cancel-btn">CANCEL</div>

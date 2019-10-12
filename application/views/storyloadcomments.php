@@ -26,7 +26,7 @@
 		                
 		                <?php } else if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){ ?>
 		                <span class="dropdown" style="float:right;">
-			                <a href="#" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
+			                <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
 						        <i class="fa fa-ellipsis-v "></i>
 						    </a>
 						    <ul class="dropdown-menu pull-right">
@@ -37,7 +37,7 @@
 			            </span>   
 		                <?php } else { ?>
 		                <span class="dropdown" style="float:right;">
-                            <a href="#" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
+                            <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
                                 <i class="fa fa-ellipsis-v "></i>
                             </a>
                             <ul class="dropdown-menu pull-right">

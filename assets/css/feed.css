@@ -50,7 +50,7 @@ a:hover span.redvj{
 	border-bottom-right-radius: 3px;
 	border-bottom-left-radius: 3px;
 	max-height:480px;
-	overflow:scroll;
+	overflow-y: auto;
 	overflow-x:hidden;
 }
 .tooltipv {

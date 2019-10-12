@@ -188,7 +188,7 @@
 														    <?php } ?>
 															<div style="margin:5px 0;" class="">
                                                                 <a href="javascript:void(0);" onClick="postReplycomment(<?php echo $comment->id;?>,<?php echo $comment->comm_id;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a>
-                                                                <a href="" class="pull-left replycv">I</a> 
+                                                                <a href="javascript:void(0);" class="pull-left replycv">I</a> 
                                                                 <a href="javascript:void(0);" onClick="displayreplies(<?php echo $comment->id;?>,<?php echo $comment->comm_id;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Replies"> 
                                                                     <span class="old_subcmtcount<?php echo $comment->id;?>"><?php echo get_subcmtcount($comment->id);?></span> REPLIES</a>
                                                             </div>
@@ -293,7 +293,7 @@
 							<div class="row pt-0">
 								<div class="col-md-12  pd-0" style="padding-left:5px;">
 								    <span class="pull-left" style="padding-top:8px;">
-        					            <a href="" style="text-transform:uppercase; padding-top:10px; text-overflow:ellipsis;"><b><?php echo $row->gener; ?></b></a>
+        					            <a href="javascript:void(0);" style="text-transform:uppercase; padding-top:10px; text-overflow:ellipsis;"><b><?php echo $row->gener; ?></b></a>
         					        </span>
         					        <span class="pull-right">
         					            <button class="btn btn-success unjoin<?php echo $row->id;?>" style="border-radius:4px!important;" onclick="commuunjoin(<?php echo $row->id;?>,'<?php echo $row->gener;?>')"> JOINED </button>
@@ -644,7 +644,7 @@ function comm_comments(story_id){ //Comments post submit
     		        '<span class="text-muted pull-right" style="font-weight:300; font-size:0.9em;">1 minute ago</span></span></div>'+
     	            '<div style="margin:8px 0 6px 2px" class="comment-text"><div class="more '+result.response.id+'">'+result.response.comment+'</div>'+
     	            
-                    '<div style="margin:5px 0;" class=""><a href="javascript:void(0);" style="padding-right:8px; font-size:0.8em; color:red" onclick="postReplycomment('+result.response.id+','+result.response.comm_id+','+result.response.story_id+')" class="pull-left" title="Reply">REPLY</a> <a href="" class="pull-left replycv">I</a>'+
+                    '<div style="margin:5px 0;" class=""><a href="javascript:void(0);" style="padding-right:8px; font-size:0.8em; color:red" onclick="postReplycomment('+result.response.id+','+result.response.comm_id+','+result.response.story_id+')" class="pull-left" title="Reply">REPLY</a> <a href="javascript:void(0);" class="pull-left replycv">I</a>'+
                     '<a href="javascript:void(0);" style="font-size:0.8em;color:red;" onClick="displayreplies('+result.response.id+','+result.response.comm_id+','+result.response.story_id+')" class="pull-left" title="Reply"><span class="old_subcmtcount'+result.response.id+'">0</span> REPLIES</a></div></div><br>'+
                     '<div class="comment-text"><div class="input-group postreplycomment'+result.response.id+'" style="margin-bottom:5px;"></div></div>'+
     		        '<div class="subcomments" style="margin-left:10px;" id="mysubList'+result.response.story_id+'_'+result.response.id+'"></div>'+'</div>');
@@ -695,7 +695,7 @@ function tpostscomm_comments(story_id){ //top posts Comments post submit
                         '<div style="margin:4px 0 6px 2px" class="comment-text">'+
                             '<div style="word-break:break-word;" class="more pcomment'+result.response.id+'">'+result.response.comment+'</div>'+
 								'<div style="margin:5px 0;" class="">'+
-                                    '<a href="javascript:void(0);" onclick="toppostReplycomment('+result.response.id+','+result.response.comm_id+','+result.response.story_id+')" class="pull-left replycv" title="Reply">REPLY</a> <a href="" class="pull-left replycv">I</a>'+
+                                    '<a href="javascript:void(0);" onclick="toppostReplycomment('+result.response.id+','+result.response.comm_id+','+result.response.story_id+')" class="pull-left replycv" title="Reply">REPLY</a> <a href="javascript:void(0);" class="pull-left replycv">I</a>'+
                                     '<a href="javascript:void(0);" onclick="toppostdisplayreplies('+result.response.id+','+result.response.comm_id+','+result.response.story_id+')" class="pull-left replycv" title="Replies">'+
                                         '<span class="told_subcmtcount'+result.response.id+'">0</span> REPLIES</a>'+
                                 '</div></div><br><div class="comment-text">'+
@@ -1150,7 +1150,7 @@ function commuunjoin(comm_id, gener) { // community unjoin button
                         '<div style="margin:8px 0 6px 2px" class="comment-text">'+
     					    '<div class="fsmore '+result.response.cid+'" style="word-wrap: break-word;">'+result.response.comment+'</div>'+
     						'<div style="margin:5px 0;" class="">'+
-                                '<a href="javascript:void(0);" onclick="fspostReplycomment('+result.response.cid+','+result.response.story_id+')" class="pull-left replycv" title="Reply">REPLY</a> <a href="" class="pull-left replycv">I</a>'+
+                                '<a href="javascript:void(0);" onclick="fspostReplycomment('+result.response.cid+','+result.response.story_id+')" class="pull-left replycv" title="Reply">REPLY</a> <a href="javascript:void(0);" class="pull-left replycv">I</a>'+
                                 '<a href="javascript:void(0);" onclick="fsdisplayreplies('+result.response.cid+','+result.response.story_id+')" class="pull-left replycv" title="Replies"> '+
                                     '<span class="fsold_subcmtcount'+result.response.cid+'">0</span> REPLIES</a>'+
                             '</div></div><br><div class="comment-text">'+
