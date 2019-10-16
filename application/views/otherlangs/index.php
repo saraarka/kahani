@@ -254,6 +254,9 @@
             <?php if($yournetworks->num_rows() > 4){ ?>
     	        <button id="right-btnyn" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i> </button>
     	    	<button id="left-btnyn" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i> </button>
+            <?php }else{ ?>
+                <button id="right-btnyn" style="visibility: hidden;" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i> </button>
+                <button id="left-btnyn" style="visibility: hidden;" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i> </button>
             <?php } ?>
 	    <?php } ?>
 	    </div><!-- // Your network STORIES end-->
@@ -344,6 +347,9 @@
                 <?php if($top_get_series->num_rows() > 4){ ?>
     		        <button id="right-btn" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
     		    	<button id="left-btn" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
+                <?php } else{ ?>
+                    <button id="right-btn" style="visibility: hidden;" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
+                    <button id="left-btn" style="visibility: hidden;" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
                 <?php } ?>
             <?php } ?>
 		</div>	<!-- // Top SERIES end -->
@@ -433,8 +439,11 @@
     				</div>
     			</div>
                 <?php if($get_series->num_rows() > 4){ ?>
-        			<button id="right-btnls" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i> </button>
+        			<button id="right-btnls" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
         			<button id="left-btnls" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i> </button>
+                <?php } else{ ?>
+                    <button id="right-btnls" style="visibility: hidden;" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
+                    <button id="left-btnls" style="visibility: hidden;" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i> </button>
                 <?php } ?>
             <?php } ?>
 		</div><!-- // Latest SERIES end-->
@@ -537,6 +546,9 @@
                 <?php if($top_get_storys->num_rows() > 4){ ?>
     				<button id="right-btnts" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
     				<button id="left-btnts" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
+                <?php }else{ ?>
+                    <button id="right-btnts" style="visibility: hidden;" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
+                    <button id="left-btnts" style="visibility: hidden;" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
                 <?php } ?>
 			</div>
 			<?php } ?>
@@ -641,7 +653,10 @@
             <?php if($get_storys->num_rows() > 4){ ?>
     	        <button id="right-btntsl" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i> </button>
     	    	<button id="left-btntsl" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i> </button>
-	        <?php } ?>
+	        <?php }else{ ?>
+                <button id="right-btntsl" style="visibility: hidden;" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i> </button>
+                <button id="left-btntsl" style="visibility: hidden;" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i> </button>
+            <?php } ?>
         <?php } ?>
 	    </div> <!-- // LATEST STORIES end-->
 		<div class="clear-fix"></div>
@@ -730,6 +745,9 @@
             <?php if($top_get_life->num_rows() > 3) { ?>
         		<button id="right-btnl" class="right-btn right-btnl"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
     			<button id="left-btnl" class="left-btn right-btnl"><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
+            <?php } else{ ?>
+                <button id="right-btnl" style="visibility: hidden;" class="right-btn right-btnl"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
+                <button id="left-btnl" style="visibility: hidden;" class="left-btn right-btnl"><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
             <?php } ?>
         <?php } ?>
 		</div>
@@ -821,7 +839,10 @@
             <?php if($get_life->num_rows() > 3){ ?>
     	        <button id="right-btnll" class="right-btn right-btnl"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
     		    <button id="left-btnll" class="left-btn right-btnl"><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
-	        <?php } ?>
+	        <?php } else{ ?>
+                <button id="right-btnll" style="visibility: hidden;" class="right-btn right-btnl"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
+                <button id="left-btnll" style="visibility: hidden;" class="left-btn right-btnl"><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
+            <?php } ?>
             <?php } ?>
 	    </div><!-- // LATEST LIFE EVENTS end-->
 	    <div class="clear-fix"></div>
@@ -918,7 +939,10 @@
             <?php if($get_nano->num_rows() > 3) {  ?>
     			<button id="right-btnn" class="right-btn right-btnn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
     			<button id="left-btnn" class="left-btn left-btnn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
-			<?php } ?>
+			<?php } else{ ?>
+                <button id="right-btnn" style="visibility: hidden;" class="right-btn right-btnn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
+                <button id="left-btnn" style="visibility: hidden;" class="left-btn left-btnn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
+            <?php } ?>
             <?php } ?>
 		</div>
 			

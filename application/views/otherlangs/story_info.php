@@ -28,7 +28,7 @@
     				<div class="box box-default" style="box-shadow:0px 0 7px 3px rgba(0,0,0,0.1); border:none; margin-bottom:20px;">
     					<div class="box-header with-border">
     						<h5 class="box-title" style="margin:0;">MONETISATION
-    						    <span class="es"><a href="#" class="es" data-toggle="modal" data-target="#pay">
+    						    <span class="es"><a href="javascript:void(0);" class="es" data-toggle="modal" data-target="#pay">
     				                <i class="fa fa-question-circle" style="font-size:18px;float:right;"></i></a>
     				            </span>
     						</h5>
@@ -134,7 +134,7 @@
 	    <div class="" style="text-align:center;">
 	        <h3>TO EDIT STORY INFO</h3><br>
 	        INSTALL OUR APP<br>
-	        <a href=""><img src="<?php echo base_url();?>assets/landing/storycarry app.png" class="img-thumbnaile"></a><br>
+	        <a href="javascript:void(0);"><img src="<?php echo base_url();?>assets/landing/storycarry app.png" class="img-thumbnaile"></a><br>
 	        Or<br>
 	        OPEN SITE ON DESKTOP
 	    </div>

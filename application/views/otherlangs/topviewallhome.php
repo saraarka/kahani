@@ -183,7 +183,7 @@
 							</div>
 							<div>
 								<hr style="width:100%;">
-								<a href="#" style="color:#000" data-toggle="modal" data-target="#modal-default<?php echo $nanorow->sid;?>">
+								<a href="javascript:void(0);" style="color:#000" data-toggle="modal" data-target="#modal-default<?php echo $nanorow->sid;?>">
 								    <font class="text-in-nanostory"><?php echo ($nanorow->story); ?>
 								    </font>
 								</a>
@@ -366,16 +366,16 @@
 			<div class="" style="padding-top:10px;">
 				<div class="row">
 					<div class="col-md-12 pd-5v" style="margin:12px;">
-						<a href=""><img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Facebook</p></a>
+						<a href="javascript:void(0);"><img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Facebook</p></a>
 					</div>
 					<div class="col-md-12 pd-5v" style="margin:12px;">
-						<a href=""><img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Whatsapp</p></a>
+						<a href="javascript:void(0);"><img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Whatsapp</p></a>
 					</div>
 					<div class="col-md-12 pd-5v" style="margin:12px;">
-						<a href=""><img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Twitter</p></a>
+						<a href="javascript:void(0);"><img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Twitter</p></a>
 					</div>
 					<div class="col-md-12 pd-5v" style="margin:12px;">
-						<a href=""><img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Copy to link</p></a>
+						<a href="javascript:void(0);"><img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Copy to link</p></a>
 					</div>
 				</div>
 			</div>

@@ -2339,15 +2339,38 @@ class Welcome extends CI_Controller {
 			$searchimages = $this->User_model->searchdimages($_POST['searchimage']);
 			if($searchimages->num_rows() > 0){
 				echo json_encode($searchimages->result());
+			}else{
+				echo json_encode(0);
+			}
+    	}else{
+    		$defaultimages = $this->User_model->loadmoredimages();
+    		if($defaultimages->num_rows() > 0){
+				echo json_encode($defaultimages->result());
+			}else{
+				echo json_encode(0);
 			}
     	}
 
+    }
+    public function removesavedimgs(){
+    	if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp']) && (file_exists('assets/images/'.$_POST['cover_imagelocalp']))){
+    		unlink('assets/images/'.$_POST['cover_imagelocalp']);
+    	}
+    	if(isset($_POST['cover_imagelocali']) && !empty($_POST['cover_imagelocali']) && (file_exists('assets/images/'.$_POST['cover_imagelocali'])) ){
+    		unlink('assets/images/'.$_POST['cover_imagelocali']);
+    	}
+    	if(isset($_POST['story_id']) && !empty($_POST['story_id'])){
+    		$response = $this->User_model->removesavedimgs($_POST['story_id']);
+    	}
+    	echo 1;
     }
     public function loadmoredimages(){
     	if(isset($_POST['start'], $_POST['limit']) && !empty($_POST['start']) && !empty($_POST['limit'])){
     		$searchimages = $this->User_model->loadmoredimages($_POST['start'], $_POST['limit']);
 			if($searchimages->num_rows() > 0){
 				echo json_encode($searchimages->result());
+			}else{
+				echo json_encode(0);
 			}
     	}
     }

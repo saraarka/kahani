@@ -661,7 +661,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><center>Update Your Post</center></h4>
+                <h4 class="modal-title">Update Your Post</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="updatecomm_post" action="#"></form>
@@ -886,9 +886,9 @@
     		        $('button.join'+comm_id).removeClass('btn-success').addClass('btn-success');
     		        $('button.join'+comm_id).attr('onclick','commuunjoin('+comm_id+',"'+gener+'")');
     		        $('button.join'+comm_id).removeClass('join'+comm_id).addClass('unjoin'+comm_id);
-    			    alert('You Are Successfully joined to the Community.');
+    			    console.log('You Are Successfully joined to the Community.');
     			}else{
-    			    alert('Failed to join the Community.');
+    			    console.log('Failed to join the Community.');
     			}
     		}
     	});
@@ -905,9 +905,9 @@
     		        $('button.unjoin'+comm_id).removeClass('btn-success').addClass('btn-success');
     		        $('button.unjoin'+comm_id).attr('onclick','commujoin('+comm_id+',"'+gener+'")');
     		        $('button.unjoin'+comm_id).removeClass('unjoin'+comm_id).addClass('join'+comm_id);
-    			    alert('You Are Successfully Un Joined the Community.');
+    			    console.log('You Are Successfully Un Joined the Community.');
     			}else{
-    			    alert('Failed to un join the Community.');
+    			    console.log('Failed to un join the Community.');
     			}
     		}
     	});
@@ -1495,7 +1495,7 @@
 			    $('#reportcomm_post').modal('hide');
 				//alert('report Successfully.');
 			}else{
-				alert('Failed to report.');
+				console.log('Failed to report.');
 			}
 		});
 	});

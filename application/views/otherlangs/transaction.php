@@ -25,7 +25,7 @@
     <section class="mt-5">
 		<div class="box box-widget boxv" style="box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);border-radius:3px;">
             <div class="title">
-                <a href="#"  data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></a>
+                <a href="javascript:void(0);"  data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></a>
                 <b>Monetisation :</b>
                 
                 <!-- /* Profile Monitize start */  -->
@@ -58,12 +58,12 @@
                     
                 <span class="pull-right">
                   <!-- <a href="javascript:void(0)" onclick="viewtrans();"> <i class="fa fa-cogs"></i></a>-->
-                   <a data-toggle="modal" href="" data-target="#cog" title="SUGGEST"> <i class="fa fa-cogs"></i></a>
+                   <a data-toggle="modal" href="javascript:void(0);" data-target="#cog" title="SUGGEST"> <i class="fa fa-cogs"></i></a>
                 </span>
             </div><br>
 		            
             <div class="">
-                <p>STORIES <a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></a>
+                <p>STORIES <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></a>
                     <span class="pull-right">
                         TOTAL READS
                     </span>
@@ -108,7 +108,7 @@
                             
             <div>
                 <span class="pull-right">
-                    <a href="#"  data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></a>
+                    <a href="javascript:void(0);"  data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></a>
                     <span>TOTAL EARNINGS : <?php echo $totalearnings;?></span><br>
                     <a href="javascript:void(0);" class="pull-right" style="font-size:12px;" onclick="viewtrans();" data-toggle="modal" data-target="#viewtrans">
                         <small>VIEW TRANSACTIONS</small>
@@ -116,14 +116,14 @@
                 </span><br><br>
 	            
                 <span class="pull-right">
-                    <a href="#"  data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></a>
+                    <a href="javascript:void(0);"  data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></a>
                     <span>BALANCE : <?php echo $tobe_payamount;?></span><br>
                 </span>
             </div>
             <div style="margin-top:35px;">
                 <center>
 	                <span class="">
-	                    <a href="#"  data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle" style="font-size:18px;"></i></a>
+	                    <a href="javascript:void(0);"  data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle" style="font-size:18px;"></i></a>
 	                    <?php if(($tobe_payamount >= 100) && ($monitizestatus == 'yes')){ ?>
 	                        <button class="btn btn-primary" onclick="receivemoneyreq();">RECEIVE MONEY</button>
 	                    <?php }else if(($tobe_payamount >= 100) && ($monitizestatus != 'yes')){ ?>
@@ -229,7 +229,7 @@
                          
                         </tr>
                     </thead>
-                    <tbody id="translist"></tbody>
+                    <tbody id="translist"><tr><td colspan="3"><center>No transactions found.</center></td></tr></tbody>
                 </table>
             </div>
         </div>

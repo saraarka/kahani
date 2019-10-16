@@ -726,9 +726,9 @@ function commujoin(comm_id, gener) { // community join button
                 $('button.join'+comm_id).removeClass('btn-danger').addClass('btn-success');
                 $('button.join'+comm_id).attr('onclick','commuunjoin('+comm_id+',"'+gener+'")');
                 $('button.join'+comm_id).removeClass('join'+comm_id).addClass('unjoin'+comm_id);
-                alert('You Are Successfully joind to the Community.');
+                console.log('You Are Successfully joind to the Community.');
             }else{
-                alert('Failed to join the Community.');
+                console.log('Failed to join the Community.');
             }
         }
 	});
@@ -745,9 +745,9 @@ function commuunjoin(comm_id, gener) { // community unjoin button
                 $('button.unjoin'+comm_id).removeClass('btn-success').addClass('btn-danger');
                 $('button.unjoin'+comm_id).attr('onclick','commujoin('+comm_id+',"'+gener+'")');
                 $('button.unjoin'+comm_id).removeClass('unjoin'+comm_id).addClass('join'+comm_id);
-                alert('You Are Successfully Un Joined the Community.');
+                console.log('You Are Successfully Un Joined the Community.');
             }else{
-                alert('Failed to un join the Community.');
+                console.log('Failed to un join the Community.');
             }
         }
 	});
@@ -794,7 +794,7 @@ function commuunjoin(comm_id, gener) { // community unjoin button
 			}else if((result.status == 1) && (result.response == 'success')){
 			    $('#reportcomm_post').modal('hide');
 			}else{
-				alert('Failed to report.');
+				console.log('Failed to report.');
 			}
 		});
 	});

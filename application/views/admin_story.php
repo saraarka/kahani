@@ -439,7 +439,9 @@
 				            <?php foreach ($recentstorieslife->result() as $recentlife) { ?>
                                 <div class="card1">
                                     <a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u", '-', $recentlife->title).'-'.$recentlife->sid);?>" class="imagebcg">
+                                        <?php if(isset($recentlife->image) && !empty($recentlife->image)){ ?>
                                         	<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/images/<?php echo $recentlife->image; ?>" alt="<?php echo $recentlife->title;?>" class="imageme1 lazy" style="max-width:266px;max-height:165px;">
+                                        }
                                         <?php } else { ?>
                                         	<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/images/series-stories.jpg" alt="<?php echo $recentlife->title;?>" class="imageme1 lazy" style="max-width:266px;max-height:165px;">
                                         <?php } ?>

@@ -46,7 +46,7 @@
                     <?php } ?>
                 </li>
                 <li class="treeview avj4 menu-open">
-                    <a href="#">
+                    <a href="javascript:void(0);">
                         <span class="btn btn-flat btn-warning" style="background:orangered; border-color:orangered;"><i class="fa fa-folder fa-2x"></i></span>
 						<span class="sidea"><?php if(isset($leftmenus['geners']) && !empty($leftmenus['geners'])){ echo $leftmenus['geners']; }else{ ?> Genres <?php } ?></span>
                         <span class="pull-right-container">

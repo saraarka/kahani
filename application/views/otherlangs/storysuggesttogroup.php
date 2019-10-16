@@ -27,7 +27,7 @@
 	        } else{ $openlinkurl = '#'; } ?>
     		<input type="hidden" name="url" value="<?php if($story->type != 'nano'){ echo base_url().$openlinkurl; } ?>">
     		<div class="row">
-        		<div class="col-md-12">
+        		<div class="col-md-12" style="margin-bottom: 10px;">
             		<div class="input-group" style="display:block;">
             		    <input type="text" name="description" class="form-control" placeholder="Enter your text to post on community">
             		</div>

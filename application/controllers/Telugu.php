@@ -2332,6 +2332,15 @@ class Telugu extends CI_Controller {
 			$searchimages = $this->User_model->searchdimages($_POST['searchimage']);
 			if($searchimages->num_rows() > 0){
 				echo json_encode($searchimages->result());
+			}else{
+				echo json_encode(0);
+			}
+    	}else{
+    		$defaultimages = $this->User_model->loadmoredimages();
+    		if($defaultimages->num_rows() > 0){
+				echo json_encode($defaultimages->result());
+			}else{
+				echo json_encode(0);
 			}
     	}
 
@@ -2341,6 +2350,8 @@ class Telugu extends CI_Controller {
     		$searchimages = $this->User_model->loadmoredimages($_POST['start'], $_POST['limit']);
 			if($searchimages->num_rows() > 0){
 				echo json_encode($searchimages->result());
+			}else{
+				echo json_encode(0);
 			}
     	}
     }

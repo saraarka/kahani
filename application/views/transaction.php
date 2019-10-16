@@ -229,7 +229,7 @@
                          
                         </tr>
                     </thead>
-                    <tbody id="translist"></tbody>
+                    <tbody id="translist"><tr><td colspan="3"><center>No transactions found.</center></td></tr></tbody>
                 </table>
             </div>
         </div>

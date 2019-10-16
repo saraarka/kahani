@@ -482,7 +482,7 @@
                             </div>
                         </a>
                     <?php }else{ ?>
-                        <a href="<?php echo base_url($this->uri->segment(1).'/admin-series/'.preg_replace("~[^\p{M}\w]+~u", '-', $row->title).'-'.$row->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $row->title).'-'.$row->story_id);?>" style="display:flex;font-family: Arial, sans-serif;">
+                        <a href="<?php echo base_url($this->uri->segment(1).'/admin-series/'.preg_replace("~[^\p{M}\w]+~u", '-', $row->title).'-'.$row->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $seriesftitles).'-'.$prefaceid);?>" style="display:flex;font-family: Arial, sans-serif;">
                             <div class="episode-div"><?php echo $i; ?></div>     
                             <div style="padding: 0px 8px;">
                                 <div class="episode-name"><?php echo ucfirst($row->title); ?></div> 
@@ -529,6 +529,8 @@
                                     </span>
                                 <?php } ?>
                             </label>
+                            <input type="hidden" name="cover_imagelocalp" class="cover_imagelocalp">    
+                            <input type="hidden" name="cover_imagelocali" class="cover_imagelocali">
                         </form>
                     </div>
                     <div class="removebtn"></div>
@@ -594,8 +596,9 @@
                 <?php if(isset($defaultimages) && ($defaultimages->num_rows() > 0)){ foreach($defaultimages->result() as $defaultimage){ ?>
                     <img class="selectimg<?php echo $defaultimage->id;?>" src="<?php echo base_url();?>assets/images/<?php echo $defaultimage->dimage;?>" onclick="selectimg(<?php echo $defaultimage->id;?>)">
                 <?php } } ?>
+                <div class="image-loadmore"><button>LOAD MORE</button></div>
             </div>
-            <div class="image-loadmore"><button>LOAD MORE</button></div>
+            
             <div class="upload-own-img-div">
                 <button class="upload-own-img-btn"><label><input type="file" name="cover_image" id="upload-file-selector" style="display:none;">+ UPLOAD IMAGE</label></button>
                 <button class="default-img-save-button">USE THIS IMAGE</button>
@@ -813,6 +816,7 @@ $(document).ready(function() {
     var limit = 6;
     var start = 0;
     function loadmoredimages(limit, start){
+      var insertimages = $('.defaultimages img:last').attr('class');
         $.ajax({
             url: '<?php echo base_url().$this->uri->segment(1);?>/loadmoredimages',
             method: "POST",
@@ -825,7 +829,7 @@ $(document).ready(function() {
                     $.each(data,function (p,q){
                     images+= '<img class="selectimg'+q.id+'" src="<?php echo base_url();?>assets/images/'+q.dimage+'" onclick="selectimg('+q.id+')">';
                     });
-                    $('.defaultimages').append(images);
+                    $('.'+insertimages).after(images);
                 }else{
                     $('.image-loadmore').html('No more Results');
                 }
@@ -839,21 +843,25 @@ $(document).ready(function() {
 
     function searchimage(){
         var searchimage = $('#searchimage').val();
-        if(searchimage){
+        //if(searchimage){
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url().$this->uri->segment(1);?>/searchimage",
                 data: {'searchimage': searchimage},
                 dataType: "json",
                 success: function(data) {
-                    var images = '';
-                    $.each(data,function (p,q){
-                    images+= '<img class="selectimg'+q.id+'" src="<?php echo base_url();?>assets/images/'+q.dimage+'" onclick="selectimg('+q.id+')">';
-                    });
-                    $('.defaultimages').html(images);
+                    if(data && data.length > 0){
+                        var images = '';
+                        $.each(data,function (p,q){
+                        images+= '<img class="selectimg'+q.id+'" src="<?php echo base_url();?>assets/images/'+q.dimage+'" onclick="selectimg('+q.id+')">';
+                        });
+                        $('.defaultimages').html(images);
+                    }else{
+                        $('.defaultimages').html('No Images found with your search.');
+                    }
                 }
             });
-        }
+        //}
     }
     function selectimg(id){
         $('.defaultimages img').removeClass("selectedIMG");
@@ -881,12 +889,27 @@ $(document).ready(function() {
     $(".removebtn").click(function(){
         $(this).parent(".pip").remove();
         $('.removebtn').html("");
-        $('.cover_imagelocalp').val('');
-        $('.cover_imagelocali').val('');
         $("#upload-file-selectorserver").val('');
+        $("#upload-file-selector").val('');
         $('.upload-file-selector').html('<img src="<?php echo base_url();?>assets/images/flat.png" style="cursor:pointer;padding:124px;"/>'+
             '<p class="browseimg">Image SIZE should be smaller than 2MB.</p>');
+        removesavedimgs();    
+        $('.cover_imagelocalp').val('');    
+        $('.cover_imagelocali').val('');
     });
+    function removesavedimgs(){   
+        var story_id = $('#story_id').val();    
+        if(story_id){   
+            $.ajax({    
+                type: "POST",   
+                url: "<?php echo base_url();?>removesavedimgs",   
+                data: { 'story_id': story_id },   
+                success: function(data) {   
+                    console.log('removed');   
+                }   
+            });   
+        }   
+    }
     function serverurldraftimage(picture1, story_id, type){
         $.ajax({
             url: "<?php echo base_url().$this->uri->segment(1);?>/serverurldraftimage",
@@ -917,6 +940,7 @@ $(document).ready(function() {
             $("#upload-file-selector").on("change", function(e) {
                 var previewimage = $('#previewimage').val();
                 var story_id = $('#story_id').val();
+                var type = $('#storytype').val();
                 var files = e.target.files,
                 filesLength = files.length;
                 for (var i = 0; i < filesLength; i++) {
@@ -926,42 +950,13 @@ $(document).ready(function() {
                         setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                         $("#upload-file-selector").val('');
                     }else{
-
-                        var fd = new FormData();
-                        var files = $('#upload-file-selector')[0].files[0];
-                        fd.append('file',files);
-                        fd.append('type','life');
-                        $.ajax({
-                            url:'<?php echo base_url().$this->uri->segment(1);?>/localimage',
-                            type: 'POST',
-                            data: fd,
-                            contentType: false,
-                            processData: false,
-                            cache: false,
-                            success: function(response){
-                                var responsedata = JSON.parse(response);
-                                if(responsedata.picture1 != 0){
-                                    $('.cover_imagelocalp').val(responsedata.picture1);
-                                    $('.cover_imagelocali').val(responsedata.image);
-                                    $("#upload-file-selectorserver").val('');
-                                    urldraftimage(responsedata.picture1, responsedata.image, story_id);
-                                    $('body').toggleClass('hide-body-scroll');
-                                    $('.modal-wrapper').removeClass('open');
-                                    return false;
-                                    console.log('file uploaded');
-                                }else{
-                                    console.log('file not uploaded');
-                                }
-                            }
-                        });
-
                         var fileReader = new FileReader();
                         fileReader.onload = (function(e) {
                             var file = e.target;
                             $('.upload-file-selector').html("<span class=\"pip\">" +
                                 "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>");
                             $('.removebtn').html("<div class=\"removeimg\"><span class=\"remove\" style=cursor:pointer;>REMOVE</span></div></span>");
-                            var form = $('form#uploaddraftimage')[0];
+                            /*var form = $('form#uploaddraftimage')[0];
                             var $formData = new FormData(form);
                             $formData.append('file', $("#upload-file-selector").get(0).files[0]);
                             $.ajax({
@@ -973,8 +968,35 @@ $(document).ready(function() {
                                 success: function (resultdata) {
                                     console.log('success');
                                 }
+                            });*/
+                            var fd = new FormData();
+                            var files = $('#upload-file-selector')[0].files[0];
+                            fd.append('file',files);
+                            fd.append('type',type);
+                            $.ajax({
+                                url:'<?php echo base_url().$this->uri->segment(1);?>/localimage',
+                                type: 'POST',
+                                data: fd,
+                                contentType: false,
+                                processData: false,
+                                cache: false,
+                                success: function(response){
+                                    var responsedata = JSON.parse(response);
+                                    if(responsedata.picture1 != 0){
+                                        $('.cover_imagelocalp').val(responsedata.picture1);
+                                        $('.cover_imagelocali').val(responsedata.image);
+                                        $("#upload-file-selectorserver").val('');
+                                        urldraftimage(responsedata.picture1, responsedata.image, story_id);
+                                        $('body').toggleClass('hide-body-scroll');
+                                        $('.modal-wrapper').removeClass('open');
+                                        return false;
+                                        console.log('file uploaded');
+                                    }else{
+                                        console.log('file not uploaded');
+                                    }
+                                }
                             });
-                            $(".remove").click(function(){
+                            /*$(".remove").click(function(){
                                 $(".pip").remove();
                                 $('.removebtn').html("");
                                 $("#upload-file-selector").val('');
@@ -984,7 +1006,7 @@ $(document).ready(function() {
                                     $('.upload-file-selector').html('<img src="<?php echo base_url();?>assets/images/flat.png" style="cursor:pointer;padding:124px;"/>'+
                                         '<p class="browseimg">Image SIZE should be smaller than 2MB.</p>');
                                 }
-                            });  
+                            });  */
                         });
                         fileReader.readAsDataURL(f);
                     }

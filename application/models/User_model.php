@@ -123,7 +123,11 @@ class User_model extends CI_model {
 			->like('search_keywords',$keyword, 'both')->get();
 	}
 	public function loadmoredimages($start=false, $limit=false){
-		return $this->db->from('defaultimages')->limit($limit, $start)->get();
+		$this->db->from('defaultimages');
+		if(isset($limit, $start) && !empty($limit)){
+			$this->db->limit($limit, $start);
+		}
+		return $this->db->get();
 	}
 	public function series_story_uplode($data) {
 		$this->db->insert('stories',$data);
@@ -424,13 +428,23 @@ class User_model extends CI_model {
 	}
 	public function uploaddraftimage($story_id, $data){
 		$query = $this->db->select('cover_image, image')->from('stories')->where('sid',$story_id)->get()->row_array();
-		if(isset($data['cover_image'], $query['cover_image']) && !empty($data['cover_image']) && !empty($query['cover_image'])){
+		if(isset($data['cover_image'], $query['cover_image']) && !empty($data['cover_image']) && !empty($query['cover_image']) && (file_exists('assets/images/'.$query['cover_image']))){
 			unlink('assets/images/'.$query['cover_image']);
 		}
-		if(isset($data['image'], $query['image']) && !empty($query['image']) && !empty($data['image'])){
+		if(isset($data['image'], $query['image']) && !empty($query['image']) && !empty($data['image']) && (file_exists('assets/images/'.$query['image']))){
 		    unlink('assets/images/'.$query['image']);
 		}
 		return $this->db->where('sid',$story_id)->update('stories',$data);
+	}
+	public function removesavedimgs($story_id){
+		$query = $this->db->select('cover_image, image')->from('stories')->where('sid',$story_id)->get()->row_array();
+		if(isset($query['cover_image']) && !empty($query['cover_image']) && (file_exists('assets/images/'.$query['cover_image']))){
+			unlink('assets/images/'.$query['cover_image']);
+		}
+		if(isset($query['image']) && !empty($query['image']) && (file_exists('assets/images/'.$query['image']))){
+		    unlink('assets/images/'.$query['image']);
+		}
+		return $this->db->where('sid',$story_id)->update('stories', array('cover_image' => '', 'image' => ''));
 	}
 	public function notifications() {
 	   if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){
@@ -3229,7 +3243,7 @@ class User_model extends CI_model {
         
         $query = "SELECT signup.*, (SELECT COUNT(follow.id) from follow where signup.user_id = follow.writer_id) as writerpoints FROM signup ";
             if(isset($searchdata) && !empty($searchdata)){
-                $query.=" WHERE signup.name LIKE '%$searchdata%' ";
+                $query.=" WHERE signup.name LIKE '%$searchdata%' OR signup.profile_name LIKE '%$searchdata%' ";
             }
             $query.=" GROUP BY signup.user_id ORDER BY writerpoints DESC, signup.user_id DESC LIMIT ".$start.",".$limit;
         return $this->db->query($query);

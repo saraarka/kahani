@@ -165,7 +165,7 @@
         <?php } } else{ ?>
         <img src="<?php echo base_url();?>assets/landing/logom.jpeg" alt="storycarry.com" style="width: 70px;margin-top: 10px;margin-left: 15px;">
         <?php } ?>-->
-        <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/logom.png" class="lazy" alt="storycarry.com" style="height: 40px;margin-top: 10px;margin-left: 15px;">
+        <img src="<?php echo base_url();?>assets/images/logom.png" alt="storycarry.com" style="height: 40px;margin-top: 10px;margin-left: 15px;">
         <div style="margin:19px 15px 0px 15px; float: right;font-size:1.1em;">
             <font>
                 <!--<a href="#genv" style="color:#000; text-decoration:none" data-toggle="modal" data-target="#genv">FAQ</a>-->
@@ -194,7 +194,7 @@
                     <?php } } else { ?>
                     <img src="<?php echo base_url();?>assets/landing/logo.png" alt="storycarry logo" style="margin-top: 15px; margin-left: 20px;" >
                     <?php } ?>-->
-                    <a href="<?php echo base_url();?>"><img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/landing/storylogoland.png" class="lazy" alt="storycarry logo" style="margin-top: 15px; margin-left: 20px;" ></a>
+                    <a href="<?php echo base_url();?>"><img src="<?php echo base_url();?>assets/landing/storylogoland.png" alt="storycarry logo" style="margin-top: 15px; margin-left: 20px;" ></a>
                 </div>
                 <div style="display: inline-block;margin:15px 50px 0px 0px; float: right;">
                     <a href="<?php echo base_url();?>faq" style="color:#fff;text-decoration:none">FAQ</a>
@@ -207,7 +207,7 @@
                     <div>
                         <a href="#loginmodal" style="color:#fff; text-decoration:none" data-toggle="modal" data-target="#loginmodal">
                         <div class="startwrite">
-                            <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>/assets/landing/svg/editsolid.svg" class="lazy" alt="write story" style="width:18px">
+                            <img src="<?php echo base_url();?>/assets/landing/svg/editsolid.svg" alt="write story" style="width:18px">
                             START WRITING
                         </div>
                         </a>
@@ -226,7 +226,7 @@
                     <?php } ?> <!-- Type Writes end -->
                     
                     <div style="margin-top:22px;cursor:pointer">
-                        <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>/assets/landing/storycarry-app.png" class="lazy" alt="StoryCarry app">
+                        <img src="<?php echo base_url();?>/assets/landing/storycarry-app.png" alt="StoryCarry app">
                     </div>
                     <div>
                         <font class="download-text">  to carry your stories</font>
@@ -272,10 +272,10 @@
         </font>
         <div class="socialbtns">
             <!--<font style="font-size:14px;color:black;font-family: 'Varela Round', sans-serif;" class="socialmedia">SOCIAL MEDIA : </font>-->
-            <a href="javascript:void(0);"><img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" class="soc-img lazy" data-src="<?php echo base_url();?>/assets/landing/svg/facebook-square-brands.svg" style="margin-right:6px;cursor:pointer;width:21px;height:24px" alt="facebook storycarry"></a>
-            <a href="javascript:void(0);"><img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" class="soc-img lazy" data-src="<?php echo base_url();?>/assets/landing/svg/instagram-brands.svg" alt="instagram storycarry" style="margin-right:6px;cursor:pointer; width:21px;height:24px"></a>
-            <a href="javascript:void(0);"><img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" class="soc-img lazy" data-src="<?php echo base_url();?>/assets/landing/svg/twitter-square-brands.svg" style="margin-right:6px;cursor:pointer;width:21px;height:24px" alt="twitter storycarry"></a>
-            <a href="javascript:void(0);"><img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" class="soc-img lazy" data-src="<?php echo base_url();?>/assets/landing/svg/quora-brands.svg" style="cursor:pointer;width:21px;height:24px" alt="Quora storycarry"></a>
+            <a href="javascript:void(0);"><img class="soc-img" src="<?php echo base_url();?>/assets/landing/svg/facebook-square-brands.svg" style="margin-right:6px;cursor:pointer;width:21px;height:24px" alt="facebook storycarry"></a>
+            <a href="javascript:void(0);"><img class="soc-img" src="<?php echo base_url();?>/assets/landing/svg/instagram-brands.svg" alt="instagram storycarry" style="margin-right:6px;cursor:pointer; width:21px;height:24px"></a>
+            <a href="javascript:void(0);"><img class="soc-img" src="<?php echo base_url();?>/assets/landing/svg/twitter-square-brands.svg" style="margin-right:6px;cursor:pointer;width:21px;height:24px" alt="twitter storycarry"></a>
+            <a href="javascript:void(0);"><img class="soc-img" src="<?php echo base_url();?>/assets/landing/svg/quora-brands.svg" style="cursor:pointer;width:21px;height:24px" alt="Quora storycarry"></a>
         </div>
     </div>
     <div class="footer1">
@@ -303,12 +303,12 @@
 					<span class="text-danger lerror" style="color:red;font-family: sans-serif; font-size: 14px;"><?php echo $this->session->flashdata('signinmsg'); ?></span>
 					<form id="loginform" action="#" method="POST" style="margin-bottom: 0;">
 					    <div class="input-container has-feedback">
-                            <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/landing/svg/email.svg" class="icon lazy" alt="Email">
+                            <img src="<?php echo base_url();?>assets/landing/svg/email.svg" class="icon" alt="Email">
                             <input class="input-field" type="text" placeholder="Email" name="email" id="email" autocomplete="off">
                         </div>
                         <span class="text-danger email" style="color:red;font-family:sans-serif; font-size: 14px;"></span>
                         <div class="input-container has-feedback" style="margin-top:5px;">
-                            <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/landing/svg/lock.svg" class="icon lazy" alt="Password">
+                            <img src="<?php echo base_url();?>assets/landing/svg/lock.svg" class="icon" alt="Password">
                             <input class="input-field" type="password" placeholder="Password" name="password" autocomplete="off">
                         </div>
                         <span class="text-danger password" style="color:red;font-family: sans-serif; font-size: 14px;"></span>
@@ -361,19 +361,19 @@
 					<!--<span class="text-danger lerror" style="color:red;font-family:sans-serif;font-size:14px;"><?php echo $this->session->flashdata('signinmsg'); ?></span>-->
 					<form id="signup" action="#" method="POST" style="margin-bottom: 0;">
 					    <div class="input-container has-feedback" style="margin-bottom:0px;">
-                            <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/landing/svg/user.svg" class="icon lazy" alt="User">
+                            <img src="<?php echo base_url();?>assets/landing/svg/user.svg" class="icon" alt="User">
                             <input class="input-field" type="text" placeholder="Name" name="name">
                         </div>
                         <span class="text-danger name" style="color:red;font-family:sans-serif;font-size:14px;"></span>
                         
 					    <div class="input-container has-feedback" style="margin-top:5px;">
-                            <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/landing/svg/email.svg" class="icon lazy" alt="Email">
+                            <img src="<?php echo base_url();?>assets/landing/svg/email.svg" class="icon" alt="Email">
                             <input class="input-field" type="email" placeholder="Email" name="email">
                         </div>
                         <span class="text-danger email" style="color:red;font-family:sans-serif;font-size:14px;"></span>
                         
                         <div class="input-container has-feedback" style="margin-top:6px;">
-                            <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/landing/svg/lock.svg" class="icon lazy" alt="Password">
+                            <img src="<?php echo base_url();?>assets/landing/svg/lock.svg" class="icon" alt="Password">
                             <input class="input-field" type="password" placeholder="Password" name="password">
                         </div>
                         <span class="text-danger password" style="color:red;font-family:sans-serif;font-size:14px;"></span>
@@ -424,7 +424,7 @@
 					<span class="ferrorresend"></span>
 					<form id="forgotpassword" action="#" method="POST">
 					    <div class="input-container has-feedback" style="margin-top:2px;">
-                            <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/landing/svg/email.svg" class="icon lazy" alt="Email">
+                            <img src="<?php echo base_url();?>assets/landing/svg/email.svg" class="icon" alt="Email">
                             <input class="input-field" type="email" placeholder="Email" name="femail" required>
                         </div>
                         <span class="text-danger femail" style="color:red;font-family: sans-serif;font-size: 14px;"></span>
@@ -458,13 +458,13 @@
 					<form id="newpasswordform" action="#" method="POST" style="margin-bottom: 0;">
 					    <input type="hidden" name="userid" value="<?php echo $hash;?>" id="fpwduserid">
 					    <div class="input-container has-feedback" style="margin-top:2px;">
-                            <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/landing/svg/lock.svg" class="icon lazy" alt="Password">
+                            <img src="<?php echo base_url();?>assets/landing/svg/lock.svg" class="icon" alt="Password">
                             <input class="input-field" type="password" placeholder="New Password" name="newpassword">
                         </div>
                         <span class="text-danger newpassword" style="color:red;font-family: sans-serif; font-size: 14px;"></span>
                         
                         <div class="input-container has-feedback" style="margin-top:5px;">
-                            <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/landing/svg/lock.svg" class="icon lazy" alt="Password">
+                            <img src="<?php echo base_url();?>assets/landing/svg/lock.svg" class="icon" alt="Password">
                             <input class="input-field" type="password" placeholder="Confirm New Password" name="cnewpassword">
                         </div>
                         <span class="text-danger cnewpassword" style="color:red;font-family: sans-serif; font-size: 14px;"></span>
@@ -576,13 +576,13 @@
 					<span class="text-danger slerror" style="color:red;font-family: sans-serif; font-size: 14px;"><?php echo $this->session->flashdata('sfbgmsg'); ?></span>
 					<form id="socialfbg" action="#" method="POST" style="margin-bottom: 0;">
 					    <div class="input-container has-feedback" style="margin-top:2px;">
-                            <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/landing/svg/user.svg" class="icon lazy" alt="User">
+                            <img src="<?php echo base_url();?>assets/landing/svg/user.svg" class="icon" alt="User">
                             <input class="input-field" type="text" placeholder="Name" name="fbgname" readonly style="background-color: #eee;opacity: 1;">
                         </div>
                         <span class="text-danger fbgname" style="color:red;font-family:sans-serif; font-size:14px;"></span>
                         
 					    <div class="input-container has-feedback" style="margin-top:5px;">
-                            <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/landing/svg/email.svg" class="icon lazy" alt="Email">
+                            <img src="<?php echo base_url();?>assets/landing/svg/email.svg" class="icon" alt="Email">
                             <input class="input-field" type="email" placeholder="Email" name="fbgemail">
                         </div>
                         <span class="text-danger fbgemail" style="color:red;font-family:sans-serif;font-size:14px;"></span>
