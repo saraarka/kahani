@@ -220,8 +220,8 @@
                 <h4 class="modal-title">View Transactions</h4>
             </div>
             <div class="modal-body">
-                <table class="table table-striped table-hovered trans_modal">
-                    <thead>
+                <table class="table table-striped table-hovered trans_modal" style="margin-bottom: auto;">
+                    <!--<thead>
                         <tr>
                             <th>DATE</th>
                             <th class="text-center">SOURCE</th>
@@ -229,7 +229,7 @@
                          
                         </tr>
                     </thead>
-                    <tbody id="translist"><tr><td colspan="3"><center>No transactions found.</center></td></tr></tbody>
+                    <tbody id="translist"></tbody>-->
                 </table>
             </div>
         </div>
@@ -536,15 +536,18 @@
             dataType: 'json',
             success: function(data) {
                 if(data != 0){
-                    var trans = '';
+                    var trans = '<thead> <tr><th>DATE</th> <th class="text-center"> SOURCE </th> <th class="text-right"> AMOUNT </th> </tr> </thead><tbody>';
                     $.each(data,function (p,q){
     					trans+='<tr><td>'+(q.created_at).substr(0,10)+'</td><td>'+q.paymenttype+'</td><td>'+q.amount+'</td></tr>';
     				});
-                    $('#translist').html(trans);
+                    trans+='</tbody>';
+                    //$('#translist').html(trans);
+                    $('.trans_modal').html(trans);
                     $('#viewtrans').modal('show');
                 }else{
-                    $('#snackbar').text('No transactions were found').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
+                    $('.trans_modal').html('<div style="padding-top:15px;"> <center> No transactions found </center> </div>');
+                    //$('#snackbar').text('No transactions were found').addClass('show');
+    				//setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
                 }
             }
     	});

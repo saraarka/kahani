@@ -337,12 +337,13 @@
             .image-loadmore{
               width: 100%;
               text-align: center;
+              margin: 15px 0px;
             }
 
             .image-loadmore button {
               height: 30px;
               font-size: 14px;
-              margin: 10px 0px;
+              /*margin: 10px 0px;*/
               background: #3c8dbc;
               border: none;
               border-radius: 3px;
@@ -704,6 +705,7 @@ $(document).ready(function() {
     var start = 0;
     function loadmoredimages(limit, start){
       var insertimages = $('.defaultimages img:last').attr('class');
+      $('.image-loadmore button').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
         $.ajax({
             url: '<?php echo base_url();?>welcome/loadmoredimages',
             method: "POST",
@@ -718,6 +720,7 @@ $(document).ready(function() {
                     });
                     //$('.defaultimages').append(images);
                     $('.'+insertimages).after(images);
+                    $('.image-loadmore button').html('LOAD MORE');
                 }else{
                     $('.image-loadmore').html('No more Results');
                 }

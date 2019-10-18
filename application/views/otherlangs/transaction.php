@@ -25,7 +25,7 @@
     <section class="mt-5">
 		<div class="box box-widget boxv" style="box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);border-radius:3px;">
             <div class="title">
-                <a href="javascript:void(0);"  data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></a>
+                <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></a>
                 <b>Monetisation :</b>
                 
                 <!-- /* Profile Monitize start */  -->
@@ -108,7 +108,7 @@
                             
             <div>
                 <span class="pull-right">
-                    <a href="javascript:void(0);"  data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></a>
+                    <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></a>
                     <span>TOTAL EARNINGS : <?php echo $totalearnings;?></span><br>
                     <a href="javascript:void(0);" class="pull-right" style="font-size:12px;" onclick="viewtrans();" data-toggle="modal" data-target="#viewtrans">
                         <small>VIEW TRANSACTIONS</small>
@@ -116,14 +116,14 @@
                 </span><br><br>
 	            
                 <span class="pull-right">
-                    <a href="javascript:void(0);"  data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></a>
+                    <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle"></i></a>
                     <span>BALANCE : <?php echo $tobe_payamount;?></span><br>
                 </span>
             </div>
             <div style="margin-top:35px;">
                 <center>
 	                <span class="">
-	                    <a href="javascript:void(0);"  data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle" style="font-size:18px;"></i></a>
+	                    <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal"><i class="fa fa-question-circle" style="font-size:18px;"></i></a>
 	                    <?php if(($tobe_payamount >= 100) && ($monitizestatus == 'yes')){ ?>
 	                        <button class="btn btn-primary" onclick="receivemoneyreq();">RECEIVE MONEY</button>
 	                    <?php }else if(($tobe_payamount >= 100) && ($monitizestatus != 'yes')){ ?>
@@ -220,8 +220,8 @@
                 <h4 class="modal-title">View Transactions</h4>
             </div>
             <div class="modal-body">
-                <table class="table table-striped table-hovered trans_modal">
-                    <thead>
+                <table class="table table-striped table-hovered trans_modal" style="margin-bottom: auto;">
+                    <!--<thead>
                         <tr>
                             <th>DATE</th>
                             <th class="text-center">SOURCE</th>
@@ -229,7 +229,7 @@
                          
                         </tr>
                     </thead>
-                    <tbody id="translist"><tr><td colspan="3"><center>No transactions found.</center></td></tr></tbody>
+                    <tbody id="translist"><tr><td colspan="3"><center>No transactions found.</center></td></tr></tbody>-->
                 </table>
             </div>
         </div>
@@ -477,15 +477,15 @@
             dataType: 'json',
             success: function(data) {
                 if(data != 0){
-                    var trans = '';
+                    var trans = '<thead> <tr><th>DATE</th> <th class="text-center"> SOURCE </th> <th class="text-right"> AMOUNT </th> </tr> </thead><tbody>';
                     $.each(data,function (p,q){
-    					trans+='<tr><td>'+(q.created_at).substr(0,10)+'</td><td>'+q.paymenttype+'</td><td>'+q.amount+'</td><td>'+q.status+'</td></tr>';
-    				});
-                    $('#translist').html(trans);
+                        trans+='<tr><td>'+(q.created_at).substr(0,10)+'</td><td>'+q.paymenttype+'</td><td>'+q.amount+'</td></tr>';
+                    });
+                    trans+='</tbody>';
+                    $('.trans_modal').html(trans);
                     $('#viewtrans').modal('show');
                 }else{
-                    $('#snackbar').text('No transactions were found').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
+                    $('.trans_modal').html('<div style="padding-top:15px;"> <center> No transactions found </center> </div>');
                 }
             }
     	});
