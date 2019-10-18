@@ -414,12 +414,21 @@ class Welcome extends CI_Controller {
 	    if(isset($this->session->userdata['logged_in']['user_id'])) {
 			redirect(base_url().'english');
 		}
+		
 		$header['languages'] = $this->User_model->language();
 		$header['gener'] = $this->User_model->gener();
 		$header['typewrites'] = $this->User_model->typewrites();
 		$header['landinggrids'] = $this->User_model->landiggrids();
 		$header['landinglogos'] = $this->User_model->landinglogos();
-		$header['hash'] = $hash;
+		
+		$respose = $this->User_model->pwdvalidity($hash);
+		if($respose == 1){
+			$header['hash'] = $hash;
+		}else if($respose == 2){
+			$header['hash'] = 'expired';
+		}else{
+			$header['hash'] = 'wrong';
+		}
 		$this->load->view('landing.php', $header);
 	}
 	public function newpassword(){
@@ -5186,6 +5195,23 @@ class Welcome extends CI_Controller {
     	    $data['tab3'] = $this->User_model->suggestnotis($_POST['start'],$_POST['limit']);
     	    $this->load->view('loadnotifications.php',$data);
 	    }
+	}
+	public function emailunsubs($hash = false){
+		if (isset($hash) && !empty($hash)) {
+			$response = $this->User_model->emailunsubs($hash);
+			if($response == 1){
+				$data['response'] = 'sunsubs';
+				$this->load->view('statusunsubs',$data);
+			}else if($response == 2){
+				$data['response'] = 'wunsubs';
+				$this->load->view('statusunsubs',$data);
+			}else{
+				$data['response'] = 'dunsubs';
+				$this->load->view('statusunsubs',$data);
+			}
+		}else{
+			$this->load->view('statusunsubs');
+		}
 	}
 	
     public function comment(){

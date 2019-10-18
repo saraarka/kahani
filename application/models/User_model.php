@@ -158,7 +158,7 @@ class User_model extends CI_model {
             				'title_id' => $insert_id,
             				'created_at' => Date('Y-m-d H:i:s'),
             			);
-            			$notification['redirect_uri'] = 'series/'.preg_replace('/\s+/', '-', $data['title'])."-".$insert_id.'/'.preg_replace('/\s+/', '-', $data['title'])."-".$insert_id;
+            			$notification['redirect_uri'] = 'series/'.preg_replace("~[^\p{M}\w]+~u",'-', $data['title'])."-".$insert_id.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $data['title'])."-".$insert_id;
             			$this->db->insert('notifications',$notification);
     		        }
     		        
@@ -194,38 +194,58 @@ class User_model extends CI_model {
 	public function registerlogin($userid){
 	    return $this->db->from('signup')->where('user_id',$userid)->limit(1)->get();
 	}
-	public function sendnotifymail($to_email,$subject,$message){
+	public function emailunsubs($hash){
+		$query = $this->db->select('user_id, emailsubscribe')->where('md5(email)',$hash)->from('signup')->get()->row_array();
+		if(isset($query['emailsubscribe']) && ($query['emailsubscribe'] == 1)){
+			return $this->db->where('md5(email)',$hash)->where('user_id',$query['user_id'])->update('signup', array('emailsubscribe' => 0));
+		}else if(isset($query['emailsubscribe']) && ($query['emailsubscribe'] == 0)){
+			return 2;
+		}else{
+			return 0;
+		}
+	}
+	public function sendnotifymail($to_email, $subject, $message, $emailunsubs = false){
 	    /*$headers = 'From: info@arkainfoteck.xyz' . "\r\n" .
 	        'Reply-To: info@arkainfoteck.xyz' . "\r\n" .
 	        'Content-type: text/html'."\r\n".
 	        'X-Mailer: PHP/' . phpversion();
         $status = mail($to_email,$subject,$message,$headers);*/
-        /*if(is_array($to_email)){  $status = '';
-            foreach($to_email as $toemail){
-                $this->email->from(ADMIN_EMAIL, ADMIN_NAME);
-        		$this->email->to($toemail);     
-        		$this->email->subject($subject);
-        		$this->email->message($message);
-        		$this->email->set_mailtype('html');
-        		$status = $this->email->send();
-        		if($status) {
-                    $status = $status;
-                }
-            }
-            return $status;
+        if(is_array($to_email)){  $status = '';
+		    foreach($to_email as $toemail){
+		        $this->email->from(ADMIN_EMAIL, ADMIN_NAME);
+				$this->email->to($toemail);     
+				$this->email->subject($subject);
+				if(isset($emailunsubs) && !empty($emailunsubs)){
+					$emailunsubs['emailto'] = $toemail;
+					$message = $this->load->view('emailunsubs', $emailunsubs, TRUE);
+				}else{
+					$this->email->message($message);
+				}
+				$this->email->set_mailtype('html');
+				$status = $this->email->send();
+				if($status) {
+		            $status = $status;
+		        }
+		    }
+		    return $status;
         }else{
-            $this->email->from(ADMIN_EMAIL, ADMIN_NAME);
-    		$this->email->to($to_email);     
-    		$this->email->subject($subject);
-    		$this->email->message($message);
-    		$this->email->set_mailtype('html');
-    		$status = $this->email->send();
-    		if($status) { 
-                return $status;
-            } else { 
-                return false;
-            }
-        }*/
+			$this->email->from(ADMIN_EMAIL, ADMIN_NAME);
+			$this->email->to($to_email);     
+			$this->email->subject($subject);
+			if(isset($emailunsubs) && !empty($emailunsubs)){
+				$emailunsubs['emailto'] = $toemail;
+				$message = $this->load->view('emailunsubs', $emailunsubs, TRUE);
+			}else{
+				$this->email->message($message);
+			}
+			$this->email->set_mailtype('html');
+			$status = $this->email->send();
+			if($status) { 
+			    return $status;
+			} else { 
+			    return false;
+			}
+        }
 	}
 	public function getuseremail($userid){
 	    $query = $this->db->select('email')->from('signup')->where('user_id',$userid)->limit(1)->get()->result();
@@ -360,8 +380,15 @@ class User_model extends CI_model {
             }   }
             $subject = $this->session->userdata['logged_in']['name'].' published a new story';
 			$message = 'Story Carry user '.$this->session->userdata['logged_in']['name'].' published a new story ';
+			$emailunsubs = array(
+				'logotext' => 'NEW STORY',
+				'name' => $this->session->userdata['logged_in']['name'],
+				'bodytext' => ' published a new story ',
+				'title'	=> $title,
+				'storyurl' => 'story/'.preg_replace("~[^\p{M}\w]+~u",'-', $title)."-".$id,
+			);
 			if(isset($to_emails) && count($to_emails) > 0){
-			    $this->sendnotifymail($to_emails,$subject,$message);
+			    $this->sendnotifymail($to_emails,$subject,$message, $emailunsubs);
 			}
 		}
 		return $update;
@@ -396,7 +423,7 @@ class User_model extends CI_model {
         				'to_id' => $follow->user_id,
         				'title' => '',
         				'title_id' => $id,
-        				'redirect_uri' => 'story/'.preg_replace('/\s+/', '-', $title)."-".$id,
+        				'redirect_uri' => 'story/'.preg_replace("~[^\p{M}\w]+~u",'-', $title)."-".$id,
         				'created_at' => Date('Y-m-d H:i:s'),
         			);
         			$this->db->insert('notifications',$notification);
@@ -419,8 +446,15 @@ class User_model extends CI_model {
                 }   }
                 $subject = $this->session->userdata['logged_in']['name'].' published a new story';
     			$message = 'Story Carry user '.$this->session->userdata['logged_in']['name'].' published a new story ';
+    			$emailunsubs = array(
+    				'logotext' => 'NEW STORY',
+					'name' => $this->session->userdata['logged_in']['name'],
+					'bodytext' => ' published a new story ',
+					'title'	=> $title,
+					'storyurl' => 'story/'.preg_replace("~[^\p{M}\w]+~u",'-', $title)."-".$id,
+				);
     			if(isset($to_emails) && count($to_emails) > 0){
-    			    $this->sendnotifymail($to_emails,$subject,$message);
+    			    $this->sendnotifymail($to_emails,$subject,$message,$emailunsubs);
     			}
 		    }
 	    }
@@ -858,13 +892,13 @@ class User_model extends CI_model {
         		    }
     			    $notification['redirect_uri'] = '#';
         			if($storydata[0]->type == 'series') {
-        				$notification['redirect_uri'] = 'series/'.preg_replace('/\s+/', '-', $storydata[0]->title)."-".$sid.'/'.preg_replace('/\s+/', '-', $storydata[0]->title)."-".$sid;
+        				$notification['redirect_uri'] = 'series/'.preg_replace("~[^\p{M}\w]+~u",'-', $storydata[0]->title)."-".$sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $storydata[0]->title)."-".$sid;
         			}elseif($storydata[0]->type == 'story') {
-        				$notification['redirect_uri'] = 'story/'.preg_replace('/\s+/', '-', $storydata[0]->title)."-".$sid;
+        				$notification['redirect_uri'] = 'story/'.preg_replace("~[^\p{M}\w]+~u",'-', $storydata[0]->title)."-".$sid;
         			}elseif($storydata[0]->type == 'nano'){
         				$notification['redirect_uri'] = '#';
         			}elseif($storydata[0]->type == 'life') {
-        				$notification['redirect_uri'] = 'story/'.preg_replace('/\s+/', '-', $storydata[0]->title)."-".$sid;
+        				$notification['redirect_uri'] = 'story/'.preg_replace("~[^\p{M}\w]+~u",'-', $storydata[0]->title)."-".$sid;
         			}
         			$notification = array(
         				'type' => 'rating',
@@ -1169,13 +1203,13 @@ class User_model extends CI_model {
 					'created_at' => Date('Y-m-d H:i:s'),
 				);
 				if($storytitle[0]->type == 'series') {
-					$notification['redirect_uri'] = 'series/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$data['story_id'].'/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$data['story_id'];
+					$notification['redirect_uri'] = 'series/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$data['story_id'].'/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$data['story_id'];
 				}elseif($storytitle[0]->type == 'story') {
-					$notification['redirect_uri'] = 'story/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$id;
+					$notification['redirect_uri'] = 'story/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$id;
 				}elseif($storytitle[0]->type == 'nano'){
 					$notification['redirect_uri'] = '#';
 				}elseif($storytitle[0]->type == 'life') {
-					$notification['redirect_uri'] = 'story/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$id;
+					$notification['redirect_uri'] = 'story/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$id;
 				}else{
 					$notification['redirect_uri'] = '#';
 				}
@@ -1237,7 +1271,7 @@ class User_model extends CI_model {
     				'to_id' => $subsmember->user_id,
     				'title' => $data['title'],
     				'title_id' => $sid,
-    				'redirect_uri' => 'series/'.preg_replace('/\s+/', '-', $data['title'])."-".$sid.'/'.preg_replace('/\s+/', '-', $data['title'])."-".$data['story_id'],
+    				'redirect_uri' => 'series/'.preg_replace("~[^\p{M}\w]+~u",'-', $data['title'])."-".$sid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $data['title'])."-".$data['story_id'],
     				'created_at' => Date('Y-m-d H:i:s'),
     			);
     			$this->db->insert('notifications',$notification);
@@ -1260,7 +1294,7 @@ class User_model extends CI_model {
     				'to_id' => $subsmember->user_id,
     				'title' => $data['title'],
     				'title_id' => $insertid,
-    				'redirect_uri' => 'series/'.preg_replace('/\s+/', '-', $data['title'])."-".$insertid.'/'.preg_replace('/\s+/', '-', $data['title'])."-".$data['story_id'],
+    				'redirect_uri' => 'series/'.preg_replace("~[^\p{M}\w]+~u",'-', $data['title'])."-".$insertid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $data['title'])."-".$data['story_id'],
     				'created_at' => Date('Y-m-d H:i:s'),
     			);
     			$this->db->insert('notifications',$notification);
@@ -1383,7 +1417,7 @@ class User_model extends CI_model {
 					'to_id' => $likestory[0]->user_id,
 					'title' => '',
 					'title_id' => $data['sid'],
-					'redirect_uri' => 'series/'.preg_replace('/\s+/', '-', $likestory[0]->title)."-".$data['sid'].'/'.preg_replace('/\s+/', '-', $likestory[0]->title)."-".$data['sid'],
+					'redirect_uri' => 'series/'.preg_replace("~[^\p{M}\w]+~u",'-', $likestory[0]->title)."-".$data['sid'].'/'.preg_replace("~[^\p{M}\w]+~u",'-', $likestory[0]->title)."-".$data['sid'],
 					'created_at' => Date('Y-m-d H:i:s'),
 				);
 				$this->db->insert('notifications',$notification);
@@ -1454,7 +1488,7 @@ class User_model extends CI_model {
                     	'to_id' => $storytitle[0]->user_id,
                     	'title' => $storytitle[0]->title,
                     	'title_id' => $data['story_id'],
-                    	'redirect_uri' => 'series/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$data['story_id'].'/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$data['story_id'],
+                    	'redirect_uri' => 'series/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$data['story_id'].'/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$data['story_id'],
                     	'created_at' => Date('Y-m-d H:i:s'),
         			);
         			$this->db->insert('notifications', $notify);
@@ -1462,8 +1496,15 @@ class User_model extends CI_model {
         			$to_email = $this->getuseremail($storytitle[0]->user_id);
         			$subject = $this->session->userdata['logged_in']['name'].' subscribed your series';
         			$message = 'Story Carry user '.$this->session->userdata['logged_in']['name'].' subscribed your series '.$storytitle[0]->title;
+        			$emailunsubs = array(
+        				'logotext' => 'SERIES SUBSCRIBE',
+						'name' => $this->session->userdata['logged_in']['name'],
+						'bodytext' => ' subscribed your series ',
+						'title'	=> $storytitle[0]->title,
+						'storyurl' => 'series/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$data['story_id'].'/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$data['story_id'],
+					);
         			if(isset($to_email) && !empty($to_email)){
-        			    $this->sendnotifymail($to_email,$subject,$message);
+        			    $this->sendnotifymail($to_email,$subject,$message, $emailunsubs);
         			}
         			
     			}
@@ -1482,15 +1523,22 @@ class User_model extends CI_model {
                     	'to_id' => $favstorytitle[0]->user_id,
                     	'title' => $favstorytitle[0]->title,
                     	'title_id' => $data['story_id'],
-                    	'redirect_uri' => 'story/'.preg_replace('/\s+/', '-', $favstorytitle[0]->title)."-".$data['story_id'],
+                    	'redirect_uri' => 'story/'.preg_replace("~[^\p{M}\w]+~u",'-', $favstorytitle[0]->title)."-".$data['story_id'],
                     	'created_at' => Date('Y-m-d H:i:s'),
         			);
         			$this->db->insert('notifications', $favnotify);
         			$to_email = $this->getuseremail($favstorytitle[0]->user_id);
         			$subject = $this->session->userdata['logged_in']['name'].' favorited your story';
         			$message = 'Story Carry user '.$this->session->userdata['logged_in']['name'].' favorited your story '.$favstorytitle[0]->title;
+        			$emailunsubs = array(
+        				'logotext' => 'FAVORITED STORY',
+						'name' => $this->session->userdata['logged_in']['name'],
+						'bodytext' => ' favorited your story ',
+						'title'	=> $favstorytitle[0]->title,
+						'storyurl' => 'story/'.preg_replace("~[^\p{M}\w]+~u",'-', $favstorytitle[0]->title)."-".$data['story_id'],
+					);
         			if(isset($to_email) && !empty($to_email)){
-        			    $this->sendnotifymail($to_email,$subject,$message);
+        			    $this->sendnotifymail($to_email,$subject,$message,$emailunsubs);
         			}
     			}
 			}
@@ -1524,8 +1572,15 @@ class User_model extends CI_model {
         		$to_email = $this->getuseremail($storytitle[0]->user_id);
     			$subject = $this->session->userdata['logged_in']['name'].' liked your nano story';
     			$message = 'Story Carry user '.$this->session->userdata['logged_in']['name'].' liked your nano story.';
+    			$emailunsubs = array(
+    				'logotext' => 'LIKED NANO STORY',
+					'name' => $this->session->userdata['logged_in']['name'],
+					'bodytext' => ' liked your nano story ',
+					'title'	=> 'nano',
+					'storyurl' => 'nano/'.$data['story_id'],
+				);
     			if(isset($to_email) && !empty($to_email)){
-    			    $this->sendnotifymail($to_email,$subject,$message);
+    			    $this->sendnotifymail($to_email,$subject,$message, $emailunsubs);
     			}
         		return $insert;
         	}else{
@@ -1685,11 +1740,17 @@ class User_model extends CI_model {
 		$query = $this->db->select('user_id')->get_where('signup',array('email'=> $email));
 		if($query->num_rows() > 0) {
 			$user = $query->result();
-			
+			$forgetpwd = Date('Y-m-d H:i:s');
+			$this->db->where('user_id', $user[0]->user_id)->update('signup', array('forgetpwd' => $forgetpwd));
     		$this->email->from(ADMIN_EMAIL, ADMIN_NAME);
     		$this->email->to($email);     
-    		$this->email->subject(ADMIN_NAME. ' Forgot Password Request');
-    		$message = 'Dear User,<br /><br />Please click on the below link for new password.<br /><br /> '.base_url().'forgotpwd/' . md5($user[0]->user_id) . '<br /><br /><br />Thanks<br />Story Carry';
+    		/*$this->email->subject(ADMIN_NAME. ' Forgot Password Request');
+    		$message = 'Dear User,<br /><br />Please click on the below link for new password.<br /><br /> '.base_url().'forgotpwd/' . md5($user[0]->user_id) . '<br /><br /><br />Thanks<br />Story Carry';*/
+    		$data = array(
+    			'forgotpwdurl'=> base_url().'forgotpwd/'.md5($user[0]->user_id),
+    		);
+    		$this->email->subject('Forget password link');
+    		$message = $this->load->view('emailforgotpwd',$data,TRUE);
     		$this->email->message($message);
     		$this->email->set_mailtype('html');
     		$this->email->send();
@@ -1706,6 +1767,20 @@ class User_model extends CI_model {
         if($query){
             return true;
         }
+    }
+    public function pwdvalidity($hash){
+    	$query = $this->db->select('user_id, forgetpwd')->where('md5(user_id)', $hash)->from('signup')->get()->row_array();
+    	if(isset($query['user_id'], $query['forgetpwd']) && !empty($query['user_id']) && !empty($query['forgetpwd']) && ($query['forgetpwd'] != '0000-00-00 00:00:00')) {
+    		$currentdate = Date('Y-m-d H:i:s');
+    		$forgetpwddate = date("Y-m-d H:i:s", strtotime('+5 hours', strtotime($query['forgetpwd'])));
+    		if(strtotime($forgetpwddate) >= strtotime($currentdate)){
+    			return 1;
+    		}else{
+    			return 2; // forgotpwd link expired
+    		}
+    	}else{
+    		return 3; // wrong forgotpwd hash
+    	}
     }
 	public function search($data) {
 		//print_r($data);exit();
@@ -2356,27 +2431,41 @@ class User_model extends CI_model {
 				'title_id' => '',
 				'created_at' => Date('Y-m-d H:i:s'),
 			);
+			$profilename = $this->hprofilename($data['profile_id']);
 			if($type == 'procomment'){
     			$this->db->insert('notifications', $notification);
     			$to_email = $this->getuseremail($data['profile_id']);
     			$subject = $data['name'].' Commented on your profile';
     			$message = 'Story Carry user '.$data['name'].' Commented on your Profile '.$data['pro_comment'];
+    			$emailunsubs = array(
+    				'logotext' => 'PROFILE COMMENT',
+					'name' => $data['name'],
+					'bodytext' => ' commented on your Profile ',
+					'title'	=> $profilename,
+					'storyurl' => $profilename,
+				);
     			if(isset($to_email) && !empty($to_email)){
-    			    $this->sendnotifymail($to_email,$subject,$message);
+    			    $this->sendnotifymail($to_email,$subject,$message, $emailunsubs);
     			}
 			}elseif($type == 'proreplycomment'){
 			    $this->db->insert('notifications', $notification);
     			$to_email = $this->getuseremail($data['profile_id']);
     			$subject = $data['name'].' replied to your profile comment';
     			$message = 'Story Carry user '.$data['name'].' replied to your profile comment '.$data['pro_comment'];
+    			$emailunsubs = array(
+    				'logotext' => 'PROFILE REPLY COMMENT',
+					'name' => $data['name'],
+					'bodytext' => ' replied to your profile comment ',
+					'title'	=> $profilename,
+					'storyurl' => $profilename,
+				);
     			if(isset($to_email) && !empty($to_email)){
-    			    $this->sendnotifymail($to_email,$subject,$message);
+    			    $this->sendnotifymail($to_email,$subject,$message, $emailunsubs);
     			}
 			}
         }elseif(isset($data['story_id']) && !empty($data['story_id'])){
             $commentuserid = $this->db->select('user_id')->from('comments')->where('cid',$data['comment_id'])->limit(1)->get()->result();
-            $storytitle = $this->db->select('title, user_id, type')->from('stories')
-                ->where('stories.status','active')->where('sid',$data['story_id'])->limit(1)->get()->result();
+            $storytitle = $this->db->select('title, user_id, type')->from('stories')->where('stories.status','active')->where('sid',$data['story_id'])->limit(1)->get()->result();
             if(isset($storytitle[0]->title) && ($storytitle[0]->user_id != $data['user_id'])) {
                 $storytype = 'comment'; if(isset($data['comment_id']) && !empty($data['comment_id'])){
                     $storytype = 'replycomment';
@@ -2393,9 +2482,9 @@ class User_model extends CI_model {
     				'created_at' => Date('Y-m-d H:i:s'),
     			);
     			if($storytitle[0]->type == 'series') {
-    				$storynotification['redirect_uri'] = 'series/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$data['story_id'].'/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$data['story_id'];
+    				$storynotification['redirect_uri'] = 'series/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$data['story_id'].'/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$data['story_id'];
     			}elseif($storytitle[0]->type == 'story') {
-    				$storynotification['redirect_uri'] = 'story/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$data['story_id'];
+    				$storynotification['redirect_uri'] = 'story/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$data['story_id'];
     			}elseif($storytitle[0]->type == 'nano'){
     				$storynotification['redirect_uri'] = '#';
     			}else{
@@ -2407,14 +2496,28 @@ class User_model extends CI_model {
     			if($storytype == 'comment'){
         			$subject = $data['name'].' Commented on your Story';
         			$message = 'Story Carry user '.$data['name'].' Commented on your Story '.$data['comment'];
+        			$emailunsubs = array(
+	    				'logotext' => 'NEW COMMENT',
+						'name' => $data['name'],
+						'bodytext' => ' commented on your Story ',
+						'title'	=> $storytitle[0]->title,
+						'storyurl' => $storynotification['redirect_uri'],
+					);
         			if(isset($to_email) && !empty($to_email)){
-        			    $this->sendnotifymail($to_email,$subject,$message);
+        			    $this->sendnotifymail($to_email,$subject,$message, $emailunsubs);
         			}
     			}elseif($storytype == 'replycomment'){
         			$subject = $data['name'].' replied to your story Comment.';
         			$message = 'Story Carry user '.$data['name'].' replied to your story Comment '.$data['comment'];
+        			$emailunsubs = array(
+	    				'logotext' => 'REPLY COMMENT',
+						'name' => $data['name'],
+						'bodytext' => ' replied to your story comment ',
+						'title'	=> $storytitle[0]->title,
+						'storyurl' => $storynotification['redirect_uri'],
+					);
         			if(isset($to_email) && !empty($to_email)){
-        			    $this->sendnotifymail($to_email,$subject,$message);
+        			    $this->sendnotifymail($to_email,$subject,$message, $emailunsubs);
         			}
     			}
     			
@@ -2434,9 +2537,9 @@ class User_model extends CI_model {
     				'created_at' => Date('Y-m-d H:i:s'),
     			);
     			if($storytitle[0]->type == 'series') {
-    				$notificationreply['redirect_uri'] = 'series/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$data['story_id'].'/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$data['story_id'];
+    				$notificationreply['redirect_uri'] = 'series/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$data['story_id'].'/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$data['story_id'];
     			}elseif($storytitle[0]->type == 'story') {
-    				$notificationreply['redirect_uri'] = 'story/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$data['story_id'];
+    				$notificationreply['redirect_uri'] = 'story/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$data['story_id'];
     			}elseif($storytitle[0]->type == 'nano'){
     				$notificationreply['redirect_uri'] = '#';
     			}else{
@@ -2448,14 +2551,28 @@ class User_model extends CI_model {
     			if($storytype == 'comment'){
         			$subject = $this->session->userdata['logged_in']['name'].' Commented on your Story';
         			$message = 'Story Carry user '.$this->session->userdata['logged_in']['name'].' Commented on your Story '.$data['comment'];
+        			$emailunsubs = array(
+	    				'logotext' => 'NEW COMMENT',
+						'name' => $this->session->userdata['logged_in']['name'],
+						'bodytext' => ' commented on your Story ',
+						'title'	=> $storytitle[0]->title,
+						'storyurl' => $notificationreply['redirect_uri'],
+					);
         			if(isset($to_email) && !empty($to_email)){
-        			    $this->sendnotifymail($to_email,$subject,$message);
+        			    $this->sendnotifymail($to_email,$subject,$message, $emailunsubs);
         			}
     			}elseif($storytype == 'replycomment'){
         			$subject = $this->session->userdata['logged_in']['name'].' replied to your story Comment.';
         			$message = 'Story Carry user '.$this->session->userdata['logged_in']['name'].' replied to your story Comment '.$data['comment'];
+        			$emailunsubs = array(
+	    				'logotext' => 'REPLY COMMENT',
+						'name' => $this->session->userdata['logged_in']['name'],
+						'bodytext' => ' replied to your story Comment ',
+						'title'	=> $storytitle[0]->title,
+						'storyurl' => $notificationreply['redirect_uri'],
+					);
         			if(isset($to_email) && !empty($to_email)){
-        			    $this->sendnotifymail($to_email,$subject,$message);
+        			    $this->sendnotifymail($to_email,$subject,$message, $emailunsubs);
         			}
     			}
     			
@@ -2514,13 +2631,13 @@ class User_model extends CI_model {
 				'created_at' => Date('Y-m-d H:i:s'),
 			);	
 			if($storytitle[0]->type == 'series') {
-				$notification['redirect_uri'] = 'series/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$insert_id.'/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$insert_id;
+				$notification['redirect_uri'] = 'series/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$insert_id.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$insert_id;
 			}elseif($storytitle[0]->type == 'story') {
-				$notification['redirect_uri'] = 'story/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$insert_id;
+				$notification['redirect_uri'] = 'story/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$insert_id;
 			}elseif($storytitle[0]->type == 'nano'){
 				$notification['redirect_uri'] = '#';
 			}elseif($storytitle[0]->type == 'life') {
-				$notification['redirect_uri'] = 'story/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$insert_id;
+				$notification['redirect_uri'] = 'story/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$insert_id;
 			}else{
 				$notification['redirect_uri'] = '#';
 			}
@@ -2620,13 +2737,13 @@ class User_model extends CI_model {
 					'created_at' => Date('Y-m-d H:i:s'),
 				);
 				if($storytitle[0]->type == 'series') {
-					$notification['redirect_uri'] = 'series/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$storyid.'/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$storyid;
+					$notification['redirect_uri'] = 'series/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$storyid.'/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$storyid;
 				}elseif($storytitle[0]->type == 'story') {
-					$notification['redirect_uri'] = 'story/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$storyid;
+					$notification['redirect_uri'] = 'story/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$storyid;
 				}elseif($storytitle[0]->type == 'nano'){
 					$notification['redirect_uri'] = '#'.$insert_id;
 				}elseif($storytitle[0]->type == 'life') {
-					$notification['redirect_uri'] = 'story/'.preg_replace('/\s+/', '-', $storytitle[0]->title)."-".$storyid;
+					$notification['redirect_uri'] = 'story/'.preg_replace("~[^\p{M}\w]+~u",'-', $storytitle[0]->title)."-".$storyid;
 				}else{
 					$notification['redirect_uri'] = '#'; 
 				} 

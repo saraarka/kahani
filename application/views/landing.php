@@ -57,10 +57,6 @@
             margin-right:22px !important;
             line-height: 37px !important; 
         }
-        button.close.hovercolor:hover{
-            color: #000;
-            opacity: 1;
-        }
         #snackbar {
           visibility: hidden;
           min-width: 250px;
@@ -450,11 +446,18 @@
 			<div class="modal-body">
 				<div class="login-logo">
 					<span class="headsvj"><b>CHANGE PASSWORD</b>
-					    <button type="button" class="close hovercolor" data-dismiss="modal">&times;</button>
+					    <button type="button" class="close" data-dismiss="modal"> </button>
 					</span>
 				</div>
 				<div class="login-box-body">
 					<span class="text-danger nerror" style="color:red;font-family:sans-serif;font-size:14px;"></span>
+                    <?php if($hash == 'expired') { ?>
+                        <h4> Forget password request is expired. Please try again.</h4>
+                        <center> <a href="<?php echo base_url();?>" class="btn" style="cursor:pointer;"> GO BACK </a></center>
+                    <?php } else if($hash == 'wrong'){ ?>
+                        <h4> Oops! Something wrong. Please try again.</h4>
+                        <center> <a href="<?php echo base_url();?>" class="btn" style="cursor:pointer;"> GO BACK </a></center>
+                    <?php } else{ ?>
 					<form id="newpasswordform" action="#" method="POST" style="margin-bottom: 0;">
 					    <input type="hidden" name="userid" value="<?php echo $hash;?>" id="fpwduserid">
 					    <div class="input-container has-feedback" style="margin-top:2px;">
@@ -474,6 +477,7 @@
 							</div>
 						</div>
 					</form>
+                    <?php } ?>
 				</div>
 			</div>
 		</div>
