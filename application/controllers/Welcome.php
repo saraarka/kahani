@@ -6085,7 +6085,13 @@ class Welcome extends CI_Controller {
 					);
 					$this->session->set_userdata('logged_in', $session_data);
 					//$this->session->set_userdata('language', $result[0]->writer_language);
-					echo 1;
+					//echo 1;
+                    $preferedlang = $this->User_model->langfullname($result[0]->writer_language);
+                    if(isset($preferedlang) && !empty($preferedlang)){
+                        echo json_encode($preferedlang);
+                    }else{
+                        echo json_encode('english');
+                    }
 				}else{
     				echo 0;
 				}

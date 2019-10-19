@@ -210,7 +210,7 @@ class User_model extends CI_model {
 	        'Content-type: text/html'."\r\n".
 	        'X-Mailer: PHP/' . phpversion();
         $status = mail($to_email,$subject,$message,$headers);*/
-        if(is_array($to_email)){  $status = '';
+		/*if(is_array($to_email)){  $status = '';
 		    foreach($to_email as $toemail){
 		        $this->email->from(ADMIN_EMAIL, ADMIN_NAME);
 				$this->email->to($toemail);     
@@ -218,6 +218,7 @@ class User_model extends CI_model {
 				if(isset($emailunsubs) && !empty($emailunsubs)){
 					$emailunsubs['emailto'] = $toemail;
 					$message = $this->load->view('emailunsubs', $emailunsubs, TRUE);
+					$this->email->message($message);
 				}else{
 					$this->email->message($message);
 				}
@@ -228,13 +229,14 @@ class User_model extends CI_model {
 		        }
 		    }
 		    return $status;
-        }else{
+		}else{
 			$this->email->from(ADMIN_EMAIL, ADMIN_NAME);
 			$this->email->to($to_email);     
 			$this->email->subject($subject);
 			if(isset($emailunsubs) && !empty($emailunsubs)){
-				$emailunsubs['emailto'] = $toemail;
+				$emailunsubs['emailto'] = $to_email;
 				$message = $this->load->view('emailunsubs', $emailunsubs, TRUE);
+				$this->email->message($message);
 			}else{
 				$this->email->message($message);
 			}
@@ -245,7 +247,7 @@ class User_model extends CI_model {
 			} else { 
 			    return false;
 			}
-        }
+		}*/
 	}
 	public function getuseremail($userid){
 	    $query = $this->db->select('email')->from('signup')->where('user_id',$userid)->limit(1)->get()->result();

@@ -39,7 +39,7 @@ function fbLogin() {
         if (response.authResponse) {
             getFbUserData(); // Get and display the user profile data
         } else { 
-            alert('User cancelled login or did not fully authorize.');
+            console.log('User cancelled login or did not fully authorize.');
         }
     }, {scope: 'email'});
 }
@@ -91,9 +91,9 @@ function getFbUserData(){
             		$('input[name="fbgtype"]').val('fb');
             		
 				}else if(resultdata.status == 0){
-				    alert('Facebook profile data not Found.');
+				    console.log('Facebook profile data not Found.');
 				}else{
-				    alert('Facebook profile not Found.');
+				    console.log('Facebook profile not Found.');
 				}
 			}
 		});
@@ -115,16 +115,21 @@ function getFbUserData(){
 			success: function (resultdata) {
 				if((resultdata.status == 1) && (resultdata.lresponse == 'gotologin') && (resultdata.userid)){
                     $.ajax({
-            			url: "<?php echo base_url();?>welcome/googlelogin",
-            			type: 'POST',
-            			data: {'id': profile.getId(), 'fname': profile.getGivenName(), 'lname': profile.getFamilyName(), 'email': profile.getEmail(), 'userid':resultdata.userid },
-            			dataType: 'json',
-            			success: function (lresultdata) {
-            				if(lresultdata == 1){
-            				    location.reload();
-            				}
-            			}
-            		});
+                        url: "<?php echo base_url();?>welcome/googlelogin",
+                        type: 'POST',
+                        data: {'id': profile.getId(), 'fname': profile.getGivenName(), 'lname': profile.getFamilyName(), 'email': profile.getEmail(), 'userid':resultdata.userid },
+                        dataType: 'json',
+                        success: function (lresultdata) {
+                            if(lresultdata){
+                                location.href = "<?php echo base_url();?>"+lresultdata;
+                            }else{
+                                location.href = "<?php echo base_url();?>";
+                            }
+                            /*if(lresultdata == 1){
+                                location.reload();
+                            }*/
+                        }
+                    });
 				}else if((resultdata.status == 1) && (resultdata.lresponse == 'gotocomm') && (resultdata.userid)){
 				     console.log('gotocomm');
 				     $('#userid').val(resultdata.userid);
@@ -148,9 +153,9 @@ function getFbUserData(){
             		$('input[name="fbgtype"]').val('google');
             		
 				}else if(resultdata.status == 0){
-				    //alert('Google profile data not Found.');
+				    //console.log('Google profile data not Found.');
 				}else{
-				    alert('Google profile not Found.');
+				    console.log('Google profile not Found.');
 				}
 			}
 		});

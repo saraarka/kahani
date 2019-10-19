@@ -1270,8 +1270,7 @@
                                     //var profileimage = '<?php echo base_url();?>assets/images/'+result.response[0].profile_image;
                                     var profileimage = result.response[0].profile_image;
                                     if(profileimage){ }else{ profileimage = '2.png'; }
-                                    var htmlcomment = '<li style="padding:0px; margin-bottom:5px;margin-top:5px;" class="box-footer padding-0 box-comments commentdelete'+result.response[0].cid+'">'+
-                                        '<div class="">'+
+                                    var htmlcomment = '<div style="margin-bottom:5px;margin-top:5px;" class="media commentdelete'+result.response[0].cid+'">'+
                                         '<span class="media-left"><img class="img-circle" style="width:25px;" src="<?php echo base_url();?>assets/images/'+profileimage+'" alt="'+result.response[0].name+'"></span>'+
                                         '<span class="media-body bodycv">'+
                                         '<div class="">'+
@@ -1282,7 +1281,7 @@
                                         '<li><a href="javascript:void(0);" onClick="editcomment('+result.response[0].cid+');"><i class="fa fa-pencil"></i> EDIT </a></li>'+
                                         '<li><a href="javascript:void(0);" onClick="deletecomment('+result.response[0].cid+');"><i class="fa fa-trash"></i> DELETE </a></li>'+
                                         '</ul></span><span class="text-muted pull-right datecv">1 minute ago</span></span><br>'+
-                                        '<span style="padding-left:6px;word-break:break-word;" class="more pcomment'+result.response[0].cid+'">'+result.response[0].comment+'</span></div></span></div></li>'; ///'+result.response[0].date+'
+                                        '<span style="padding-left:6px;word-break:break-word;" class="more pcomment'+result.response[0].cid+'">'+result.response[0].comment+'</span></div></span></div>'; ///'+result.response[0].date+'
                                         $('li.postreplycmt'+result.response[0].comment_id).prepend(htmlcomment);
                                         $('.old_subcmtcount'+commentid).text(parseInt(old_subcmtcount)+1);
                                 }else{

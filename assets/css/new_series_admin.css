@@ -10,6 +10,9 @@ body{
 .replycv{
     padding-right:8px; font-size:0.8em; color:red;
 }
+.ellisub{
+    padding: 0px 10px 0px 20px;
+}
 .elli{
     padding: 0px 0px 0px 20px;
 }

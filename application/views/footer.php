@@ -605,7 +605,7 @@
     				$('#signupmodal').modal('hide');
     				$('#chooselanguage').modal('show');
     			}else{
-    				alert('Registration failed please try again.');
+    				console.log('Registration failed please try again.');
     				location.reload();
     			}
             }
@@ -831,7 +831,7 @@
 				$('#socialfbgmodal').modal('hide');
 				$('#chooselanguage').modal('show');
 			}else{
-				alert('Registration failed please try again.');
+				console.log('Registration failed please try again.');
 			//	location.reload();
 			}
 		});

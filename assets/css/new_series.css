@@ -23,12 +23,13 @@ ul.dropvk li a{
 .replycv{
     padding-right:8px; font-size:0.8em; color:red;
 }
-.elli{
-    padding: 0px 0px 0px 20px;
-}
 .ellisub{
     padding: 0px 10px 0px 20px;
 }
+.elli{
+    padding: 0px 0px 0px 20px;
+}
+
 /* More */
 .boxshv {
     background: rgb(255, 255, 255);

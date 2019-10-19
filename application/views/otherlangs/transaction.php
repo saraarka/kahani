@@ -103,7 +103,9 @@
                             <span class="checkrow<?php echo $transrowstory->sid;?>" style="color:#777;font-size:10px;line-height: 2.3!important; margin:0; line-height:unset;"> DISABLE </span>
                         <?php } ?>
                         <span class="pull-right"> <?php echo $transrowstory->uvcount;?> </span><hr>
-    		    <?php } } ?>
+    		    <?php } }else{ ?>
+                    <center><div style="padding: 15px;">No stories to show</div></center>
+                <?php } ?>
             </div>
                             
             <div>

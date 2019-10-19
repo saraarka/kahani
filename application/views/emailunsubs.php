@@ -68,7 +68,7 @@
 					 <?php if(isset($bodytext) && !empty($bodytext)){ echo $bodytext; } ?>
 					 
 					<span class="text-link">
-						<a href="<?php if(isset($storyurl) && !empty($storyurl)){ echo $storyurl; }?>">
+						<a href="<?php if(isset($storyurl) && !empty($storyurl)){ echo base_url().$storyurl; }?>">
 							<?php if(isset($title) && !empty($title)){ echo $title; }else{ echo 'Story'; }?>
 						</a>.
 					</span>
