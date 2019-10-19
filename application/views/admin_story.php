@@ -680,7 +680,7 @@
                                                                         <span class="">&nbsp;<b><a href="<?php echo base_url().$replaycomment->profile_name; ?>"><?php echo ucfirst($replaycomment->name); ?></a></b>
         											                        <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $replaycomment->user_id)){ ?>
                                                                             <span class="dropdown" style="float:right;">
-                                                                                <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
+                                                                                <a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" title="write" aria-expanded="false">
         												                            <i class="fa fa-ellipsis-v"></i>
         												                        </a>
         												                        <ul class="dropdown-menu pull-right">
@@ -690,7 +690,7 @@
                         					                                </span>
                     					                                    <?php } else if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){ ?>
                     					                                    <span class="dropdown" style="float:right;">
-                        					                                    <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
+                        					                                    <a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" title="write" aria-expanded="false">
         												                            <i class="fa fa-ellipsis-v"></i>
         												                        </a>
         												                        <ul class="dropdown-menu pull-right">
@@ -1096,7 +1096,7 @@
                                         '<div class="">'+
                                         '<span class="">&nbsp;<b><a href="javascript:void(0);" style="color: #337ab7;">'+result.response[0].name+'</a></b>'+
                                         '<span class="dropdown" style="float:right;">'+
-                                        '<a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="false">'+
+                                        '<a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" aria-expanded="false">'+
     					                '<i class="fa fa-ellipsis-v" style="color: #337ab7;"></i></a><ul class="dropdown-menu pull-right">'+
     	                                    '<li><a href="javascript:void(0);" onClick="editcomment('+result.response[0].cid+');"><i class="fa fa-pencil"></i> EDIT </a></li>'+
     	                                    '<li><a href="javascript:void(0);" onClick="deletecomment('+result.response[0].cid+');"><i class="fa fa-trash"></i> DELETE </a></li>'+
