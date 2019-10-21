@@ -1145,11 +1145,11 @@ $('document').ready(function() {
 	});
 	
 	function postReplycomment(commentid, storyid){
+        setTimeout(function(){ $('#spinnertab'+commentid).html(' '); });
 	    $('div.postreplycomment'+commentid).html('<input type="text" id="replycmts'+commentid+'" value="" class="form-control" placeholder="Replay Comment..." required>'+
 	    '<span class="text-danger addreplaycmt'+commentid+'"></span><input type="hidden" name="storyid" value="'+storyid+'">'+
 	    '<span class="input-group-btn"><button type="submit" class="btn btn-success btn-flat btnspinner'+commentid+'" onclick="addreplycomment('+commentid+','+storyid+')">POST</button></span>');
 	    $('.replycmtlist'+commentid).css('display','block');
-	    setTimeout(function(){ $('#spinnertab'+commentid).html(' '); }, 50);
 	}
 	function displayreplies(commentid, storyid){
 	    $('.replycmtlist'+commentid).css('display','block');
@@ -1167,7 +1167,10 @@ $('document').ready(function() {
         		dataType: "json",
         		success:function(data){
         		    if(data == 2){
-                        $('.addreplaycmt'+commentid).text('Enter your Comments.');
+                        //$('.addreplaycmt'+commentid).text('Enter your Comments.');
+                        $('.btnspinner'+commentid).html('POST');
+                        $('#snackbar').text('Enter your Comments.').addClass('show');
+                        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     }else if(data == 1){
                         $.ajax({
                             url: "<?php echo base_url('welcome/pro_commentpost'); ?>",
@@ -1200,13 +1203,17 @@ $('document').ready(function() {
                             }
                         })
                     }else{
-                        $('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                        //$('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                        $('.btnspinner'+commentid).html('POST');
+                        $('#snackbar').text('Failed to Post your Comments.').addClass('show');
+                        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     }
                 }
             });
 	    }else{
             $('.btnspinner'+commentid).html('POST');
-	        $('.addreplaycmt'+commentid).text('Enter your Comments.');
+            $('#snackbar').text('Enter your Comments.').addClass('show');
+            setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
 	    }
 	}
 </script>

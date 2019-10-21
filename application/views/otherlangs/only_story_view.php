@@ -416,7 +416,7 @@
                                             <?php if(isset($recentstory->image) && !empty($recentstory->image)) { ?>
                                                 <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $recentstory->image; ?>" alt="<?php echo $recentstory->title; ?>" class="imageme lazy">
                                             <?php }else{ ?>
-                                                <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data- src="<?php echo base_url();?>assets/images/series-stories.jpg" alt="<?php echo $recentstory->title; ?>" class="imageme lazy" style="max-width:200px;max-height:180px;">
+                                                <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/series-stories.jpg" alt="<?php echo $recentstory->title; ?>" class="imageme lazy" style="max-width:200px;max-height:180px;">
                                             <?php } ?>
                                         </a>
                                         <div>
@@ -1161,7 +1161,10 @@
         		dataType: "json",
         		success:function(data){
         		    if(data == 2){
-                        $('.addreplaycmt'+commentid).text('Enter your Comments.');
+                        //$('.addreplaycmt'+commentid).text('Enter your Comments.');
+                        $('.btnspinner'+commentid).html('POST');        
+                        $('#snackbar').text('Enter your Comments.').addClass('show');       
+                        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     }else if(data == 1){
                         $.ajax({
                             url: "<?php echo base_url($this->uri->segment(1).'/pro_commentpost'); ?>",
@@ -1174,8 +1177,7 @@
                                     //var profileimage = '<?php echo base_url();?>assets/images/'+result.response[0].profile_image;
                                     var profileimage = result.response[0].profile_image;
                                     if(profileimage){ }else{ profileimage = '2.png'; }
-                                    var htmlcomment = '<li style="padding:0px; margin-bottom:5px;margin-top:5px;" class="box-footer padding-0 box-comments commentdelete'+result.response[0].cid+'">'+
-                                        '<div class="">'+
+                                    var htmlcomment = '<div style="margin-bottom:5px;margin-top:5px;" class="media commentdelete'+result.response[0].cid+'">'+
                                         '<span class="media-left"><img class="img-circle" style="width:25px;" src="<?php echo base_url();?>assets/images/'+profileimage+'" alt="'+result.response[0].name+'"></span>'+
                                         '<span class="media-body bodycv">'+
                                         '<div class="">'+
@@ -1195,7 +1197,9 @@
                         })
                         
                     }else{
-                        $('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                        //$('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                        $('#snackbar').text('Failed to Post your Comments.').addClass('show');      
+                        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     }
                 }
             });

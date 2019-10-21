@@ -281,7 +281,7 @@ foreach($notifications['storynotifys']->result() as $storynotify) {
                         <div class="modal-body">
                             <p><h5> Read the following Story, it consists of some eye opening facts. </h5></p><br>
                             <p><?php echo $suggestion->description;?></p>
-                            <center><a class="btn btn-primary" href="<?php echo base_url().$this->uri->segment(1).'/'.$suggestion->redirect_uri;?>">Open Link</a></center>
+                            <center><a class="btn btn-primary" href="<?php echo base_url().$suggestion->redirect_uri;?>">Open Link</a></center>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

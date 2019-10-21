@@ -1064,11 +1064,11 @@ $('document').ready(function() {
 	});
 	
 	function postReplycomment(commentid, storyid){
+        setTimeout(function(){ $('#spinnertab'+commentid).html(' '); });
 	    $('div.postreplycomment'+commentid).html('<input type="text" id="replycmts'+commentid+'" value="" class="form-control" placeholder="Replay Comment..." required>'+
 	    '<span class="text-danger addreplaycmt'+commentid+'"></span><input type="hidden" name="storyid" value="'+storyid+'">'+
 	    '<span class="input-group-btn"><button type="submit" class="btn btn-success btn-flat" onclick="addreplycomment('+commentid+','+storyid+')">POST</button></span>');
 	    $('.replycmtlist'+commentid).css('display','block');
-	    setTimeout(function(){ $('#spinnertab'+commentid).html(' '); }, 50);
 	}
 	function displayreplies(commentid, storyid){
 	    $('.replycmtlist'+commentid).css('display','block');
@@ -1085,7 +1085,10 @@ $('document').ready(function() {
         		dataType: "json",
         		success:function(data){
         		    if(data == 2){
-                        $('.addreplaycmt'+commentid).text('Enter your Comments.');
+                        //$('.addreplaycmt'+commentid).text('Enter your Comments.');
+                        $('.btnspinner'+commentid).html('POST');
+                        $('#snackbar').text('Enter your Comments.').addClass('show');
+                        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     }else if(data == 1){
                         $.ajax({
                             url: "<?php echo base_url($this->uri->segment(1).'/pro_commentpost'); ?>",
@@ -1093,10 +1096,11 @@ $('document').ready(function() {
                             dataType: 'json',
                             success: function(result) {
                                 if(result.response){
+                                    $('.btnspinner'+commentid).html('POST');
                                     $('#replycmts'+commentid).val('');
                                     //var profileimage = '<?php echo base_url();?>assets/images/'+result.response[0].profile_image;
                                     var profileimage = "<?php echo $this->session->userdata['logged_in']['profile_image'];?>";
-                                    if(profileimage){ }else{ profileimage = '<?php echo base_url();?>assets/images/2.png'; }
+                                    if(profileimage){ }else{ profileimage = '2.png'; }
                                     var htmlcomment = '<li style="padding:0px; margin-bottom: 15px;" class="box-footer padding-0 box-comments commentdelete'+result.response[0].cid+'">'+
                                         '<div class="">'+
                                         '<span class="media-left"><img class="img-circle" style="width:25px;" src="<?php echo base_url();?>assets/images/'+profileimage+'" alt="'+result.response[0].name+'"></span>'+
@@ -1118,12 +1122,18 @@ $('document').ready(function() {
                             }
                         })
                     }else{
-                        $('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                        //$('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                        $('.btnspinner'+commentid).html('POST');
+                        $('#snackbar').text('Failed to Post your Comments.').addClass('show');
+                        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     }
                 }
             });
 	    }else{
-	        $('.addreplaycmt'+commentid).text('Enter your Comments.');
+	        //$('.addreplaycmt'+commentid).text('Enter your Comments.');
+            $('.btnspinner'+commentid).html('POST');
+            $('#snackbar').text('Enter your Comments.').addClass('show');
+            setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
 	    }
 	}
 </script>

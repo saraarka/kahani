@@ -22,7 +22,7 @@
                         <li><a onClick="editpro_comment(<?php echo $pro_comment->cid;?>);" style="cursor:pointer;"><span><i class="fa fa-pencil"></i> EDIT</span></a></li>
                         <li><a onClick="deletepro_comment(<?php echo $pro_comment->cid;?>);" style="cursor:pointer;"><span><i class="fa fa-trash"></i> DELETE</span></a></li>
                         <?php } else if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){ ?>
-                        <li><a href="javascript:void(0);"><span onClick="reportpro_comment(<?php echo $pro_comment->cid;?>, <?php echo $pro_comment->user_id;?>);"><i class="fa fa-exclamation-triangle"></i> REPORT</span></a></li>
+                        <li><a onClick="reportpro_comment(<?php echo $pro_comment->cid;?>, <?php echo $pro_comment->user_id;?>);" style="cursor: pointer;"><span><i class="fa fa-exclamation-triangle"></i> REPORT</span></a></li>
                         <?php } else{ ?>
                         <li><a href="javascript:void(0);" data-toggle="modal" data-target="#loginmodal"><span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> REPORT</span></a></li>
                         <?php } ?>

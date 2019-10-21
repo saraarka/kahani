@@ -1263,7 +1263,7 @@
                 <div class="modal-body">
                     <p><h5> Read the following Story, it consists of some eye opening facts. </h5></p><br>
                     <p><?php echo $notseennotify->description;?></p>
-                    <center><a class="btn btn-primary" href="<?php echo base_url().$this->uri->segment(1).'/'.$notseennotify->redirect_uri;?>">Open Link</a></center>
+                    <center><a class="btn btn-primary" href="<?php echo base_url().$notseennotify->redirect_uri;?>">Open Link</a></center>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -1287,7 +1287,7 @@
                 <div class="modal-body" style="margin-top:6px;">
                     <p><h5> Read the following Story, it consists of some eye opening facts. </h5></p><br>
                     <p><?php echo $seennotify->description;?></p>
-                    <center><a class="btn btn-primary" href="<?php echo base_url().$this->uri->segment(1).'/'.$seennotify->redirect_uri;?>">Open Link</a></center>
+                    <center><a class="btn btn-primary" href="<?php echo base_url().$seennotify->redirect_uri;?>">Open Link</a></center>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

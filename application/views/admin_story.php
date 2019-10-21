@@ -441,7 +441,6 @@
                                     <a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u", '-', $recentlife->title).'-'.$recentlife->sid);?>" class="imagebcg">
                                         <?php if(isset($recentlife->image) && !empty($recentlife->image)){ ?>
                                         	<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/images/<?php echo $recentlife->image; ?>" alt="<?php echo $recentlife->title;?>" class="imageme1 lazy" style="max-width:266px;max-height:165px;">
-                                        }
                                         <?php } else { ?>
                                         	<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/images/series-stories.jpg" alt="<?php echo $recentlife->title;?>" class="imageme1 lazy" style="max-width:266px;max-height:165px;">
                                         <?php } ?>
@@ -1077,7 +1076,10 @@
         		dataType: "json",
         		success:function(data){
         		    if(data == 2){
-                        $('.addreplaycmt'+commentid).text('Enter your Comments.');
+                        //$('.addreplaycmt'+commentid).text('Enter your Comments.');
+                        $('.btnspinner'+commentid).html('POST');
+                        $('#snackbar').text('Enter your Comments.').addClass('show');
+                        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     } else if(data == 1) {
                         $.ajax({
                             url: "<?php echo base_url('welcome/pro_commentpost'); ?>",
@@ -1110,12 +1112,17 @@
                         })
                         
                     }else{
-                        $('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                        //$('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                        $('#snackbar').text('Failed to Post your Comments.').addClass('show');
+                        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     }
                 }
             });
 	    }else{
-	        $('.addreplaycmt'+commentid).text('Enter your Comments.');
+	        //$('.addreplaycmt'+commentid).text('Enter your Comments.');
+            $('.btnspinner'+commentid).html('POST');
+            $('#snackbar').text('Enter your Comments.').addClass('show');
+            setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
 	    }
 	}
 </script>

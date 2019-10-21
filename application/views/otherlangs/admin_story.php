@@ -588,7 +588,7 @@
 										<span class="comment text-danger"> </span>
 										<input type="hidden" id="storyid" name="id" value="<?php echo $storyid; ?>">
 										<span class="input-group-btn">
-											<input type="submit" class="btn btn-success btn-flat btnspinner" value="POST">
+											<button type="submit" class="btn btn-success btn-flat btnspinner" value="POST">POST</button>
 										</span>
 									</div><br>
 								</form>
@@ -643,7 +643,7 @@
                                                     </div>
                                                     <div class="comment-text" style="margin:4px 0px 6px 2px;">
                                                         <div style="word-break:break-word;" class="more pcomment<?php echo $comment->cid;?>"><?php echo $comment->comment; ?></div>
-                                                        <div style="">
+                                                        <div style="margin:5px 0px;">
                                                             <a href="javascript:void(0)" onClick="postReplycomment(<?php echo $comment->cid;?>, <?php echo $comment->story_id;?>)" class="pull-left replycv"> REPLY </a>
                                                             <span class="pull-left replycv">I</span>
                                                             <a href="javascript:void(0)" onClick="displayreplies(<?php echo $comment->cid;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Replies">
@@ -659,13 +659,13 @@
                                                 <div class="subcomments" style="margin-bottom:0px;" id="mysublist<?php echo $comment->story_id, $comment->cid;?>">
                                                     <?php $replaycomments = get_replaycomments($comment->story_id, $comment->cid); ?>
                                                     <?php if(isset($replaycomments) && ($replaycomments->num_rows() > 0 )){ ?>
-                                                    <ul style="list-style: none; padding:0px; margin-top:15px; margin-left:15px;display:none;" class="replycmtlist<?php echo $comment->cid;?>">
+                                                    <ul style="list-style: none; padding:0px; margin-top:0px;margin-left:15px;display:none;" class="replycmtlist<?php echo $comment->cid;?>">
                                                         <span id="spinnertab<?php echo $comment->cid;?>"><center>
                                                             <img src="<?php echo base_url();?>/assets/landing/svg/spinnertab.svg" class="spinner">
                                                         </center></span>
                                                         <li class="postreplycmt<?php echo $comment->cid;?>"></li>
                                                         <?php foreach($replaycomments->result() as $replaycomment){ ?>
-                                                            <div style="margin-bottom:15px;" class="media commentdelete<?php echo $replaycomment->cid;?>">
+                                                            <div style="margin-bottom:5px;margin-top:5px;" class="media commentdelete<?php echo $replaycomment->cid;?>">
                                                                 <span class="media-left">
                                                                     <?php if(!empty($replaycomment->profile_image)){ ?>
                                                                         <img class="img-circle" src="<?php echo base_url();?>assets/images/<?php echo $replaycomment->profile_image;?>" style="width:25px;" alt="<?php echo ucfirst($replaycomment->name); ?>">
@@ -678,7 +678,7 @@
                                                                         <span class="">&nbsp;<b><a href="<?php echo base_url().$this->uri->segment(1).'/'.$replaycomment->profile_name;?>"><?php echo ucfirst($replaycomment->name); ?></a></b>
         											                        <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $replaycomment->user_id)){ ?>
                                                                             <span class="dropdown" style="float:right;">
-                                                                                <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
+                                                                                <a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" title="write" aria-expanded="false">
         												                            <i class="fa fa-ellipsis-v"></i>
         												                        </a>
         												                        <ul class="dropdown-menu pull-right">
@@ -688,7 +688,7 @@
                         					                                </span>
                     					                                    <?php } else if(isset($this->session->userdata['logged_in']['user_id']) && !empty($this->session->userdata['logged_in']['user_id'])){ ?>
                     					                                    <span class="dropdown" style="float:right;">
-                        					                                    <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
+                        					                                    <a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" title="write" aria-expanded="false">
         												                            <i class="fa fa-ellipsis-v"></i>
         												                        </a>
         												                        <ul class="dropdown-menu pull-right">
@@ -976,8 +976,8 @@
 </script>
 <script> // comments
     function deletecomment(commentid){
-	    var x = confirm("Are you sure you want to delete the Comment?");
-        if (x) {
+	    $('.deletemessage').html("Are you sure you want to delete the Comment?");              var x = confirm("Are you sure you want to delete the Comment?");
+        $('#confirmdelpopup').modal().one('click', '#delconfirmed', function (e) {
             $.ajax({
                 type:'POST',
                 url:'<?php echo base_url().$this->uri->segment(1);?>/deletepro_comment/'+commentid,
@@ -994,9 +994,7 @@
                     }
                 }
             });
-        } else {
-            return false;
-        }
+        });
 	}
     function reportcomment(commentid, user_id, story_id){
 	    $('#report_comment').modal('show');
@@ -1044,7 +1042,7 @@
 				$('span.comment').text('Please Enter Comment');
 			}else if(resultdata == 1){
 			    console.log('success');
-			    $('p.pcomment'+cid).html(comments);
+			    $('.pcomment'+cid).html(comments);
 			    $('#edit_comment').modal('hide');
 			}else{
 			    console.log('fail');
@@ -1054,7 +1052,7 @@
 	function postReplycomment(commentid, storyid){
 	    $('div.postreplycomment'+commentid).html('<input type="text" id="replycmts'+commentid+'" value="" class="form-control" placeholder="Replay Comment..." required>'+
 	    '<span class="text-danger addreplaycmt'+commentid+'"></span><input type="hidden" name="storyid" value="'+storyid+'">'+
-	    '<span class="input-group-btn"><button type="submit" class="btn btn-success btn-flat btnspinner" onclick="addreplycomment('+commentid+','+storyid+')">POST</button></span>');
+	    '<span class="input-group-btn"><button type="submit" class="btn btn-success btn-flat btnspinner'+commentid+'"  onclick="addreplycomment('+commentid+','+storyid+')">POST</button></span>');
 	    $('.replycmtlist'+commentid).css('display','block');
 	    setTimeout(function(){ $('#spinnertab'+commentid).html(' '); }, 50);
 	}
@@ -1065,7 +1063,7 @@
 	function addreplycomment(commentid, storyid){
 	    var comments = $('#replycmts'+commentid).val();
 	    var old_subcmtcount = $('.old_subcmtcount'+commentid).text();
-	    $('.btnspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
+	    $('.btnspinner'+commentid).html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 	    if(comments){
 	        $.ajax({
         		url:'<?php echo base_url().$this->uri->segment(1);?>/addstoryreplycomment',
@@ -1074,32 +1072,34 @@
         		dataType: "json",
         		success:function(data){
         		    if(data == 2){
-                        $('.addreplaycmt'+commentid).text('Enter your Comments.');
+                        //$('.addreplaycmt'+commentid).text('Enter your Comments.');
+                        $('.btnspinner'+commentid).html('POST');        
+                        $('#snackbar').text('Enter your Comments.').addClass('show');       
+                        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     } else if(data == 1) {
                         $.ajax({
                             url: "<?php echo base_url($this->uri->segment(1).'/pro_commentpost'); ?>",
                             type: 'POST',
                             dataType: 'json',
                             success: function(result) {
-                                $('.btnspinner').html('POST');
+                                $('.btnspinner'+commentid).html('POST');
                                 if(result.response){
                                     $('#replycmts'+commentid).val('');
                                     //var profileimage = '<?php echo base_url();?>assets/images/'+result.response[0].profile_image;
                                     var profileimage = "<?php echo $this->session->userdata['logged_in']['profile_image'];?>";
-                                    if(profileimage){ }else{ profileimage = '<?php echo base_url();?>assets/images/2.png'; }
-                                    var htmlcomment = '<li style="padding:0px;margin-bottom:10px;" class="box-footer padding-0 box-comments commentdelete'+result.response[0].cid+'">'+
-                                        '<div class="">'+
+                                    if(profileimage){ }else{ profileimage = '2.png'; }
+                                    var htmlcomment = '<div style="margin-bottom:5px;margin-top:5px;" class="media commentdelete'+result.response[0].cid+'">'+
                                         '<span class="media-left"><img class="img-circle" style="width:25px;" src="<?php echo base_url();?>assets/images/'+profileimage+'" alt="'+result.response[0].name+'"></span>'+
                                         '<span class="media-body bodycv">'+
                                         '<div class="">'+
                                         '<span class="">&nbsp;<b><a href="javascript:void(0);" style="color: #337ab7;">'+result.response[0].name+'</a></b>'+
                                         '<span class="dropdown" style="float:right;">'+
-                                        '<a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="false">'+
+                                        '<a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" aria-expanded="false">'+
     					                '<i class="fa fa-ellipsis-v" style="color: #337ab7;"></i></a><ul class="dropdown-menu pull-right">'+
     	                                    '<li><a href="javascript:void(0);" onClick="editcomment('+result.response[0].cid+');"><i class="fa fa-pencil"></i> EDIT </a></li>'+
     	                                    '<li><a href="javascript:void(0);" onClick="deletecomment('+result.response[0].cid+');"><i class="fa fa-trash"></i> DELETE </a></li>'+
     	                                '</ul></span><span class="text-muted pull-right datecv">1 minute ago</span></span><br>'+
-    				                    '<span style="padding-left:6px;word-break:break-word;" class="more pcomment'+result.response[0].cid+'">'+result.response[0].comment+'</span></div></span></div></li>'; ///'+result.response[0].date+'
+    				                    '<span style="padding-left:6px;word-break:break-word;" class="more pcomment'+result.response[0].cid+'">'+result.response[0].comment+'</span></div></span></div>'; ///'+result.response[0].date+'
                                         $('li.postreplycmt'+result.response[0].comment_id).prepend(htmlcomment);
                                         $('.old_subcmtcount'+commentid).text(parseInt(old_subcmtcount)+1);
                                 }else{
@@ -1108,12 +1108,17 @@
                         })
                         
                     }else{
-                        $('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                        //$('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                        $('#snackbar').text('Failed to Post your Comments.').addClass('show');     
+                        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     }
                 }
             });
 	    }else{
-	        $('.addreplaycmt'+commentid).text('Enter your Comments.');
+	        //$('.addreplaycmt'+commentid).text('Enter your Comments.');
+            $('.btnspinner'+commentid).html('POST');        
+            $('#snackbar').text('Enter your Comments.').addClass('show');       
+            setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
 	    }
 	}
 </script>

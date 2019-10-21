@@ -237,7 +237,7 @@
     							                    <p class="namers"><?php echo ucfirst($subcomment->name);?></p>
     							                </a></b>
     							                <span class="dropdown pull-right">
-                                                    <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" aria-expanded="true">
                                                      <i class="fa fa-ellipsis-v"></i> </a> 
                                                     <ul class="dropdown-menu pull-right">
                                                         <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($subcomment->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
@@ -293,11 +293,11 @@
 				    <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($topkey->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
 	                <?php } else { ?>
 	                <span class="dropdown" style="float:right;">
-		                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="false">
+		                <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
 					        <i class="fa fa-ellipsis-v pull-right"></i>
 					    </a>
 					    <ul class="dropdown-menu pull-right">
-		                    <li><a href="javascript:void(0)" class="" style="" onclick="reportcomm_post(<?php echo $topkey->id;?>, <?php echo $topkey->user_id;?>)"><i class="fa fa-exclamation-triangle"></i> REPORT </a></li>
+		                    <li><a href="javascript:void(0);" class="" style="" onclick="reportcomm_post(<?php echo $topkey->id;?>, <?php echo $topkey->user_id;?>)"><i class="fa fa-exclamation-triangle"></i> REPORT </a></li>
 		                </ul>
 	                </span>
 	                <?php } ?>
@@ -508,7 +508,7 @@
 								                    <p class="namers"><?php echo ucfirst($subcomment->name);?></p>
 								                </a></b>
 								                <span class="dropdown pull-right">
-                                                    <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" aria-expanded="true">
                                                      <i class="fa fa-ellipsis-v"></i> </a> 
                                                     <ul class="dropdown-menu pull-right">
                                                         <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($subcomment->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>

@@ -586,7 +586,7 @@
     				$('#signupmodal').modal('hide');
     				$('#chooselanguage').modal('show');
     			}else{
-    				alert('Registration failed please try again.');
+    				console.log('Registration failed please try again.');
     				location.reload();
     			}
             }
@@ -800,7 +800,9 @@
 					}
 				});
 			}else{
-				$('.choosecommsave').css('display','none');
+				//$('.choosecommsave').css('display','none');
+				$('#snackbar').text('Select minimum 2 Genres.').addClass('show');
+                setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
 			}
 		});  
 	});
@@ -819,7 +821,7 @@
 				$('#socialfbgmodal').modal('hide');
 				$('#chooselanguage').modal('show');
 			}else{
-				alert('Registration failed please try again.');
+				console.log('Registration failed please try again.');
 			//	location.reload();
 			}
 		});
@@ -1267,6 +1269,7 @@ $(function() {
     function groupsuggest(id){
     	var loggedinuid = $('#loggedinuid').val();
     	if(loggedinuid){
+    		$('#groupsuggest').modal('show');
 	        $.ajax({
 	            type: "POST",
 	            url: "<?php echo base_url().$this->uri->segment(1);?>/get_story_groupdata",

@@ -578,7 +578,7 @@
                                     <div class="card1">
                                         <a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u",'-', $recentlife->title).'-'.$recentlife->sid);?>" class="imagebcg">
                                             <?php if(isset($recentlife->image) && !empty($recentlife->image)) { ?>
-                                                <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" src="<?php echo base_url();?>assets/images/<?php echo $recentlife->image; ?>" alt="<?php echo $recentlife->title;?>" class="imageme1 lazy" style="max-width:266px;max-height:165px;">
+                                                <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/<?php echo $recentlife->image; ?>" alt="<?php echo $recentlife->title;?>" class="imageme1 lazy" style="max-width:266px;max-height:165px;">
                                             <?php }else{ ?>
                                                 <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg" data-src="<?php echo base_url();?>assets/images/series-stories.jpg" alt="<?php echo $recentlife->title;?>" class="imageme1 lazy" style="max-width:266px;max-height:165px;">
                                             <?php } ?>
@@ -853,7 +853,7 @@
     												                            <i class="fa fa-ellipsis-v"></i>
     												                        </a>
     												                        <ul class="dropdown-menu pull-right">
-                    					                                        <li><a href="javascript:void(0);" onClick="reportcomment(<?php echo $replaycomment->cid;?>, <?php echo $replaycomment->user_id;?>, <?php echo $replaycomment->story_id;?>);"><i class="fa fa-exclamation-triangle"></i> Report </a>
+                    					                                        <li><a href="javascript:void(0);" onClick="reportcomment(<?php echo $replaycomment->cid;?>, <?php echo $replaycomment->user_id;?>, <?php echo $replaycomment->story_id;?>);"><i class="fa fa-exclamation-triangle"></i> REPORT </a>
     												                            </li>
                     					                                    </ul>
                     					                                </span>
@@ -863,7 +863,7 @@
     												                            <i class="fa fa-ellipsis-v"></i>
     												                        </a>
     												                        <ul class="dropdown-menu pull-right">
-                    					                                        <li><a href="javascript:void(0);" class="notloginmodal"><i class="fa fa-exclamation-triangle"></i> Report </a>
+                    					                                        <li><a href="javascript:void(0);" class="notloginmodal"><i class="fa fa-exclamation-triangle"></i> REPORT </a>
     												                            </li>
                     					                                    </ul>
                     					                                </span> 
@@ -1257,7 +1257,10 @@
         		dataType: "json",
         		success:function(data){
         		    if(data == 2){
-                        $('.addreplaycmt'+commentid).text('Enter your Comments.');
+                        //$('.addreplaycmt'+commentid).text('Enter your Comments.');
+                        $('.btnspinner'+commentid).html('POST');
+                        $('#snackbar').text('Enter your Comments.').addClass('show');
+                        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     }else if(data == 1){
                         $.ajax({
                             url: "<?php echo base_url('welcome/pro_commentpost'); ?>",
@@ -1290,7 +1293,9 @@
                         })
                         
                     }else{
-                        $('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                        //$('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
+                        $('#snackbar').text('Failed to Post your Comments.').addClass('show');
+                        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     }
                 }
             });

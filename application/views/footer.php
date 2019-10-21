@@ -810,7 +810,9 @@
 					}
 				});
 			}else{
-				$('.choosecommsave').css('display','none');
+				//$('.choosecommsave').css('display','none');
+				$('#snackbar').text('Select minimum 2 Genres.').addClass('show');
+                setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
 			}
 		});  
 	});

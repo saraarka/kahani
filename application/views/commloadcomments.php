@@ -1,3 +1,8 @@
+<style>
+    .ellisub{
+        padding: 0px 10px 0px 20px;
+    }
+</style>
     <?php if(isset($topstory) && ($topstory === 'topstory')){ ?> <!-- From community top stories -->
         <?php if(isset($commloadcomments) && ($commloadcomments->num_rows() > 0)){
             foreach($commloadcomments->result() as $commcomment) { ?>
@@ -66,7 +71,7 @@
             			            <span class="">&nbsp;<b><a href="<?php echo base_url().$topsubcomment->profile_name; ?>">
             			                <p class="namers"><?php echo ucfirst($topsubcomment->name);?></p></a></b>
             			                <span class="dropdown" style="float:right;">
-                                            <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true">
+                                            <a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" aria-expanded="true">
                                              <i class="fa fa-ellipsis-v"></i> </a> 
                                             <ul class="dropdown-menu pull-right">
                                                 <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($topsubcomment->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
@@ -130,7 +135,7 @@
         		            <a href="<?php echo base_url().$lsubcomment->profile_name; ?>">
         		                <p class="namers"><?php echo ucfirst($lsubcomment->name);?></p></a>
     		                <span class="dropdown" style="float:right;">
-                                <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-ellipsis-v"></i> </a> 
+                                <a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-ellipsis-v"></i> </a> 
                                 <ul class="dropdown-menu pull-right">
                                     <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($lsubcomment->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
                                     <li><a href="javascript:void(0);" onClick="editcommcomment(<?php echo $lsubcomment->id;?>);"><span><i class="fa fa-pencil"></i> EDIT</span></a></li>
@@ -242,7 +247,7 @@
                 		            <span class="">&nbsp;<b><a href="<?php echo base_url().$subcomment->profile_name; ?>">
                 		                <p class="namers"><?php echo ucfirst($subcomment->name);?></p></a></b>
                 		                <span class="dropdown" style="float:right;">
-                                            <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true">
+                                            <a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" aria-expanded="true">
                                             <i class="fa fa-ellipsis-v"></i> </a> 
                                             <ul class="dropdown-menu pull-right">
                                                 <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($subcomment->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
@@ -304,7 +309,7 @@
     		            <span class="username" style="padding-left:0px;">&nbsp;<a href="<?php echo base_url().$lsubcomment->profile_name; ?>">
     		                <p class="namers"><?php echo ucfirst($lsubcomment->name);?></p></a>
     		                <span class="dropdown" style="float:right;">
-                                <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true">
+                                <a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" aria-expanded="true">
                                 <i class="fa fa-ellipsis-v"></i> </a> 
                                 <ul class="dropdown-menu pull-right">
                                     <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($lsubcomment->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>

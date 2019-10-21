@@ -116,5 +116,21 @@
         <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/faqs">Faq's</a>
         <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/paymentdetails">User Payment details</a>
         <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/mailfromadmin">Webmail</a>
-        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/allstories">All Stories Count</a>
+
+        <!-- Analytics -->
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/scanalytics">All Stories Count</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/scgenres">All Genres Count</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/scprofiles">All Profiles Count</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/sctagscount">All Life Events Tags Count</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/scmostviewstories">Most Viewed Stories in Week</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/scmonetizstories">Monetized Stories Count</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/scstoriescount">Stories Count(Week, Month, Year)</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/scuserscount">Users Count </a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/sctotalviews">Total Views Count</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/sclanguages">Languages Count</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/scblogs">Blogs Count</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/scgenderusers">Gender Wise User Count</a>
+        <a href="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/scsentamountmoni">Total Monitization Amount</a>
+
+        <a href="javascript:void(0);">&nbsp;</a>
     </div>

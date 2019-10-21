@@ -20,10 +20,10 @@
                     <i class="fa fa-ellipsis-v"></i></a>
                     <ul class="dropdown-menu pull-right">
                         <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $proreply_comment->user_id)){ ?>
-                        <li><a href="javascript:void(0);"><span onClick="editpro_comment(<?php echo $proreply_comment->cid;?>);"><i class="fa fa-pencil"></i> EDIT</span></a></li>
-                        <li><a href="javascript:void(0);"><span onClick="deletepro_comment(<?php echo $proreply_comment->cid;?>);"><i class="fa fa-trash"></i> DELETE</span></a></li>
+                        <li><a onClick="editpro_comment(<?php echo $proreply_comment->cid;?>);" style="cursor: pointer;"><span><i class="fa fa-pencil"></i> EDIT</span></a></li>
+                        <li><a onClick="deletepro_comment(<?php echo $proreply_comment->cid;?>);" style="cursor: pointer;"><span><i class="fa fa-trash"></i> DELETE</span></a></li>
                         <?php }else{ ?>
-                        <li><a href="javascript:void(0);"><span onClick="reportpro_comment(<?php echo $proreply_comment->cid;?>, <?php echo $proreply_comment->user_id;?>);"><i class="fa fa-exclamation-triangle"></i> REPORT</span></a></li>
+                        <li><a onClick="reportpro_comment(<?php echo $proreply_comment->cid;?>, <?php echo $proreply_comment->user_id;?>);" style="cursor: pointer;"><span><i class="fa fa-exclamation-triangle"></i> REPORT</span></a></li>
                         <?php } ?>
                     </ul>
                 </span>

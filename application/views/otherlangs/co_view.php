@@ -7,6 +7,9 @@
     .box-footer {
         padding: 10px 10px 0px 10px;
     }
+    .ellisub{
+        padding: 0px 10px 0px 20px;
+    }
     .switch {
         position: relative;
         display: inline-block;
@@ -473,7 +476,7 @@
         													<?php } } ?><span id="old_cmt<?php echo $key->id;?>" style="cursor:pointer"><?php echo $commentcount; ?></span> Comments
         												</span>
         											</div>
-            										
+
             										<!-- /.box-footer -->
             										<div class="box-footer">
             											<div id="community_commentpost<?php echo $key->id; ?>">
@@ -681,7 +684,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><center>Update Your Post</center></h4>
+                <h4 class="modal-title">Update Your Post</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="updatecomm_post" action="#"></form>
@@ -1102,7 +1105,7 @@
 									    '<span class="media-left"><img class="img-circle" src="<?php echo base_url();?>assets/images/'+profile_image+'" alt="'+result.response[0].name+'" style="width:25px;"></span>'+
                                         '<span class="media-body bodycv"><span class="username"> &nbsp;'+result.response[0].name+
                                             '<span class="dropdown" style="float:right;">'+
-                                                '<a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true">'+
+                                                '<a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" aria-expanded="true">'+
                                                  '<i class="fa fa-ellipsis-v"></i></a> '+
                                                 '<ul class="dropdown-menu pull-right">'+
                                                     '<li><a href="javascript:void(0);" onclick="editcommcomment('+result.response[0].id+');"><span><i class="fa fa-pencil"></i> EDIT</span></a></li>'+
@@ -1284,6 +1287,7 @@
 		});
 	}
     function toppostReplycomment(commentid, comm_id, story_id){
+        setTimeout(function(){ $('#topspinnertab'+commentid).html(' '); });
 	    $('div.toppostreplycomment'+commentid).html('<input type="text" id="topreplycmts'+commentid+'" value="" class="form-control" placeholder="Reply Comment..." required>'+
 	    '<span class="text-danger addreplaycmt'+commentid+'"></span><span class="input-group-btn">'+
 	    '<button type="submit" class="btn btn-success btn-flat btnspinner'+commentid+'" onclick="topaddreplycomment('+commentid+','+comm_id+','+story_id+')">POST</button></span>');
@@ -1320,7 +1324,7 @@
 									    '<span class="media-left"><img class="img-circle" src="<?php echo base_url();?>assets/images/'+profile_image+'" alt="'+result.response[0].name+'" style="width:25px;"></span>'+
                                         '<span class="media-body bodycv"><span class="username"> &nbsp;'+result.response[0].name+
                                             '<span class="dropdown" style="float:right;">'+
-                                                '<a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true">'+
+                                                '<a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" aria-expanded="true">'+
                                                  '<i class="fa fa-ellipsis-v"></i></a> '+
                                                 '<ul class="dropdown-menu pull-right">'+
                                                     '<li><a href="javascript:void(0);" onclick="editcommcomment('+result.response[0].id+');"><span><i class="fa fa-pencil"></i> EDIT</span></a></li>'+
