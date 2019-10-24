@@ -15,156 +15,13 @@
     <meta property="og:image" content="">
     <script src="<?php echo base_url();?>assets/landing/landing.js"></script>
     <link rel="stylesheet" href="<?php echo base_url();?>assets/landing/landing.css">
-    <style>
-        .main-story{
-                display:block;
-            }
-        :focus{
-            outline:0;
-        }
-        .bg-google{
-            padding:0px !important;
-        }
-        .abcRioButtonLightBlue {
-            background-color: #ce0c0c !important;
-            color: #fefefe !important;
-        }
-        .abcRioButton.abcRioButtonLightBlue{
-            width: 100%!important;
-            border-radius:8px !important;
-            height: 37px !important;
-        }
-        svg.abcRioButtonSvg {
-            visibility: hidden;
-        }
-        .abcRioButton{
-            box-shadow: none !important;
-        }
-        .abcRioButtonIcon {
-            visibility: hidden;
-            padding: 0px !important;
-        }
-        .abcRioButtonContents span {
-            display: none;
-        }
-        .abcRioButtonContents:after {
-            content: 'Google';
-            font-size:14px;
-            font-weight:400;
-            font-family: Arial, sans-serif;
-        }
-        .abcRioButtonContents {
-            margin-right:22px !important;
-            line-height: 37px !important; 
-        }
-        #snackbar {
-          visibility: hidden;
-          min-width: 250px;
-          background-color: #333;
-          color: #fff;
-          text-align: center;
-          border-radius: 2px;
-          padding: 16px;
-          position: fixed;
-          z-index: 1;
-          left: 50%;
-          bottom: 30px;
-          font-size: 17px;
-          transform: translateX(-50%);
-        }
-        
-        #snackbar.show {
-          visibility: visible;
-          -webkit-animation: fadein 0.5s, fadeout 0.5s 10.5s;
-          animation: fadein 0.5s, fadeout 0.5s 10.5s;
-        }
-        
-        @-webkit-keyframes fadein {
-          from {bottom: 0; opacity: 0;} 
-          to {bottom: 30px; opacity: 1;}
-        }
-        
-        @keyframes fadein {
-          from {bottom: 0; opacity: 0;}
-          to {bottom: 30px; opacity: 1;}
-        }
-        
-        @-webkit-keyframes fadeout {
-          from {bottom: 30px; opacity: 1;} 
-          to {bottom: 0; opacity: 0;}
-        }
-        
-        @keyframes fadeout {
-          from {bottom: 30px; opacity: 1;}
-          to {bottom: 0; opacity: 0;}
-        }
-        
-        .bg-google{
-            padding:0px;
-        }
-        .abcRioButton:focus {
-            outline:0;
-            box-shadow:none;
-        }
-        .abcRioButton:hover {
-            outline:0;
-            box-shadow:none;
-        }
-        .abcRioButtonContents {
-            font-family:Arial, sans-serif !important;
-        }
-        .abcRioButton{
-            outline:0 !important;
-            box-shadow:none !important;
-            font-family:Arial,sans-serif !important;
-            font-size:13.333px;
-            -webkit-border-radius: 1px;
-            border-radius: 5px;
-            -webkit-box-shadow :none!important;
-            -webkit-box-sizing:none!important;
-            box-sizing:none!important;
-            -webkit-transition:none!important;
-            transition:none!important;
-            -webkit-user-select:none;
-            -webkit-appearance:none;
-            background-color:#fff;
-            background-image:none;
-            color:#262626;
-            cursor:pointer;
-            outline:none;
-            overflow:hidden;
-            position:relative;
-            text-align:center;
-            vertical-align:middle;
-            white-space:nowrap;
-            width:auto;
-        }
-        .abcRioButtonLightBlue {
-            background-color:#ce0c0c!important;
-            color:#fefefe!important;
-            box-shadow:none;
-            font-family:Arial;
-        }
-        .abcRioButton.abcRioButtonLightBlue{
-            width:140px;
-            border-radius:8px!important;
-        }
-        
-    </style>
 </head>
 <body>
     <!-- Mobile Header -->
     <div class="header">
-        <!--<?php if(isset($landinglogos) && ($landinglogos->num_rows() > 0)){ $landingmlogo = $landinglogos->result();
-            if($landingmlogo[0]->type == 'landingmlogo') { ?>
-        <img src="<?php echo base_url();?>assets/images/<?php echo $landingmlogo[0]->slideimage;?>" alt="storycarry.com" style="width: 70px;margin-top: 10px;margin-left: 15px;">
-        <?php } } else{ ?>
-        <img src="<?php echo base_url();?>assets/landing/logom.jpeg" alt="storycarry.com" style="width: 70px;margin-top: 10px;margin-left: 15px;">
-        <?php } ?>-->
         <img src="<?php echo base_url();?>assets/images/logom.png" alt="storycarry.com" style="height: 40px;margin-top: 10px;margin-left: 15px;">
         <div style="margin:19px 15px 0px 15px; float: right;font-size:1.1em;">
             <font>
-                <!--<a href="#genv" style="color:#000; text-decoration:none" data-toggle="modal" data-target="#genv">FAQ</a>-->
                 <a href="<?php echo base_url();?>faq" style="color:#000;">FAQ</a>
             </font>
             <font style="margin-left: 15px;">
@@ -184,12 +41,6 @@
             <!-- Desktop Header -->
             <header>
                 <div class="mainlogo">
-                    <!--<?php if(isset($landinglogos) && ($landinglogos->num_rows() > 0)){ $landinglogo = $landinglogos->result();
-                        if($landinglogo[0]->type == 'landinglogo') { ?>
-                        <img src="<?php echo base_url();?>assets/images/<?php echo $landinglogo[0]->slideimage;?>" alt="storycarry logo" style="margin-top: 15px; margin-left: 20px;">
-                    <?php } } else { ?>
-                    <img src="<?php echo base_url();?>assets/landing/logo.png" alt="storycarry logo" style="margin-top: 15px; margin-left: 20px;" >
-                    <?php } ?>-->
                     <a href="<?php echo base_url();?>"><img src="<?php echo base_url();?>assets/landing/storylogoland.png" alt="storycarry logo" style="margin-top: 15px; margin-left: 20px;" ></a>
                 </div>
                 <div style="display: inline-block;margin:15px 50px 0px 0px; float: right;">
@@ -267,7 +118,6 @@
             Copyright © <?php echo date('Y');?> Story Carry
         </font>
         <div class="socialbtns">
-            <!--<font style="font-size:14px;color:black;font-family: 'Varela Round', sans-serif;" class="socialmedia">SOCIAL MEDIA : </font>-->
             <a href="javascript:void(0);"><img class="soc-img" src="<?php echo base_url();?>/assets/landing/svg/facebook-square-brands.svg" style="margin-right:6px;cursor:pointer;width:21px;height:24px" alt="facebook storycarry"></a>
             <a href="javascript:void(0);"><img class="soc-img" src="<?php echo base_url();?>/assets/landing/svg/instagram-brands.svg" alt="instagram storycarry" style="margin-right:6px;cursor:pointer; width:21px;height:24px"></a>
             <a href="javascript:void(0);"><img class="soc-img" src="<?php echo base_url();?>/assets/landing/svg/twitter-square-brands.svg" style="margin-right:6px;cursor:pointer;width:21px;height:24px" alt="twitter storycarry"></a>
@@ -310,7 +160,6 @@
                         <span class="text-danger password" style="color:red;font-family: sans-serif; font-size: 14px;"></span>
 						<div class="row" style="margin-top:5px;">
 							<div class="col-xs-12">
-								<!--<center> <button type="submit" class="btn bg-green" style="cursor:pointer;display:none;"><img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner"></button></center>-->
 								<center> <button type="submit" class="btn bg-green btnspinner" style="cursor:pointer;">Sign in</button></center>
 							</div>
 						</div>
@@ -324,7 +173,6 @@
 						</div>
 						<div style="margin-top:50px; border-top:1px solid rgba(221, 221, 221, 1);"></div>
 					</div>
-					<!--<hr style="margin-top:50px; border-top:1px solid rgba(221, 221, 221, 1);">-->
 					<div class="">
 					    <center>
 					        <p class="text-centerv" style="margin:5px;">Don't have an account? 
@@ -354,7 +202,6 @@
 					</span>
 				</div>
 				<div class="login-box-body">
-					<!--<span class="text-danger lerror" style="color:red;font-family:sans-serif;font-size:14px;"><?php echo $this->session->flashdata('signinmsg'); ?></span>-->
 					<form id="signup" action="#" method="POST" style="margin-bottom: 0;">
 					    <div class="input-container has-feedback" style="margin-bottom:0px;">
                             <img src="<?php echo base_url();?>assets/landing/svg/user.svg" class="icon" alt="User">
@@ -392,7 +239,6 @@
 		                </center>
 		                <div style="margin-top:5px; border-top:1px solid rgba(221, 221, 221, 1);"></div>
 					</div>
-					<!--<hr style="margin-top:-10px; border:1px solid rgba(221, 221, 221, 1);">-->
 					<div class="">
 					    <center>
 					        <p  class="text-centerv" style="margin-bottom:0">Already have an account? <a href="#loginmodal" data-toggle="modal" data-target="#loginmodal" data-dismiss="modal" style="color:#0e92af">Sign In</a></p>
@@ -440,7 +286,6 @@
 <!-- Change Newpassword Modal popup start -->
 <?php if(isset($hash) && !empty($hash)){ ?>
 <div class="modal fade in" role="dialog" tabindex="-1" aria-hidden="true" style="display: block; padding-right: 0px;">
-    <!--<div class="modal fade" id="newpasswordmodal" role="dialog" tabindex="-1" aria-hidden="true">-->
 	<div class="modal-dialog">
 		<div class="modal-content modal-contentv">
 			<div class="modal-body">
@@ -506,9 +351,6 @@
 					    <div class="pt10" style="display:flex; flex-wrap:wrap; justify-content:center;">
 					        <?php if(isset($languages) && ($languages->num_rows() >0)) { 
 							foreach ($languages->result() as $language) { ?>
-								<!--<a href="javascript:void(0);" class="community-btn" onclick="chooselanguage('<?php echo $language->code;?>')">
-								    <?php echo $language->language; ?>
-								</a>-->
 								<a href="javascript:void(0);" class="community-btn langbtn <?php echo $language->code;?>" onclick="chooselangbtn('<?php echo $language->code;?>')">
 								    <?php echo $language->language; ?>
 								</a>
@@ -554,11 +396,6 @@
     				        <button type="submit" class="btn-next choosecommsave btncommspin" style="color:#bcb2b2; background:#eee; width:82.67px; height:37px;"> NEXT </button>
     				    </center>
     				</div>
-    				<!--<div style="margin-top:18px;">
-    				    <center>
-    				        <button type="submit" class="btn-next choosecommsave" style="display:none;width:82px;"> NEXT </button>
-    				    </center>
-    				</div>-->
 				</form>
 			</div>
 		</div>
@@ -623,319 +460,8 @@
 
 <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-<script>
-    /*$(document).ready(function() {
-        $(".signupvj, .forv").click(function(){
-            $('body').css('overflow', 'hidden');
-        });
-    });
-    $(".close").click(function(){
-        $('body').css('overflow', 'auto');
-    });*/
-    $(document).on('show.bs.modal', '.modal', function () {
-        // run your validation... ( or shown.bs.modal )
-        $('body').css('overflow', 'hidden');
-    });
-    $(document).on('hide.bs.modal', '.modal', function () {
-        $('body').css('overflow', 'auto');
-    });
-    
-    $(document).ready(function() {
-        $("a").click(function() {
-            $('span.text-danger').empty();
-        });
-    });
-</script>
-
-<!-- Register/ Signup  Script -->
-<script type="text/javascript">
-	$( "form#signup" ).submit(function( event ) {
-		event.preventDefault();
-		$('span.text-danger').empty();
-        $.ajax({
-            type: 'POST',
-            url: "<?php echo base_url();?>welcome/signup",
-            data: $("form#signup").serialize(),
-            beforeSend: function() {
-                $('.btnsignupspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
-            },
-            success: function(resultdata, status) {
-                $('.btnsignupspinner').html('Sign Up');
-                var result=JSON.parse(resultdata);
-    			if(result.status == -1){
-    				$.each(result.validations,function (p,q){
-    					$('span.'+p).text(q);
-    				});
-    			}else if((result.status == 1) && (result.response)){
-    				$('input').val('');
-    				$('#userid').val(result.response);
-    				$('#signupmodal').modal('hide');
-    				$('#chooselanguage').modal('show');
-    			}else{
-    				alert('Registration failed please try again.');
-    				location.reload();
-    			}
-            }
-		});
-	});
-	
-	/*$( "form#signup" ).submit(function( event ) {
-		event.preventDefault();
-		$.post("<?php echo base_url();?>welcome/signup",$("form#signup").serialize(),function(resultdata, status) {
-			$('span.text-danger').empty();
-			var result=JSON.parse(resultdata);
-			if(result.status == -1){
-				$.each(result.validations,function (p,q){
-					$('span.'+p).text(q);
-				});
-			}else if((result.status == 1) && (result.response)){
-			    $('.btnsignupspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
-				$('input').val('');
-				$('#userid').val(result.response);
-				$('#chooselanguage').modal('show');
-				$('#signupmodal').modal('hide');
-			}else{
-				alert('Registration failed please try again.');
-				location.reload();
-			}
-		});
-	});*/
-	
-	
-	//// Login  Script	
-	$( "form#loginform" ).submit(function( event ) {
-		event.preventDefault();
-		$.post("<?php echo base_url();?>welcome/signin",$("form#loginform").serialize(),function(resultdata, status) {
-			$('span.text-danger').empty();
-			var result=JSON.parse(resultdata);
-			if(result.status == -1){
-				$.each(result.validations,function (p,q){
-					$('span.'+p).text(q);
-				});
-			}else if((result.status == 1) && (result.response == 'success')){
-			    $('.btnspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
-				if(result.preferedlang){
-				    location.href = "<?php echo base_url();?>"+result.preferedlang;
-				}else{
-				    location.href = "<?php echo base_url();?>english";
-				}
-			}else if((result.status == 1) && (result.response.res == 'nolanguage') && (result.response.userid)){
-			    $('.btnspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
-			    $('#userid').val(result.response.userid);
-			    $('#chooselanguage').modal('show');
-			}else if((result.status == 1) && (result.response.res == 'nocommunities') && (result.response.userid)){
-			    $('.btnspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
-			    $('#userid').val(result.response.userid);
-			    $('#cslang').val(result.response.writerlang);
-			    $('#choosecommunity').modal('show');
-			}else{
-				$('.lerror').text('Incorrect Email id or Password.');
-			}
-		});
-	});
-	
-	// Forgot Password  Script
-	$( "form#forgotpassword" ).submit(function( event ) {
-		event.preventDefault();
-		$('.forgotpwdresendbtn').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
-		$.post("<?php echo base_url();?>forgotpassword",$("form#forgotpassword").serialize(),function(resultdata, status) {
-			$('span.text-danger').empty();
-			var result=JSON.parse(resultdata);
-			if(result.status == -1){
-				$.each(result.validations,function (p,q){
-					$('span.'+p).text(q);
-				});
-			}else if((result.status == 1) && (result.response > 0)){
-			    $('#fpwduserid').val(result.response);
-			    /*$('#forgotpassmodal').modal('hide');
-				////$('#newpasswordmodal').modal('show');
-				$('#snackbar').text('Please check Your Email Inbox for new Password').addClass('show');
-    	        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000); */
-    	        $('#forgotpassword').css('visibility','hidden');
-    	        $('#forgotpassword').css('margin-top','-35px');
-    	        $('.ferrorresend').html('<div style="display:flex; justify-content:center;font-weight:400"><h3 style="font-family: arial, sans-serif;">EMAIL SENT</h3>'+
-    	        '<img src="<?php echo base_url();?>/assets/landing/svg/check-circle-solid.svg" style="height:16px; padding: 21px 0px 0px 10px;"></div>');
-    	        $('.forgotpwdresendbtn').text('RESEND').css('visibility','visible');
-			}else if((result.status == 2) && (result.response == 'fail')){
-			    $('#snackbar').text('The Email Id Entered is not found.').addClass('show');
-    	        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 5000);
-			}else{
-				$('.ferror').text('Please Enter Correct Email Id.');
-			}
-		});
-	});
-	
-	// Forgot Password  new pwd Script
-	$( "form#newpasswordform" ).submit(function( event ) {
-		event.preventDefault();
-		$.post("<?php echo base_url();?>newpassword",$("form#newpasswordform").serialize(),function(resultdata, status) {
-			$('span.text-danger').empty();
-			var result=JSON.parse(resultdata);
-			if(result.status == -1){
-				$.each(result.validations,function (p,q){
-					$('span.'+p).text(q);
-				});
-			}else if((result.status == 1) && (result.response == 'success')){
-			    $('.cpwdspinnerbtn').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
-			    $('#snackbar.show').css('z-index', '1111');
-				$('#snackbar').text('Change Password Success. Please Login').addClass('show');
-    	        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 5000);
-				/*setTimeout(function(){
-					$('#newpasswordmodal').modal('hide')
-					location.reload()
-				}, 3100);*/
-				setTimeout(function(){
-					location.href = "<?php echo base_url();?>";
-				}, 3100);
-			}else if((result.status == 2) && (result.response == 'fail')){
-			    $('#snackbar').text('Failed to change Password.').addClass('show');
-    	        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
-			}else if((result.status == 3) && (result.response == 'notmatch')){
-				$('.nerror').text('New Password and Confirm New Password not matched.');
-			}else{
-			    $('.nerror').text('Somthing Wrong... Try Again');
-			    setTimeout(function(){
-					$('#newpasswordmodal').modal('hide')
-					location.reload()
-				}, 2000);
-			}
-		});
-	});
-	
-	
-    /*function resendmail(email){
-		$.ajax({
-			url: "<?php echo base_url();?>index.php/welcome/resendemail",
-			type: 'POST',
-			data: {'email':email},
-			dataType: 'json',
-			success: function (resultdata) {
-				if(resultdata == 1){
-					$('.resendmail').html('<span class="text-success">Mail sent successfully. Please check your inbox.</span>');
-				}else{
-					$('.resendmail').html('<span class="text-danger">Mail sent Fail. Please try again (or) Contact Us.</span>');
-				}
-			}
-		});
-	}*/
-	
-	function chooselangbtn(lang){
-	    if(lang){
-    	    $('#cslang').val(lang);
-    	    $('.langbtn').css('background','#eee');
-    	    $('.langbtn').css('color','#000');
-    	    $('.'+lang).css('background','#3c8dbc');
-    	    $('.'+lang).css('color','#fff');
-    	    $('.chooselanguagebtn').css('color','#fff');
-    	    $('.chooselanguagebtn').css('background','#3c8dbc');
-	    }
-	}
-	
-	//Sign up choose language
-	function chooselanguage(){
-	    var choselanguage = $('#cslang').val();
-        if(choselanguage){
-            $('.btnlangspin').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
-        }
-	    var userid = $('#userid').val();
-		$.ajax({
-			url: "<?php echo base_url();?>welcome/chooselanguage",
-			type: 'POST',
-			data: {'choselanguage':choselanguage, 'userid' : userid},
-			dataType: 'json',
-			success: function (resultdata) {
-				if(resultdata == 1){
-					$('#cslang').val(choselanguage);
-					$('#chooselanguage').modal('hide');
-					$('#choosecommunity').modal('show');
-				}else{
-				   console.log('fail');
-				}
-			}
-		});
-	}
-	//Sign up select and deselect community
-	$( document ).ready(function() {
-		var commids = [];
-		$('.choosecomm').on('click', function(){
-		   var chosenid = $(this).attr('id');
-			if($('.checkbox'+chosenid).prop('checked')){
-				commids.push(chosenid);
-				$(this).removeClass('btn-default').addClass('btn-primary').css({"background":"#3c8dbc", "color": "#fff"});
-			}else if($('#'+chosenid).hasClass('btn-primary')){
-				$('#'+chosenid).removeClass('btn-primary').addClass('btn-default').css({"background":"#eee", "color":"#000"});
-				$('.checkbox'+chosenid).prop('checked',false);
-			}
-			var choosecommcount = $('input[name="choosecomm[]"]:checked').length;
-			if(choosecommcount >= 2){
-				$('.choosecommsave').css({"display":"block", "background":"#3c8dbc", "color": "white"});
-				//$('.choosecommsave').css('background','3c8dbc');
-			}else{
-				//$('.choosecommsave').css('display','none');
-				$('.choosecommsave').css({"display":"block!important", "background":"#eee", "color": "#bcb2b2"});
-			}
-		});
-		
-		//Sign up choose communities
-		$( "form#choosecommu" ).submit(function( event ) {
-			event.preventDefault();
-			var choosecommcount = $('input[name="choosecomm[]"]:checked').length;
-			var cslang = $('#cslang').val();
-			var userid = $('#userid').val();
-			if(choosecommcount >= 2){
-			    $('.btncommspin').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
-				$.ajax({
-					url: "<?php echo base_url();?>welcome/choosecommu",
-					type: 'POST',
-					data: {'commids': commids, 'cslang': cslang, 'userid':userid },
-					success: function (resultdata) {
-						/*if(resultdata == 1){
-							location.href = "<?php echo base_url();?>english/"+cslang;
-						}*/
-						if((resultdata != 1) || (resultdata != 0)){
-						    location.href = "<?php echo base_url();?>"+resultdata;
-						}else{
-						    location.href = "<?php echo base_url();?>";
-						}
-					}
-				});
-			}else{
-				//$('.choosecommsave').css('display','none');
-                $('#snackbar').text('Select minimum 2 Communities.').addClass('show');
-                setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
-			}
-		});  
-	});
-	
-	
-	
-	$( "form#socialfbg" ).submit(function( event ) {
-		event.preventDefault();
-		$.post("<?php echo base_url();?>welcome/socialfbg",$("form#socialfbg").serialize(),function(resultdata, status) {
-			$('span.text-danger').empty();
-			var result=JSON.parse(resultdata);
-			if(result.status == -1){
-				$.each(result.validations,function (p,q){
-					$('span.'+p).text(q);
-				});
-			}else if((result.status == 1) && (result.response)){
-				$('input').val('');
-				$('#socialfbgmodal').modal('hide');
-				$('#chooselanguage').modal('show');
-			}else{
-				alert('Registration failed please try again.');
-			//	location.reload();
-			}
-		});
-	});
-	
-</script>
-<script>
-    var lazyLoadInstance = new LazyLoad({
-        elements_selector: ".lazy"
-    });
-</script>
+<script type="text/javascript">var base_url = '<?php echo base_url();?>';</script>
+<script src="<?php echo base_url();?>assets/js/landing.js"></script>
 
 </body>
 </html>

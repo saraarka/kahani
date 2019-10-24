@@ -1,3 +1,140 @@
+/* inline page css start */
+	.main-story{
+		display:block;
+	}
+	:focus{
+		outline:0;
+	}
+	.bg-google{
+		padding:0px !important;
+	}
+	.abcRioButtonLightBlue {
+		background-color: #ce0c0c !important;
+		color: #fefefe !important;
+	}
+	.abcRioButton.abcRioButtonLightBlue{
+		width: 100%!important;
+		border-radius:8px !important;
+		height: 37px !important;
+	}
+	svg.abcRioButtonSvg {
+		visibility: hidden;
+	}
+	.abcRioButton{
+		box-shadow: none !important;
+	}
+	.abcRioButtonIcon {
+		visibility: hidden;
+		padding: 0px !important;
+	}
+	.abcRioButtonContents span {
+		display: none;
+	}
+	.abcRioButtonContents:after {
+		content: 'Google';
+		font-size:14px;
+		font-weight:400;
+		font-family: Arial, sans-serif;
+	}
+	.abcRioButtonContents {
+		margin-right:22px !important;
+		line-height: 37px !important; 
+	}
+	#snackbar {
+	  visibility: hidden;
+	  min-width: 250px;
+	  background-color: #333;
+	  color: #fff;
+	  text-align: center;
+	  border-radius: 2px;
+	  padding: 16px;
+	  position: fixed;
+	  z-index: 1;
+	  left: 50%;
+	  bottom: 30px;
+	  font-size: 17px;
+	  transform: translateX(-50%);
+	}
+	
+	#snackbar.show {
+	  visibility: visible;
+	  -webkit-animation: fadein 0.5s, fadeout 0.5s 10.5s;
+	  animation: fadein 0.5s, fadeout 0.5s 10.5s;
+	}
+	
+	@-webkit-keyframes fadein {
+	  from {bottom: 0; opacity: 0;} 
+	  to {bottom: 30px; opacity: 1;}
+	}
+	
+	@keyframes fadein {
+	  from {bottom: 0; opacity: 0;}
+	  to {bottom: 30px; opacity: 1;}
+	}
+	
+	@-webkit-keyframes fadeout {
+	  from {bottom: 30px; opacity: 1;} 
+	  to {bottom: 0; opacity: 0;}
+	}
+	
+	@keyframes fadeout {
+	  from {bottom: 30px; opacity: 1;}
+	  to {bottom: 0; opacity: 0;}
+	}
+	
+	.bg-google{
+		padding:0px;
+	}
+	.abcRioButton:focus {
+		outline:0;
+		box-shadow:none;
+	}
+	.abcRioButton:hover {
+		outline:0;
+		box-shadow:none;
+	}
+	.abcRioButtonContents {
+		font-family:Arial, sans-serif !important;
+	}
+	.abcRioButton{
+		outline:0 !important;
+		box-shadow:none !important;
+		font-family:Arial,sans-serif !important;
+		font-size:13.333px;
+		-webkit-border-radius: 1px;
+		border-radius: 5px;
+		-webkit-box-shadow :none!important;
+		-webkit-box-sizing:none!important;
+		box-sizing:none!important;
+		-webkit-transition:none!important;
+		transition:none!important;
+		-webkit-user-select:none;
+		-webkit-appearance:none;
+		background-color:#fff;
+		background-image:none;
+		color:#262626;
+		cursor:pointer;
+		outline:none;
+		overflow:hidden;
+		position:relative;
+		text-align:center;
+		vertical-align:middle;
+		white-space:nowrap;
+		width:auto;
+	}
+	.abcRioButtonLightBlue {
+		background-color:#ce0c0c!important;
+		color:#fefefe!important;
+		box-shadow:none;
+		font-family:Arial;
+	}
+	.abcRioButton.abcRioButtonLightBlue{
+		width:140px;
+		border-radius:8px!important;
+	}
+/* inline page css end */
+
+
 body{
     margin:0;
     height:100%;
