@@ -14,14 +14,14 @@
 	}
 </style>
 <div style="width: 100%; text-align: center;">
-	<?php if(isset($sunsubs) && ($sunsubs == 'sunsubs')){ ?>
+	<?php if(isset($response) && ($response == 'sunsubs')){ ?>
 		<div style="padding-top: 20%; text-align: center;">
 			<div>
 				<img src="<?php echo base_url();?>assets/default/unsubssucces.png" class="img-responsive">
 			</div>
 			<div style="font-family: arial,sans-serif; margin: 5px 0px;"><center>SUCCESSFULLY UNSUBSCRIBED</center></div>
 		</div>
-	<?php } else if(isset($sunsubs) && ($sunsubs == 'wunsubs')){ ?>
+	<?php } else if(isset($response) && ($response == 'wunsubs')){ ?>
 		<div style="padding-top: 20%; text-align: center;">
 			<div>
 				<img src="<?php echo base_url();?>assets/default/unsubswarning.png" class="img-responsive">
