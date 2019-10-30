@@ -1,39 +1,21 @@
-	    function groupsuggest(id){
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url();?>index.php/welcome/get_story_groupdata",
-            data: {'id': id},
-            success: function(data) {
-                if(data == 'notlogin'){
-                    $('#notloginmodal').trigger('click');
-    			}else if(data) {
-    			    $('.storysuggesttogroup').html(data);
-                	$('#groupsuggest').modal('show');
-              	}
-            }
-    	});
-    }
-    
-    function friend(id){
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url();?>index.php/welcome/get_story_data",
-            data: {'id':id},
-            success: function(data) {
-                if(data == 'notlogin'){
-                    $('#notloginmodal').trigger('click');
-    			}else if(data) {
-                	$('.storysuggesttofriend').html(data);
-                	$('#friendsuggest').modal('show');
-              	}
-            }
-    	});
-    }
-    
-    
-    
+/* In Mobile hide signup,signin,forgotpwd etc popups use mobile app download */
+    $(function () {
+        $(".headsvj").click(function () {
+            $("#writeapp").modal("hide");
+        });
+    });
+
+    $(document).on('show.bs.modal', '.modal', function () {
+        // run your validation... ( or shown.bs.modal )
+        $('body').css('overflow', 'hidden');
+    });
+    $(document).on('hide.bs.modal', '.modal', function () {
+        $('body').css('overflow', 'auto');
+    });
+
+// modal popup Language start
 	function languages(){
-		$.post("<?php echo base_url();?>welcome/languages",function(resultdata,status){
+		$.post(base_url+"welcome/languages",function(resultdata,status){
 			var result=JSON.parse(resultdata);
 			var languageslist = '<option value=""> Select Language </option>';
 			if(result.status == 1){
@@ -54,45 +36,55 @@
 	function selectlang(language){
 		$.ajax({
 			type :'POST',
-			url :'<?php echo base_url();?>welcome/selectlang/'+language,
+			url :base_url+'welcome/selectlang/'+language,
 			success:function(data){
 			    if(data == 1){
 			        $('input[name="language"]').val(language);
 			        location.reload();
 			    }else{
-			        location.href = "<?php echo base_url();?>";
+			        location.href = base_url;
 			    }
 			}
 		});
 	}
- 
+// modal popup Language end
 
+// modal popup signup start
 	$( "form#signup" ).submit(function( event ) {
 		event.preventDefault();
-		$('.processing').html('<img src="<?php echo base_url();?>assets/images/processing.gif" style="height:80px;">'); 
-		$.post("<?php echo base_url();?>index.php/welcome/signup",$("form#signup").serialize(),function(resultdata, status) {
-			$('span.text-danger').empty();
-			var result=JSON.parse(resultdata);
-			if(result.status == -1){
-				$('.processing').html(' ');
-				$.each(result.validations,function (p,q){
-					$('span.'+p).text(q);
-				});
-			}else if((result.status == 1) && (result.response)){
-				$('input').val('');
-				$('.processing').html(' ');
-				$('#chooselanguage').modal('show');
-			}else{
-				alert('Registration failed please try again.');
-				location.reload();
-			}
+		$('span.text-danger').empty();
+        $.ajax({
+            type: 'POST',
+            url: base_url+"welcome/signup",
+            data: $("form#signup").serialize(),
+            beforeSend: function() {
+                $('.btnsignupspinner').html('<img src="'+base_url+'assets/landing/svg/spinner.svg" class="spinner">');
+            },
+            success: function(resultdata, status) {
+                $('.btnsignupspinner').html('Sign Up');
+                var result=JSON.parse(resultdata);
+    			if(result.status == -1){
+    				$.each(result.validations,function (p,q){
+    					$('span.'+p).text(q);
+    				});
+    			}else if((result.status == 1) && (result.response)){
+    				$('input').val('');
+    				$('#userid').val(result.response);
+    				$('#signupmodal').modal('hide');
+    				$('#chooselanguage').modal('show');
+    			}else{
+    				console.log('Registration failed please try again.');
+    				location.reload();
+    			}
+            }
 		});
 	});
+// modal popup Language end
 	
-	//// Login  Script	
+// Login  Script start
 	$( "form#loginform" ).submit(function( event ) {
 		event.preventDefault();
-		$.post("<?php echo base_url();?>index.php/welcome/signin",$("form#loginform").serialize(),function(resultdata, status) {
+		$.post(base_url+"welcome/signin",$("form#loginform").serialize(),function(resultdata, status) {
 			$('span.text-danger').empty();
 			var result=JSON.parse(resultdata);
 			if(result.status == -1){
@@ -100,24 +92,29 @@
 					$('span.'+p).text(q);
 				});
 			}else if((result.status == 1) && (result.response == 'success')){
-				//location.reload();
-				location.href = "<?php echo base_url();?>home";
+			    $('.btnspinner').html('<img src="'+base_url+'assets/landing/svg/spinner.svg" class="spinner">');
+				location.reload();
 			}else if((result.status == 1) && (result.response.res == 'nolanguage') && (result.response.userid)){
+			    $('.btnspinner').html('<img src="'+base_url+'assets/landing/svg/spinner.svg" class="spinner">');
 			    $('#userid').val(result.response.userid);
 			    $('#chooselanguage').modal('show');
 			}else if((result.status == 1) && (result.response.res == 'nocommunities') && (result.response.userid)){
+			    $('.btnspinner').html('<img src="'+base_url+'assets/landing/svg/spinner.svg" class="spinner">');
 			    $('#userid').val(result.response.userid);
+			    $('#cslang').val(result.response.writerlang);
 			    $('#choosecommunity').modal('show');
 			}else{
-				$('.lerror').text('Please Enter Correct Email Id and Password.');
+				$('.lerror').text('Incorrect Email id or Password.');
 			}
 		});
 	});
+// Login  Script end
 	
-	// Forgot Password  Script
+// Forgot Password  request Script start
 	$( "form#forgotpassword" ).submit(function( event ) {
 		event.preventDefault();
-		$.post("<?php echo base_url();?>forgotpassword",$("form#forgotpassword").serialize(),function(resultdata, status) {
+		$('.forgotpwdresendbtn').html('<img src="'+base_url+'assets/landing/svg/spinner.svg" class="spinner">');
+		$.post(base_url+"forgotpassword",$("form#forgotpassword").serialize(),function(resultdata, status) {
 			$('span.text-danger').empty();
 			var result=JSON.parse(resultdata);
 			if(result.status == -1){
@@ -126,23 +123,25 @@
 				});
 			}else if((result.status == 1) && (result.response > 0)){
 			    $('#fpwduserid').val(result.response);
-			    $('#forgotpassmodal').modal('hide');
-				//$('#newpasswordmodal').modal('show');
-				$('#snackbar').text('Please check Your Email Inbox for new Password').addClass('show');
-    	        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    	        $('#forgotpassword').css('visibility','hidden');
+    	        $('#forgotpassword').css('margin-top','-35px');
+    	        $('.ferrorresend').html('<div style="display:flex; justify-content:center;font-weight:400"><h3 style="font-family: arial, sans-serif;font-size: 19px;">EMAIL SENT</h3>'+
+    	        '<img src="'+base_url+'assets/landing/svg/check-circle-solid.svg" style="height:16px; margin: 21px 0px 0px 10px;"></div>');
+    	        $('.forgotpwdresendbtn').text('RESEND').css('visibility','visible');
 			}else if((result.status == 2) && (result.response == 'fail')){
 			    $('#snackbar').text('The Email Id Entered is not found.').addClass('show');
-    	        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    	        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
 			}else{
 				$('.ferror').text('Please Enter Correct Email Id.');
 			}
 		});
 	});
+// Forgot Password  request Script end
 	
-	// Forgot Password  new pwd Script
+// Forgot Password  new pwd Script start
 	$( "form#newpasswordform" ).submit(function( event ) {
 		event.preventDefault();
-		$.post("<?php echo base_url();?>newpassword",$("form#newpasswordform").serialize(),function(resultdata, status) {
+		$.post(base_url+"newpassword",$("form#newpasswordform").serialize(),function(resultdata, status) {
 			$('span.text-danger').empty();
 			var result=JSON.parse(resultdata);
 			if(result.status == -1){
@@ -150,14 +149,12 @@
 					$('span.'+p).text(q);
 				});
 			}else if((result.status == 1) && (result.response == 'success')){
+			    $('.cpwdspinnerbtn').html('<img src="'+base_url+'assets/landing/svg/spinner.svg" class="spinner">');
+			    $('#snackbar.show').css('z-index', '1111');
 				$('#snackbar').text('Change Password Success. Please Login').addClass('show');
-    	        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
-				/*setTimeout(function(){
-					$('#newpasswordmodal').modal('hide')
-					location.reload()
-				}, 3100);*/
+    	        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 5000);
 				setTimeout(function(){
-					location.href = "<?php echo base_url();?>";
+					location.href = base_url;
 				}, 3100);
 			}else if((result.status == 2) && (result.response == 'fail')){
 			    $('#snackbar').text('Failed to change Password.').addClass('show');
@@ -173,13 +170,33 @@
 			}
 		});
 	});
+// Forgot Password  new pwd Script end
 	
-	//Sign up choose language
-	function chooselanguage(choselanguage){
+// signup language popup selected button color change start
+	function chooselangbtn(lang){
+	    if(lang){
+    	    $('#cslang').val(lang);
+    	    $('.langbtn').css('background','#eee');
+    	    $('.langbtn').css('color','#000');
+    	    $('.'+lang).css('background','#3c8dbc');
+    	    $('.'+lang).css('color','#fff');
+    	    $('.chooselanguagebtn').css('color','#fff');
+    	    $('.chooselanguagebtn').css('background','#3c8dbc');
+	    }
+	}
+// signup language popup selected button color change end
+	
+//Sign up choose language start
+	function chooselanguage(){
+	    var choselanguage = $('#cslang').val();
+	    if(choselanguage){
+	    	$('.btnlangspin').html('<img src="'+base_url+'assets/landing/svg/spinner.svg" class="spinner">');
+	    }
+	    var userid = $('#userid').val();
 		$.ajax({
-			url: "<?php echo base_url();?>index.php/welcome/chooselanguage",
+			url: base_url+"welcome/chooselanguage",
 			type: 'POST',
-			data: {'choselanguage':choselanguage},
+			data: {'choselanguage':choselanguage, 'userid':userid},
 			dataType: 'json',
 			success: function (resultdata) {
 				if(resultdata == 1){
@@ -192,26 +209,27 @@
 			}
 		});
 	}
-	//Sign up select and deselect community
+//Sign up choose language end
+	
+//Sign up select and deselect community start
 	$( document ).ready(function() {
 		var commids = [];
 		$('.choosecomm').on('click', function(){
 		   var chosenid = $(this).attr('id');
 			if($('.checkbox'+chosenid).prop('checked')){
 				commids.push(chosenid);
-				$(this).removeClass('btn-default').addClass('btn-primary').css('background','#3c8dbc');
+				$(this).removeClass('btn-default').addClass('btn-primary').css({"background":"#3c8dbc", "color": "#fff"});
 			}else if($('#'+chosenid).hasClass('btn-primary')){
-				$('#'+chosenid).removeClass('btn-primary').addClass('btn-default').css('background','#eee');
+				$('#'+chosenid).removeClass('btn-primary').addClass('btn-default').css({"background":"#eee", "color":"#000"});
 				$('.checkbox'+chosenid).prop('checked',false);
 			}
 			var choosecommcount = $('input[name="choosecomm[]"]:checked').length;
 			if(choosecommcount >= 2){
-				$('.choosecommsave').css('display','block');
+				$('.choosecommsave').css({"display":"block", "background":"#3c8dbc", "color": "white"});
 			}else{
-				$('.choosecommsave').css('display','none');
+				$('.choosecommsave').css({"display":"block!important", "background":"#eee", "color": "#fff"});
 			}
 		});
-		
 		//Sign up choose communities
 		$( "form#choosecommu" ).submit(function( event ) {
 			event.preventDefault();
@@ -219,72 +237,71 @@
 			var cslang = $('#cslang').val();
 			var userid = $('#userid').val();
 			if(choosecommcount >= 2){
+			    $('.btncommspin').html('<img src="'+base_url+'assets/landing/svg/spinner.svg" class="spinner">');
 				$.ajax({
-					url: "<?php echo base_url();?>index.php/welcome/choosecommu",
+					url: base_url+"welcome/choosecommu",
 					type: 'POST',
 					data: {'commids': commids, 'cslang': cslang, 'userid':userid },
 					success: function (resultdata) {
-						if(resultdata == 1){
-							location.href = "<?php echo base_url();?>home/"+cslang;
+						if((resultdata != 1) || (resultdata != 0)){
+							location.href = base_url+resultdata;
+						}else{
+						    location.href = base_url;
 						}
 					}
 				});
 			}else{
-				$('.choosecommsave').css('display','none');
+				$('#snackbar').text('Select minimum 2 Genres.').addClass('show');
+                setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
 			}
 		});  
 	});
+//Sign up select and deselect community start	
 	
+// social logins after open language popup start
 	$( "form#socialfbg" ).submit(function( event ) {
 		event.preventDefault();
-		$('.processing').html('<img src="<?php echo base_url();?>assets/images/processing.gif" style="height:80px;">'); 
-		$.post("<?php echo base_url();?>index.php/welcome/socialfbg",$("form#socialfbg").serialize(),function(resultdata, status) {
+		$.post(base_url+"welcome/socialfbg",$("form#socialfbg").serialize(),function(resultdata, status) {
 			$('span.text-danger').empty();
 			var result=JSON.parse(resultdata);
 			if(result.status == -1){
-				$('.processing').html(' ');
 				$.each(result.validations,function (p,q){
 					$('span.'+p).text(q);
 				});
 			}else if((result.status == 1) && (result.response)){
 				$('input').val('');
-				$('.processing').html(' ');
 				$('#socialfbgmodal').modal('hide');
 				$('#chooselanguage').modal('show');
 			}else{
-				alert('Registration failed please try again.');
+				console.log('Registration failed please try again.');
 			//	location.reload();
 			}
 		});
 	});
-	
- 
+// social logins after open language popup end
 
-
-
-
-
+/* Read Later Button status readlater start */
     function yoursreadlater(){
         $('#snackbar').text('You Can not read later the Story').addClass('show');
-    	setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    	setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
     }
 	function readlater(id){
 		$.ajax({
 			type :'POST',
-			url :'<?php echo base_url(); ?>index.php/welcome/readlater',
+			url :base_url+'welcome/readlater',
 			data :{'sid':id, 'type':'readlater'},
 			dataType :"json", 
 			success:function(data){
                 if(data == 1){
-    		        //$('a.readlaterbtn'+id).removeClass('read').addClass('readdone');
     		        $('button.readlaterbtnatr'+id).removeClass('read').addClass('readdone');
+    		        $('button.readbtnremove').removeClass('read').removeClass('readdone');
     		        $('button.readlaterbtnatr'+id).attr('onclick','unreadlater('+id+')');
     		        $('.faicon'+id).removeClass('fa-bookmark').addClass('fa-check');
-    		        $('#snackbar').text('Successfully added to Read later.').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    		        $('#snackbar').text('Story added to your library.').addClass('show');
+    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
                 }else{
                     //console.log(' Read Later Fail.');
-                    //$('#snackbar').text('Failed to add Read later.').addClass('show');
+                    $('#snackbar').text('Failed to add Read later.').addClass('show');
     				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                 }
 			}
@@ -293,89 +310,91 @@
 	function unreadlater(id){
 		$.ajax({
 			type :'POST',
-			url :'<?php echo base_url(); ?>index.php/welcome/readlater',
+			url :base_url+'welcome/readlater',
 			data :{'sid':id, 'type':'readlater'},
 			dataType :"json", 
 			success:function(data){
                 if(data == 2){
-    		        //$('a.readlaterbtn'+id).removeClass('readdone').addClass('read');
     		        $('button.readlaterbtnatr'+id).removeClass('readdone').addClass('read');
+    		        $('button.readbtnremove').removeClass('read').removeClass('readdone');
     		        $('button.readlaterbtnatr'+id).attr('onclick','readlater('+id+')');
     		        $('.faicon'+id).removeClass('fa-check').addClass('fa-bookmark');
     		        $('#snackbar').text('Successfully removed from Read later.').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
                 }else{
                     //console.log(' Unread Fail. ');
                     $('#snackbar').text('Failed to remove from Read later.').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
                 }
 			}
 		});
 	}
+/* Read Later Button status readlater start */
 	
-	/* Favorite Button status favorite */
+/* Favorite Button status favorite start */
 	function favorite(id){
 	    var favcount = parseInt($('.favcount').text());
+	    $('.favbtn').css('color','#ff0000');
+		$('i.fa.fa-heart-o.favbtn').addClass('fa-heart').removeClass('fa-heart-o');
 		$.ajax({
 			type :'POST',
-			url :'<?php echo base_url(); ?>index.php/Welcome/readlater',
+			url :base_url+'welcome/readlater',
 			data :{'sid':id, 'type':'favorite'},
 			dataType :"json",
 			success:function(data){
 			    if(data == 1){
-			        $('.favbtn').css('color','#ff0000');
-			        $('i.fa.fa-2x.fa-heart-o.favbtn').addClass('fa-heart').removeClass('fa-heart-o');
 			        $('span.favbtn'+id).attr('onclick','unfavorite('+id+')');
 			        favocount = favcount+1;
 			        $('.favcount').html(favocount);
-                    //console.log('Favorite Success');
-                    $('#snackbar').text('Successfully added to Favorites.').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+                    $('#snackbar').text('Story added to your library.').addClass('show');
+    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
 			    }else{
-			        //console.log('Favorite Fail');
-			        $('#snackbar').text('failed to add Favorites.').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+			    	$('.favbtn').css('color','#333');
+			    	$('i.fa.fa-heart.favbtn').addClass('fa-heart-o').removeClass('fa-heart');
+			        $('#snackbar').text('Failed to add your library.').addClass('show');
+    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
 			    }
 			}
 		});
 	}
 	function unfavorite(id){
 	    var favcount = parseInt($('.favcount').text());
+	    $('.favbtn').css('color','#333');
+		$('i.fa.fa-heart.favbtn').addClass('fa-heart-o fa-2x').removeClass('fa-heart');
 		$.ajax({
 			type :'POST',
-			url :'<?php echo base_url(); ?>index.php/Welcome/readlater',
+			url :base_url+'welcome/readlater',
 			data :{'sid':id, 'type':'favorite'},
 			dataType :"json",
 			success:function(data){
 			    if(data == 2){
-			        $('.favbtn').css('color','#333');
-			        $('i.fa.fa-heart.favbtn').addClass('fa-heart-o fa-2x').removeClass('fa-heart');
 			        $('span.favbtn'+id).attr('onclick','favorite('+id+')');
 			        favocount = favcount-1;
 			        $('.favcount').html(favocount);
                     //console.log('Unfavorite Success');
-                    $('#snackbar').text('Successfully removed from Favorites.').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+                    $('#snackbar').text('Story removed from your library.').addClass('show');
+    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
 			    }else{
-			        //console.log('Unfavorite Fail');
-			        $('#snackbar').text('Fail to remove from Favorites.').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+			    	$('.favbtn').css('color','#ff0000');
+					$('i.fa.fa-heart-o.favbtn').addClass('fa-heart').removeClass('fa-heart-o fa-2x');
+			        $('#snackbar').text('Failed to remove from your library.').addClass('show');
+    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
 			    }
 			}
 		});
 	}
-	
 	function yoursfavorite(){
-	     $('#snackbar').text('You Can not favorite the Story.').addClass('show');
-    	 setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+	     $('#snackbar').text('You cannot favourite your own story.').addClass('show');
+    	 setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
 	}
-	
-	/* Subscribe Button status seriessubscribe */
+/* Favorite Button status favorite end */
+
+/* Subscribe Button status seriessubscribe start */
 	function subscribe(id){
         var subscribers = parseInt($('p.subscribers').text());
 		$.ajax({
 			type :'POST',
-			url :'<?php echo base_url(); ?>index.php/welcome/readlater',
+			url :base_url+'welcome/readlater',
 			data :{'sid':id, 'type':'seriessubscribe'},
 			dataType :"json",
 			success:function(data){
@@ -384,11 +403,11 @@
 			        $('.subscribe').attr('onclick','unsubscribe('+id+')');
 			        $('.subscribe').removeClass('btn-success').addClass('btn-primary');
 			        $('p.subscribers').text(subscribers+1+' SUBSCRIBERS');
-			        $('#snackbar').text('Successfully Subscribed Series').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+			        $('#snackbar').text('You will be notified when new episode is added.').addClass('show');
+    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 5000);
 			    }else{
 					$('#snackbar').text('Failed to Subscribed Series').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
 			    }
 			}
 		});
@@ -397,7 +416,7 @@
 	    var subscribers = parseInt($('p.subscribers').text());
 		$.ajax({
 			type :'POST',
-			url :'<?php echo base_url(); ?>index.php/welcome/readlater',
+			url :base_url+'welcome/readlater',
 			data :{'sid':id, 'type':'seriessubscribe'},
 			dataType :"json",
 			success:function(data){
@@ -415,17 +434,18 @@
 			}
 		});
 	}
+/* Subscribe Button status seriessubscribe start end */
 	
-	/* writerfollow writerunfollow Button and count in home page */
+/* writerfollow writerunfollow Button and count in home page start */
 	function yoursfollow(){
 	    $('#snackbar').text('You Can not Follow the Writer.').addClass('show');
-    	setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    	setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
 	}
 	function writerfollow(writer_id, writer_name) { // follow button 
         var follcount = $('#follcount'+writer_id).text();
         $.ajax({
     		type :'POST',
-    		url :'<?php echo base_url(); ?>index.php/welcome/follow',
+    		url :base_url+'welcome/follow',
     		data :{'writer_id':writer_id, 'writer_name':writer_name},
     		dataType :"json",
     		success:function(data){
@@ -437,8 +457,6 @@
     			    var followcount = parseInt(follcount)+1;
     			    $('#follcount'+writer_id).text(followcount);
     			    //console.log('writerfollow success');
-    			    $('#snackbar').text('Follow success').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     			}else{
     				//console.log('writerfollow fail');
     				$('#snackbar').text('Follow fail').addClass('show');
@@ -451,7 +469,7 @@
         var follcount = $('#follcount'+writer_id).text();
         $.ajax({
     		type :'POST',
-    		url :'<?php echo base_url(); ?>index.php/welcome/follow',
+    		url :base_url+'welcome/follow',
     		data :{'writer_id':writer_id, 'writer_name':writer_name},
     		dataType :"json",
     		success:function(data){
@@ -463,8 +481,6 @@
     			    var followcount = parseInt(follcount)-1;
     			    $('#follcount'+writer_id).text(followcount);
     			    //console.log('writerunfollow success');
-    				$('#snackbar').text('Unfollow success').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
     			}else{
     				//console.log('writerunfollow fail');
     				$('#snackbar').text('Unfollow fail').addClass('show');
@@ -473,107 +489,290 @@
     		}
     	});
     }
- 
+/* writerfollow writerunfollow Button and count in home page end */
 
-    $( document ).ready(function() {
-    	$("input[name='star']").click(function(){
-    		var rating = $(this).val();
-    		var sid = "<?php echo $_GET['id'];?>";
-    		$.ajax({
-    			url:'<?php echo base_url();?>index.php/welcome/rating',
-    			method: 'POST',
-    			data: {'rating':rating,'sid':sid},
-    			dataType:'json',
-    			success: function(data){
-    				if(data.status == 1){
-    				    var ratinghtml = '';
-    				    if((data.rating)) {
-							var starNumber = (data.rating).split('.');
-							for(var x=1;x<=starNumber[0];x++) {
-								ratinghtml+='<span class="fa fa-star checked" style="color:rgb(60, 141, 188);padding-right:5px;" title="'+x+'"></span>';
-							} if((starNumber[1])) { if (starNumber[1] != 0) {
-								ratinghtml+='<span class="fa fa-star-half-full checked" style="color:rgb(60, 141, 188);padding-right:5px;" title="'+data.rating+'"></span>';
-							x++;} } 
-							var abcd = ''; if(starNumber[0] <= 0){ } 
-							while (x<=5) { ratinghtml+='<span class="fa fa-star-o checked" style="color:rgb(60, 141, 188);padding-right:5px;"></span>';x++;}
-						}
-			            $('.ratingli').html(ratinghtml);
-        				//$('li > span.fa.fa-star').css('color','#333');
-        				//$('li > span.fa.fa-star').removeClass('fa-star').addClass('fa-star-o');
-        			    /* $('li > span.fa.fa-star').removeClass('fa-star').addClass('fa-star-o');
-        				for(var x=1; x <= rating; x++) {
-        				    $('li > span.fa.fa-star-o:nth-child('+x+')').removeClass('fa-star-o').addClass('fa-star');
-        				    $('li > span.fa.fa-star:nth-child('+x+')').css('color','#3c8dbc');
-        				}*/
-    			    	$('#snackbar').text('Rated Successfully').addClass('show');
-    				    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
-    				}
-    			}
-    		})
-    	});
+/* Rating to all stories start */
+function yoursrating(){
+    $('#snackbar').text('You Cannot Rate your story').addClass('show');
+    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+}
+$( document ).ready(function() {
+    $('#stars').on('starrr:change', function(e, value) {
+        var rating = value;
+        var sid = $('#storyid').val();
+        $.ajax({
+			url:base_url+'welcome/rating',
+			method: 'POST',
+			data: {'rating':rating,'sid':sid},
+			dataType:'json',
+			success: function(data){
+				if(data.status == 1){
+                    var ratinghtml = '';
+                    if((data.rating)) {
+						var starNumber = (data.rating).split('.');
+						for(var x=1;x<=starNumber[0];x++) {
+							ratinghtml+='<span class="fa fa-star checked" style="color:rgb(60, 141, 188);padding-right:5px;" title="'+x+'"></span>';
+						} if((starNumber[1])) { if (starNumber[1] != 0) {
+							ratinghtml+='<span class="fa fa-star-half-full checked" style="color:rgb(60, 141, 188);padding-right:5px;" title="'+data.rating+'"></span>';
+						x++;} } 
+						var abcd = ''; if(starNumber[0] <= 0){ } 
+						while (x<=5) { ratinghtml+='<span class="fa fa-star-o checked" style="color:rgb(60, 141, 188);padding-right:5px;"></span>';x++;}
+					}
+                    $('.ratingli').html(ratinghtml);
+                    $('#snackbar').text('Rated Successfully').addClass('show');
+                    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+				}
+			}
+        });
     });
- 
+});
+/* Rating to all stories end */
 
+/* Rating script downloaded */
+    // Starrr plugin (https://github.com/dobtco/starrr)
+var __slice = [].slice;
 
+(function($, window) {
+    var Starrr;
 
+    Starrr = (function() {
+        Starrr.prototype.defaults = {
+            rating: void 0,
+            numStars: 5,
+            change: function(e, value) {}
+        };
+
+        function Starrr($el, options) {
+            var i, _, _ref,
+                _this = this;
+
+            this.options = $.extend({}, this.defaults, options);
+            this.$el = $el;
+            _ref = this.defaults;
+            for (i in _ref) {
+                _ = _ref[i];
+                if (this.$el.data(i) != null) {
+                    this.options[i] = this.$el.data(i);
+                }
+            }
+            this.createStars();
+            this.syncRating();
+            this.$el.on('mouseover.starrr', 'i', function(e) {
+                return _this.syncRating(_this.$el.find('i').index(e.currentTarget) + 1);
+            });
+            this.$el.on('mouseout.starrr', function() {
+                return _this.syncRating();
+            });
+            this.$el.on('click.starrr', 'i', function(e) {
+                return _this.setRating(_this.$el.find('i').index(e.currentTarget) + 1);
+            });
+            this.$el.on('starrr:change', this.options.change);
+        }
+
+        Starrr.prototype.createStars = function() {
+            var _i, _ref, _results;
+
+            _results = [];
+            for (_i = 1, _ref = this.options.numStars; 1 <= _ref ? _i <= _ref : _i >= _ref; 1 <= _ref ? _i++ : _i--) {
+                _results.push(this.$el.append("<i class='fa fa-star-o'></i>"));
+            }
+            return _results;
+        };
+
+        Starrr.prototype.setRating = function(rating) {
+            if (this.options.rating === rating) {
+                //rating = void 0;  // click double time rating clear or rating 0
+                rating = rating;
+            }
+            this.options.rating = rating;
+            this.syncRating();
+            return this.$el.trigger('starrr:change', rating);
+        };
+
+        Starrr.prototype.syncRating = function(rating) {
+            var i, _i, _j, _ref;
+
+            rating || (rating = this.options.rating);
+            if (rating) {
+                for (i = _i = 0, _ref = rating - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+                    this.$el.find('i').eq(i).removeClass('fa-star-o').addClass('fa-star');
+                }
+            }
+            if (rating && rating < 5) {
+                for (i = _j = rating; rating <= 4 ? _j <= 4 : _j >= 4; i = rating <= 4 ? ++_j : --_j) {
+                    this.$el.find('i').eq(i).removeClass('fa-star').addClass('fa-star-o');
+                }
+            }
+            if (!rating) {
+                return this.$el.find('i').removeClass('fa-star').addClass('fa-star-o');
+            }
+        };
+
+        return Starrr;
+
+    })();
+    return $.fn.extend({
+        starrr: function() {
+            var args, option;
+
+            option = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+            return this.each(function() {
+                var data;
+
+                data = $(this).data('star-rating');
+                if (!data) {
+                    $(this).data('star-rating', (data = new Starrr($(this), option)));
+                }
+                if (typeof option === 'string') {
+                    return data[option].apply(data, args);
+                }
+            });
+        }
+    });
+})(window.jQuery, window);
+
+$(function() {
+    return $(".starrr").starrr();
+});
+/* Rating script downloaded end */
+
+/* Suggest story to group and friend for reading start */
+    function groupsuggest(id){
+    	var loggedinuid = $('#loggedinuid').val();
+    	if(loggedinuid){
+    		$('#groupsuggest').modal('show');
+			$.ajax({
+				type: "POST",
+				url: base_url+"welcome/get_story_groupdata",
+				data: {'id': id},
+				success: function(data) {
+				    if(data == 'notlogin'){
+				        $('#notloginmodal').trigger('click');
+					}else if(data) {
+					    $('.storysuggesttogroup').html(data);
+				    	$('#groupsuggest').modal('show');
+				  	}
+				}
+			});
+		}else{
+			$('#notloginmodal').trigger('click');
+		}
+    }
     
+    function friend(id){
+    	var loggedinuid = $('#loggedinuid').val();
+    	if(loggedinuid){
+    		$('#friendsuggest').modal('show');
+			$.ajax({
+				type: "POST",
+				url: base_url+"welcome/get_story_data",
+				data: {'id':id},
+				success: function(data) {
+				    if(data == 'notlogin'){
+				        $('#notloginmodal').trigger('click');
+					}else if(data) {
+				    	$('.storysuggesttofriend').html(data);
+				    	$('#friendsuggest').modal('show');
+				  	}
+				}
+			});
+		}else{
+			$('#notloginmodal').trigger('click');
+		}
+	}
+/* Suggest story to group for reading end */
+
+/* Social share start */
     function socialshare(id, seristorytype) {
         var seurl = '';
         if(seristorytype == "series") {
-            seurl = "<?php echo base_url();?>new_series?id="+id+"&story_id="+id;
+            seurl = base_url+"series/-"+id+"/-"+id;
         }else if(seristorytype == "story") {
-            seurl = "<?php echo base_url();?>only_story_view?id="+id;
+            seurl = base_url+"story/-"+id;
+        }else if(seristorytype == "nano") {
+            seurl = base_url+"nano/"+id;
         }else{
-            seurl = "<?php echo base_url();?>";
+            seurl = base_url;
         }
         $('.facebookshare').attr('onClick',"javascript:genericSocialShare('http://www.facebook.com/sharer.php?u="+encodeURIComponent(seurl)+"')");
         $('.whatsappshare').attr('onClick',"javascript:genericSocialShare('https://api.whatsapp.com/send?text="+encodeURIComponent(seurl)+"')");
         $('.twittershare').attr('onClick',"javascript:genericSocialShare('http://twitter.com/share?text="+encodeURIComponent(seurl)+"')");
         $('#copylinkshare').val(seurl);
     }
- 
+    function commusocialshare(commpostid, communityname) {
+        var seurl = base_url;
+        if(commpostid && communityname) {
+            seurl = base_url+"community-story/"+communityname+"/"+commpostid;
+        }
+        $('.facebookshare').attr('onClick',"javascript:genericSocialShare('http://www.facebook.com/sharer.php?u="+encodeURIComponent(seurl)+"')");
+        $('.whatsappshare').attr('onClick',"javascript:genericSocialShare('https://api.whatsapp.com/send?text="+encodeURIComponent(seurl)+"')");
+        $('.twittershare').attr('onClick',"javascript:genericSocialShare('http://twitter.com/share?text="+encodeURIComponent(seurl)+"')");
+        $('#copylinkshare').val(seurl);
+    }
+/* Social share end */
 
-
-    /* nano story onclick model open increment views */
+/* nano story onclick model open increment views start */
     function nanoviewsadd(sid){
         var nanoviewcount = $('.nanoviewcount'+sid).text();
         $.ajax({
             type: "POST",
-            url: "<?php echo base_url();?>index.php/welcome/nanoviewsadd",
+            url: base_url+"welcome/nanoviewsadd",
             data: {'sid':sid},
             success: function(data) {
     			if(data == 1) {
     			    $('.nanoviewcount'+sid).text(parseInt(nanoviewcount)+1);
     			    console.log('view incremented');
+    			    $('#sharescreen'+sid).removeAttr('onclick');
               	}
             }
     	});
     }
-    
+/* nano story onclick model open increment views end */
+  
+/* nano loke dislike start */  
     function nanolike(storyid){ // Nano story likes
-        var nanolikecount = $('span.nanolikecount'+storyid).html();
+        var nanolikecount = $('.nanolikecount'+storyid).first().text();
+        $('.favbtn'+storyid).removeClass('fa-heart-o').addClass('fa-heart');
         $.ajax({
     		type :'POST',
-    		url :'<?php echo base_url(); ?>index.php/welcome/nanolike/'+storyid,
+    		url :base_url+'welcome/nanolike/'+storyid,
     		dataType :"json",
     		success:function(data){
     		    if(data == 1){
-    		        $('.nanolike'+storyid).css('color','#338ecf');
-    		        $('span.nanolikecount'+storyid).html(parseInt(nanolikecount)+1);
-    			    $('#snackbar').text('You Liked Nano story.').addClass('show');
+    		        $('.nanolikecount'+storyid).text(parseInt(nanolikecount)+1);
+    		        $('.nanolike'+storyid).removeAttr('onclick').attr('onclick','nanodislike('+storyid+')');
+    			    $('#snackbar').text('Liked Nano story.').addClass('show');
     				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
-    			}else if(data == 2){
-    			    $('#notloginmodal').trigger('click');
     			}else{
-    			    $('#snackbar').text('You can not Like your Nano story.').addClass('show');
-    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    			    $('.favbtn'+storyid).removeClass('fa-heart').addClass('fa-heart-o');
+    			    $('#snackbar').text('You cannot like your own nano-story.').addClass('show');
+    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 5000);
     			}
     		}
     	});
     }
- 
+    function nanodislike(storyid) { // Nano story unlike
+        var nanolikecount = $('.nanolikecount'+storyid).first().text();
+        $('.favbtn'+storyid).removeClass('fa-heart').addClass('fa-heart-o');
+        $.ajax({
+    		type :'POST',
+    		url :base_url+'welcome/nanolike/'+storyid,
+    		dataType :"json",
+    		success:function(data){
+    		    if(data == 2){
+    		        $('.nanolikecount'+storyid).text(parseInt(nanolikecount)-1);
+    		        $('.nanolike'+storyid).removeAttr('onclick').attr('onclick','nanolike('+storyid+')');
+    			    $('#snackbar').text('Unliked Nano story.').addClass('show');
+    				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    			}else{
+    			    console.log('unlike Failed');
+    			}
+    		}
+    	});
+    }
+/* nano loke dislike end */ 
 
-
+/* reports start */
     function reportstories(userid, storyid){ // Report for stories, life etc
         $('#reportuserid').val(userid);
         $('#reportstoryid').val(storyid);
@@ -592,7 +791,7 @@
         var reportmsg = $('#reportmsg').val();
         $.ajax({
     		type :'POST',
-    		url :'<?php echo base_url(); ?>index.php/welcome/reportstories',
+    		url :base_url+'welcome/reportstories',
     		data: {'reportcmt':reportmsg, 'report_storyid':storyid, 'report_userid':userid, 'type':type},
     		success:function(data){
     		    if(data == 1){
@@ -610,9 +809,11 @@
     		}
     	});
     }
+/* reports end */
+
     function yourscommpostlike(){
         $('#snackbar').text('You Can not Like the Story').addClass('show');
-    	setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    	setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
     }
     function ongoingcomplet(sid){
         $('#yesongoingcomplet').attr('onClick','yesongoingcomplet('+sid+')');
@@ -622,7 +823,7 @@
     function yesongoingcomplet(sid){
         $.ajax({
     		type :'POST',
-    		url :'<?php echo base_url(); ?>index.php/welcome/ongoingcomplet',
+    		url :base_url+'welcome/ongoingcomplet',
     		data: {'sid':sid},
     		success:function(data){
     		    if(data == 1){
@@ -637,4 +838,27 @@
     function noongoingcomplet(sid){
         $('#ongoingcomplet').modal('hide');
     }
- 
+    
+    $(document).ready(function() {
+        $("a").click(function() {
+            $('span.text-danger').empty();
+        });
+    });
+
+
+var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+};
+
+if( isMobile.Android() ) document.getElementById("apptext").innerHTML = `DOWNLOAD <a style="color:blue;" href="https://play.google.com/store/apps/details?id=com.google.android.apps.inputmethod.hindi&hl=en_IN">GOOGLE INDIC</a> KEYBOARD & <a href="javascript:void(0);" data-toggle="modal" data-target="#modalRegister" id="acts" style="color:blue">START WRITING</a> IN INDIAN LANGUAGES.`
+if( isMobile.iOS() ) document.getElementById("apptext").innerHTML = `DOWNLOAD <a href="https://apps.apple.com/ml/app/indic-keyboard-swalekh-flip/id1212717313" style="color:blue">SWALEKHA</a> KEYBOARD & <a href="javascript:void(0);" data-toggle="modal" data-target="#modalRegister" id="acts" style="color:blue">START WRITING</a> IN INDIAN LANGUAGES.`
+if( isMobile.Windows() ) document.getElementById("apptext").innerHTML = `OPEN SITE ON DESKTOP`
+

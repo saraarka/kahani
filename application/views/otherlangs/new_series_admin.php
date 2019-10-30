@@ -580,7 +580,7 @@
         																<span class="">&nbsp;<b>
         																    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$replaycomment->profile_name;?>"><?php echo ucfirst($replaycomment->name); ?></a></b>
             															   <span class="dropdown" style="float:right;"> 
-                																<a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
+                																<a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" title="write" aria-expanded="false">
                 										                            <i class="fa fa-ellipsis-v"></i>
                 										                        </a>
                 										                        <ul class="dropdown-menu pull-right">
@@ -713,7 +713,7 @@
 </div>
 
 <!-- group suggest popup code ---- -->
-<div class="modal fade" id="groupsuggest" role="dialog">
+<div class="modal fade" id="groupsuggest" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 		    <div class="storysuggesttogroup"></div>
@@ -735,7 +735,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title"><b>Report Your Comments</b></h4>
+				<h4 class="modal-title">Report Your Comments</h4>
 			</div>
 			<div class="modal-body">
 				<form id="reportcomment">
@@ -747,7 +747,7 @@
 					<input type="hidden" name="report_storytype" value="series_comment" id="report_storytype">
 					<br>
 					<center>
-					    <button class="btn btn-primary" type="submit"> Submit </button>
+					    <button class="btn btn-primary reportspinner" type="submit"> Submit </button>
 					</center>
 				</form>
 			</div>
@@ -759,7 +759,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title"><b>Update your Comments</b></h4>
+				<h4 class="modal-title">Update your Comments</h4>
 			</div>
 			<div class="modal-body">
 				<form id="editcomment" >
@@ -768,7 +768,7 @@
 					<input type="hidden" id="commentid" name="commentid">
 					<br>
 					<center>
-					    <button class="btn btn-primary" type="submit"> Update </button>
+					     <button class="btn btn-primary updatespinner" type="submit"> Update </button>
 					</center>
 				</form>
 			</div>
@@ -856,18 +856,27 @@
 <script type="text/javascript">
 $( "form#commentsend" ).submit(function( event ) {
 	event.preventDefault();
+    $('.btnspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 	$('#comment').empty();
 	$('#comments').empty();
     var comment = $('#comment').val();
     if((comment == '') || (comment == 'undefined')){
         comment = $('#comments').val();
     }
-    var storyid = $('#storyid').val();
-	$.post("<?php echo base_url().$this->uri->segment(1); ?>/comment",{'comment':comment,'storyid':storyid},function(output,status){
-		$("li#postcmt").prepend(output);
-		$("#comment").val('');
-		$("#comments").val('');
-	});
+    if(comment){
+        var storyid = $('#storyid').val();
+        $.post("<?php echo base_url().$this->uri->segment(1); ?>/comment",{'comment':comment,'storyid':storyid},function(output,status){
+            $('.btnspinner').html('POST');
+            $("li#postcmt").prepend(output);
+            $("#comment").val('');
+            $("#comments").val('');
+            $("#load_data_message").html('');
+        });
+    }else{
+        $('.btnspinner').html('POST');
+        $('#snackbar').text('Enter Comment text.').addClass('show');
+        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    }
 });
 </script>
 <script>
@@ -986,8 +995,8 @@ $('document').ready(function() {
 
 <script> // comments
     function deletecomment(commentid){
-	    var x = confirm("Are you sure you want to delete the Comment?");
-        if (x) {
+	    $('.deletemessage').html("Are you sure you want to delete the Comment?");
+        $('#confirmdelpopup').modal().one('click', '#delconfirmed', function (e) {
             $.ajax({
                 type:'POST',
                 url:'<?php echo base_url().$this->uri->segment(1);?>/deletepro_comment/'+commentid,
@@ -1004,9 +1013,7 @@ $('document').ready(function() {
                     }
                 }
             });
-        }else{
-            return false;
-        }
+        });
 	}
     function reportcomment(commentid, user_id, story_id){
 	    $('#report_comment').modal('show');
@@ -1016,8 +1023,10 @@ $('document').ready(function() {
 	}
 	$("form#reportcomment").submit(function( event ) {
 		event.preventDefault();
+        $('.reportspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 		//$.post("<?php echo base_url();?>index.php/welcome/reportcomment",$("form#reportcomment").serialize(),function(resultdata){
 		$.post("<?php echo base_url().$this->uri->segment(1);?>/reportstoriescomment",$("form#reportcomment").serialize(),function(resultdata){
+            $('.reportspinner').html('REPORT');
 			if(resultdata == 2){
 				$('span.reportcmt').text('Please Enter your Report Message');
 			}else if(resultdata == 1){
@@ -1048,9 +1057,11 @@ $('document').ready(function() {
     
     $( "form#editcomment" ).submit(function( event ) {
 		event.preventDefault();
+        $('.updatespinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 		var comments = $('textarea#editcmt').val();
 		var cid = $('#commentid').val();
 		$.post("<?php echo base_url().$this->uri->segment(1);?>/updatecomment",{'comment':comments,'cid':cid},function(resultdata){
+            $('.updatespinner').html('Update');
 			if(resultdata == 2){
 				$('span.comment').text('Please Enter Comment');
 			}else if(resultdata == 1){
@@ -1067,7 +1078,7 @@ $('document').ready(function() {
         setTimeout(function(){ $('#spinnertab'+commentid).html(' '); });
 	    $('div.postreplycomment'+commentid).html('<input type="text" id="replycmts'+commentid+'" value="" class="form-control" placeholder="Replay Comment..." required>'+
 	    '<span class="text-danger addreplaycmt'+commentid+'"></span><input type="hidden" name="storyid" value="'+storyid+'">'+
-	    '<span class="input-group-btn"><button type="submit" class="btn btn-success btn-flat" onclick="addreplycomment('+commentid+','+storyid+')">POST</button></span>');
+	    '<span class="input-group-btn"><button type="submit" class="btn btn-success btn-flat btnspinner'+commentid+'" onclick="addreplycomment('+commentid+','+storyid+')">POST</button></span>');
 	    $('.replycmtlist'+commentid).css('display','block');
 	}
 	function displayreplies(commentid, storyid){
@@ -1077,6 +1088,7 @@ $('document').ready(function() {
 	function addreplycomment(commentid, storyid){
 	    var comments = $('#replycmts'+commentid).val();
 	    var old_subcmtcount = $('.old_subcmtcount'+commentid).text();
+        $('.btnspinner'+commentid).html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 	    if(comments){
 	        $.ajax({
         		url:'<?php echo base_url().$this->uri->segment(1);?>/addstoryreplycomment',
@@ -1101,19 +1113,18 @@ $('document').ready(function() {
                                     //var profileimage = '<?php echo base_url();?>assets/images/'+result.response[0].profile_image;
                                     var profileimage = "<?php echo $this->session->userdata['logged_in']['profile_image'];?>";
                                     if(profileimage){ }else{ profileimage = '2.png'; }
-                                    var htmlcomment = '<li style="padding:0px; margin-bottom: 15px;" class="box-footer padding-0 box-comments commentdelete'+result.response[0].cid+'">'+
-                                        '<div class="">'+
+                                    var htmlcomment = '<div style="margin-bottom:5px;margin-top:5px;" class="media commentdelete'+result.response[0].cid+'">'+
                                         '<span class="media-left"><img class="img-circle" style="width:25px;" src="<?php echo base_url();?>assets/images/'+profileimage+'" alt="'+result.response[0].name+'"></span>'+
                                         '<span class="media-body bodycv">'+
                                         '<div class="">'+
                                         '<span class="">&nbsp;<b><a href="javascript:void(0);" style="color: #337ab7;">'+result.response[0].name+'</a></b>'+
                                         '<span class="dropdown" style="float:right;">'+
-                                        '<a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="false">'+
+                                        '<a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" aria-expanded="false">'+
                                         '<i class="fa fa-ellipsis-v" style="color: #337ab7;"></i></a><ul class="dropdown-menu pull-right">'+
                                         '<li><a href="javascript:void(0);" onClick="editcomment('+result.response[0].cid+');"><i class="fa fa-pencil"></i> EDIT </a></li>'+
                                         '<li><a href="javascript:void(0);" onClick="deletecomment('+result.response[0].cid+');"><i class="fa fa-trash"></i> DELETE </a></li>'+
                                         '</ul></span><span class="text-muted pull-right datecv">1 minute ago</span></span><br>'+
-                                        '<span style="padding-left:6px;word-break:break-word;" class="more pcomment'+result.response[0].cid+'">'+result.response[0].comment+'</span></div></span></div></li>'; ///'+result.response[0].date+'
+                                        '<span style="padding-left:6px;word-break:break-word;" class="more pcomment'+result.response[0].cid+'">'+result.response[0].comment+'</span></div></span></div>'; ///'+result.response[0].date+'
                                     $('li.postreplycmt'+result.response[0].comment_id).prepend(htmlcomment);
                                     $('.old_subcmtcount'+commentid).text(parseInt(old_subcmtcount)+1);
                                 }else{
@@ -1142,6 +1153,7 @@ $('document').ready(function() {
         var limit = 2;
         var start = 2;
         var action = 'inactive';
+        var numcomments = $('.box-footer.padding-0.box-comments').length;
         function load_country_data(limit, start) {
             var story_id = $('#storyid').val();
             if(story_id){
@@ -1158,6 +1170,9 @@ $('document').ready(function() {
                         }else{
                             $('#load_data_message').html("<center> Loading ...</center>");
                             action = "inactive";
+                        }
+                        if(numcomments < 1){
+                            $('#load_data_message').html("<center> No comments yet!</center>");
                         }
                     }
                 });

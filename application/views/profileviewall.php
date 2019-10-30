@@ -776,7 +776,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><b>Update your Comments</b></h4>
+                <h4 class="modal-title">Update your Comments</h4>
             </div>
             <div class="modal-body">
                 <form id="editprocomment" >
@@ -785,7 +785,7 @@
                     <input type="hidden" id="commentid" name="commentid">
                     <br>
                     <center>
-                        <button class="btn btn-primary" type="submit"> Update </button>
+                        <button class="btn btn-primary editprocmtspinner" type="submit"> Update </button>
                     </center>
                 </form>
             </div>
@@ -797,7 +797,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><b>Report Your Comments</b></h4>
+                <h4 class="modal-title">Report Your Comments</h4>
             </div>
             <div class="modal-body">
                 <form id="reportprocomment">
@@ -807,7 +807,7 @@
                     <input type="hidden" name="reportuser_id" value="" id="reportuser_id">
                     <br>
                     <center>
-                        <button class="btn btn-primary" type="submit"> Update </button>
+                        <button class="btn btn-primary procmtspinner" type="submit"> Update </button>
                     </center>
                 </form>
             </div>
@@ -843,10 +843,10 @@ $("#profilecomments").submit(function(event) {
                         '<span class="dropdown" style="float:right;"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
                             '<i class="fa fa-ellipsis-v"></i></a>'+
                             '<ul class="dropdown-menu pull-right">'+
-                                '<li><a href="javascript:void(0)"><span class="" onClick="editpro_comment('+result.response[0].cid+');">'+
-                                    '<i class="fa fa-pencil"></i> Edit</span></a></li>'+
-                                '<li><a href="javascript:void(0)"><span class="" onClick="deletepro_comment('+result.response[0].cid+');">'+
-                                    '<i class="fa fa-trash"></i> Delete</span></a></li>'+
+                                '<li><a href="javascript:void(0)" onClick="editpro_comment('+result.response[0].cid+');" style="cursor:pointer;"><span>'+
+                                    '<i class="fa fa-pencil"></i> EDIT</span></a></li>'+
+                                '<li><a href="javascript:void(0)" onClick="deletepro_comment('+result.response[0].cid+');" style="cursor:pointer;"><span>'+
+                                    '<i class="fa fa-trash"></i> DELETE</span></a></li>'+
                             '</ul></span><div style="color:#777; font-size:11px;margin-top:-4px;">1 minute ago</div>'+
                         '</div><p style="margin: 11px 0px 2px 0px;" class="pcomment'+result.response[0].cid+'">'+result.response[0].pro_comment+'</p>'+
                         '<a href="javascript:void(0)" onClick="postReplycomment('+result.response[0].cid+')" style="color:#de1800; font-size:0.8em;"> REPLY </a> <a style="color:#de1800;font-size:0.8em;">I</a> '+
@@ -989,9 +989,11 @@ $("#profilecomments").submit(function(event) {
     }
     $( "form#editprocomment" ).submit(function( event ) {
 		event.preventDefault();
+        $('.editprocmtspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 		var comments = $('textarea#pro_editcomment').val();
 		var cid = $('#commentid').val();
 		$.post("<?php echo base_url();?>welcome/updateprocomment",{'comment':comments,'cid':cid},function(resultdata){
+            $('.editprocmtspinner').html('Update');
 			if(resultdata == 2){
 				$('span.pro_comment').text('Please Enter Comment');
 			}else if(resultdata == 1){
@@ -1060,10 +1062,10 @@ $("#profilecomments").submit(function(event) {
                                         '<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
                                             '<i class="fa fa-ellipsis-v"></i></a>'+
                                         '<ul class="dropdown-menu pull-right">'+
-                                            '<li><a href="javascript:void(0);"><span onclick="editpro_comment('+datares.response[0].cid+');">'+
-                                                '<i class="fa fa-pencil"></i> Edit</span></a></li>'+
-                                            '<li><a href="javascript:void(0);"><span onclick="deletepro_comment('+datares.response[0].cid+');">'+
-                                                '<i class="fa fa-trash"></i> Delete</span></a></li>'+
+                                            '<li><a onclick="editpro_comment('+datares.response[0].cid+');" style="cursor:pointer;"><span>'+
+                                                '<i class="fa fa-pencil"></i> EDIT</span></a></li>'+
+                                            '<li><a href="javascript:void(0);" onclick="deletepro_comment('+datares.response[0].cid+');" style="cursor:pointer;"><span>'+
+                                                '<i class="fa fa-trash"></i> DELETE</span></a></li>'+
                                         '</ul>'+                
                                     '</span><div style="color:#777; font-size:11px;margin-top:-4px;">1 minute ago</div>'+
                                     '<p style="margin: 11px 0px 2px 0px;" class="pcomment'+datares.response[0].cid+'">'+datares.response[0].pro_comment+'</p></div>'+
@@ -1094,7 +1096,9 @@ $("#profilecomments").submit(function(event) {
 	}
 	$( "form#reportprocomment" ).submit(function( event ) {
 		event.preventDefault();
+        $('.procmtspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 		$.post("<?php echo base_url();?>welcome/reportpro_comment",$("form#reportprocomment").serialize(),function(resultdata){
+            $('.procmtspinner').html('Update');
 			if(resultdata == 2){
 				$('span.reportpro_cmt').text('Please Enter your Report Message');
 			}else if(resultdata == 1){
@@ -1154,7 +1158,7 @@ $("#profilecomments").submit(function(event) {
 <script>
     $(document).ready(function(){
         var limit = 7;
-        var start = 7;
+        var start = 0;
         var action = 'inactive';
         var profile = "<?php echo $this->uri->segment(2);?>";
         function load_country_data(limit, start) {
@@ -1175,10 +1179,10 @@ $("#profilecomments").submit(function(event) {
                 }
             });
         }
-        if(action == 'inactive') {
+        /*if(action == 'inactive') {
             action = 'active';
             load_country_data(limit, start);
-        }
+        }*/
         $(window).scroll(function(){
             //if($(window).scrollTop() + $(window).height() > $("#loadmoreall").height() && action == 'inactive'){
             if ($(window).scrollTop() >= (($("#loadmoreall").height() - $(window).height())*0.6) && action == 'inactive'){
@@ -1285,7 +1289,7 @@ function copylinkshare(element) {
     
     $(document).ready(function(){
         var ferslimit = 5;
-        var fersstart = 5;
+        var fersstart = 0;
         var fersaction = 'inactive';
         var userid = $('#profile_id').val();
         function fersload_country_data(ferslimit, fersstart) {
@@ -1306,10 +1310,10 @@ function copylinkshare(element) {
                 }
             });
         }
-        if(fersaction == 'inactive') {
+        /*if(fersaction == 'inactive') {
             fersaction = 'active';
             fersload_country_data(ferslimit, fersstart);
-        }
+        }*/
         $(".modal-bodyv").scroll(function() {
             if ($(".modal-bodyv").scrollTop() >= (($("#fersloadmore").height() - $(".modal-bodyv").height())*0.6) && fersaction == 'inactive'){
                 fersaction = 'active';
@@ -1323,7 +1327,7 @@ function copylinkshare(element) {
 <script>
     $(document).ready(function(){
         var finglimit = 5;
-        var fingstart = 5;
+        var fingstart = 0;
         var fingaction = 'inactive';
         var userid = $('#profile_id').val();
         function fingload_country_data(finglimit, fingstart) {
@@ -1344,10 +1348,10 @@ function copylinkshare(element) {
                 }
             });
         }
-        if(fingaction == 'inactive') {
+        /*if(fingaction == 'inactive') {
             fingaction = 'active';
             fingload_country_data(finglimit, fingstart);
-        }
+        }*/
         $(".modal-bodyv").scroll(function() {
         //$(window).scroll(function(){
             if($(".modal-bodyv").scrollTop() + $(".modal-bodyv").height() + 50 > $("#fingloadmore").height() && fingaction == 'inactive'){

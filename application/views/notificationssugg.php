@@ -46,7 +46,7 @@
 <script>
     $(document).ready(function(){
         var tab3limit = 15;
-        var tab3start = 15;
+        var tab3start = 0;
         var tab3action = 'inactive';
         function tab3load_country_data(tab3limit, tab3start) {
             $.ajax({
@@ -66,10 +66,10 @@
                 }
             });
         }
-        if(tab3action == 'inactive') {
+        /*if(tab3action == 'inactive') {
             tab3action = 'active';
             tab3load_country_data(tab3limit, tab3start);
-        } 
+        } */
         $(window).scroll(function(){
             //if($(window).scrollTop() + $(window).height() > $("#tab3loadmore").height() && tab3action == 'inactive'){
             if ($(window).scrollTop() >= (($("#tab3loadmore").height() - $(window).height())*0.6) && tab3action == 'inactive'){

@@ -250,19 +250,19 @@
 						        <?php if(isset($this->session->userdata['logged_in']['user_id'])){
 								    if(isset($nanolikes) && in_array($nanomodalrow->sid,$nanolikes)) { ?>
     								    <a href="javascript:void(0);" onclick="nanodislike(<?php echo $nanomodalrow->sid;?>);" class="nanolike<?php echo $nanomodalrow->sid;?>" title="Unlike">
-    										<i class="fa fa-heart favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-top:5px;"></i>
-    									</a>
-    									<span class="nanolikecount<?php echo $nanomodalrow->sid;?>"><?php echo $nanomodalrow->nanolikecount;?></span>
+    										<i class="fa fa-heart favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-right:3px;font-size:20px;"></i>
+    									</a> &nbsp;
+    									<span class="nanolikecount<?php echo $nanomodalrow->sid;?>" style="color:#000;"><?php echo $nanomodalrow->nanolikecount;?></span>
     								<?php } else { ?>
     								    <a href="javascript:void(0);" onclick="nanolike(<?php echo $nanomodalrow->sid;?>);" class="nanolike<?php echo $nanomodalrow->sid;?>" title="like">
-    										<i class="fa fa-heart-o favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-top:5px;"></i>
-    									</a>
-    									<span class="nanolikecount<?php echo $nanomodalrow->sid;?>"><?php echo $nanomodalrow->nanolikecount;?></span>
+    										<i class="fa fa-heart-o favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-right:3px;font-size:20px;"></i>
+    									</a> &nbsp;
+    									<span class="nanolikecount<?php echo $nanomodalrow->sid;?>" style="color:#000;"><?php echo $nanomodalrow->nanolikecount;?></span>
     							<?php } } else{ ?>
 								    <a href="javascript:void(0);" class="notloginmodal" title="like">
-										<i class="fa fa-heart-o favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-top:5px;"></i>
-									</a>
-									<span class="nanolikecount<?php echo $nanomodalrow->sid;?>"><?php echo $nanomodalrow->nanolikecount;?></span>
+										<i class="fa fa-heart-o favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-right:3px;font-size:20px;"></i>
+									</a> &nbsp;
+									<span class="nanolikecount<?php echo $nanomodalrow->sid;?>" style="color:#000;"><?php echo $nanomodalrow->nanolikecount;?></span>
     						    <?php } ?>
 							</li>
 							<li class="pull-right">

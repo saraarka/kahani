@@ -139,43 +139,41 @@
     							<?php } else { ?>
     								<img class="img-circle" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo ucfirst($ycomment->name);?>">
     							<?php } ?>
-    							<div class="comment-text">
-    								<div class="comment-text">
-    									<span class="username" style="padding-top:6px;">&nbsp; <b><a href="<?php echo base_url().$ycomment->profile_name; ?>"><?php echo ucfirst($ycomment->name);?></a></b>
-    									    <span class="dropdown" style="float:right;">
-                                                <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true">
-                                                 <i class="fa fa-ellipsis-v"></i> </a> 
-                                                <ul class="dropdown-menu pull-right">
-                                                    <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($ycomment->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
-                                                    <li><a href="javascript:void(0);" onClick="editcommcomment(<?php echo $ycomment->id;?>);"><span><i class="fa fa-pencil"></i> EDIT</span></a></li>
-                                                    <li><a href="javascript:void(0);" onClick="deletecommcomment(<?php echo $ycomment->id;?>);"><span><i class="fa fa-trash"></i> DELETE</span></a></li>
-                                                    <?php }else{ ?>
-                                                    <li><a href="javascript:void(0);" onClick="reportcommcomment(<?php echo $ycomment->id;?>, <?php echo $ycomment->user_id;?>);"><span><i class="fa fa-exclamation-triangle"></i> REPORT</span></a></li>
-                                                    <?php } ?>
-                                                </ul>
-                                            </span>
-                                            <span class="text-muted pull-right datecv"><?php echo get_ydhmdatetime($ycomment->date);?></span>
-    									</span>
-    								</div>
-    								<div style="margin:8px 0 6px 2px" class="comment-text">
-    									<?php if(strlen($ycomment->comment) > 200){ ?>
-    								        <div style="word-break:break-word;" class="more pcomment<?php echo $ycomment->id;?>"><?php echo mb_substr($ycomment->comment, 0, 200); ?>
-    								            <span class="showhide<?php echo $ycomment->id;?>" style="display:none;"><?php echo mb_substr($ycomment->comment,200); ?></span>
-    								            <span class="smorelessdots<?php echo $ycomment->id;?>">...</span>
-    								            <u onclick="showhide(<?php echo $ycomment->id;?>)" class="moreless<?php echo $ycomment->id;?>" style="cursor: pointer;color:red;">show-more</u></div>
-    								    <?php } else{ ?>
-    								        <div style="word-break:break-word;" class="more pcomment<?php echo $ycomment->id;?>"><?php echo $ycomment->comment;?></div>
-    								    <?php } ?>
-    									<div style="" class="">
-                                            <a href="javascript:void(0);" onClick="toppostReplycomment(<?php echo $ycomment->id;?>,<?php echo $ycomment->comm_id;?>,<?php echo $ycomment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a> <a href="javascript:void(0);" class="pull-left replycv">I</a>
-                                            <a href="javascript:void(0);" onClick="toppostdisplayreplies(<?php echo $ycomment->id;?>,<?php echo $ycomment->comm_id;?>,<?php echo $ycomment->story_id;?>)" class="pull-left replycv" title="Replies"> 
-                                                <span class="told_subcmtcount<?php echo $ycomment->id;?>"><?php echo get_subcmtcount($ycomment->id);?></span> REPLIES</a>
-                                        </div>
+								<div class="comment-text">
+									<span class="username" style="padding-top:6px;">&nbsp; <a href="<?php echo base_url().$ycomment->profile_name; ?>"><p class="namers"><?php echo ucfirst($ycomment->name);?></p></a>
+									    <span class="dropdown" style="float:right;">
+                                            <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true">
+                                             <i class="fa fa-ellipsis-v"></i> </a> 
+                                            <ul class="dropdown-menu pull-right">
+                                                <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($ycomment->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
+                                                <li><a href="javascript:void(0);" onClick="editcommcomment(<?php echo $ycomment->id;?>);"><span><i class="fa fa-pencil"></i> EDIT</span></a></li>
+                                                <li><a href="javascript:void(0);" onClick="deletecommcomment(<?php echo $ycomment->id;?>);"><span><i class="fa fa-trash"></i> DELETE</span></a></li>
+                                                <?php }else{ ?>
+                                                <li><a href="javascript:void(0);" onClick="reportcommcomment(<?php echo $ycomment->id;?>, <?php echo $ycomment->user_id;?>);"><span><i class="fa fa-exclamation-triangle"></i> REPORT</span></a></li>
+                                                <?php } ?>
+                                            </ul>
+                                        </span>
+                                        <span class="text-muted pull-right datecv"><?php echo get_ydhmdatetime($ycomment->date);?></span>
+									</span>
+								</div>
+								<div style="margin:4px 0px 6px 2px" class="comment-text">
+									<?php if(strlen($ycomment->comment) > 200){ ?>
+								        <span style="word-break:break-word;" class="more pcomment<?php echo $ycomment->id;?>"><?php echo mb_substr($ycomment->comment, 0, 200); ?>
+								            <span class="showhide<?php echo $ycomment->id;?>" style="display:none;"><?php echo mb_substr($ycomment->comment,200); ?></span>
+								            <span class="smorelessdots<?php echo $ycomment->id;?>">...</span>
+								            <u onclick="showhide(<?php echo $ycomment->id;?>)" class="moreless<?php echo $ycomment->id;?>" style="cursor: pointer;color:red;">show-more</u></span>
+								    <?php } else{ ?>
+								        <span style="word-break:break-word;" class="more pcomment<?php echo $ycomment->id;?>"><?php echo $ycomment->comment;?></span>
+								    <?php } ?>
+									<div style="margin:5px 0;" class="">
+                                        <a href="javascript:void(0);" onClick="toppostReplycomment(<?php echo $ycomment->id;?>,<?php echo $ycomment->comm_id;?>,<?php echo $ycomment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a> <a href="javascript:void(0);" class="pull-left replycv">I</a>
+                                        <a href="javascript:void(0);" onClick="toppostdisplayreplies(<?php echo $ycomment->id;?>,<?php echo $ycomment->comm_id;?>,<?php echo $ycomment->story_id;?>)" class="pull-left replycv" title="Replies"> 
+                                            <span class="told_subcmtcount<?php echo $ycomment->id;?>"><?php echo get_subcmtcount($ycomment->id);?></span> REPLIES</a>
                                     </div>
-                                    <div class="comment-text">
-                                        <div class="input-group toppostreplycomment<?php echo $ycomment->id;?>" style="width:100%; margin-bottom:5px;"><!-- Reply comment form --></div>
-    								</div>
-    							</div>
+                                </div>
+                                <div class="comment-text">
+                                    <div class="input-group toppostreplycomment<?php echo $ycomment->id;?>" style="width:100%; margin-bottom:5px;"><!-- Reply comment form --></div>
+								</div>
     							<div class="topsubcomments" style="display:none;" id="topmysubList<?php echo $yourfeed->id;?>_<?php echo $ycomment->id;?>">
     							    <center> <span id="topspinnertab<?php echo $ycomment->id;?>">
                                         <img src="<?php echo base_url();?>/assets/landing/svg/spinnertab.svg" class="spinner" style="float: inherit;">
@@ -191,29 +189,27 @@
     									        <?php } ?>
     						                </span>
     									    <span class="media-body bodycv">
-    								            <div class="">
-    									            <span class=""><b><a href="<?php echo base_url().$topsubcomment->profile_name; ?>"><?php echo ucfirst($topsubcomment->name);?></a></b><span class="dropdown" style="float:right;">
-                                                        <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true" style="padding: 0px 10px 0px 20px;">
-                                                         <i class="fa fa-ellipsis-v"></i> </a> 
-                                                        <ul class="dropdown-menu pull-right">
-                                                            <?php if($topsubcomment->user_id == $this->session->userdata['logged_in']['user_id']){ ?>
-                                                            <li><a href="javascript:void(0);" onClick="editcommcomment(<?php echo $topsubcomment->id;?>);"><span><i class="fa fa-pencil"></i> EDIT</span></a></li>
-                                                            <li><a href="javascript:void(0);" onClick="deletecommcomment(<?php echo $topsubcomment->id;?>);"><span><i class="fa fa-trash"></i> DELETE</span></a></li>
-                                                            <?php } else{ ?>
-                                                            <li><a href="javascript:void(0);" onClick="reportcommcomment(<?php echo $topsubcomment->id;?>, <?php echo $topsubcomment->user_id;?>);"><span><i class="fa fa-exclamation-triangle"></i> REPORT</span></a></li>
-                                                            <?php } ?>
-                                                        </ul>
-                                                    </span><span class="text-muted pull-right datecv"><?php echo get_ydhmdatetime($topsubcomment->date);?></span>
-    									            </span><br>
-    									            <?php if(strlen($topsubcomment->comment) > 200){ ?>
-    											        <span class="more pcomment<?php echo $topsubcomment->id;?>" style="padding-left: 6px;word-break:break-word;"><?php echo mb_substr($topsubcomment->comment, 0, 200); ?>
-    											            <span class="showhide<?php echo $topsubcomment->id;?>" style="display:none;"><?php echo mb_substr($topsubcomment->comment,200); ?></span>
-    											            <span class="smorelessdots<?php echo $topsubcomment->id;?>">...</span>
-    											            <u onclick="showhide(<?php echo $topsubcomment->id;?>)" class="moreless<?php echo $topsubcomment->id;?>" style="cursor: pointer;color:red;">show-more</u></span>
-    											    <?php } else{ ?>
-    											        <span class="more pcomment<?php echo $topsubcomment->id;?>" style="padding-left: 6px;word-break:break-word;"><?php echo $topsubcomment->comment;?></span>
-    											    <?php } ?>
-    								            </div>
+									            <span class="username"><a href="<?php echo base_url().$topsubcomment->profile_name; ?>"><p class="namers"><?php echo ucfirst($topsubcomment->name);?></p></a><span class="dropdown" style="float:right;">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true" style="padding: 0px 10px 0px 20px;">
+                                                     <i class="fa fa-ellipsis-v"></i> </a> 
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <?php if($topsubcomment->user_id == $this->session->userdata['logged_in']['user_id']){ ?>
+                                                        <li><a href="javascript:void(0);" onClick="editcommcomment(<?php echo $topsubcomment->id;?>);"><span><i class="fa fa-pencil"></i> EDIT</span></a></li>
+                                                        <li><a href="javascript:void(0);" onClick="deletecommcomment(<?php echo $topsubcomment->id;?>);"><span><i class="fa fa-trash"></i> DELETE</span></a></li>
+                                                        <?php } else{ ?>
+                                                        <li><a href="javascript:void(0);" onClick="reportcommcomment(<?php echo $topsubcomment->id;?>, <?php echo $topsubcomment->user_id;?>);"><span><i class="fa fa-exclamation-triangle"></i> REPORT</span></a></li>
+                                                        <?php } ?>
+                                                    </ul>
+                                                </span><span class="text-muted pull-right datecv"><?php echo get_ydhmdatetime($topsubcomment->date);?></span>
+									            </span>
+									            <?php if(strlen($topsubcomment->comment) > 200){ ?>
+											        <span class="more pcomment<?php echo $topsubcomment->id;?>" style="padding-left: 6px;word-break:break-word;"><?php echo mb_substr($topsubcomment->comment, 0, 200); ?>
+											            <span class="showhide<?php echo $topsubcomment->id;?>" style="display:none;"><?php echo mb_substr($topsubcomment->comment,200); ?></span>
+											            <span class="smorelessdots<?php echo $topsubcomment->id;?>">...</span>
+											            <u onclick="showhide(<?php echo $topsubcomment->id;?>)" class="moreless<?php echo $topsubcomment->id;?>" style="cursor: pointer;color:red;">show-more</u></span>
+											    <?php } else{ ?>
+											        <span class="more pcomment<?php echo $topsubcomment->id;?>" style="padding-left: 6px;word-break:break-word;"><?php echo $topsubcomment->comment;?></span>
+											    <?php } ?>
     								        </span>
     								    </div>
     									<?php } $commlastsubcomment = get_commlastsubcomment($yourfeed->id, $ycomment->id); 

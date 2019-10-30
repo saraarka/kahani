@@ -150,7 +150,6 @@
 						    <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px;height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Copy to link</p></a>
 					    <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">
 					</div>
-				</div>v>
 				</div>
 			</div>
 		</div>
@@ -164,7 +163,7 @@
 <script>
     $(document).ready(function(){
         var limit = 7;
-        var start = 7;
+        var start = 0;
         var action = 'inactive';
         function load_country_data(limit, start) {
             $.ajax({
@@ -184,10 +183,10 @@
                 }
             });
         }
-        if(action == 'inactive') {
+        /*if(action == 'inactive') {
             action = 'active';
             load_country_data(limit, start);
-        } 
+        } */
         $(window).scroll(function(){
             if ($(window).scrollTop() >= (($("#loadmoreall").height() - $(window).height())*0.6) && action == 'inactive'){
                 action = 'active';

@@ -810,7 +810,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title"><b>Report Your Comments</b></h4>
+				<h4 class="modal-title">Report Your Comments</h4>
 			</div>
 			<div class="modal-body">
 				<form id="reportcomment">
@@ -822,7 +822,7 @@
 					<input type="hidden" name="report_storytype" value="series_comment" id="report_storytype">
 					<br>
 					<center>
-					    <button class="btn btn-primary" type="submit"> Submit </button>
+					    <button class="btn btn-primary reportspinner" type="submit"> Submit </button>
 					</center>
 				</form>
 			</div>
@@ -834,7 +834,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title"><b>Update your Comments</b></h4>
+				<h4 class="modal-title">Update your Comments</h4>
 			</div>
 			<div class="modal-body">
 				<form id="editcomment" >
@@ -843,7 +843,7 @@
 					<input type="hidden" id="commentid" name="commentid">
 					<br>
 					<center>
-					    <button class="btn btn-primary" type="submit"> Update </button>
+					    <button class="btn btn-primary updatespinner" type="submit"> Update </button>
 					</center>
 				</form>
 			</div>
@@ -1097,8 +1097,10 @@ $('document').ready(function() {
 	}
 	$("form#reportcomment").submit(function( event ) {
 		event.preventDefault();
+        $('.reportspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 		//$.post("<?php echo base_url();?>index.php/welcome/reportcomment",$("form#reportcomment").serialize(),function(resultdata){
 		$.post("<?php echo base_url();?>welcome/reportstoriescomment",$("form#reportcomment").serialize(),function(resultdata){
+            $('.reportspinner').html('REPORT');
 			if(resultdata == 2){
 				$('span.reportcmt').text('Please Enter your Report Message');
 			}else if(resultdata == 1){
@@ -1129,9 +1131,11 @@ $('document').ready(function() {
     
     $( "form#editcomment" ).submit(function( event ) {
 		event.preventDefault();
+        $('.updatespinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 		var comments = $('textarea#editcmt').val();
 		var cid = $('#commentid').val();
 		$.post("<?php echo base_url();?>welcome/updatecomment",{'comment':comments,'cid':cid},function(resultdata){
+            $('.updatespinner').html('Update');
 			if(resultdata == 2){
 				$('span.comment').text('Please Enter Comment');
 			}else if(resultdata == 1){

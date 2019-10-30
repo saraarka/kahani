@@ -109,9 +109,9 @@
     <div class="modal modalvjk left fade" id="nvmenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialogv" role="document">
             <div class="modal-content" style="border-radius:0!important; border:0!important;padding:0px;">
-				<div class="modal-header" style="border-bottom-color: #f4f4f4;">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top:4px;"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">StoryCarry</h4>
+				<div class="modal-header" style="border-bottom-color: #f4f4f4;padding: 15px;">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel" style="padding: 0px;">StoryCarry</h4>
 				</div>
 	            <div class="modal-body" style="width:200px;">
                     <ul class="sidebar-menu tree" data-widget="tree">
@@ -162,7 +162,7 @@
 									<i class="fa fa-angle-left pull-right"></i>
 								</span>
 							</a>
-							<ul class="treeview-menu cardv" style="display:block;">
+							<ul class="treeview-menu cardv" style="display:block; transition: all 0.2 ease-in;">
                                 <!--<?php if(isset($gener) && ($gener->num_rows() > 0)) { foreach($gener->result() as $key) { ?>
                                     <li><a href="<?php echo base_url('geners/'.preg_replace('/\s+/', '-',$key->gener)); ?>">
                                         <?php echo $key->gener;?> </a></li>
@@ -284,6 +284,12 @@
 </style>
 
 <style type="text/css">
+    .modal-content{
+        padding: 15px;
+    }
+    .modal-title{
+        padding-bottom: 15px;
+    }
     div#friendsuggest div.modal-content {
         min-height: 200px;
     }

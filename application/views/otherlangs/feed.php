@@ -204,7 +204,7 @@
                                                         </span> </center>
     													<?php $subcomments = get_subcomments($key->id, $comment->id); 
     													    if(isset($subcomments) && ($subcomments->num_rows() > 0)){ foreach($subcomments->result() as $subcomment){ ?>
-        													<div class="media editdelete<?php echo $subcomment->id;?>" style="padding-left:10px; margin-top:5px;margin-bottom:5px;">
+        													<div class="media editdelete<?php echo $subcomment->id;?>" style="margin-top:5px;margin-bottom:5px;">
         													    <span class="media-left">
         													        <?php if(isset($subcomment->profile_image) && !empty($subcomment->profile_image)){ ?>
         													        <img class="img-circle" style="width:25px;" src="<?php echo base_url();?>assets/images/<?php echo $subcomment->profile_image;?>" alt="<?php echo ucfirst($subcomment->name);?>">
@@ -366,9 +366,9 @@ span a{
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><center>Update Your Post</center></h4>
+                <h4 class="modal-title">Update Your Post</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="padding-top: 10px;">
                 <form class="form-horizontal" id="updatecomm_post" action="#"></form>
             </div>
         </div>
@@ -387,7 +387,7 @@ span a{
                     <span class="text-danger reportmsg"></span>
                     <input type="hidden" name="comm_story_id" id="comm_story_id" value="">
                     <input type="hidden" name="posted_byid" id="posted_byid" value=""><br>
-                    <center><button type="submit" class="btn btn-danger"> Report </button></center>
+                    <center><button type="submit" class="btn btn-primary reportspinner"> REPORT </button></center>
                 </form>
             </div>
         </div>
@@ -407,7 +407,7 @@ span a{
     		    <input type="hidden" id="reportstoryid">
     		    <input type="hidden" id="reportstorytype" value="story">
     		    <textarea id="reportmsg" class="form-control"  style="resize:none;"></textarea> <br>
-    		    <center><button class="btn btn-danger" Onclick="reportstoriesdiv();"> Report </button></center>
+    		    <center><button class="btn btn-primary storyreportspin" Onclick="reportstoriesdiv();"> REPORT </button></center>
             </div>
 		</div>
 	</div>
@@ -419,6 +419,7 @@ span a{
 		<div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Comment</h4>
             </div>
             <div class="modal-body">
                 <div id="commenteditdiv"></div>
@@ -440,7 +441,7 @@ span a{
                 <input type="hidden" id="reportcommentuserid">
                 <textarea class="form-control" id="reportcmtmsg" placeholder ="Enter your Report Comments" style="resize:none;"></textarea>
                 <br>
-                <center><button type="submit" onClick="reportcommentdiv()" class="btn btn-danger">Report</button></center>
+                <center><button type="submit" onClick="reportcommentdiv()" class="btn btn-primary reportcmtspinner">REPORT</button></center>
             </div>
         </div>
 	</div>
@@ -755,6 +756,7 @@ function commuunjoin(comm_id, gener) { // community unjoin button
 <script>
 	$( "form#updatecomm_post" ).submit(function( event ) {
 		event.preventDefault();
+		$('.postupdatespinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 		var ptextid = $("form#updatecomm_post").serializeArray()[0].value;
 		var ptext = $("form#updatecomm_post").serializeArray()[1].value;
 		var pquotes = '';
@@ -762,6 +764,7 @@ function commuunjoin(comm_id, gener) { // community unjoin button
 			pquotes = $("form#updatecomm_post").serializeArray()[2].value;
 		}
 		$.post("<?php echo base_url().$this->uri->segment(1);?>/updatecomm_post",$("form#updatecomm_post").serialize(),function(resultdata, status) {
+			$('.postupdatespinner').html('Submit');
 			$('span.text-danger').empty();
 			var result=JSON.parse(resultdata);
 			//console.log(result);
@@ -771,9 +774,9 @@ function commuunjoin(comm_id, gener) { // community unjoin button
 				});
 			}else if((result.status == 1) && (result.response == 'success')){
 				if(pquotes == 'quotes'){
-					$('.edittext'+ptextid).html(ptext);
+					$('.edittext'+ptextid).html('<i class="fa fa-quote-left fa-2x"> </i> '+ptext);
 				}else{
-					$('.edittext'+ptextid).text(ptext.mb_substr(0, 100));
+					$('.edittext'+ptextid).text(ptext.substr(0, 100));
 				}
 				$('#editcomm_post').modal('hide');
 			}else{
@@ -782,7 +785,9 @@ function commuunjoin(comm_id, gener) { // community unjoin button
 	});
 	$( "form#reportcommpost" ).submit(function( event ) {
 		event.preventDefault();
+		$('.reportspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 		$.post("<?php echo base_url().$this->uri->segment(1);?>/reportcomm_post",$("form#reportcommpost").serialize(),function(resultdata, status) {
+			$('.reportspinner').html('REPORT');
 			$('span.text-danger').empty();
 			var result=JSON.parse(resultdata);
 			if(result.status == -1){
@@ -795,6 +800,10 @@ function commuunjoin(comm_id, gener) { // community unjoin button
 				console.log('Failed to report.');
 			}
 		});
+	});
+	$( ".close" ).click(function() {
+		$('textarea[name="reportmsg"]').val('');
+		$('.text-danger').empty();
 	});
 
 	function postReplycomment(commentid, comm_id, story_id){
@@ -830,13 +839,13 @@ function commuunjoin(comm_id, gener) { // community unjoin button
                             success: function(result) {
                                 if(result.response){
                                     var profile_image = result.response[0].profile_image;
-                                    if((profile_image != '') || (profile_image != ' ') || (profile_image != 'undefined')){
+                                    if(profile_image){
                                     }else{ profile_image = '2.png'; }
-                                    var htmlcomment ='<div class="media editdelete'+result.response[0].id+'" style="padding-left:10px;margin-top:5px;margin-bottom:5px;">'+
+                                    var htmlcomment ='<div class="media editdelete'+result.response[0].id+'" style="margin-top:5px;margin-bottom:5px;">'+
     								    '<span class="media-left"><img class="img-circle" src="<?php echo base_url();?>assets/images/'+profile_image+'" alt="'+result.response[0].name+'" style="width:25px;"></span>'+
                                             '<span class="media-body bodycv"><span class="username"> &nbsp;'+result.response[0].name+
                                                 '<span class="dropdown" style="float:right;">'+
-                                                    '<a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true">'+
+                                                    '<a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true" style="padding: 0px 10px 0px 20px;">'+
                                                      '<i class="fa fa-ellipsis-v"></i></a> '+
                                                     '<ul class="dropdown-menu pull-right">'+
                                                         '<li><a href="javascript:void(0);" onclick="editcommcomment('+result.response[0].id+');"><span><i class="fa fa-pencil"></i> EDIT</span></a></li>'+
@@ -865,7 +874,6 @@ function commuunjoin(comm_id, gener) { // community unjoin button
                 }
             });
         }else{
-            //$('.addreplaycmt'+commentid).text('Enter your Comments.');
             $('.btnspinner'+commentid).html('POST');
 	        $('#snackbar').text('Enter Comments.').addClass('show');
     	    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
@@ -953,12 +961,14 @@ function commuunjoin(comm_id, gener) { // community unjoin button
         });
     }
     function updatecommcomment(commentid){
+    	$('.updatecmtspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
         var comment = $('textarea#ucomment').val();
         $.ajax({
             type:'POST',
             url:"<?php echo base_url().$this->uri->segment(1);?>/updatecommcomment",
             data:{'comment':comment,'commentid': commentid},
             success:function(response){
+            	$('.updatecmtspinner').html('Submit');
                 if(response == 1){
                     $('#commentedit').modal('hide');
                     $('.'+commentid).text(comment);
@@ -977,6 +987,7 @@ function commuunjoin(comm_id, gener) { // community unjoin button
         $('#reportcomment').modal('show');
     }
     function reportcommentdiv(){
+    	$('.reportcmtspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
         var reportcommentid = $('#reportcommentid').val();
         var reportcommentuserid = $('#reportcommentuserid').val();
         var reportmsg = $('#reportcmtmsg').val();
@@ -986,6 +997,7 @@ function commuunjoin(comm_id, gener) { // community unjoin button
     		data: {'commentid': reportcommentid, 'userid': reportcommentuserid, 'reportmsg': reportmsg},
     		dataType: "json",
     		success:function(data){
+    			$('.reportcmtspinner').html('REPORT');
     		    if((data.status == 1) && (data.response == 'success')){
         		    $('#snackbar').text('Successfully Reported.').addClass('show');
         	        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
@@ -1003,14 +1015,14 @@ function commuunjoin(comm_id, gener) { // community unjoin button
     }
 
 /* top posts */
-    function toppostReplycomment(commentid, comm_id, story_id){
-        $('div.toppostreplycomment'+commentid).html('<input type="text" id="topreplycmts'+commentid+'" value="" class="form-control" placeholder="Reply Comment..." required>'+
-        '<span class="text-danger addreplaycmt'+commentid+'"></span><span class="input-group-btn">'+
-        '<button type="submit" class="btn btn-success btn-flat btnspinner'+commentid+'" onclick="topaddreplycomment('+commentid+','+comm_id+','+story_id+')">POST</button></span>');
-    
-        $('#topmysubList'+story_id+'_'+commentid).css('display','block');
-        setTimeout(function(){ $('#topspinnertab'+commentid).html(' '); }, 50);
-    }
+	function toppostReplycomment(commentid, comm_id, story_id){
+	    $('div.toppostreplycomment'+commentid).html('<input type="text" id="topreplycmts'+commentid+'" value="" class="form-control" placeholder="Reply Comment..." required>'+
+	    '<span class="text-danger addreplaycmt'+commentid+'"></span><span class="input-group-btn">'+
+	    '<button type="submit" class="btn btn-success btn-flat btnspinner'+commentid+'" onclick="topaddreplycomment('+commentid+','+comm_id+','+story_id+')">POST</button></span>');
+
+	    $('#topmysubList'+story_id+'_'+commentid).css('display','block');
+	    setTimeout(function(){ $('#topspinnertab'+commentid).html(' '); }, 50);
+	}
     function toppostdisplayreplies(commentid, comm_id, story_id){
         $('#topmysubList'+story_id+'_'+commentid).css('display','block');
         setTimeout(function(){ $('#topspinnertab'+commentid).html(' '); }, 50);
@@ -1041,9 +1053,9 @@ function commuunjoin(comm_id, gener) { // community unjoin button
                             success: function(result) {
                                 if(result.response){
                                     var profile_image = result.response[0].profile_image;
-                                    if((profile_image != '') || (profile_image != ' ') || (profile_image != 'undefined')){
+                                    if(profile_image){
                                     }else{ profile_image = '2.png'; }
-                                    var yourfeedsubcommenthtml = '<div class="media editdelete'+result.response[0].id+'" style="padding-left:10px;margin-top:5px;margin-bottom:5px;">'+
+                                    var yourfeedsubcommenthtml = '<div class="media editdelete'+result.response[0].id+'" style="margin-top:5px;margin-bottom:5px;">'+
                                         '<span class="media-left"><img class="img-circle" style="width:25px;" src="<?php echo base_url();?>assets/images/'+profile_image+'"></span>'+
         									' <span class="media-body bodycv"><div class=""><span class="">&nbsp; <b>'+result.response[0].name+'</b>'+
                                             '<span class="dropdown" style="float:right;">'+
@@ -1348,7 +1360,7 @@ function commuunjoin(comm_id, gener) { // community unjoin button
 <script> 
     $(document).ready(function(){ // feed auto scroll
         var limit = 6;
-        var start = 6;
+        var start = 0;
         var action = 'inactive';
         function load_country_data(limit, start) {
             $.ajax({
@@ -1368,10 +1380,10 @@ function commuunjoin(comm_id, gener) { // community unjoin button
                 }
             });
         }
-        if(action == 'inactive') {
+        /*if(action == 'inactive') {
             action = 'active';
             load_country_data(limit, start);
-        } 
+        } */
         $(window).scroll(function(){
             if ($(window).scrollTop() >= (($("#loadmoreall").height() - $(window).height())*0.6) && action == 'inactive'){
                 action = 'active';
@@ -1385,7 +1397,7 @@ function commuunjoin(comm_id, gener) { // community unjoin button
 <script> 
     $(document).ready(function(){ // yourfeed auto scroll
         var ylimit = 6;
-        var ystart = 6;
+        var ystart = 0;
         var yaction = 'inactive';
         function yload_country_data(ylimit, ystart) {
             $.ajax({
@@ -1405,10 +1417,10 @@ function commuunjoin(comm_id, gener) { // community unjoin button
                 }
             });
         }
-        if(yaction == 'inactive') {
+        /*if(yaction == 'inactive') {
             yaction = 'active';
             yload_country_data(ylimit, ystart);
-        } 
+        } */
         $(window).scroll(function(){
             if ($(window).scrollTop() >= (($("#yloadmoreall").height() - $(window).height())*0.6) && yaction == 'inactive'){
                 yaction = 'active';
@@ -1423,7 +1435,7 @@ function commuunjoin(comm_id, gener) { // community unjoin button
 <script> 
     $(document).ready(function(){ // Stories feed auto scroll
         var slimit = 6;
-        var sstart = 6;
+        var sstart = 0;
         var saction = 'inactive';
         function sload_country_data(slimit, sstart) {
             $.ajax({
@@ -1443,10 +1455,10 @@ function commuunjoin(comm_id, gener) { // community unjoin button
                 }
             });
         }
-        if(saction == 'inactive') {
+        /*if(saction == 'inactive') {
             saction = 'active';
             sload_country_data(slimit, sstart);
-        } 
+        } */
         $(window).scroll(function(){
             if ($(window).scrollTop() >= (($("#sloadmoreall").height() - $(window).height())*0.6) && saction == 'inactive'){
                 saction = 'active';

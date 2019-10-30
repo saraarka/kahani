@@ -55,7 +55,7 @@
         				<a href="<?php echo $hrefurl;?>" target="_blank"> 
         					<h4 class="media-heading"><b><?php echo ucfirst($storyfeed->title);?></b></h4>
         				</a>
-        				<p class="media-heading  edittext<?php echo $storyfeed->sid;?>"><?php echo strip_tags($storyfeed->story); ?></p>
+        				<p class="media-heading edittext<?php echo $storyfeed->sid;?>"><?php echo strip_tags($storyfeed->story); ?></p>
         			</div>
         		</div>
         	</div>

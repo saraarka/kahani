@@ -254,8 +254,8 @@
     	        <button id="right-btnyn" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i> </button>
     	    	<button id="left-btnyn" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i> </button>
             <?php }else{ ?>
-                <button id="right-btnyn" style="visibility:hidden;" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i> </button>
-                <button id="left-btnyn" style="visibility:hidden;" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i> </button>
+                <button id="right-btnyn" style="visibility: hidden;" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i> </button>
+                <button id="left-btnyn" style="visibility: hidden;" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i> </button>
             <?php } ?>
 	    <?php } ?>
 	    </div><!-- // Your network STORIES end-->
@@ -345,8 +345,8 @@
     		        <button id="right-btn" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
     		    	<button id="left-btn" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
                 <?php } else{ ?>
-                    <button id="right-btn" style="visibility:hidden;" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
-                    <button id="left-btn" style="visibility:hidden;" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
+                    <button id="right-btn" style="visibility: hidden;" class="right-btn"><i class="fa fa-hand-o-right ic1 fa-2x" aria-hidden="true"></i></button>
+                    <button id="left-btn" style="visibility: hidden;" class="left-btn" ><i class="fa fa-hand-o-left ic1 fa-2x" aria-hidden="true"></i></button>
                 <?php } ?>
 		    <?php } ?>
 		</div>	<!-- // Top SERIES end -->

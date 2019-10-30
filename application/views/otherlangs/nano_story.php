@@ -191,9 +191,10 @@
         <div class="modal-wrapper" id="confirmdelpopup">
             <div class="modal">
                 <div class="popup-head">
-                    <div class="popup-headtext deletemessage">Are You Sure? Do you want to Delete?</div>
+                    <div class="popup-headtext">Are You Sure? Do you want to Delete?</div>
                 </div>
                 <div class="popup-content">
+                    <p class="deletemessage"></p>
                     <center>
                         <button type="button" data-dismiss="modal" class="btn btn-primary" id="delconfirmed">Delete</button>
                         <button type="button" data-dismiss="modal" class="btn delcancelled">Cancel</button>

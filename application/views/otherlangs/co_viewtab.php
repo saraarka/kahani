@@ -293,7 +293,7 @@
 <script>
     $(document).ready(function(){
         var tlimit = 6;
-        var tstart = 6;
+        var tstart = 0;
         var taction = 'inactive';
         function tload_country_data(tlimit, tstart) {
             var commuid = "<?php echo $commuid;?>";
@@ -315,10 +315,10 @@
                 }
             });
         }
-        if(taction == 'inactive') {
+        /*if(taction == 'inactive') {
             taction = 'active';
             tload_country_data(tlimit, tstart);
-        } 
+        } */
         $(window).scroll(function(){
             if ($(window).scrollTop() >= (($("#toploadposts").height() - $(window).height())*0.6) && taction == 'inactive'){
                 taction = 'active';

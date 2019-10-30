@@ -37,7 +37,7 @@
 <script>
     $(document).ready(function(){
         var finglimit = 5;
-        var fingstart = 5;
+        var fingstart = 0;
         var fingaction = 'inactive';
         var userid = $('#profile_id').val();
         function fingload_country_data(finglimit, fingstart) {
@@ -58,10 +58,10 @@
                 }
             });
         }
-        if(fingaction == 'inactive') {
+        /*if(fingaction == 'inactive') {
             fingaction = 'active';
             fingload_country_data(finglimit, fingstart);
-        }
+        }*/
         $(".modal-bodyv").scroll(function() {
         //$(window).scroll(function(){
             if($(".modal-bodyv").scrollTop() + $(".modal-bodyv").height() + 50 > $("#fingloadmore").height() && fingaction == 'inactive'){

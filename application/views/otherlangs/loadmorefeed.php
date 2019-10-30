@@ -180,7 +180,7 @@
                             </span> </center>
 							<?php $subcomments = get_subcomments($key->id, $comment->id); 
 							    if(isset($subcomments) && ($subcomments->num_rows() > 0)){ foreach($subcomments->result() as $subcomment){ ?>
-								<div class="media editdelete<?php echo $subcomment->id;?>" style="padding-left:10px;">
+								<div class="media editdelete<?php echo $subcomment->id;?>" style="padding-left:10px;margin-top: 5px;">
 								    <span class="media-left">
 								        <?php if(isset($subcomment->profile_image) && !empty($subcomment->profile_image)){ ?>
 								        <img class="img-circle" style="width:25px;" src="<?php echo base_url();?>assets/images/<?php echo $subcomment->profile_image;?>" alt="<?php echo ucfirst($subcomment->name);?>">
@@ -193,7 +193,7 @@
 								            <span class="">&nbsp;<b><a href="<?php echo base_url().$this->uri->segment(1).'/'.$subcomment->profile_name; ?>">
 								                <p class="namers"><?php echo ucfirst($subcomment->name);?></p></a></b>
 								                <span class="pull-right">
-                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" style="padding: 0px 0px 0px 20px;">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" style="padding: 0px 10px 0px 20px;">
                                                      <i class="fa fa-ellipsis-v"></i> </a> 
                                                     <ul class="dropdown-menu writemenu" style="top:auto; width:fit-content;">
                                                         <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($subcomment->user_id == $this->session->userdata['logged_in']['user_id'])){ ?>
@@ -369,7 +369,7 @@
 			if(isset($comments) && ($comments->num_rows()>0)){ ?>
 			<div id="topmyList<?php echo $yourfeed->id;?>" style="display:none;">
 				<?php foreach($comments->result() as $ycomment){ ?>
-					<div class="box-footer box-comments editdelete<?php echo $ycomment->id;?>">
+					<div class="box-footer box-comments editdelete<?php echo $ycomment->id;?>" style="padding-bottom:0px;">
 						<div class="box-comment">
 							<?php if(isset($ycomment->profile_image) && !empty($ycomment->profile_image)){ ?>
 								<img class="img-circle" src="<?php echo base_url();?>assets/images/<?php echo $ycomment->profile_image;?>" alt="<?php echo $ycomment->name;?>">
@@ -378,8 +378,8 @@
 							<?php } ?>
 							<div class="comment-text">
 								<div class="comment-text">
-									<span class="username" style="padding-top:6px;">&nbsp; <b><a href="<?php echo base_url().$this->uri->segment(1).'/'.$ycomment->profile_name; ?>">
-									    <p class="namers"><?php echo ucfirst($ycomment->name);?></p></a></b>
+									<span class="username" style="padding-top:6px;">&nbsp; <a href="<?php echo base_url().$this->uri->segment(1).'/'.$ycomment->profile_name; ?>">
+									    <p class="namers"><?php echo ucfirst($ycomment->name);?></p></a>
 									    <span class="dropdown" style="float:right;">
                                             <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true">
                                              <i class="fa fa-ellipsis-v"></i> </a> 
@@ -404,17 +404,17 @@
 								    <?php } else{ ?>
 								        <div style="word-break:break-word;" class="more pcomment<?php echo $ycomment->id;?>"><?php echo $ycomment->comment;?></div>
 								    <?php } ?>
-									<div style="" class="">
+									<div style="margin:5px 0;" class="">
                                         <a href="javascript:void(0)" onClick="toppostReplycomment(<?php echo $ycomment->id;?>,<?php echo $ycomment->comm_id;?>,<?php echo $ycomment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a> <a href="javascript:void(0);" class="pull-left replycv">I</a>
                                         <a href="javascript:void(0)" onClick="toppostdisplayreplies(<?php echo $ycomment->id;?>,<?php echo $ycomment->comm_id;?>,<?php echo $ycomment->story_id;?>)" class="pull-left replycv" title="Replies"> 
                                             <span class="told_subcmtcount<?php echo $ycomment->id;?>"><?php echo get_subcmtcount($ycomment->id);?></span> REPLIES</a>
                                     </div>
-                                </div><br>
+                                </div>
                                 <div class="comment-text">
                                     <div class="input-group toppostreplycomment<?php echo $ycomment->id;?>" style="margin-bottom:5px;"><!-- Reply comment form --></div>
 								</div>
 							</div>
-    						<div class="topsubcomments" style="display:none; margin-bottom:10px;" id="topmysubList<?php echo $yourfeed->id;?>_<?php echo $ycomment->id;?>">
+    						<div class="topsubcomments" style="margin-top:5px;margin-bottom:5px;"> id="topmysubList<?php echo $yourfeed->id;?>_<?php echo $ycomment->id;?>">
     						    <center> <span id="topspinnertab<?php echo $ycomment->id;?>">
                                     <img src="<?php echo base_url();?>/assets/landing/svg/spinnercomments.svg" class="spinner" style="float: inherit;">
                                 </span> </center>
@@ -430,9 +430,9 @@
     					                </span>
     								    <span class="media-body bodycv">
     							            <div class="">
-    								            <span class="">&nbsp;<b><a href="<?php echo base_url().$this->uri->segment(1).'/'.$topsubcomment->profile_name; ?>">
-    								                <p class="namers"><?php echo ucfirst($topsubcomment->name);?></p></a></b><span class="dropdown" style="float:right;">
-                                                    <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true" style="padding: 0px 0px 0px 20px;">
+    								            <span class="username">&nbsp;<a href="<?php echo base_url().$this->uri->segment(1).'/'.$topsubcomment->profile_name; ?>">
+    								                <p class="namers"><?php echo ucfirst($topsubcomment->name);?></p></a><span class="dropdown" style="float:right;">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true" style="padding: 0px 10px 0px 20px;">
                                                      <i class="fa fa-ellipsis-v"></i> </a> 
                                                     <ul class="dropdown-menu pull-right">
                                                         <?php if($topsubcomment->user_id == $this->session->userdata['logged_in']['user_id']){ ?>
@@ -443,7 +443,7 @@
                                                         <?php } ?>
                                                     </ul>
                                                 </span><span class="text-muted pull-right datecv"><?php echo get_ydhmdatetime($topsubcomment->date);?></span>
-    								            </span><br>
+    								            </span>
     								            <?php if(strlen($topsubcomment->comment) > 200){ ?>
     										        <span class="more pcomment<?php echo $topsubcomment->id;?>" style="padding-left: 10px;word-break:break-word;">
     										            <?php echo mb_substr($topsubcomment->comment, 0, 200); ?>

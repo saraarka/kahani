@@ -6100,7 +6100,8 @@ button.close {
 
 .modal-title {
 	margin: 0;
-	line-height: 1.42857143
+	/*line-height: 1.42857143*/
+	line-height: 1.22857143
 }
 
 .modal-body {
@@ -6902,7 +6903,8 @@ button.close {
 }
 
 .navbar {
-	z-index: 1000;
+	/*z-index: 1000;*/
+	z-index: 1025;
 }
 
 input,

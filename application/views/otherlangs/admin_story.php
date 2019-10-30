@@ -107,7 +107,7 @@
             margin-left: 18px;
         }
     }
-    /* reading mode css */    
+    /* reading mode css */
 </style>
 
 <?php if(isset($admin_story_view) && ($admin_story_view->num_rows() == 1)){ foreach($admin_story_view->result() as $row) {
@@ -152,7 +152,9 @@
     <div  style="margin:0 auto;">
 	    <div class="main-container">
 			<div class="" style="display:flex; flex-wrap:wrap;">
-			<?php $storyid = 0;foreach($admin_story_view->result() as $row) { $storyid = $row->sid; ?>
+            <?php $cmttype = ''; $storyid = 0;
+                foreach($admin_story_view->result() as $row) { 
+                    $storyid = $row->sid; $cmttype =  $row->type; ?>
 				<div class="sidebox-i-c" style="margin-bottom:20px;">
 				    <div class="row pt-0">
 					    <?php $image='reading.jpg'; if(isset($row->cover_image) && !empty($row->cover_image)) { $image=$row->cover_image;} ?>
@@ -438,7 +440,7 @@
 				            <?php foreach ($recentstorieslife->result() as $recentlife) { ?>
                                 <div class="card1">
                                     <a href="<?php echo base_url($this->uri->segment(1).'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $recentlife->title).'-'.$recentlife->sid);?>" class="imagebcg">
-                                        <?php if(isset($recentlife->image) && !empty($recentlife->image)) { ?>
+                                        <?php if(isset($recentlife->image) && !empty($recentlife->image)){ ?>
                                         	<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/images/<?php echo $recentlife->image; ?>" alt="<?php echo $recentlife->title;?>" class="imageme1 lazy" style="max-width:266px;max-height:165px;">
                                         <?php } else { ?>
                                         	<img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/images/series-stories.jpg" alt="<?php echo $recentlife->title;?>" class="imageme1 lazy" style="max-width:266px;max-height:165px;">
@@ -734,7 +736,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title"><b>Report Your Comments</b></h4>
+				<h4 class="modal-title">Report Your Comments</h4>
 			</div>
 			<div class="modal-body">
 				<form id="reportcomment">
@@ -745,7 +747,7 @@
 					<input type="hidden" name="report_storyid" value="" id="report_storyid"><br>
 					<input type="hidden" name="report_storytype" value="<?php echo $cmttype;?>_comment" id="report_storytype">
 					<center>
-					    <button class="btn btn-primary" type="submit"> Submit </button>
+					    <button class="btn btn-primary reportspinner" type="submit"> Submit </button>
 					</center>
 				</form>
 			</div>
@@ -757,7 +759,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title"><b>Update your Comments</b></h4>
+				<h4 class="modal-title">Update your Comments</h4>
 			</div>
 			<div class="modal-body">
 				<form id="editcomment" >
@@ -765,7 +767,7 @@
 					<span class="text-danger comment"></span>
 					<input type="hidden" id="commentid" name="commentid"><br>
 					<center>
-					    <button class="btn btn-primary" type="submit"> Update </button>
+					    <button class="btn btn-primary updatespinner" type="submit"> Update </button>
 					</center>
 				</form>
 			</div>
@@ -976,7 +978,7 @@
 </script>
 <script> // comments
     function deletecomment(commentid){
-	    $('.deletemessage').html("Are you sure you want to delete the Comment?");              var x = confirm("Are you sure you want to delete the Comment?");
+	    $('.deletemessage').html("Are you sure you want to delete the Comment?");
         $('#confirmdelpopup').modal().one('click', '#delconfirmed', function (e) {
             $.ajax({
                 type:'POST',
@@ -1004,8 +1006,10 @@
 	}
 	$("form#reportcomment").submit(function( event ) {
 		event.preventDefault();
+        $('.reportspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 		//$.post("<?php echo base_url();?>index.php/welcome/reportcomment",$("form#reportcomment").serialize(),function(resultdata){
 		$.post("<?php echo base_url().$this->uri->segment(1);?>/reportstoriescomment",$("form#reportcomment").serialize(),function(resultdata){
+            $('.reportspinner').html('REPORT');
 			if(resultdata == 2){
 				$('span.reportcmt').text('Please Enter your Report Message');
 			}else if(resultdata == 1){
@@ -1035,9 +1039,11 @@
     }
     $( "form#editcomment" ).submit(function( event ) {
 		event.preventDefault();
+        $('.updatespinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 		var comments = $('textarea#editcmt').val();
 		var cid = $('#commentid').val();
 		$.post("<?php echo base_url().$this->uri->segment(1);?>/updatecomment",{'comment':comments,'cid':cid},function(resultdata){
+            $('.updatespinner').html('Update');
 			if(resultdata == 2){
 				$('span.comment').text('Please Enter Comment');
 			}else if(resultdata == 1){
@@ -1073,8 +1079,8 @@
         		success:function(data){
         		    if(data == 2){
                         //$('.addreplaycmt'+commentid).text('Enter your Comments.');
-                        $('.btnspinner'+commentid).html('POST');        
-                        $('#snackbar').text('Enter your Comments.').addClass('show');       
+                        $('.btnspinner'+commentid).html('POST');
+                        $('#snackbar').text('Enter your Comments.').addClass('show');
                         setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     } else if(data == 1) {
                         $.ajax({
@@ -1109,15 +1115,15 @@
                         
                     }else{
                         //$('.addreplaycmt'+commentid).text('Failed to Post your Comments.');
-                        $('#snackbar').text('Failed to Post your Comments.').addClass('show');     
+                        $('#snackbar').text('Failed to Post your Comments.').addClass('show');
                         setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
                     }
                 }
             });
 	    }else{
 	        //$('.addreplaycmt'+commentid).text('Enter your Comments.');
-            $('.btnspinner'+commentid).html('POST');        
-            $('#snackbar').text('Enter your Comments.').addClass('show');       
+            $('.btnspinner'+commentid).html('POST');
+            $('#snackbar').text('Enter your Comments.').addClass('show');
             setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
 	    }
 	}

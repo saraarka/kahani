@@ -300,18 +300,18 @@
 <input type="hidden" id="cslang" value="">
 <input type="hidden" id="userid" value="">
 <div class="modal fade" id="chooselanguage" data-backdrop="static" data-keyboard="false">
-	<div class="modal-dialog1" style="width:0 auto; positon:relative;">
-		<div class="modal-content modal-contentvl">
+	<div class="modal-dialog1" style="width:0 auto; position:relative;">
+		<div class="modal-content modal-contentvl" style="width: 642px;">
 			<div class="modal-body">
 				<div class="login-logo" style="height:50px;border:none;">
 				    <center>
 				        <p style="margin:0 0 10px;font-size:25px;font-family:'times';">Welcome!</p>
-					    <span class="heads" style="text-transform:uppercase;font-size:1em">
-					        <b>Select Your Preferred reading language</b>
+					    <span class="heads" style="text-transform:uppercase;font-size:0.7em">
+					        <b style="font-weight: bold;">Select Your Preferred reading language</b>
 					    </span>
 					</center>
 				</div>
-				<div class="login-box-body" style="margin-top:20px; max-height:256px; overflow-y:scroll;">
+				<div class="login-box-body" style="margin-top:20px; max-height:256px; overflow-y:auto;">
 					<form id="lang" action="#" method="POST" style="margin-bottom: 0;">
 					    <div class="pt10" style="display:flex;flex-wrap:wrap;justify-content:center;">
 					        <?php if(isset($languages) && ($languages->num_rows() >0)) { 
@@ -319,7 +319,7 @@
 								<!--<a href="javascript:void(0);" class="community-btn" onclick="chooselanguage('<?php echo $language->code;?>')">
 								    <?php echo $language->language; ?>
 								</a>-->
-								<a href="javascript:void(0);" class="community-btn langbtn <?php echo $language->code;?>" onclick="chooselangbtn('<?php echo $language->code;?>')">
+								<a href="javascript:void(0);" class="community-btn langbtn <?php echo $language->code;?>" onclick="chooselangbtn('<?php echo $language->code;?>')" style="height: 40px; box-sizing: initial;">
 								    <?php echo $language->language; ?>
 								</a>
     						<?php } } ?>
@@ -340,7 +340,7 @@
 <!-- Community(Geners) list Modal popup when first time signup start -->
 <div class="modal fade" id="choosecommunity" data-backdrop="static" data-keyboard="false">
 	<div class="modal-dialog1" style="width:0 auto; positon:relative;">
-		<div class="modal-content modal-contentvl" style="padding-bottom:0">
+		<div class="modal-content modal-contentvl" style="padding-bottom:0;max-width: 642px;">
 			<div class="modal-body">
 				<div class="login-logo" style="height:50px;border:none;">
 				    <center>
@@ -350,10 +350,10 @@
 					</center>
 				</div>
 				<form id="choosecommu" method="POST" style="margin-bottom:0;padding:0">
-    				<div class="login-box-body" style="margin-top:20px; max-height:256px; overflow-y:scroll;">
+    				<div class="login-box-body" style="margin-top:20px; max-height:256px; overflow-y:auto;">
     				    <div class="pt10" style="display:flex; flex-wrap:wrap; justify-content:center; color:white;">
 						<?php if(isset($gener) && ($gener->num_rows() > 0)) { foreach($gener->result() as $generrow) { ?>
-							<label class="btn-default community-btn choosecomm" id="<?php echo $generrow->id;?>" style="padding:6px 2px;">
+							<label class="btn-default community-btn choosecomm" id="<?php echo $generrow->id;?>" style="padding:6px 2px; height: 52px;">
 								<input type="checkbox" class="checkbox<?php echo $generrow->id;?>" style="float:left; display:none;" name="choosecomm[]" value="<?php echo $generrow->id;?>"><?php echo $generrow->gener; ?>
 							</label>
 						<?php } } ?>
@@ -771,11 +771,11 @@
 			}
 			var choosecommcount = $('input[name="choosecomm[]"]:checked').length;
 			if(choosecommcount >= 2){
-				$('.choosecommsave').css({"display":"block", "background":"#3c8dbc", "color": "white"});
+				$('.choosecommsave').css({"background":"#3c8dbc", "color": "white"});
 				//$('.choosecommsave').css('background','3c8dbc');
 			}else{
 				//$('.choosecommsave').css('display','none');
-				$('.choosecommsave').css({"display":"block!important", "background":"#eee", "color": "#fff"});
+				$('.choosecommsave').css({"background":"#eee", "color": "#bcb2b2"});
 			}
 		});
 		
@@ -1070,55 +1070,8 @@
     	});
     }
 </script>
-
-<!-- Rating to all stories
-<script type="text/javascript">
-    $( document ).ready(function() {
-    	$("input[name='star']").click(function(){
-    		var rating = $(this).val();
-    		var sid = $('#storyid').val();
-    		$.ajax({
-    			url:'<?php echo base_url().$this->uri->segment(1);?>/rating',
-    			method: 'POST',
-    			data: {'rating':rating,'sid':sid},
-    			dataType:'json',
-    			success: function(data){
-    				if(data.status == 1){
-    				    var ratinghtml = '';
-    				    if((data.rating)) {
-							var starNumber = (data.rating).split('.');
-							for(var x=1;x<=starNumber[0];x++) {
-								ratinghtml+='<span class="fa fa-star checked" style="color:rgb(60, 141, 188);padding-right:5px;" title="'+x+'"></span>';
-							} if((starNumber[1])) { if (starNumber[1] != 0) {
-								ratinghtml+='<span class="fa fa-star-half-full checked" style="color:rgb(60, 141, 188);padding-right:5px;" title="'+data.rating+'"></span>';
-							x++;} } 
-							var abcd = ''; if(starNumber[0] <= 0){ } 
-							while (x<=5) { ratinghtml+='<span class="fa fa-star-o checked" style="color:rgb(60, 141, 188);padding-right:5px;"></span>';x++;}
-						}
-			            $('.ratingli').html(ratinghtml);
-        				//$('li > span.fa.fa-star').css('color','#333');
-        				//$('li > span.fa.fa-star').removeClass('fa-star').addClass('fa-star-o');
-        			    /* $('li > span.fa.fa-star').removeClass('fa-star').addClass('fa-star-o');
-        				for(var x=1; x <= rating; x++) {
-        				    $('li > span.fa.fa-star-o:nth-child('+x+')').removeClass('fa-star-o').addClass('fa-star');
-        				    $('li > span.fa.fa-star:nth-child('+x+')').css('color','#3c8dbc');
-        				}*/
-    			    	$('#snackbar').text('Rated Successfully').addClass('show');
-    				    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
-    				}
-    			}
-    		});
-    	});
-    	
-    	$("input[name='writerstar']").click(function(){
-    	    $('#snackbar').text('You Cannot Rate the story').addClass('show');
-    		setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
-    	});
-    });
-</script>
- -->
  
- <!-- Rating to all stories -->
+<!-- Rating to all stories -->
 <script type="text/javascript">
 function yoursrating(){
     $('#snackbar').text('You Cannot Rate your story').addClass('show');
@@ -1293,6 +1246,7 @@ $(function() {
     function friend(id){
     	var loggedinuid = $('#loggedinuid').val();
     	if(loggedinuid){
+    		$('#friendsuggest').modal('show');
 	        $.ajax({
 	            type: "POST",
 	            url: "<?php echo base_url().$this->uri->segment(1);?>/get_story_data",
@@ -1415,6 +1369,7 @@ $(function() {
         $('#reportstories').modal('show');
     }
     function reportstoriesdiv(){
+    	$('.storyreportspin').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
         var userid = $('#reportuserid').val();
         var storyid = $('#reportstoryid').val();
         var type = $('#reportstorytype').val();
@@ -1424,6 +1379,8 @@ $(function() {
     		url :'<?php echo base_url().$this->uri->segment(1); ?>/reportstories',
     		data: {'reportcmt':reportmsg, 'report_storyid':storyid, 'report_userid':userid, 'type':type},
     		success:function(data){
+    			$('#reportmsg').val('');
+    			$('.storyreportspin').html('REPORT');
     		    if(data == 1){
     			    $('#snackbar').text('Successfully Reported.').addClass('show');
     				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);

@@ -275,6 +275,15 @@
             }
         </style>
         <style>
+            .default-image-popup {
+              width: 445px;
+              position: absolute;
+              max-width: 100%;
+              background: white;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
             .top-div-image-popup {
               height: 57px;
               box-shadow: 0 3px 2px -2px rgba(200,200,200,0.2);
@@ -320,7 +329,7 @@
               border-radius: 5px;
               width: 45%;
               max-width: 127px;
-              max-height: 121px;
+              height: 121px;
               border: 3px solid #eeee;
               margin: 1%;
               cursor: pointer;
@@ -451,24 +460,22 @@
     <?php } } ?>
 
 <div class="modal-wrapper" id="defaultimages">
-    <div class="modal">
-        <div class="default-image-popup">
-            <button class="close-btn">CLOSE</button>
-            <div class="top-div-image-popup">
-                <input id="searchimage" placeholder="Search image...">
-                <button onclick="searchimage()">GO</button>
-            </div>
-            <div class="defaultimages">
-                <?php if(isset($defaultimages) && ($defaultimages->num_rows() > 0)){ foreach($defaultimages->result() as $defaultimage){ ?>
-                    <img class="selectimg<?php echo $defaultimage->id;?>" src="<?php echo base_url();?>assets/images/<?php echo $defaultimage->dimage;?>" onclick="selectimg(<?php echo $defaultimage->id;?>)">
-                <?php } } ?>
-                <div class="image-loadmore"><button>LOAD MORE</button></div>
-            </div>
-            
-            <div class="upload-own-img-div">
-                <button class="upload-own-img-btn"><label><input type="file" name="cover_image" id="upload-file-selector" style="display:none;">+ UPLOAD IMAGE</label></button>
-                <button class="default-img-save-button">USE THIS IMAGE</button>
-            </div>
+    <div class="default-image-popup">
+        <button class="close-btn">CLOSE</button>
+        <div class="top-div-image-popup">
+            <input id="searchimage" placeholder="Search image...">
+            <button onclick="searchimage()">GO</button>
+        </div>
+        <div class="defaultimages">
+            <?php if(isset($defaultimages) && ($defaultimages->num_rows() > 0)){ foreach($defaultimages->result() as $defaultimage){ ?>
+                <img class="selectimg<?php echo $defaultimage->id;?>" src="<?php echo base_url();?>assets/images/<?php echo $defaultimage->dimage;?>" onclick="selectimg(<?php echo $defaultimage->id;?>)">
+            <?php } } ?>
+            <div class="image-loadmore"><button>LOAD MORE</button></div>
+        </div>
+        
+        <div class="upload-own-img-div">
+            <button class="upload-own-img-btn"><label><input type="file" name="cover_image" id="upload-file-selector" style="display:none;">+ UPLOAD IMAGE</label></button>
+            <button class="default-img-save-button">USE THIS IMAGE</button>
         </div>
     </div>
 </div>
@@ -610,27 +617,47 @@ $(document).ready(function(){
         loadmoredimages(limit, start);
     });
 
-    function searchimage(){
+    $("#searchimage").keyup(function(event) {
+        if (event.keyCode === 13) {
+            searchimage();
+        }
+    });
+
+    function searchimage(slimit = false, sstart = false){
         var searchimage = $('#searchimage').val();
-        //if(searchimage){
+        $('.image-loadmore button').html('<img src="<?php echo base_url();?>assets/landing/svg/spinner.svg" class="spinner" style="height:18px;width:18px;border-radius:50%;">');
+        if(slimit && sstart){
+        }else{
+          var slimit = 6;
+          var sstart = 0;
+        }
+        if(searchimage && searchimage != ''){
+            if(sstart == 0){
+              $('.defaultimages').html('<img src="<?php echo base_url();?>assets/landing/svg/spinnertab.svg" class="spinner" style="border-style: none;height: 32px;">');
+            }
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url().$this->uri->segment(1);?>/searchimage",
-                data: {'searchimage': searchimage},
-                dataType: "json",
+                data: {'searchimage':searchimage,'limit':slimit,'start':sstart},
                 success: function(data) {
-                    if(data && data.length > 0){
-                        var images = '';
-                        $.each(data,function (p,q){
-                        images+= '<img class="selectimg'+q.id+'" src="<?php echo base_url();?>assets/images/'+q.dimage+'" onclick="selectimg('+q.id+')">';
-                        });
-                        $('.defaultimages').html(images);
+                    $('.image-loadmore button').html('LOAD MORE');
+
+                    if(data && sstart == 0){
+                      $('.defaultimages').html(data);
+                    }else if(data){
+                      $('.image-loadmore').html('').removeClass('image-loadmore');
+                      $('.defaultimages').append(data);
+                    }else if(sstart != 0 && data == ''){
+                      $('.image-loadmore').html('No More Results');
                     }else{
                         $('.defaultimages').html('No Images found with your search.');
                     }
                 }
             });
-        //}
+        }else{
+            $('#snackbar').text('Enter text for Image Search.').addClass('show');
+            setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+        }
     }
     function selectimg(id){
         $('.defaultimages img').removeClass("selectedIMG");
@@ -661,24 +688,24 @@ $(document).ready(function(){
         $("#upload-file-selector").val('');
         $('.upload-file-selector').html('<img src="<?php echo base_url();?>assets/images/flat.png" style="cursor:pointer;padding:124px;"/>'+
             '<p class="browseimg">Image SIZE should be smaller than 2MB.</p>');
-        removesavedimgs();      
-        $('.cover_imagelocalp').val('');        
+        removesavedimgs();
+        $('.cover_imagelocalp').val('');
         $('.cover_imagelocali').val('');
     });
-    function removesavedimgs(){     
-        var cover_imagelocalp = $('.cover_imagelocalp').val();      
-        var cover_imagelocali = $('.cover_imagelocali').val();      
+    function removesavedimgs(){
+        var cover_imagelocalp = $('.cover_imagelocalp').val();
+        var cover_imagelocali = $('.cover_imagelocali').val();
         //var story_id = "<?php echo $this->uri->segment(2); ?>";       
-        if(cover_imagelocalp || cover_imagelocali){     
-            $.ajax({        
-                type: "POST",       
-                url: "<?php echo base_url();?>removesavedimgs",     
-                data: { 'cover_imagelocalp': cover_imagelocalp, 'cover_imagelocali': cover_imagelocali },       
-                success: function(data) {       
-                    console.log('removed');     
-                }       
-            });     
-        }       
+        if(cover_imagelocalp || cover_imagelocali){
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url();?>removesavedimgs",
+                data: { 'cover_imagelocalp': cover_imagelocalp, 'cover_imagelocali': cover_imagelocali },
+                success: function(data) {
+                    console.log('removed');
+                }
+            });
+        }
     }
 </script>
 <script>

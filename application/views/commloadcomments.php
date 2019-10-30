@@ -14,9 +14,9 @@
     				    <img class="img-circle" src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo ucfirst($commcomment->name);?>">
     				<?php } ?>
             		<div class="comment-text">
-						<span class="username" style="padding-top:6px;">&nbsp; <b>
+						<span class="username" style="padding-top:6px;">&nbsp; 
 						    <a href="<?php echo base_url().$commcomment->profile_name; ?>">
-						        <p class="namers"><?php echo ucfirst($commcomment->name);?></p></a></b>
+						        <p class="namers"><?php echo ucfirst($commcomment->name);?></p></a>
 						    <span class="dropdown" style="float:right;">
                                 <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" aria-expanded="true">
                                  <i class="fa fa-ellipsis-v"></i> </a> 
@@ -41,7 +41,7 @@
 					    <?php } else{ ?>
 					        <span class="more <?php echo $commcomment->id;?>" style="word-break:break-word;"><?php echo $commcomment->comment; ?></span>
 					    <?php } ?>
-						<div style="" class="">
+						<div style="margin:5px 0;" class="">
                             <a href="javascript:void(0)" onClick="toppostReplycomment(<?php echo $commcomment->id;?>,<?php echo $commcomment->comm_id;?>,<?php echo $commcomment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a>
                             <a href="javascript:void(0)" class="pull-left replycv">I</a>
                             <a href="javascript:void(0)" onClick="toppostdisplayreplies(<?php echo $commcomment->id;?>,<?php echo $commcomment->comm_id;?>,<?php echo $commcomment->story_id;?>)" class="pull-left replycv" title="Replies"> 

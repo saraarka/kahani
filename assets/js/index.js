@@ -1,5 +1,4 @@
-<!-- WRITERS, LIFE EVENTS, NANO -->
-
+/* WRITERS, LIFE EVENTS, NANO */
 function carousel2(rgtbtnoo, lftbtnoo, storycontoo, storyslideoo, storyslide) {
     var rightButtonl = $(rgtbtnoo);
     var leftButtonl = $(lftbtnoo);
@@ -61,9 +60,9 @@ carousel2("#right-btnl", "#left-btnl", "#StoryContl", "#story-sliderl", "story-s
 carousel2("#right-btnll", "#left-btnll", "#StoryContll", "#story-sliderll", "story-sliderll")
 carousel2("#right-btnn", "#left-btnn", "#StoryContn", "#story-slidern", "story-slidern")
 
-<!-- // END WRITERS, LIFE EVENTS, NANO-->
+ /*/ END WRITERS, LIFE EVENTS, NANO
 
-<!-- ADMIN CHOICE,STORIES,SERIES -->
+ ADMIN CHOICE,STORIES,SERIES */
 function carousel1(rgtbtnoo, lftbtnoo, storycontoo, storyslideoo, storyslide) {
     var rightButtona = $(rgtbtnoo);
     var leftButtona =$(lftbtnoo);
@@ -123,19 +122,29 @@ carousel1("#right-btn", "#left-btn", "#StoryCont", "#story-slider", "story-slide
 carousel1("#right-btnls", "#left-btnls", "#StoryContls", "#story-sliderls", "story-sliderls")
 carousel1("#right-btnts", "#left-btnts", "#StoryContts", "#story-sliderts", "story-sliderts")
 carousel1("#right-btntsl", "#left-btntsl", "#StoryConttsl", "#story-slidertsl", "story-slidertsl")
-carousel1("#right-btnyn", "#left-btnyn", "#StoryContyn", "#story-slideryn", "story-slideryn")
-<!-- END Admin choice, series,stories -->
+var loggedinuid = $('#loggedinuid').val();
+if(loggedinuid){ // if user is logged_in show network stories
+    carousel1("#right-btnyn", "#left-btnyn", "#StoryContyn", "#story-slideryn", "story-slideryn")
+}
+/* END Admin choice, series,stories */
 
-function genericSocialShare(url){
-    window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
-    return true;
-}
-function copylinkshare(element) {
-    var $temp = $("<input>");
-    $("body").append($temp);
-    $temp.val($(element).val()).select();
-    document.execCommand("copy");
-    $temp.remove();
-    $('#snackbar').text('Link Copied to clipboard...').addClass('show');
-    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
-}
+    $(document).ready(function(){
+        $("#home").addClass("active");
+    });
+    function genericSocialShare(url){
+        window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+        return true;
+    }
+    function copylinkshare(element) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).val()).select();
+        document.execCommand("copy");
+        $temp.remove();
+        $('#snackbar').text('Link Copied to clipboard...').addClass('show');
+        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    }
+
+    var lazyLoadInstance = new LazyLoad({
+        elements_selector: ".lazy"
+    });

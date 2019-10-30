@@ -512,7 +512,7 @@
 <div id="upload_profileimg" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding: 0px;">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Click on image and Drag to Crop</h4>
             </div>
@@ -802,7 +802,7 @@
     			        //$('#cropbox').attr('src',resultdata);
     			        $('#upload_profileimg').modal('show');
     			    }else{
-    			        $('#upload_profileimg').modal('show');
+    			        $('#upload_profileimg').modal('hide');
     			    }
               $('.btnspinner').html('Profile Image');
     			}

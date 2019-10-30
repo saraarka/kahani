@@ -281,8 +281,8 @@
 				<span aria-hidden="true">&times;</span></button>
 				<h5 class="modal-title text-center" style="color:#808182;">SOCIAL MEDIA SHARE</h5>
 			</div>
-			<div class="" style="padding-top:10px;">
-				<div class="row">
+            <div class="" style="padding-top:10px;">
+                <div class="row">
                     <div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
                         <a href="javascript:void(0);" class="facebookshare socsh">
                             <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Facebook</p></a>
@@ -301,7 +301,7 @@
                         <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">
                     </div>
                 </div>
-			</div>
+            </div>
 		</div>
 	<!-- /.modal-content -->
 	</div>

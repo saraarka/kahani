@@ -310,7 +310,7 @@
                         	 <?php foreach($get_writer->result() as $writerrow) { ?>
                         	    <div class="card1" style="height:215px">
     	            		    <?php if(isset($writerrow->pbanner_image) && !empty($writerrow->pbanner_image)){ ?>
-    					        <div class="imageme1" style="height:115px; background-position:center; background:url(<?php echo base_url();?>assets/images/<?php echo $writerrow->pbanner_image; ?>) center center; background-size:cover">
+    					        <div class="imageme1 lazy" style="height:115px; background-position:center; background:url(<?php echo base_url();?>assets/images/<?php echo $writerrow->pbanner_image; ?>) center center; background-size:cover">
     						        <div style="padding:9px; background:rgba(0, 0, 0, 0.64);height:115px;">
     						            <a href="<?php echo base_url($this->uri->segment(1).'/'.$writerrow->profile_name);?>">
         						            <?php if(isset($writerrow->profile_image) && !empty($writerrow->profile_image)) { ?>

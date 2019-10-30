@@ -39,7 +39,7 @@
                 <a href="javascript:void(0)" onClick="postReplycomment(<?php echo $comment->cid;?>, <?php echo $comment->story_id;?>)" class="pull-left replycv">REPLY </a>
                 <span class="pull-left replycv">I</span>
                 <!--<a href="javascript:void(0)" onClick="postReplycomment(<?php echo $comment->cid;?>, <?php echo $comment->story_id;?>)" class="pull-left replycv">|  0 REPLIES </a>-->
-                <a href="javascript:void(0)" onClick="displayreplies(<?php echo $comment->cid;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Replies"> 
+                <a href="javascript:void(0)" onClick="displayreplies(<?php echo $comment->cid;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Replies">
                     <span class="old_subcmtcount<?php echo $comment->cid;?>"><?php echo get_storysubcmtcount($comment->cid, $comment->story_id);?></span> REPLIES</a>
             </div>
         </div><br>
@@ -60,7 +60,7 @@
                                 <img src="<?php echo base_url();?>assets/images/<?php echo $this->session->userdata['logged_in']['profile_image'];?>" style="border-radius: 50%;width:40px;height:40px;" alt="<?php echo $replaycomment->name;?>">
                             <?php } else{ ?>
                                 <img src="<?php echo base_url();?>assets/images/2.png" style="border-radius: 50%;width:40px;height:40px;" alt="<?php echo $replaycomment->name;?>">
-                            <?php } ?>	                    
+                            <?php } ?>
                             <span class="username"><a href="<?php echo base_url().$this->uri->segment(1).'/'.$replaycomment->profile_name;?>"><?php echo ucfirst($replaycomment->name); ?></a>
 		                        <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $replaycomment->user_id)){ ?>
                                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="false">

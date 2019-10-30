@@ -246,7 +246,7 @@
 <script>
     $(document).ready(function(){
         var limit = 7;
-        var start = 7;
+        var start = 0;
         var action = 'inactive';
         function load_country_data(limit, start) {
             $.ajax({
@@ -266,10 +266,10 @@
                 }
             });
         }
-        if(action == 'inactive') {
+        /*if(action == 'inactive') {
             action = 'active';
             load_country_data(limit, start);
-        } 
+        } */
         $(window).scroll(function(){
             if ($(window).scrollTop() >= (($("#loadmoreall").height() - $(window).height())*0.6) && action == 'inactive'){
                 action = 'active';

@@ -301,18 +301,18 @@
 <input type="hidden" id="cslang" value="">
 <input type="hidden" id="userid" value="">
 <div class="modal fade" id="chooselanguage" data-backdrop="static" data-keyboard="false">
-	<div class="modal-dialog1" style="width:0 auto; positon:relative;">
-		<div class="modal-content modal-contentvl">
+	<div class="modal-dialog1" style="width:0 auto; position:relative;">
+		<div class="modal-content modal-contentvl" style="width: 642px;">
 			<div class="modal-body">
 				<div class="login-logo" style="height:50px;border:none;">
 				    <center>
 				        <p style="margin:0 0 10px;font-size:25px;font-family:'times';">Welcome!</p>
-					    <span class="heads" style="text-transform:uppercase;font-size:1em">
-					        <b>Select Your Preferred reading language</b>
+					    <span class="heads" style="text-transform:uppercase;font-size:0.7em">
+					        <b style="font-weight: bold;">Select Your Preferred reading language</b>
 					    </span>
 					</center>
 				</div>
-				<div class="login-box-body" style="margin-top:20px; max-height:256px; overflow-y:scroll;">
+				<div class="login-box-body" style="margin-top:20px; max-height:256px; overflow-y:auto;">
 					<form id="lang" action="#" method="POST" style="margin-bottom: 0;">
 					    <div class="pt10" style="display:flex;flex-wrap:wrap;justify-content:center;">
 					        <?php if(isset($languages) && ($languages->num_rows() >0)) { 
@@ -320,7 +320,7 @@
 								<!--<a href="javascript:void(0);" class="community-btn" onclick="chooselanguage('<?php echo $language->code;?>')">
 								    <?php echo $language->language; ?>
 								</a>-->
-								<a href="javascript:void(0);" class="community-btn langbtn <?php echo $language->code;?>" onclick="chooselangbtn('<?php echo $language->code;?>')">
+								<a href="javascript:void(0);" class="community-btn langbtn <?php echo $language->code;?>" onclick="chooselangbtn('<?php echo $language->code;?>')" style="height: 40px; box-sizing: initial;">
 								    <?php echo $language->language; ?>
 								</a>
     						<?php } } ?>
@@ -341,7 +341,7 @@
 <!-- Community(Geners) list Modal popup when first time signup start -->
 <div class="modal fade" id="choosecommunity" data-backdrop="static" data-keyboard="false">
 	<div class="modal-dialog1" style="width:0 auto; positon:relative;">
-		<div class="modal-content modal-contentvl" style="padding-bottom:0">
+		<div class="modal-content modal-contentvl" style="padding-bottom:0;max-width: 642px;">
 			<div class="modal-body">
 				<div class="login-logo" style="height:50px;border:none;">
 				    <center>
@@ -351,10 +351,10 @@
 					</center>
 				</div>
 				<form id="choosecommu" method="POST" style="margin-bottom:0;padding:0">
-    				<div class="login-box-body" style="margin-top:20px; max-height:256px; overflow-y:scroll;">
+    				<div class="login-box-body" style="margin-top:20px; max-height:256px; overflow-y:auto;">
     				    <div class="pt10" style="display:flex; flex-wrap:wrap; justify-content:center; color:white;">
 						<?php if(isset($gener) && ($gener->num_rows() > 0)) { foreach($gener->result() as $generrow) { ?>
-							<label class="btn-default community-btn choosecomm" id="<?php echo $generrow->id;?>" style="padding:6px 2px;">
+							<label class="btn-default community-btn choosecomm" id="<?php echo $generrow->id;?>" style="padding:6px 2px; height: 52px;">
 								<input type="checkbox" class="checkbox<?php echo $generrow->id;?>" style="float:left; display:none;" name="choosecomm[]" value="<?php echo $generrow->id;?>"><?php echo $generrow->gener; ?>
 							</label>
 						<?php } } ?>
@@ -433,7 +433,7 @@
         <div class="modal-content" style="padding:0">
             <div class="modal-header" style="padding: 15px">
                 <div class=" deletemessage">Are You Sure? Do you want to Delete?</div>
-            </div>           
+            </div>
             <div class="modal-footer">
                 <center>
                     <button type="button" data-dismiss="modal" class="btn delcancelled">Cancel</button>
@@ -781,11 +781,11 @@
 			}
 			var choosecommcount = $('input[name="choosecomm[]"]:checked').length;
 			if(choosecommcount >= 2){
-				$('.choosecommsave').css({"display":"block", "background":"#3c8dbc", "color": "white"});
+				$('.choosecommsave').css({"background":"#3c8dbc", "color": "white"});
 				//$('.choosecommsave').css('background','3c8dbc');
 			}else{
 				//$('.choosecommsave').css('display','none');
-				$('.choosecommsave').css({"display":"block!important", "background":"#eee", "color": "#fff"});
+				$('.choosecommsave').css({"background":"#eee", "color": "#bcb2b2"});
 			}
 		});
 		
@@ -1449,6 +1449,7 @@ $(function() {
         $('#reportstories').modal('show');
     }
     function reportstoriesdiv(){
+    	$('.storyreportspin').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner">');
         var userid = $('#reportuserid').val();
         var storyid = $('#reportstoryid').val();
         var type = $('#reportstorytype').val();
@@ -1458,6 +1459,8 @@ $(function() {
     		url :'<?php echo base_url(); ?>welcome/reportstories',
     		data: {'reportcmt':reportmsg, 'report_storyid':storyid, 'report_userid':userid, 'type':type},
     		success:function(data){
+    			$('#reportmsg').val('');
+    			$('.storyreportspin').html('REPORT');
     		    if(data == 1){
     			    $('#snackbar').text('Successfully Reported.').addClass('show');
     				setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);

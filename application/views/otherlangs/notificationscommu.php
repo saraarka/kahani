@@ -44,7 +44,7 @@
 <script>
     $(document).ready(function(){
         var tab2limit = 15;
-        var tab2start = 15;
+        var tab2start = 0;
         var tab2action = 'inactive';
         function tab2load_country_data(tab2limit, tab2start) {
             $.ajax({
@@ -64,10 +64,10 @@
                 }
             });
         }
-        if(tab2action == 'inactive') {
+        /*if(tab2action == 'inactive') {
             tab2action = 'active';
             tab2load_country_data(tab2limit, tab2start);
-        } 
+        } */
         $(window).scroll(function(){
             if ($(window).scrollTop() >= (($("#tab2loadmore").height() - $(window).height())*0.6) && tab2action == 'inactive'){
                 tab2action = 'active';

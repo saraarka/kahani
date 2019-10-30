@@ -34,7 +34,7 @@
 <?php if(isset($storysuggesttofrd) && ($storysuggesttofrd->num_rows() == 1)){ foreach($storysuggesttofrd->result() as $story){ ?>
     <div class="modal-header">
     	<button type="button" class="close" data-dismiss="modal" style="color:#000; opacity:initial; margin-top:2px;">&times;</button>
-    	<h4 class="modal-title"> You're suggesting a story <?php echo ucfirst($story->title);?>	</h4>
+    	<h4 class="modal-title" style="padding-bottom: 15px;"> You're suggesting a story <?php echo ucfirst($story->title);?>	</h4>
     </div>
     <div class="modal-body">
         <center><h5 class="resmsg"></h5></center>

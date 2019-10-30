@@ -32,7 +32,7 @@
 						        </li>
 			                </ul>
 			            </span>   
-			            <?php } else { ?>
+						<?php } else { ?>
 		                <span class="dropdown" style="float:right;">
                             <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
                                 <i class="fa fa-ellipsis-v "></i>
@@ -101,16 +101,14 @@
 				                            </li>
 	                                    </ul>
 	                                </span>
-	                                <?php } else { ?>		
-                                    <span class="dropdown" style="float:right;">		
-                                        <a href="javascript:void(0);" class="dropdown-toggle ellisub elli" data-toggle="dropdown" title="write" aria-expanded="false">
-                                        	<i class="fa fa-ellipsis-v"></i>
-        		                        </a>		
+	                                <?php } else { ?>
+                                    <span class="dropdown" style="float:right;">
+                                        <a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" title="write" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>		
         		                        <ul class="dropdown-menu pull-right">
-                                            <li><a href="javascript:void(0);" class="notloginmodal">		
-                                                <i class="fa fa-exclamation-triangle"></i> REPORT </a>		
-        		                            </li>		
-                                        </ul>		
+                                            <li><a href="javascript:void(0);" class="notloginmodal">
+                                                <i class="fa fa-exclamation-triangle"></i> REPORT </a>
+        		                            </li>
+                                        </ul>
                                     </span>
                                     <?php } ?>
                                     <span class="text-muted pull-right datecv"><?php echo get_ydhmdatetime($replaycomment->date);?></span>

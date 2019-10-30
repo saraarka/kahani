@@ -2344,22 +2344,16 @@ class Welcome extends CI_Controller {
     }
 
     public function searchimage(){
-    	if(isset($_POST['searchimage']) && !empty($_POST['searchimage'])){
-			$searchimages = $this->User_model->searchdimages($_POST['searchimage']);
-			if($searchimages->num_rows() > 0){
+    	if(isset($_POST['searchimage'], $_POST['start'], $_POST['limit']) && !empty($_POST['searchimage']) && !empty($_POST['limit'])){
+			$data['defaultimages'] = $this->User_model->searchdimages($_POST['searchimage'], $_POST['start'], $_POST['limit']);
+			$data['sstart'] = $_POST['start']+$_POST['limit'];
+			$this->load->view('searchimage.php', $data);
+			/*if($searchimages->num_rows() > 0){
 				echo json_encode($searchimages->result());
 			}else{
 				echo json_encode(0);
-			}
-    	}else{
-    		$defaultimages = $this->User_model->loadmoredimages();
-    		if($defaultimages->num_rows() > 0){
-				echo json_encode($defaultimages->result());
-			}else{
-				echo json_encode(0);
-			}
+			}*/
     	}
-
     }
     public function removesavedimgs(){
     	if(isset($_POST['cover_imagelocalp']) && !empty($_POST['cover_imagelocalp']) && (file_exists('assets/images/'.$_POST['cover_imagelocalp']))){
@@ -3662,11 +3656,21 @@ class Welcome extends CI_Controller {
 		$name = $this->session->userdata['logged_in']['name'];
 		$comm_storyid = $this->input->post('comm_storyid');
 		if(isset($_POST['url']) && ($_POST['url'] == 'url')){
-		    $this->form_validation->set_rules('story','Story', 'trim|required|callback_validurl');
+		    //$this->form_validation->set_rules('story','Story', 'trim|required|callback_validurl');
+		    $this->form_validation->set_rules('story','Story', 'trim|required');
 		}
-		if ($this->form_validation->run() == TRUE) {
+		if ($this->form_validation->run() == TRUE && isset($_POST['url']) && ($_POST['url'] == 'url')) {
 			$story_url = $this->input->post('story');
-			$title = ''; $description = ''; $image = '';
+			$user_id = $this->session->userdata['logged_in']['user_id'];
+			$name = $this->session->userdata['logged_in']['name'];
+			$data = array(
+				'user_id' => $user_id,
+				'name' => $name,
+				'date' => DATE('Y-m-d'),
+				'type' =>'url',
+				'urldescription' => $story_url,
+			);
+			/*$title = ''; $description = ''; $image = '';
 			
 			$response = $this->extractdatafromurl($story_url);
             if(isset($response) && !empty($response)){
@@ -3708,7 +3712,7 @@ class Welcome extends CI_Controller {
 				'date' => DATE('Y-m-d'),
 				'type' =>'url',
 				//'comm_language' => $this->session->userdata['language'],
-			);
+			);*/
 			$request = $this->User_model->updatecomm_post($data, $comm_storyid);
 			if($request) {
 				$response['status'] = 1;
@@ -3731,11 +3735,11 @@ class Welcome extends CI_Controller {
     				$quotes = $this->input->post('quotes');
     			}
     			if($quotes == 'quotes'){
-    				//$story = '<i class="fa fa-quote-left fa-2x"> </i> '.$this->input->post('story');
+    				$data['typeoftype'] = 'quotes';
     				if(strpos($_POST['story'], 'fa-quote-left')){
     				    $story = $this->input->post('story');
     				}else{
-    				    $story = '<i class="fa fa-quote-left fa-2x"> </i> '.$this->input->post('story');
+    					$story = '<i class="fa fa-quote-left fa-2x"> </i> '.$this->input->post('story');
     				}
     			}else{
     				$story = $this->input->post('story');
@@ -3748,9 +3752,6 @@ class Welcome extends CI_Controller {
     				'type' =>'story',
     				//'comm_language' => $this->session->userdata['language'],
     			);
-    			if($quotes == 'quotes'){
-    			    $data['typeoftype'] = 'quotes';
-    			}
     			if(!empty($story)){
         			$request1 = $this->User_model->updatecomm_post($data, $comm_storyid);
         			if($request1) {
@@ -5009,7 +5010,6 @@ class Welcome extends CI_Controller {
             if ( $this->upload->do_upload('profileimg')) {
                 $uploadpimg = $this->upload->data();
                 //$data['image'] = $uploadpimg['file_name'];
-                
                 $config['image_library'] = 'gd2';
                 $config['source_image'] = 'assets/images/'.$uploadpimg['file_name'];
                 $config['create_thumb'] = FALSE;
@@ -5023,10 +5023,10 @@ class Welcome extends CI_Controller {
                 
                 $this->load->view('profileimg', $data);
             } else {
-               $this->load->view('profileimg');
+               //$this->load->view('profileimg');
             }
         }else{
-            $this->load->view('profileimg');
+            //$this->load->view('profileimg');
         }
     }
     

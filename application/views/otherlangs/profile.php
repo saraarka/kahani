@@ -82,7 +82,7 @@
                                 </div> <!-- /.col -->
                                 <div class="col-sm-4 col-xs-4 col-md-4 col-lg-2 border-right pd-0">
         							<div class="description-block">
-        								<a href="jav" data-toggle="modal" data-target="#fmodal-defaultf">
+        								<a href="javascript:void(0);" data-toggle="modal" data-target="#fmodal-defaultf">
             								<h5 class="description-header" id="follcount<?php echo $row->user_id;?>">
             								<?php $abcdfollowers = 0; if(isset($follow_count) && ($follow_count->num_rows()>0)){
             								    foreach($follow_count->result() as $reviews2){ 
@@ -590,7 +590,7 @@
     		                        				</div>
     		                        				<div>
     		                        					<hr style="width:100%;margin-top: 12px;">
-    		                        					<a href="jav" style="color:#000" data-toggle="modal" data-target="#modal-default<?php echo $wnanorow->sid;?>">
+    		                        					<a href="javascript:void(0);" style="color:#000" data-toggle="modal" data-target="#modal-default<?php echo $wnanorow->sid;?>">
                         								    <font class="text-in-nanostory" onclick="nanoviewsadd(<?php echo $wnanorow->sid;?>);"><?php echo $wnanorow->story; ?></font>
                         								</a>
     		                        				</div>
@@ -696,7 +696,7 @@
                                                         <?php } ?>
                                                     </li>
                                                     <li class="pull-right">
-                                                        <a href="jav" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
+                                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
                                                         <ul class="dropdown-menu list-inline dropvknano1">
                                                             <li onclick="groupsuggest(<?php echo $wmnanorow->sid; ?>);">
                                                                 <a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
@@ -780,7 +780,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><b>Update your Comments</b></h4>
+                <h4 class="modal-title">Update your Comments</h4>
             </div>
             <div class="modal-body">
                 <form id="editprocomment" >
@@ -789,7 +789,7 @@
                     <input type="hidden" id="commentid" name="commentid">
                     <br>
                     <center>
-                        <button class="btn btn-primary" type="submit"> Update </button>
+                        <button class="btn btn-primary updatespinner" type="submit"> Update </button>
                     </center>
                 </form>
             </div>
@@ -845,7 +845,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><b>Report Your Comments</b></h4>
+                <h4 class="modal-title">Report Your Comments</h4>
             </div>
             <div class="modal-body">
                 <form id="reportprocomment">
@@ -855,7 +855,7 @@
                     <input type="hidden" name="reportuser_id" value="" id="reportuser_id">
                     <br>
                     <center>
-                        <button class="btn btn-primary" type="submit"> Update </button>
+                        <button class="btn btn-primary reportspinner" type="submit"> REPORT </button>
                     </center>
                 </form>
             </div>
@@ -891,8 +891,8 @@ $("#profilecomments").submit(function(event) {
                         '<div class="namers1"><a href="<?php echo base_url();?>'+result.response[0].profile_name+'">'+result.response[0].name+'</a></div>'+
                         '<span class="dropdown" style="float:right;"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
                         '<i class="fa fa-ellipsis-v"></i></a> <ul class="dropdown-menu pull-right">'+
-                        '<li><a href="javascript:void(0);"><span onClick="editpro_comment('+result.response[0].cid+');"><i class="fa fa-pencil"></i> EDIT</span></a></li>'+
-                        '<li><a href="javascript:void(0);"><span onClick="deletepro_comment('+result.response[0].cid+');"><i class="fa fa-trash"></i> DELETE</span></a></li></ul></span>'+
+                        '<li><a href="javascript:void(0);" onClick="editpro_comment('+result.response[0].cid+');" style="cursor:pointer;"><span><i class="fa fa-pencil"></i> EDIT</span></a></li>'+
+                        '<li><a href="javascript:void(0);" onClick="deletepro_comment('+result.response[0].cid+');" style="cursor:pointer;"><span><i class="fa fa-trash"></i> DELETE</span></a></li></ul></span>'+
                         '<div style="color:#777; font-size:11px;margin-top:-4px;">1 minute ago</div></div><p style="margin: 8px 0px 2px 0px;" class="pcomment'+result.response[0].cid+'">'+result.response[0].pro_comment+'</p>'+
                         '<a href="javascript:void(0)" onClick="postReplycomment('+result.response[0].cid+')" style="color:#de1800;font-size:0.8em;"> REPLY </a> <a style="color:#de1800;font-size:0.8em;">I</a> '+
                         '<a href="javascript:void(0)" onClick="replycomments('+result.response[0].profile_id+', '+result.response[0].cid+')" style="color:#de1800;font-size:0.8em;"> 0 REPLIES</a>'+
@@ -1008,14 +1008,16 @@ function editpro_comment(commentid){
 }
 $( "form#editprocomment" ).submit(function( event ) {
     event.preventDefault();
+    $('.updatespinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
     var comments = $('textarea#pro_editcomment').val();
     var cid = $('#commentid').val();
     $.post("<?php echo base_url().$this->uri->segment(1);?>/updateprocomment",{'comment':comments,'cid':cid},function(resultdata){
+        $('.updatespinner').html('Update');
         if(resultdata == 2){
             $('span.pro_comment').text('Please Enter Comment');
         }else if(resultdata == 1){
             console.log('success');
-            $('p.pcomment'+cid).html(comments);
+            $('.pcomment'+cid).html(comments);
             $('#editpro_comment').modal('hide');
         }else{
             console.log('fail');
@@ -1074,9 +1076,9 @@ function addreplycomment(commentid){
                                     '<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
                                         '<i class="fa fa-ellipsis-v"></i></a>'+
                                     '<ul class="dropdown-menu pull-right">'+
-                                        '<li><a href="javascript:void(0);"><span onclick="editpro_comment('+datares.response[0].cid+');">'+
+                                        '<li><a href="javascript:void(0);" onclick="editpro_comment('+datares.response[0].cid+');" style="cursor:pointer;"><span>'+
                                             '<i class="fa fa-pencil"></i> EDIT</span></a></li>'+
-                                        '<li><a href="javascript:void(0);"><span onclick="deletepro_comment('+datares.response[0].cid+');">'+
+                                        '<li><a href="javascript:void(0);" onclick="deletepro_comment('+datares.response[0].cid+');" style="cursor:pointer;"><span>'+
                                             '<i class="fa fa-trash"></i> DELETE</span></a></li>'+
                                     '</ul>'+                
                                 '</span><div style="color:#777; font-size:11px;margin-top:-4px;">1 minute ago</div>'+
@@ -1107,7 +1109,9 @@ function reportpro_comment(commentid, user_id){
 }
 $( "form#reportprocomment" ).submit(function( event ) {
     event.preventDefault();
+    $('.reportspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
     $.post("<?php echo base_url().$this->uri->segment(1);?>/reportpro_comment",$("form#reportprocomment").serialize(),function(resultdata){
+        $('.reportspinner').html('REPORT');
         if(resultdata == 2){
             $('span.reportpro_cmt').text('Please Enter your Report Message');
         }else if(resultdata == 1){
@@ -1232,8 +1236,8 @@ $( "form#reportprocomment" ).submit(function( event ) {
                         '<div class="namers1"><a href="<?php echo base_url().$this->uri->segment(1);?>/'+result.response[0].profile_name+'">'+result.response[0].name+'</a></div>'+
                         '<span class="dropdown" style="float:right;"><a class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;cursor:pointer;">'+
                         '<i class="fa fa-ellipsis-v"></i></a> <ul class="dropdown-menu pull-right">'+
-                        '<li><a href="javascript:void(0);"><span onClick="editpro_comment('+result.response[0].cid+');"><i class="fa fa-pencil"></i> EDIT</span></a></li>'+
-                        '<li><a href="javascript:void(0);"><span onClick="deletepro_comment('+result.response[0].cid+');"><i class="fa fa-trash"></i> DELETE</span></a></li></ul></span>'+
+                        '<li><a href="javascript:void(0);" onClick="editpro_comment('+result.response[0].cid+');" style="cursor:pointer;"><span><i class="fa fa-pencil"></i> EDIT</span></a></li>'+
+                        '<li><a href="javascript:void(0);" onClick="deletepro_comment('+result.response[0].cid+');" style="cursor:pointer;"><span><i class="fa fa-trash"></i> DELETE</span></a></li></ul></span>'+
                         '<div style="color:#777; font-size:11px;margin-top:-4px;">1 minute ago</div></div><p style="margin: 8px 0px 2px 0px;" class="pcomment'+result.response[0].cid+'">'+result.response[0].pro_comment+'</p>'+
                         '<a href="javascript:void(0)" onClick="postReplycomment('+result.response[0].cid+')" style="color:#de1800;font-size:0.8em;"> REPLY </a> <a style="color:#de1800;font-size:0.8em;">I</a> '+
                         '<a href="javascript:void(0)" onClick="replycomments('+result.response[0].profile_id+', '+result.response[0].cid+')" style="color:#de1800;font-size:0.8em;">'+
@@ -1443,7 +1447,7 @@ function copylinkshare(element) {
 <script>
     $(document).ready(function(){
         var ferslimit = 5;
-        var fersstart = 5;
+        var fersstart = 0;
         var fersaction = 'inactive';
         var userid = $('#profile_id').val();
         function fersload_country_data(ferslimit, fersstart) {
@@ -1464,10 +1468,10 @@ function copylinkshare(element) {
                 }
             });
         }
-        if(fersaction == 'inactive') {
+        /*if(fersaction == 'inactive') {
             fersaction = 'active';
             fersload_country_data(ferslimit, fersstart);
-        }
+        }*/
         $(".modal-bodyv").scroll(function() {
             if($(".modal-bodyv").scrollTop() + $(".modal-bodyv").height() + 50 > $("#fersloadmore").height() && fersaction == 'inactive'){
                 fersaction = 'active';
@@ -1481,7 +1485,7 @@ function copylinkshare(element) {
 <script>
     $(document).ready(function(){
         var finglimit = 5;
-        var fingstart = 5;
+        var fingstart = 0;
         var fingaction = 'inactive';
         var userid = $('#profile_id').val();
         function fingload_country_data(finglimit, fingstart) {
@@ -1502,10 +1506,10 @@ function copylinkshare(element) {
                 }
             });
         }
-        if(fingaction == 'inactive') {
+        /*if(fingaction == 'inactive') {
             fingaction = 'active';
             fingload_country_data(finglimit, fingstart);
-        }
+        }*/
         $(".modal-bodyv").scroll(function() {
         //$(window).scroll(function(){
             if($(".modal-bodyv").scrollTop() + $(".modal-bodyv").height() + 50 > $("#fingloadmore").height() && fingaction == 'inactive'){

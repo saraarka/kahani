@@ -89,7 +89,7 @@
 <script>
     $(document).ready(function(){
         var sublimit = 8;
-        var substart = 8;
+        var substart = 0;
         var subaction = 'inactive';
         function load_country_data(sublimit, substart) {
             $.ajax({
@@ -109,10 +109,10 @@
                 }
             });
         }
-        if(subaction == 'inactive') {
+        /*if(subaction == 'inactive') {
             subaction = 'active';
             load_country_data(sublimit, substart);
-        } 
+        } */
         $(window).scroll(function(){
             if ($(window).scrollTop() >= (($("#subloadseries").height() - $(window).height())*0.6) && subaction == 'inactive'){
                 subaction = 'active';

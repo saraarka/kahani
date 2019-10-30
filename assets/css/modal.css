@@ -266,7 +266,7 @@ a.community-btn-selected:hover{
  }
  @media screen and (max-width:355px){
      .modal {
-    padding-top: 50px !important;
+    /*padding-top: 50px !important;*/
      }
     #choosecommunitypedit {
         padding:35px 0;

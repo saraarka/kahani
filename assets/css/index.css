@@ -167,7 +167,7 @@ a.socialshare:hover{
     .socialbtns{
         float:right;
         font-size:25px;
-        margin-top: 5px;
+        /*margin-top: 5px;*/
     }
     .hover-tems:hover{
         cursor: pointer;
@@ -659,5 +659,5 @@ hr {
     }
 }*/
 .hover-tems{
-    margin:10px;
+    margin:0 5px;
 }

@@ -18,7 +18,7 @@
                 				<?php if(isset($topseriesrow->image) && !empty($topseriesrow->image)) { ?>
                 				    <img src="<?php echo base_url();?>assets/images/<?php echo $topseriesrow->image; ?>" alt="<?php echo $topseriesrow->title;?>" class="imagemels">
                 				<?php }else{ ?>
-                					<img src="<?php echo base_url();?>assets/default/series-stories.jpg"  alt="<?php echo $topseriesrow->title;?>" class="imagemels">
+                					<img src="<?php echo base_url();?>assets/default/series-stories.jpg" alt="<?php echo $topseriesrow->title;?>" class="imagemels">
                 				<?php } ?>
             				</a>
             			<div>
@@ -187,7 +187,7 @@
 								<?php } ?>
 								<h3 class="name-nanostories">
 								    <a href="<?php echo base_url($nanorow->profile_name);?>" style="color:#000"><?php echo $nanorow->name;?></a>
-								    <span class="dropdown"  style="float:right;margin-top:-2.8px;">
+								    <span class="dropdown" style="float:right;margin-top:-2.8px;">
     			                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
     			                            <i class="fa fa-ellipsis-v" style="font-size:14px;"></i>
     			                        </a>
@@ -377,7 +377,7 @@
 							</div>
 							<div class="flextest">
 								<?php if(($liferow->writing_style == 'anonymous') && ($liferow->type == 'life')){ ?>
-									<font class="byname">By <font class="namehere"  style="color:#000"> Anonymous</font></font><br>
+									<font class="byname">By <font class="namehere" style="color:#000"> Anonymous</font></font><br>
 								<?php } else { ?>
 									<font class="byname">By <font class="namehere">
 									    <a href="<?php echo base_url().$liferow->profile_name; ?>" style="color:#000"> <?php echo $liferow->name;?></a>
@@ -505,7 +505,7 @@
 <script>
     $(document).ready(function(){
         var limit = 7;
-        var start = 7;
+        var start = 0;
         var action = 'inactive';
         function load_country_data(limit, start) {
             var vatype = "<?php echo $this->uri->segment(2);?>";
@@ -536,10 +536,10 @@
                 }
             });
         }
-        if(action == 'inactive') {
+        /*if(action == 'inactive') {
             action = 'active';
             load_country_data(limit, start);
-        } 
+        } */
         $(window).scroll(function(){
             //if($(window).scrollTop() + $(window).height()+1000 > $("#loadmoreall").height() && action == 'inactive'){
             if ($(window).scrollTop() >= (($("#loadmoreall").height() - $(window).height())*0.6) && action == 'inactive'){

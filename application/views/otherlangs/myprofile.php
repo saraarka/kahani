@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/myprofile.css">
     <?php $readlatersids = get_storiesreadlater('readlater');   $profilemenu = get_profilemenus(); ?>
     <div class="margintop">
-        <?php $about='Hi, Welcome to my profile'; $readingliststatus = 'private'; $email = ''; $phone = '';
+        <?php $about='Hi, Welcome to my profile '; $readingliststatus = 'private'; $email = ''; $phone = '';
             if(isset($client) && ($client->num_rows() > 0)) { foreach ($client->result() as $row) { 
                 if(isset($row->aboutus) && !empty($row->aboutus)) { $about = $row->aboutus; }
                 $readingliststatus = $row->readinglist; $email = $row->email; $phone = $row->phone; ?>
@@ -19,7 +19,7 @@
                                               <img class="img-circle" src="<?php echo base_url();?>assets/images/2.png" style="width:85px; height:80px;" alt="<?php echo $row->name;?>">
                                         <?php } ?>
                                     </div>
-    					             <h3 class="widget-user-username clrvk" style="color:#fff; margin-left:100px;"><b><?php echo $row->name;?></b></h3>
+    					             <h3 class="widget-user-username clrvk" style="color:#fff; margin-left:100px;"><b><?php echo $row->name;?> </b></h3>
     					             <?php if($row->user_activation == 1){ ?>
     					                 
     			                     <?php } ?>
@@ -222,7 +222,7 @@
     					</div>
     					<div class="commentslist pcmtfwidth" style="max-height:300px;overflow: auto;overflow-x : hidden;">
                             <ul id="commentresults" style="padding:10px 0px 0px;list-style-type:none;" class="pcmtfwidth"></ul>
-                            <center><span id="loadingcomments"> Loading... </span></center>
+                            <center><span id="loadingcomments">  </span></center>
                         </div>
 				    </div>
             	</div>	
@@ -835,7 +835,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><b>Update your Comments</b></h4>
+                <h4 class="modal-title">Update your Comments</h4>
             </div>
             <div class="modal-body">
                 <form id="editprocomment" >
@@ -844,7 +844,7 @@
                     <input type="hidden" id="commentid" name="commentid">
                     <br>
                     <center>
-                        <button class="btn btn-primary" type="submit"> Update </button>
+                        <button class="btn btn-primary updatespinner" type="submit"> Update </button>
                     </center>
                 </form>
             </div>
@@ -857,7 +857,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><b>Report Your Comments</b></h4>
+                <h4 class="modal-title">Report Your Comments</h4>
             </div>
             <div class="modal-body">
                 <form id="reportprocomment">
@@ -867,7 +867,7 @@
                     <input type="hidden" name="reportuser_id" value="" id="reportuser_id">
                     <br>
                     <center>
-                        <button class="btn btn-primary" type="submit"> Update </button>
+                        <button class="btn btn-primary reportspinner" type="submit"> Update </button>
                     </center>
                 </form>
             </div>
@@ -983,7 +983,7 @@ $("#profilecomments").submit(function(event) {
                         '<span class="dropdown" style="float:right;"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
                             '<i class="fa fa-ellipsis-v"></i></a>'+
                             '<ul class="dropdown-menu pull-right">'+
-                                '<li><a style="cursor:pointer;"><span class="" onClick="editpro_comment('+result.response[0].cid+');">'+
+                                '<li><a onClick="editpro_comment('+result.response[0].cid+');" style="cursor:pointer;"><span>'+
                                     '<i class="fa fa-pencil"></i> EDIT</span></a></li>'+
                                 '<li><a style="cursor:pointer;"><span class="" onClick="deletepro_comment('+result.response[0].cid+');">'+
                                     '<i class="fa fa-trash"></i> DELETE</span></a></li>'+
@@ -1033,12 +1033,10 @@ $("#profilecomments").submit(function(event) {
                         '<img src="<?php echo base_url();?>assets/images/'+profile_image+'" style="border-radius: 50%;width:40px !important;height: 40px !important;margin-right: 10px;" alt="'+result.response[0].name+'">'+
                         '</a></div><div class="comment_right clearfix"><div class="comment_info" style="padding-left:10px;">'+
                         '<div class="namers1"><a href="<?php echo base_url().$this->uri->segment(1);?>/'+result.response[0].profile_name+'">'+result.response[0].name+'</a></div>'+
-                        '<span class="dropdown pull-right" style="padding: 0px 15px;"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true">'+
-                        '<i class="fa fa-ellipsis-v"></i></a> <ul class="dropdown-menu pull-right">'+
                         '<span class="dropdown" style="float:right;"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
                         '<i class="fa fa-ellipsis-v"></i></a> <ul class="dropdown-menu pull-right">'+
-                        '<li><a href="javascript:void(0);"><span onClick="editpro_comment('+result.response[0].cid+');"><i class="fa fa-pencil"></i> EDIT</span></a></li>'+
-                        '<li><a href="javascript:void(0);"><span onClick="deletepro_comment('+result.response[0].cid+');"><i class="fa fa-trash"></i> DELETE</span></a></li></ul></span>'+
+                        '<li><a href="javascript:void(0);" onClick="editpro_comment('+result.response[0].cid+');" style="cursor:pointer;"><span><i class="fa fa-pencil"></i> EDIT</span></a></li>'+
+                        '<li><a href="javascript:void(0);" onClick="deletepro_comment('+result.response[0].cid+');" style="cursor:pointer;"><span><i class="fa fa-trash"></i> DELETE</span></a></li></ul></span>'+
                         '<div style="color:#777; font-size:11px;margin-top:-4px;">1 minute ago</div></div><p class="pcomment'+result.response[0].cid+'">'+result.response[0].pro_comment+'</p>'+
                         '<a onClick="postReplycomment('+result.response[0].cid+')" style="color:#de1800;font-size:0.8em;cursor:pointer;"> REPLY </a> <a style="color:#de1800; font-size:0.8em;">I</a> '+
                         '<a onClick="replycomments('+result.response[0].profile_id+', '+result.response[0].cid+')" style="color:#de1800;font-size:0.8em;cursor:pointer;">'+
@@ -1154,9 +1152,11 @@ function editpro_comment(commentid){
 }
     $( "form#editprocomment" ).submit(function( event ) {
 		event.preventDefault();
+        ('.updatespinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 		var comments = $('textarea#pro_editcomment').val();
 		var cid = $('#commentid').val();
 		$.post("<?php echo base_url().$this->uri->segment(1);?>/updateprocomment",{'comment':comments,'cid':cid},function(resultdata){
+            $('.updatespinner').html('Update');
 			if(resultdata == 2){
 				$('span.pro_comment').text('Please Enter Comment');
 			}else if(resultdata == 1){
@@ -1227,9 +1227,9 @@ function editpro_comment(commentid){
                                         '<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
                                             '<i class="fa fa-ellipsis-v"></i></a>'+
                                         '<ul class="dropdown-menu pull-right">'+
-                                            '<li><a href="javascript:void(0);"><span onclick="editpro_comment('+datares.response[0].cid+');">'+
+                                            '<li><a href="javascript:void(0);" onclick="editpro_comment('+datares.response[0].cid+');" style="cursor:pointer;"><span>'+
                                                 '<i class="fa fa-pencil"></i> EDIT</span></a></li>'+
-                                            '<li><a href="javascript:void(0);"><span onclick="deletepro_comment('+datares.response[0].cid+');">'+
+                                            '<li><a href="javascript:void(0);" onclick="deletepro_comment('+datares.response[0].cid+');" style="cursor:pointer;"><span>'+
                                                 '<i class="fa fa-trash"></i> DELETE</span></a></li>'+
                                         '</ul>'+
                                     '</span><div style="color:#777; font-size:11px;margin-top:-4px;">1 minute ago</div>'+
@@ -1261,7 +1261,9 @@ function editpro_comment(commentid){
 	}
 	$( "form#reportprocomment" ).submit(function( event ) {
 		event.preventDefault();
+        $('.reportspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 		$.post("<?php echo base_url().$this->uri->segment(1);?>/reportpro_comment",$("form#reportprocomment").serialize(),function(resultdata){
+            $('.reportspinner').html('REPORT');
 			if(resultdata == 2){
 				$('span.reportpro_cmt').text('Please Enter your Report Message');
 			}else if(resultdata == 1){
@@ -1632,7 +1634,7 @@ function copylinkshare(element) {
 <script>
     $(document).ready(function(){
         var ferslimit = 5;
-        var fersstart = 5;
+        var fersstart = 0;
         var fersaction = 'inactive';
         var userid = $('#profile_id').val();
         function fersload_country_data(ferslimit, fersstart) {
@@ -1653,10 +1655,10 @@ function copylinkshare(element) {
                 }
             });
         }
-        if(fersaction == 'inactive') {
+        /*if(fersaction == 'inactive') {
             fersaction = 'active';
             fersload_country_data(ferslimit, fersstart);
-        }
+        }*/
         $(".modal-bodyv").scroll(function() {
         //$(window).scroll(function(){
             //if($(".modal-bodyv").scrollTop() + $(".modal-bodyv").height() > $("#fersloadmore").height() && fersaction == 'inactive'){

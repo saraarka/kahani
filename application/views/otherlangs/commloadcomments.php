@@ -1,7 +1,7 @@
-<style>     
-    .ellisub{       
-        padding: 0px 10px 0px 20px;     
-    }       
+<style>
+    .ellisub{
+        padding: 0px 10px 0px 20px;
+    }
 </style>
     <?php if(isset($topstory) && ($topstory === 'topstory')){ ?> <!-- From community top stories -->
         <?php if(isset($commloadcomments) && ($commloadcomments->num_rows() > 0)){
@@ -41,7 +41,7 @@
 					    <?php } else{ ?>
 					        <span class="more <?php echo $commcomment->id;?>" style="word-break:break-word;"><?php echo $commcomment->comment; ?></span>
 					    <?php } ?>
-						<div style="" class="">
+						<div style="margin:5px 0;" class="">
                             <a href="javascript:void(0)" onClick="toppostReplycomment(<?php echo $commcomment->id;?>,<?php echo $commcomment->comm_id;?>,<?php echo $commcomment->story_id;?>)" class="pull-left replycv" title="Reply">REPLY</a>
                             <a href="javascript:void(0)" class="pull-left replycv">I</a>
                             <a href="javascript:void(0)" onClick="toppostdisplayreplies(<?php echo $commcomment->id;?>,<?php echo $commcomment->comm_id;?>,<?php echo $commcomment->story_id;?>)" class="pull-left replycv" title="Replies"> 

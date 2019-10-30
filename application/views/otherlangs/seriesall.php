@@ -254,7 +254,7 @@
 <script>
     $(document).ready(function(){
         var limit = 7;
-        var start = 7;
+        var start = 0;
         var action = 'inactive';
         function load_country_data(limit, start) {
             var typeseries = $('#typeseries').val();
@@ -277,10 +277,10 @@
                 });
             }
         }
-        if(action == 'inactive') {
+        /*if(action == 'inactive') {
             action = 'active';
             load_country_data(limit, start);
-        } 
+        } */
         $(window).scroll(function(){
             if($(window).scrollTop() + $(window).height() > $("#loadmoreall").height() && action == 'inactive'){
                 action = 'active';

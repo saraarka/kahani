@@ -35,7 +35,7 @@
 						        </li>
 			                </ul>
 			            </span>   
-		                <?php } else { ?>
+                        <?php } else { ?>
 		                <span class="dropdown" style="float:right;">
                             <a href="javascript:void(0);" class="dropdown-toggle elli" data-toggle="dropdown" title="write" aria-expanded="false">
                                 <i class="fa fa-ellipsis-v "></i>
@@ -55,7 +55,7 @@
 			        <div style="margin:5px 0px;">
 			            <a href="javascript:void(0)" onClick="postReplycomment(<?php echo $comment->cid;?>, <?php echo $comment->story_id;?>)" class="pull-left replycv"> REPLY </a>
 			            <span class="pull-left replycv"> I </span>
-			            <a href="javascript:void(0)" onClick="displayreplies(<?php echo $comment->cid;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Replies"> 
+			            <a href="javascript:void(0)" onClick="displayreplies(<?php echo $comment->cid;?>,<?php echo $comment->story_id;?>)" class="pull-left replycv" title="Replies">
                             <span class="old_subcmtcount<?php echo $comment->cid;?>"><?php echo get_storysubcmtcount($comment->cid, $comment->story_id);?></span> REPLIES</a>
 			        </div>
 			    </div><br>

@@ -22,10 +22,10 @@
         <img src="<?php echo base_url();?>assets/images/logom.png" alt="storycarry.com" style="height: 40px;margin-top: 10px;margin-left: 15px;">
         <div style="margin:19px 15px 0px 15px; float: right;font-size:1.1em;">
             <font>
-                <a href="<?php echo base_url();?>faq" style="color:#000;">FAQ</a>
+                <a href="<?php echo base_url();?>faq" style="color:#000;cursor: pointer;">FAQ</a>
             </font>
             <font style="margin-left: 15px;">
-                <a href="#loginmodal" style="color:#000; text-decoration:none" data-toggle="modal" data-target="#loginmodal">LOGIN</a>
+                <a href="#loginmodal" style="color:#000; text-decoration:none;cursor: pointer;" data-toggle="modal" data-target="#loginmodal">LOGIN</a>
             </font>
         </div>
     </div><!-- Mobile Header end -->
@@ -44,8 +44,8 @@
                     <a href="<?php echo base_url();?>"><img src="<?php echo base_url();?>assets/landing/storylogoland.png" alt="storycarry logo" style="margin-top: 15px; margin-left: 20px;" ></a>
                 </div>
                 <div style="display: inline-block;margin:15px 50px 0px 0px; float: right;">
-                    <a href="<?php echo base_url();?>faq" style="color:#fff;text-decoration:none">FAQ</a>
-                    <a  class="login-but" href="#loginmodal" style="color:#fff; text-decoration:none" data-toggle="modal" data-target="#loginmodal">LOGIN</a>
+                    <a href="<?php echo base_url();?>faq" style="color:#fff;text-decoration:none;cursor: pointer;">FAQ</a>
+                    <a  class="login-but" href="#loginmodal" style="color:#fff; text-decoration:none;cursor: pointer;" data-toggle="modal" data-target="#loginmodal">LOGIN</a>
                 </div>
             </header> <!-- Desktop Header end -->
             

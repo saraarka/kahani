@@ -289,8 +289,8 @@ body{
                     <hr>
                     <div class="selected-community-div">
                         <?php if(isset($geners) && ($geners->num_rows() > 0)){ foreach($geners->result() as $gener) { 
-    				        if(isset($usercomms) && in_array($gener->gener, $usercomms)) { ?>
-    				        <a class="community-btn-selected removegenre<?php echo $gener->gener; ?>" onclick="removegenre('<?php echo $gener->gener; ?>', '<?php echo $selectedlang;?>')">
+                        if(isset($usercomms) && in_array($gener->gener, $usercomms)) { ?>
+                            <a class="community-btn-selected removegenre<?php echo $gener->gener; ?>" onclick="removegenre('<?php echo $gener->gener; ?>', '<?php echo $selectedlang;?>')">
                                 <?php echo $gener->gener; ?> <span class="pull-right" title="Delete"> X </span>
                             </a>
                         <?php } } } ?>
@@ -312,8 +312,8 @@ body{
                     <hr>
                     <div class="selected-community-div">
                         <?php if(isset($languages) && ($languages->num_rows() > 0)) { foreach($languages->result() as $language) { 
-    				        if(isset($row->writer_language) && ($language->code == $row->writer_language)){ ?>
-    				        <p class="community-btn-selected"><?php echo $language->language; ?></p>
+                            if(isset($row->writer_language) && ($language->code == $row->writer_language)){ ?>
+                            <p class="community-btn-selected"><?php echo $language->language; ?></p>
                         <?php } } } ?>
                         <!--<p class="community-btn-selected">Social Commentary4trvr4oihoilhoirf45rf</p>-->
                     </div>
@@ -384,7 +384,7 @@ body{
                             <?php if(isset($geners) && ($geners->num_rows() > 0)){ foreach($geners->result() as $gener) { ?>
                                 <div class="col-md-4">
                                     <?php if(in_array($gener->gener, $usercomms)){ ?>
-            				        <label class="btn btn-primary btn-block choosecomm" style="padding: 10px 5px 10px 0px; font-size:17px;margin-bottom:5px;" id="<?php echo $gener->id;?>">
+                                    <label class="btn btn-primary btn-block choosecomm" style="padding: 10px 5px 10px 0px; font-size:17px;margin-bottom:5px;" id="<?php echo $gener->id;?>">
                                         <input type="checkbox" class="checkbox<?php echo $gener->id;?>" name="choosecomm[]" value="<?php echo $gener->id;?>" style="height:1px;" checked="checked"><?php echo $gener->gener; ?>
                                     </label>
                                     <?php } else{ ?>

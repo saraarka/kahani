@@ -293,17 +293,17 @@
                 								    <a href="javascript:void(0);" onclick="nanodislike(<?php echo $nanomodalrow->sid;?>);" class="nanolike<?php echo $nanomodalrow->sid;?>" title="Unlike">
                 										<i class="fa fa-heart favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-right:3px;font-size:20px;"></i>
                 									</a> &nbsp; 
-                									<span class="nanolikecount<?php echo $nanomodalrow->sid;?>"><?php echo $nanomodalrow->nanolikecount;?></span>
+                									<span class="nanolikecount<?php echo $nanomodalrow->sid;?>" style="color:#000;"><?php echo $nanomodalrow->nanolikecount;?></span>
                 								<?php } else { ?>
                 								    <a href="javascript:void(0);" onclick="nanolike(<?php echo $nanomodalrow->sid;?>);" class="nanolike<?php echo $nanomodalrow->sid;?>" title="like">
-                										<i class="fa fa-heart-o favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-top:5px;"></i>
-                									</a> &nbsp; 
-                									<span class="nanolikecount<?php echo $nanomodalrow->sid;?>"><?php echo $nanomodalrow->nanolikecount;?></span>
+                										<i class="fa fa-heart-o favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-right:3px;font-size:20px;"></i>
+                									</a> &nbsp;
+                									<span class="nanolikecount<?php echo $nanomodalrow->sid;?>" style="color:#000;"><?php echo $nanomodalrow->nanolikecount;?></span>
                 							<?php } } else{ ?>
             								    <a href="javascript:void(0);" class="notloginmodal" title="like">
-            										<i class="fa fa-heart-o favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-top:5px;"></i>
-            									</a> &nbsp; 
-            									<span class="nanolikecount<?php echo $nanomodalrow->sid;?>"><?php echo $nanomodalrow->nanolikecount;?></span>
+            										<i class="fa fa-heart-o favbtn<?php echo $nanomodalrow->sid;?>" style="color:#f00; padding-right:3px;font-size:20px;"></i>
+            									</a> &nbsp;
+            									<span class="nanolikecount<?php echo $nanomodalrow->sid;?>" style="color:#000;"><?php echo $nanomodalrow->nanolikecount;?></span>
                 						    <?php } ?>
             							</li>
             							<li class="pull-right">
@@ -479,31 +479,31 @@
 <!-- /.modal -->
 <!-- Social popup ---- -->
 
-<!-- Nano edit update -->		
-<div class="modal fade" id="nanoedit" role="dialog">		
-	<div class="modal-dialog">		
-		<div class="modal-content">		
-			<div class="modal-header">		
-				<button type="button" class="close" data-dismiss="modal">&times;</button>		
-				<h4>UPDATE NANO STORY</h4>		
-			</div>		
-			<div class="modal-body">		
-			    <!--<h5 class="updatenano"></h5>-->		
-			    <input type="hidden" id="nanolang" value="">		
-			    <h6 class="pull-left" id="count_message"></h6>		
-			    <input type="hidden" name="nanosid" id="nanosid" value="">		
-				<textarea name="story" id="story" rows="8" cols="96" required="" class="form-control" placeholder="Start Writing Here...." maxlength="1000" style="resize:none; overflow-y:scroll;"></textarea>		
-			    <br><center><button class="btn btn-primary" onclick="updatenano()"> Update </button></center>		
-			</div>		
-		</div>		
-	</div>		
-</div>		
+<!-- Nano edit update -->
+<div class="modal fade" id="nanoedit" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4>UPDATE NANO STORY</h4>
+			</div>
+			<div class="modal-body">
+			    <!--<h5 class="updatenano"></h5>-->
+			    <input type="hidden" id="nanolang" value="">
+			    <h6 class="pull-left" id="count_message"></h6>
+			    <input type="hidden" name="nanosid" id="nanosid" value="">
+				<textarea name="story" id="story" rows="8" cols="96" required="" class="form-control" placeholder="Start Writing Here...." maxlength="1000" style="resize:none; overflow-y:scroll;"></textarea>
+			    <br><center><button class="btn btn-primary" onclick="updatenano()"> Update </button></center>
+			</div>
+		</div>
+	</div>
+</div>
 <!-- Nano edit update -->
 
 <script>
     $(document).ready(function(){
         var limit = 7;
-        var start = 7;
+        var start = 0;
         var action = 'inactive';
         function load_country_data(limit, start) {
             var vatype = "<?php echo $this->uri->segment(3);?>";
@@ -534,10 +534,10 @@
                 }
             });
         }
-        if(action == 'inactive') {
+        /*if(action == 'inactive') {
             action = 'active';
             load_country_data(limit, start);
-        } 
+        } */
         $(window).scroll(function(){
             if ($(window).scrollTop() >= (($("#loadmoreall").height() - $(window).height())*0.6) && action == 'inactive'){
                 action = 'active';
@@ -547,127 +547,129 @@
         });
     });
 </script>
-<script>		
-    function genericSocialShare(url){		
-        window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');		
-        return true;		
-    }		
-    function copylinkshare(element) {		
-        var $temp = $("<input>");		
-        $("body").append($temp);		
-        $temp.val($(element).val()).select();		
-        document.execCommand("copy");		
-        $temp.remove();		
-    }		
-</script>		
-<script>		
-    function editnano(nanosid){		
-        $.ajax({		
-    		url:'<?php echo base_url().$this->uri->segment(1);?>/editnano/'+nanosid,		
-    		method: 'POST',		
-    		dataType: "json",		
-    		success:function(data){		
-    		    $('#story').text(data.story);		
-    		    $('#nanolang').val(data.nanolang);		
-    		    $('#nanosid').val(nanosid);		
-    		    $('#nanoedit').modal('show');		
-    		    languageChangeHandler();		
-            }		
-        });		
-    }		
-    function updatenano(){		
-        var nanosid = $('#nanosid').val();		
-        var story = $('textarea#story').val();		
-        $.ajax({		
-    		url:'<?php echo base_url().$this->uri->segment(1);?>/updatenano',		
-    		method: 'POST',		
-    		data: {'story': story, 'nanosid': nanosid},		
-    		dataType: "json",		
-    		success:function(data){		
-    		    $('.updatenano').html('<span class="text-success"> Nano story updated successfully.</span>');		
-    		    setTimeout(function(){ $('#nanoedit').modal('hide'); }, 2000);		
-    		    location.reload();		
-            }		
-        });		
-    }		
-    function deletenano(nanosid){		
-        $.ajax({		
-    		url:'<?php echo base_url().$this->uri->segment(1);?>/deletenano/'+nanosid,		
-    		method: 'POST',		
-    		success:function(data){		
-    		    if(data == 1){		
-    		        $('.deletenano'+nanosid).css('display', 'none');		
-    		    }		
-            }		
-        });		
-    }		
-</script>		
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>		
-<script type="text/javascript">		
-    	// Load the Google Transliterate API		
-    	google.load("elements", "1", {		
+<script>
+    function genericSocialShare(url){
+        window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+        return true;
+    }
+    function copylinkshare(element) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).val()).select();
+        document.execCommand("copy");
+        $temp.remove();
+        $('#snackbar').text('Link Copied to clipboard...').addClass('show');
+        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    }
+</script>
+<script>
+    function editnano(nanosid){
+        $.ajax({
+    		url:'<?php echo base_url().$this->uri->segment(1);?>/editnano/'+nanosid,
+    		method: 'POST',
+    		dataType: "json",
+    		success:function(data){
+    		    $('#story').text(data.story);
+    		    $('#nanolang').val(data.nanolang);
+    		    $('#nanosid').val(nanosid);
+    		    $('#nanoedit').modal('show');
+    		    languageChangeHandler();
+            }
+        });
+    }
+    function updatenano(){
+        var nanosid = $('#nanosid').val();
+        var story = $('textarea#story').val();
+        $.ajax({
+    		url:'<?php echo base_url().$this->uri->segment(1);?>/updatenano',
+    		method: 'POST',
+    		data: {'story': story, 'nanosid': nanosid},
+    		dataType: "json",
+    		success:function(data){
+    		    $('.updatenano').html('<span class="text-success"> Nano story updated successfully.</span>');
+    		    setTimeout(function(){ $('#nanoedit').modal('hide'); }, 2000);
+    		    location.reload();
+            }
+        });
+    }
+    function deletenano(nanosid){
+        $.ajax({
+    		url:'<?php echo base_url().$this->uri->segment(1);?>/deletenano/'+nanosid,
+    		method: 'POST',
+    		success:function(data){
+    		    if(data == 1){
+    		        $('.deletenano'+nanosid).css('display', 'none');
+    		    }
+            }
+        });
+    }
+</script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    	// Load the Google Transliterate API
+    	google.load("elements", "1", {
     		packages: "transliteration"		
-    	});		
-	  var languagetoc = document.getElementById('nanolang').value;		
-	  var transliterationControl;		
-	  function onLoad() { 		
-		var options = {		
-			sourceLanguage: 'en',		
-			destinationLanguage: ['te','hi','ml','ta','bn','gu','kn','mr','ru','pa','or'],		
-			transliterationEnabled: true,		
-		};		
+    	});
+	  var languagetoc = document.getElementById('nanolang').value;
+	  var transliterationControl;
+	  function onLoad() {
+		var options = {
+			sourceLanguage: 'en',
+			destinationLanguage: ['te','hi','ml','ta','bn','gu','kn','mr','ru','pa','or'],
+			transliterationEnabled: true,
+		};
 		// Create an instance on TransliterationControl with the required		
-		// options.		
-		transliterationControl =		
-		  new google.elements.transliteration.TransliterationControl(options);		
-		// Enable transliteration in the textfields with the given ids.jk		
-        var ids = [ "story"];		
-        transliterationControl.makeTransliteratable(ids);		
-        transliterationControl.c.qc.t13n.c[3].c.d.keyup[0].ia.F.p = 'https://www.google.com';  // https ssl activation 		
+		// options.
+		transliterationControl =
+		  new google.elements.transliteration.TransliterationControl(options);
+		// Enable transliteration in the textfields with the given ids.jk
+        var ids = [ "story"];
+        transliterationControl.makeTransliteratable(ids);
+        transliterationControl.c.qc.t13n.c[3].c.d.keyup[0].ia.F.p = 'https://www.google.com';  // https ssl activation 
 		// Add the STATE_CHANGED event handler to correcly maintain the state		
-		// of the checkbox.		
-		transliterationControl.addEventListener(		
-			google.elements.transliteration.TransliterationControl.EventType.STATE_CHANGED,		
-			transliterateStateChangeHandler);		
+		// of the checkbox.
+		transliterationControl.addEventListener(
+			google.elements.transliteration.TransliterationControl.EventType.STATE_CHANGED,
+			transliterateStateChangeHandler);
 		// Add the SERVER_UNREACHABLE event handler to display an error message		
-		// if unable to reach the server.		
-		transliterationControl.addEventListener(		
-			google.elements.transliteration.TransliterationControl.EventType.SERVER_UNREACHABLE,		
-			serverUnreachableHandler);		
+		// if unable to reach the server.
+		transliterationControl.addEventListener(
+			google.elements.transliteration.TransliterationControl.EventType.SERVER_UNREACHABLE,
+			serverUnreachableHandler);
 		// Add the SERVER_REACHABLE event handler to remove the error message		
-		// once the server becomes reachable.		
-		transliterationControl.addEventListener(		
-			google.elements.transliteration.TransliterationControl.EventType.SERVER_REACHABLE,		
-			serverReachableHandler);		
-			// Set the checkbox to the correct state.		
-		document.getElementById('checkboxId').checked =		
-		  transliterationControl.isTransliterationEnabled();		
-		// Populate the language dropdown		
-	  }		
+		// once the server becomes reachable.
+		transliterationControl.addEventListener(
+			google.elements.transliteration.TransliterationControl.EventType.SERVER_REACHABLE,
+			serverReachableHandler);
+			// Set the checkbox to the correct state.
+		document.getElementById('checkboxId').checked =
+		  transliterationControl.isTransliterationEnabled();
+		// Populate the language dropdown
+	  }
 	  // Handler for STATE_CHANGED event which makes sure checkbox status		
-	  // reflects the transliteration enabled or disabled status.		
-	  function transliterateStateChangeHandler(e) {		
-		document.getElementById('checkboxId').checked = e.transliterationEnabled;		
-	  }		
+	  // reflects the transliteration enabled or disabled status.
+	  function transliterateStateChangeHandler(e) {
+		document.getElementById('checkboxId').checked = e.transliterationEnabled;
+	  }
 	  // Handler for dropdown option change event.  Calls setLanguagePair to		
-	  // set the new language.		
-	  function languageChangeHandler() {		
-        //transliterationControl.toggleTransliteration();		
-		var dropdown = document.getElementById('nanolang').value;		
-        transliterationControl.setLanguagePair(		
-           google.elements.transliteration.LanguageCode.ENGLISH, dropdown);		
-	  }		
-	  // SERVER_UNREACHABLE event handler which displays the error message.		
-	  function serverUnreachableHandler(e) {		
-		document.getElementById("errorDiv").innerHTML =		
-			"Transliteration Server unreachable";		
-	  }		
-	  // SERVER_UNREACHABLE event handler which clears the error message.		
-	  function serverReachableHandler(e) {		
-		document.getElementById("errorDiv").innerHTML = "";		
-	  }		
-    google.setOnLoadCallback(onLoad);		
-</script>		
+	  // set the new language.
+	  function languageChangeHandler() {
+        //transliterationControl.toggleTransliteration();
+		var dropdown = document.getElementById('nanolang').value;
+        transliterationControl.setLanguagePair(
+           google.elements.transliteration.LanguageCode.ENGLISH, dropdown);
+	  }
+	  // SERVER_UNREACHABLE event handler which displays the error message.
+	  function serverUnreachableHandler(e) {
+		document.getElementById("errorDiv").innerHTML =
+			"Transliteration Server unreachable";
+	  }
+	  // SERVER_UNREACHABLE event handler which clears the error message.
+	  function serverReachableHandler(e) {
+		document.getElementById("errorDiv").innerHTML = "";
+	  }
+    google.setOnLoadCallback(onLoad);
+</script>
 
 <script>
 var rightButtont = $("#right-btnt");

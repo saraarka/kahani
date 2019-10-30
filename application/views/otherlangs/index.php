@@ -173,11 +173,12 @@
     				<?php foreach($yournetworks->result() as $yournetwork) { ?>
     					<div class="card">
     						<div class="book-type"><?php echo $yournetwork->gener;?></div>
-    						<?php $yournwurl = base_url('story/'.preg_replace("~[^\p{M}\w]+~u", '-', $yournetwork->title).'-'.$yournetwork->sid);
-        						$langfullname = get_langfullname($yournetwork->language); 
-        						if(isset($langfullname) && !empty($langfullname)){
-        						    $yournwurl = base_url($langfullname.'/story/'.preg_replace("~[^\p{M}\w]+~u", '-', $yournetwork->title).'-'.$yournetwork->sid);
-        						} ?>
+    						<?php $yournetworktitle = preg_replace("~[^\p{M}\w]+~u", '-', $yournetwork->title);
+                                $yournwurl = base_url('story/'.preg_replace("~[^\p{M}\w]+~u", '-', $yournetworktitle).'-'.$yournetwork->sid);
+                                $langfullname = get_langfullname($yournetwork->language); 
+                                if(isset($langfullname) && !empty($langfullname)){
+                                    $yournwurl = base_url('story/'.preg_replace("~[^\p{M}\w]+~u", '-', $yournetworktitle).'-'.$yournetwork->sid);
+                                } ?>
     						<a href="<?php echo $yournwurl;?>" class="imagess-style">
         						<?php if(isset($yournetwork->image) && !empty($yournetwork->image)) { ?>
         						    <img src="<?php echo base_url();?>assets/images/lazy-d-j.jpg"  data-src="<?php echo base_url();?>assets/images/<?php echo $yournetwork->image; ?>" alt="<?php echo $yournetwork->title;?>" class="imageme lazy">
@@ -1127,6 +1128,7 @@
 	        </center>
 	    <?php } ?>
 	    </div>
+        <?php if($divisioncount > 0){ ?>
         <div class="main-container">
 	        <div class="footer">
                 <font style="float:left;font-size: 18px;margin-top: 8px;margin-left:10px;font-family: 'Varela Round', sans-serif;" class="copyright">
@@ -1150,6 +1152,7 @@
                 </div>
             </div>
 	    </div>
+    <?php } ?>
     </section>
 </div>
 

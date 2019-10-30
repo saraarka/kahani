@@ -179,7 +179,7 @@
 								    <img src="<?php echo base_url();?>assets/images/2.png" alt="<?php echo $nanorow->name;?>" class="circle-image" style="height:50px;color:#000;">
 								<?php } ?>
 								<h3 class="name-nanostories">
-								    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$nanorow->profile_name;?>"><?php echo $nanorow->name;?></a></h3>
+								    <a href="<?php echo base_url().$this->uri->segment(1).'/'.$nanorow->profile_name;?>" style="color:#000;"><?php echo $nanorow->name;?></a></h3>
 							</div>
 							<div>
 								<hr style="width:100%;">
@@ -219,13 +219,13 @@
 									</a>
 									<ul class="dropdown-menu list-inline dropvknano">
     									<li onclick="groupsuggest(<?php echo $nanorow->sid; ?>);">
-    										<a href="javascript:void(0);" data-toggle="modal" data-target="#groupsuggest"><i class="fa fa-users"></i></a>
-    									</li>
-    									<li onclick="friend(<?php echo $nanorow->sid;?>);">
     										<a href="javascript:void(0);" title="COMMUNITY"><i class="fa fa-users"></i></a>
     									</li>
     									<li onclick="friend(<?php echo $nanorow->sid;?>);">
     										<a href="javascript:void(0);" title="SUGGEST"><i class="fa fa-user"></i></a>
+    									</li>
+										<li onclick="socialshare(<?php echo $nanorow->sid;?>, 'nano');">
+											<a data-toggle="modal" data-target="#soc" href="javascript:void(0);" title="SOCIAL"><i class="fa fa-share-alt"></i></a>
 										</li>
 									</ul>
 								</div>
@@ -392,7 +392,7 @@
 <script>
     $(document).ready(function(){
         var limit = 7;
-        var start = 7;
+        var start = 0;
         var action = 'inactive';
         function load_country_data(limit, start) {
             var vatype = "<?php echo $this->uri->segment(3);?>";
@@ -423,10 +423,10 @@
                 }
             });
         }
-        if(action == 'inactive') {
+        /*if(action == 'inactive') {
             action = 'active';
             load_country_data(limit, start);
-        } 
+        } */
         $(window).scroll(function(){
             if ($(window).scrollTop() >= (($("#loadmoreall").height() - $(window).height())*0.6) && action == 'inactive'){
                 action = 'active';
@@ -436,20 +436,20 @@
         });
     });
 </script>
-	<script>		
-    function genericSocialShare(url){		
-        window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');		
-        return true;		
-    }		
-    function copylinkshare(element) {		
-        var $temp = $("<input>");		
-        $("body").append($temp);		
-        $temp.val($(element).val()).select();		
-        document.execCommand("copy");		
-        $temp.remove();	
-        $('#snackbar').text('Link Copied to clipboard...').addClass('show');		
-        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);		
-    }		
+<script>
+    function genericSocialShare(url){
+        window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+        return true;
+    }
+    function copylinkshare(element) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).val()).select();
+        document.execCommand("copy");
+        $temp.remove();
+        $('#snackbar').text('Link Copied to clipboard...').addClass('show');
+        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    }
 </script>
 <script>
 var rightButtont = $("#right-btnt");

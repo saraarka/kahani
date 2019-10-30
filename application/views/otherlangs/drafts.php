@@ -84,7 +84,7 @@
     			success:function(data){
     			    if(data == 1){
     			        $('.deletedraft'+sid).hide();
-                        $('#snackbar').text('Story Deleted Successfully').addClass('show');
+                        $('#snackbar').text('Story Deleted Successfully.').addClass('show');
             	        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 4000);
                         //setTimeout(function(){ location.reload(); }, 500);
     			    }
@@ -96,7 +96,7 @@
 <script>
     $(document).ready(function(){
         var limit = 10;
-        var start = 10;
+        var start = 0;
         var action = 'inactive';
         function load_country_data(limit, start) {
             $.ajax({
@@ -116,10 +116,10 @@
                 }
             });
         }
-        if(action == 'inactive') {
+        /*if(action == 'inactive') {
             action = 'active';
             load_country_data(limit, start);
-        }
+        }*/
         $(window).scroll(function(){
             if ($(window).scrollTop() >= (($("#loadmoreall").height() - $(window).height())*0.6) && action == 'inactive'){
                 action = 'active';

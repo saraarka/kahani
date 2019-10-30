@@ -187,9 +187,9 @@
 			}
 			var choosecommcount = $('input[name="choosecomm[]"]:checked').length;
 			if(choosecommcount >= 2){
-				$('.choosecommsave').css({"display":"block", "background":"#3c8dbc", "color": "white"});
+				$('.choosecommsave').css({"background":"#3c8dbc", "color": "white"});
 			}else{
-				$('.choosecommsave').css({"display":"block!important", "background":"#eee", "color": "#bcb2b2"});
+				$('.choosecommsave').css({"background":"#eee", "color": "#bcb2b2"});
 			}
 		});
 		

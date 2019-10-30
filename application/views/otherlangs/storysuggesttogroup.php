@@ -2,10 +2,10 @@
     foreach($storysuggesttogroup->result() as $story){ ?>
     <div class="modal-header">
     	<button type="button" class="close" data-dismiss="modal" style="color:#000; opacity:initial; margin-top:2px;">&times;</button>
-    	<h4 class="modal-title">
-    	    <b><?php if(isset($this->session->userdata['logged_in']['name'])){
+    	<h4 class="modal-title" style="padding-bottom: 15px;">
+    	    <?php if(isset($this->session->userdata['logged_in']['name'])){
     	        //echo ucfirst($this->session->userdata['logged_in']['name']);
-    	        }?></b> COMMUNITY SHARE 
+    	        }?> COMMUNITY SHARE 
     	        <!--<?php echo ucfirst($story->title);?>-->
     	</h4>
     </div>
@@ -27,7 +27,7 @@
 	        } else{ $openlinkurl = '#'; } ?>
     		<input type="hidden" name="url" value="<?php if($story->type != 'nano'){ echo base_url().$openlinkurl; } ?>">
     		<div class="row">
-        		<div class="col-md-12" style="margin-bottom: 10px;">
+        		<div class="col-md-12">
             		<div class="input-group" style="display:block;">
             		    <input type="text" name="description" class="form-control" placeholder="Enter your text to post on community">
             		</div>
@@ -35,7 +35,7 @@
         	</div>
     		<br>
     		<div class="row">
-    		    <div class="col-sm-12 user-block">
+    		    <div class="col-sm-12 user-block" style="margin-top: 10px;">
     		    
         		<?php if(isset($communities_gener) && ($communities_gener->num_rows() >0)){ ?>
         		    <select class="form-control" name="comm_id">

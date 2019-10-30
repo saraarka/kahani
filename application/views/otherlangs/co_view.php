@@ -473,7 +473,7 @@
         															if($reviews2->story_id == $key->id) {
         																$commentcount = $reviews2->commentcount;
         															} ?>
-        													<?php } } ?><span id="old_cmt<?php echo $key->id;?>" style="cursor:pointer"><?php echo $commentcount; ?></span> Comments
+        													<?php } } ?><span id="old_cmt<?php echo $key->id;?>" style="cursor:pointer;"><?php echo $commentcount; ?></span> Comments
         												</span>
         											</div>
 
@@ -566,9 +566,9 @@
                         													        <?php } ?>
                         													   </span>
                         													    <span class="media-body bodycv">
-                        													        <div class=""><!--username-->
-                        													            <span class="">&nbsp;<b><a href="<?php echo base_url().$this->uri->segment(1).'/'.$subcomment->profile_name; ?>">
-                        													                <p class="namers"><?php echo ucfirst($subcomment->name);?></p></a></b>
+                        													        <div class="">
+                        													            <span class="username">&nbsp;<a href="<?php echo base_url().$this->uri->segment(1).'/'.$subcomment->profile_name; ?>">
+                        													                <p class="namers"><?php echo ucfirst($subcomment->name);?></p></a>
                         													                <span class="dropdown pull-right">
                                                                                                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" style="padding: 0px 10px 0px 20px;">
                                                                                                     <i class="fa fa-ellipsis-v"></i> </a> 
@@ -582,7 +582,7 @@
                                                                                                 </ul>
                                                                                             </span>
                                                                                             <span class="text-muted pull-right datecv"><?php echo get_ydhmdatetime($subcomment->date);?></span>
-                        													            </span><br>
+                        													            </span>
                         													            <?php if(strlen($subcomment->comment) > 200){ ?>
                             														        <span class="more <?php echo $subcomment->id;?>" style="padding-left:10px;"><?php echo mb_substr($subcomment->comment, 0, 200); ?>
                             														            <span class="showhide<?php echo $subcomment->id;?>" style="display:none;"><?php echo mb_substr($subcomment->comment,200); ?></span>
@@ -697,7 +697,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><center>Report The Post</center></h4>
+                <h4 class="modal-title">Report The Post</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="reportcommpost" action="#">
@@ -706,7 +706,7 @@
                     <input type="hidden" name="comm_story_id" id="comm_story_id" value="">
                     <input type="hidden" name="posted_byid" id="posted_byid" value=""><br>
                     <center>
-                        <button type="submit" class="btn btn-danger"> Report </button>
+                        <button type="submit" class="btn btn-primary reportspinner"> REPORT </button>
                     </center>
                 </form>
             </div>
@@ -719,6 +719,7 @@
 		<div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Comment</h4>
             </div>
             <div class="modal-body">
                 <div id="commenteditdiv"></div>
@@ -733,14 +734,14 @@
 		<div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Report to the Comment</h4>
             </div>
             <div class="modal-body">
-                <h4>Report The Comment</h4>
                 <input type="hidden" id="reportcommentid">
                 <input type="hidden" id="reportcommentuserid">
                 <textarea class="form-control" id="reportmsg" placeholder ="Enter your Report Comments"></textarea>
                 <br>
-                <center><button type="submit" onClick="reportcommentdiv()" class="btn btn-danger">Report</button></center>
+                <center><button type="submit" onClick="reportcommentdiv()" class="btn btn-primary reportcmtspinner">REPORT</button></center>
             </div>
         </div>
 	</div>
@@ -1103,8 +1104,8 @@
                                     }else{ profile_image = '2.png'; }
                                     var htmlcomment ='<div class="media editdelete'+result.response[0].id+'" style="padding-left:10px;margin-top:5px;margin-bottom:5px;">'+
 									    '<span class="media-left"><img class="img-circle" src="<?php echo base_url();?>assets/images/'+profile_image+'" alt="'+result.response[0].name+'" style="width:25px;"></span>'+
-                                        '<span class="media-body bodycv"><span class="username"> &nbsp;'+result.response[0].name+
-                                            '<span class="dropdown" style="float:right;">'+
+                                        '<span class="media-body bodycv"><span class="username"> &nbsp; <a href="javascript:void(0);"><p class="namers">'+result.response[0].name+
+                                            '</p></a><span class="dropdown" style="float:right;">'+
                                                 '<a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" aria-expanded="true">'+
                                                  '<i class="fa fa-ellipsis-v"></i></a> '+
                                                 '<ul class="dropdown-menu pull-right">'+
@@ -1154,12 +1155,14 @@
         });
     }
     function updatecommcomment(commentid){
+        $('.updatecmtspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
         var comment = $('textarea#ucomment').val();
         $.ajax({
             type:'POST',
             url:"<?php echo base_url().$this->uri->segment(1);?>/updatecommcomment",
             data:{'comment':comment,'commentid': commentid},
             success:function(response){
+                $('.updatecmtspinner').html('Submit');
                 if(response == 1){
                     $('#commentedit').modal('hide');
                     $('.'+commentid).text(comment);
@@ -1203,6 +1206,7 @@
         $('#reportcomment').modal('show');
     }
     function reportcommentdiv(){
+        $('.reportcmtspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
         var reportcommentid = $('#reportcommentid').val();
         var reportcommentuserid = $('#reportcommentuserid').val();
         var reportmsg = $('#reportmsg').val();
@@ -1212,6 +1216,7 @@
     		data: {'commentid': reportcommentid, 'userid': reportcommentuserid, 'reportmsg': reportmsg},
     		dataType: "json",
     		success:function(data){
+                $('.reportcmtspinner').html('REPORT');
     		    if((data.status == 1) && (data.response == 'success')){
         		    $('#snackbar').text('Successfully Reported.').addClass('show');
         	        setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
@@ -1245,11 +1250,11 @@
 		var inputdata = $('#tpostscommunity_commentpost'+story_id+' :input').serialize();
 		var told_cmtcount = $('#told_cmt'+story_id).text();
         $('.btnspinner'+story_id).html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
-		$.post("<?php echo base_url().$this->uri->segment(1);?>/communities_comments",inputdata,function(resultdata, status) {
-			var result=JSON.parse(resultdata);
+        $.post("<?php echo base_url().$this->uri->segment(1);?>/communities_comments",inputdata,function(resultdata, status) {
+            var result=JSON.parse(resultdata);
             $('.btnspinner'+story_id).html('Comment');
-			if(result.status == -1){
-				$('#snackbar').text('Enter Comments.').addClass('show');
+            if(result.status == -1){
+                $('#snackbar').text('Enter Comments.').addClass('show');
                 setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
 			}else if(result.status == 1){
 				$("#tpostscommunity_commentpost"+story_id).find('input[name="tcomment" ]').val('');
@@ -1322,8 +1327,8 @@
                                     }else{ profile_image = '2.png'; }
                                     var htmlcomment ='<div class="media editdelete'+result.response[0].id+'" style="margin-bottom:10px;padding-left: 10px;">'+
 									    '<span class="media-left"><img class="img-circle" src="<?php echo base_url();?>assets/images/'+profile_image+'" alt="'+result.response[0].name+'" style="width:25px;"></span>'+
-                                        '<span class="media-body bodycv"><span class="username"> &nbsp;'+result.response[0].name+
-                                            '<span class="dropdown" style="float:right;">'+
+                                        '<span class="media-body bodycv"><span class="username"> &nbsp;<a href="javascript:void(0);"><p class="namers">'+result.response[0].name+
+                                            '</p></a><span class="dropdown" style="float:right;">'+
                                                 '<a href="javascript:void(0);" class="dropdown-toggle ellisub" data-toggle="dropdown" aria-expanded="true">'+
                                                  '<i class="fa fa-ellipsis-v"></i></a> '+
                                                 '<ul class="dropdown-menu pull-right">'+
@@ -1488,6 +1493,7 @@
     }
     $( "form#updatecomm_post" ).submit(function( event ) {
 		event.preventDefault();
+        $('.postupdatespinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 		var ptextid = $("form#updatecomm_post").serializeArray()[0].value;
 		var ptext = $("form#updatecomm_post").serializeArray()[1].value;
 		var pquotes = '';
@@ -1495,6 +1501,7 @@
 		    pquotes = $("form#updatecomm_post").serializeArray()[2].value;
 		}
 		$.post("<?php echo base_url().$this->uri->segment(1);?>/updatecomm_post",$("form#updatecomm_post").serialize(),function(resultdata, status) {
+            $('.postupdatespinner').html('Submit');
 			$('span.text-danger').empty();
 			var result=JSON.parse(resultdata);
 			if(result.status == -1){
@@ -1503,7 +1510,7 @@
 				});
 			}else if((result.status == 1) && (result.response == 'success')){
 			    if(pquotes == 'quotes'){
-			        $('.edittext'+ptextid).html(ptext);
+			        $('.edittext'+ptextid).html('<i class="fa fa-quote-left fa-2x"> </i> '+ptext);
 			    }else{
     			    $('.edittext'+ptextid).text(ptext);
     			    location.reload();
@@ -1515,7 +1522,9 @@
 	});
 	$( "form#reportcommpost" ).submit(function( event ) {
 		event.preventDefault();
+        $('.reportspinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 		$.post("<?php echo base_url().$this->uri->segment(1);?>/reportcomm_post",$("form#reportcommpost").serialize(),function(resultdata, status) {
+            $('.reportspinner').html('REPORT');
 			$('span.text-danger').empty();
 			var result=JSON.parse(resultdata);
 			if(result.status == -1){
@@ -1549,7 +1558,7 @@
 <script>
     $(document).ready(function(){
         var limit = 6;
-        var start = 6;
+        var start = 0;
         var action = 'inactive';
         function load_country_data(limit, start) {
             var commuid = "<?php echo $commuid;?>";
@@ -1571,10 +1580,10 @@
                 }
             });
         }
-        if(action == 'inactive') {
+        /*if(action == 'inactive') {
             action = 'active';
             load_country_data(limit, start);
-        } 
+        } */
         $(window).scroll(function(){
             if ($(window).scrollTop() >= (($("#loadposts").height() - $(window).height())*0.6) && action == 'inactive'){
                 action = 'active';

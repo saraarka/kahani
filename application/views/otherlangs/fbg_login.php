@@ -39,7 +39,7 @@ function fbLogin() {
         if (response.authResponse) {
             getFbUserData(); // Get and display the user profile data
         } else { 
-            alert('User cancelled login or did not fully authorize.');
+            console.log('User cancelled login or did not fully authorize.');
         }
     }, {scope: 'email'});
 }
@@ -91,9 +91,9 @@ function getFbUserData(){
             		$('input[name="fbgtype"]').val('fb');
             		
 				}else if(resultdata.status == 0){
-				    alert('Facebook profile data not Found.');
+				    console.log('Facebook profile data not Found.');
 				}else{
-				    alert('Facebook profile not Found.');
+				    console.log('Facebook profile not Found.');
 				}
 			}
 		});
@@ -148,9 +148,9 @@ function getFbUserData(){
             		$('input[name="fbgtype"]').val('google');
             		
 				}else if(resultdata.status == 0){
-				    //alert('Google profile data not Found.');
+				    //console.log('Google profile data not Found.');
 				}else{
-				    alert('Google profile not Found.');
+				    console.log('Google profile not Found.');
 				}
 			}
 		});

@@ -313,17 +313,17 @@
                                     if(isset($nanolikes) && in_array($vamodalnanorow->sid,$nanolikes)) { ?>
                                 	    <a href="javascript:void(0);" onclick="nanodislike(<?php echo $vamodalnanorow->sid;?>);" class="nanolike<?php echo $vamodalnanorow->sid;?>" title="Unlike">
                                 			<i class="fa fa-heart favbtn<?php echo $vamodalnanorow->sid;?>" style="color:#f00; padding-left:3px;font-size:20px;"></i>
-                                		</a>
+                                		</a> &nbsp;
                                 		<span class="nanolikecount<?php echo $vamodalnanorow->sid;?>"><?php echo $vamodalnanorow->nanolikecount;?></span>
                                 	<?php } else { ?>
                                 	    <a href="javascript:void(0);" onclick="nanolike(<?php echo $vamodalnanorow->sid;?>);" class="nanolike<?php echo $vamodalnanorow->sid;?>" title="like">
                                 			<i class="fa fa-heart-o favbtn<?php echo $vamodalnanorow->sid;?>" style="color:#f00; padding-left:3px;font-size:20px;"></i>
-                                		</a>
+                                		</a> &nbsp;
                                 		<span class="nanolikecount<?php echo $vamodalnanorow->sid;?>"><?php echo $vamodalnanorow->nanolikecount;?></span>
                                 <?php } } else{ ?>
                                     <a href="javascript:void(0);" class="notloginmodal" title="like">
                                 		<i class="fa fa-heart-o favbtn<?php echo $vamodalnanorow->sid;?>" style="color:#f00; padding-left:3px;font-size:20px;"></i>
-                                	</a>
+                                	</a> &nbsp;
                                 	<span class="nanolikecount<?php echo $vamodalnanorow->sid;?>"><?php echo $vamodalnanorow->nanolikecount;?></span>
                                 <?php } ?>
                             </li>

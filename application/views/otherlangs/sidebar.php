@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/sidebar.css">
     <?php $leftmenus = get_leftmenus(); ?>
     <div class="main-container">
-    <aside class="main-sidebar hidden-xs hideside"  style="z-index:0;" id="sidebarv">
+    <aside class="main-sidebar hidden-xs"  style="z-index:0;" id="sidebarv">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar" style="font-size: 18px;">
             <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -114,4 +114,14 @@ function hasScrolleds() {
     }
     lastScrollTops = st;
 }
+</script>
+<script>
+    function sidemenuheight(){
+        var sheight = window.innerHeight-316;
+        $('#cardv').css('height',sheight+'px');
+    }
+    sidemenuheight();
+    window.onresize = function(){
+        sidemenuheight();
+    }
 </script>

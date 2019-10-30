@@ -118,9 +118,13 @@ class User_model extends CI_model {
 	public function defaultimages(){
 		//return $this->db->from('defaultimages')->limit(6)->get();
 	}
-	public function searchdimages($keyword){
-		return $this->db->from('defaultimages')
-			->like('search_keywords',$keyword, 'both')->get();
+	public function searchdimages($keyword, $start=false, $limit=false){
+		$this->db->from('defaultimages')
+			->like('search_keywords',$keyword, 'both');
+		if(isset($limit, $start) && !empty($limit)){
+			$this->db->limit($limit, $start);
+		}
+		return $this->db->get();
 	}
 	public function loadmoredimages($start=false, $limit=false){
 		$this->db->from('defaultimages');

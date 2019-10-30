@@ -219,15 +219,15 @@
 
 <!-- Social Popup ---- -->
 <div class="modal fade" id="soc">
-	<div class="modal-dialog">
-		<div class="modal-content socv ">
-			<div class="modal-header" style="padding:8px 15px;">
-				<button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px;" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span></button>
-				<h5 class="modal-title text-center" style="color:#808182;">SOCIAL MEDIA SHARE</h5>
-			</div>
-			<div class="" style="padding-top:5px;">
-				<div class="row">
+    <div class="modal-dialog">
+        <div class="modal-content socv ">
+            <div class="modal-header" style="padding:8px 15px;">
+                <button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px;" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title text-center" style="color:#808182;">SOCIAL MEDIA SHARE</h5>
+            </div>
+            <div class="" style="padding-top:5px;">
+                <div class="row">
                     <div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
                         <a href="javascript:void(0);" class="facebookshare">
                             <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/>
@@ -254,11 +254,11 @@
                         <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">
                     </div>
                 </div>
-			</div>
-		</div>
-	<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
+            </div>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
 <!-- Social popup ---- -->
@@ -266,7 +266,7 @@
 <script>
     $(document).ready(function(){
         var limit = 4;
-        var start = 4;
+        var start = 0;
         var action = 'inactive';
         function load_country_data(limit, start) {
             var generid = "<?php echo $this->uri->segment(3);?>";
@@ -287,10 +287,10 @@
                 }
             });
         }
-        if(action == 'inactive') {
+        /*if(action == 'inactive') {
             action = 'active';
             load_country_data(limit, start);
-        }
+        }*/
         $(window).scroll(function(){
             if ($(window).scrollTop() >= (($("#loadmoreall").height() - $(window).height())*0.6) && action == 'inactive'){
                 action = 'active';
