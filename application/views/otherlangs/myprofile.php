@@ -983,9 +983,9 @@ $("#profilecomments").submit(function(event) {
                         '<span class="dropdown" style="float:right;"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
                             '<i class="fa fa-ellipsis-v"></i></a>'+
                             '<ul class="dropdown-menu pull-right">'+
-                                '<li><a onClick="editpro_comment('+result.response[0].cid+');" style="cursor:pointer;"><span>'+
+                                '<li><a href="javascript:void(0);" onClick="editpro_comment('+result.response[0].cid+');" style="cursor:pointer;"><span>'+
                                     '<i class="fa fa-pencil"></i> EDIT</span></a></li>'+
-                                '<li><a style="cursor:pointer;"><span class="" onClick="deletepro_comment('+result.response[0].cid+');">'+
+                                '<li><a href="javascript:void(0);" onClick="deletepro_comment('+result.response[0].cid+');" style="cursor:pointer;"><span>'+
                                     '<i class="fa fa-trash"></i> DELETE</span></a></li>'+
                             '</ul></span><div style="color:#777; font-size:11px;margin-top:-4px;">1 minute ago</div>'+
                         '</div><p class="pcomment'+result.response[0].cid+'">'+result.response[0].pro_comment+'</p>'+
@@ -994,7 +994,7 @@ $("#profilecomments").submit(function(event) {
                         '<span id="repliescount'+result.response[0].cid+'">0</span> REPLIES</a>'+
                         '<input type="hidden" id="replycmtcount'+result.response[0].cid+'" value="0"><div class="input-group postreplycomment'+result.response[0].cid+'"></div>'+
                         '<span class="text-danger addreplaycmt'+result.response[0].cid+'"></span><div class="box-comment replycommentslist">'+
-                        '<ul id="replycommentresults'+result.response[0].cid+'" style="padding-left:10px;list-style:none;"></ul><span class="viewmore'+result.response[0].cid+'"></span>'+
+                        '<ul id="replycommentresults'+result.response[0].cid+'" style="padding-left:10px;list-style:none;margin-top: 5px;"></ul><span class="viewmore'+result.response[0].cid+'"></span>'+
                         '</div></div></li><hr style="margin-top:5px; margin-bottom:8px;">');
                         $('.commentslist.pcmtfwidth .col-md-12').html('');
                     }
@@ -1152,7 +1152,7 @@ function editpro_comment(commentid){
 }
     $( "form#editprocomment" ).submit(function( event ) {
 		event.preventDefault();
-        ('.updatespinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
+        $('.updatespinner').html('<img src="<?php echo base_url();?>/assets/landing/svg/spinner.svg" class="spinner" style="height:18px !important; width:18px !important;">');
 		var comments = $('textarea#pro_editcomment').val();
 		var cid = $('#commentid').val();
 		$.post("<?php echo base_url().$this->uri->segment(1);?>/updateprocomment",{'comment':comments,'cid':cid},function(resultdata){

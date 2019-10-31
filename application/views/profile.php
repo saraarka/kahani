@@ -891,13 +891,13 @@ $("#profilecomments").submit(function(event) {
                         '<span class="dropdown" style="float:right;"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" title="write" aria-expanded="true" style="padding: 0px 15px;">'+
                         '<i class="fa fa-ellipsis-v"></i></a> <ul class="dropdown-menu pull-right">'+
                         '<li><a href="javascript:void(0);" onClick="editpro_comment('+result.response[0].cid+');" style="cursor:pointer;"><span><i class="fa fa-pencil"></i> EDIT</span></a></li>'+
-                        '<li><a href="javascript:void(0);"><span onClick="deletepro_comment('+result.response[0].cid+');" style="cursor:pointer;"><i class="fa fa-trash"></i> DELETE</span></a></li></ul></span>'+
+                        '<li><a href="javascript:void(0);" onClick="deletepro_comment('+result.response[0].cid+');" style="cursor:pointer;"><span><i class="fa fa-trash"></i> DELETE</span></a></li></ul></span>'+
                         '<div style="color:#777; font-size:11px;margin-top:-4px;">1 minute ago</div></div><p style="margin: 8px 0px 2px 0px;" class="pcomment'+result.response[0].cid+'">'+result.response[0].pro_comment+'</p>'+
                         '<a href="javascript:void(0)" onClick="postReplycomment('+result.response[0].cid+')" style="color:#de1800;font-size:0.8em;"> REPLY </a> <a style="color:#de1800;font-size:0.8em;">I</a> '+
                         '<a href="javascript:void(0)" onClick="replycomments('+result.response[0].profile_id+', '+result.response[0].cid+')" style="color:#de1800;font-size:0.8em;"> 0 REPLIES</a>'+
                         '<input type="hidden" id="replycmtcount'+result.response[0].cid+'" value="0"><div class="input-group postreplycomment'+result.response[0].cid+'"></div>'+
                         '<span class="text-danger addreplaycmt'+result.response[0].cid+'"></span><div class="box-comment replycommentslist">'+
-                        '<ul id="replycommentresults'+result.response[0].cid+'" style="padding-left:10px;list-style:none;"></ul><span class="viewmore'+result.response[0].cid+'"></span>'+
+                        '<ul id="replycommentresults'+result.response[0].cid+'" style="padding-left:10px;list-style:none;margin-top: 5px;"></ul><span class="viewmore'+result.response[0].cid+'"></span>'+
                         '</div></div></li><hr>');
                         $('.commentslist.pcmtfwidth .col-md-12').html('');
                     }
@@ -1092,15 +1092,18 @@ $( "form#editprocomment" ).submit(function( event ) {
 });
     
 function deletepro_comment(commentid){
-    $.ajax({
-        url:'<?php echo base_url();?>welcome/deletepro_comment/'+commentid,
-        method: 'POST',
-        dataType: "json",
-        success:function(data){
-            if(data) {
-                $('li.commentdelete'+commentid).css('display','none');
-            }
-        } 
+    $('.deletemessage').html('Are You Sure? Do you want to delete.');
+    $('#confirmdelpopup').modal().one('click', '#delconfirmed', function (e) {
+        $.ajax({
+            url:'<?php echo base_url();?>welcome/deletepro_comment/'+commentid,
+            method: 'POST',
+            dataType: "json",
+            success:function(data){
+                if(data) {
+                    $('li.commentdelete'+commentid).css('display','none');
+                }
+            } 
+        });
     });
 }
 function postReplycomment(commentid){
@@ -1310,7 +1313,7 @@ $( "form#reportprocomment" ).submit(function( event ) {
                         '<span id="repliescount'+result.response[0].cid+'">0</span> REPLIES</a>'+
                         '<input type="hidden" id="replycmtcount'+result.response[0].cid+'" value="0"><div class="input-group postreplycomment'+result.response[0].cid+'"></div>'+
                         '<span class="text-danger addreplaycmt'+result.response[0].cid+'"></span><div class="box-comment replycommentslist">'+
-                        '<ul id="replycommentresults'+result.response[0].cid+'" style="padding-left:10px;list-style:none;"></ul><span class="viewmore'+result.response[0].cid+'"></span>'+
+                        '<ul id="replycommentresults'+result.response[0].cid+'" style="padding-left:10px;list-style:none;margin-top: 5px;"></ul><span class="viewmore'+result.response[0].cid+'"></span>'+
                         '</div></div></li>');
                         $('.commentslist.pcmtmwidth .col-md-12').html('');
                     }

@@ -216,6 +216,7 @@ $route['(:any)/editpro_comment/(:any)'] = '$1/editpro_comment/$2';
 $route['(:any)/updatecomment'] = '$1/updatecomment';
 $route['(:any)/addstoryreplycomment'] = '$1/addstoryreplycomment';
 $route['(:any)/pro_commentpost'] = '$1/pro_commentpost';
+$route['(:any)/addreplycomment'] = '$1/addreplycomment';
 $route['(:any)/deletepro_comment/(:any)'] = '$1/deletepro_comment/$2';
 $route['(:any)/deletelibrary'] = '$1/deletelibrary';
 $route['(:any)/seriessubscribe'] = '$1/seriessubscribe';

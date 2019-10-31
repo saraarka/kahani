@@ -321,7 +321,7 @@ span.text-danger {
     line-height: 25px;
     max-height: 300px;
     min-height: 100px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 /* popup css end */

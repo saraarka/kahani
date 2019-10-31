@@ -321,25 +321,23 @@
 </div>
 
 <div class="modal-wrapper" id="defaultimages">
-    <div class="modal">
-        <div class="default-image-popup">
-            <button class="close-btn">CLOSE</button>
-            <div class="top-div-image-popup">
-                <input id="searchimage" placeholder="Search image...">
-                <button onclick="searchimage()">GO</button>
-            </div>
-            <div class="defaultimages">
-                <?php if(isset($defaultimages) && ($defaultimages->num_rows() > 0)){ foreach($defaultimages->result() as $defaultimage){ ?>
-                    <img class="selectimg<?php echo $defaultimage->id;?>" src="<?php echo base_url();?>assets/images/<?php echo $defaultimage->dimage;?>" onclick="selectimg(<?php echo $defaultimage->id;?>)">
-                <?php } } ?>
-                <div class="image-loadmore"><button>LOAD MORE</button></div>
-            </div>
-            
-            <div class="upload-own-img-div">
-                <!--<button class="upload-own-img-btn">+ UPLOAD IMAGE</button>-->
-                <button class="upload-own-img-btn"><label><input type="file" name="cover_image" id="upload-file-selector" style="display:none;">+ UPLOAD IMAGE</label></button>
-                <button class="default-img-save-button">USE THIS IMAGE</button>
-            </div>
+    <div class="default-image-popup">
+        <button class="close-btn">CLOSE</button>
+        <div class="top-div-image-popup">
+            <input id="searchimage" placeholder="Search image...">
+            <button onclick="searchimage()">GO</button>
+        </div>
+        <div class="defaultimages">
+            <?php if(isset($defaultimages) && ($defaultimages->num_rows() > 0)){ foreach($defaultimages->result() as $defaultimage){ ?>
+                <img class="selectimg<?php echo $defaultimage->id;?>" src="<?php echo base_url();?>assets/images/<?php echo $defaultimage->dimage;?>" onclick="selectimg(<?php echo $defaultimage->id;?>)">
+            <?php } } ?>
+            <div class="image-loadmore"><button>LOAD MORE</button></div>
+        </div>
+        
+        <div class="upload-own-img-div">
+            <!--<button class="upload-own-img-btn">+ UPLOAD IMAGE</button>-->
+            <button class="upload-own-img-btn"><label><input type="file" name="cover_image" id="upload-file-selector" style="display:none;">+ UPLOAD IMAGE</label></button>
+            <button class="default-img-save-button">USE THIS IMAGE</button>
         </div>
     </div>
 </div>

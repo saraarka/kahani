@@ -7474,9 +7474,12 @@ ul.cardv li:nth-child(n+6) {
 
 ul.cardv {
 	overflow-y: scroll;
-	height: 50vh;
+	min-height: 40vh;
+    height: calc(100vh - 316px);
 }
-
+.cardv li:first-child {
+  padding-top: 10px;
+}
 .cardv-text:last-child {
 	margin-bottom: 0;
 }

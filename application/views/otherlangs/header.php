@@ -160,7 +160,7 @@
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                             </a>
-                            <ul class="treeview-menu cardv" style="display:block;">
+                            <ul class="treeview-menu cardv" style="display:block; transition: all 0.2 ease-in;">
                                 <?php if(isset($gener) && ($gener->num_rows() > 0)) { foreach($gener->result() as $key) { ?>
                                     <!--<li><a href="<?php echo base_url($this->uri->segment(1).'/geners/'.preg_replace('/\s+/', '-',$key->gener)); ?>">
                                     <li><a href="<?php echo base_url($this->uri->segment(1).'/genre/'.preg_replace('/\s+/', '-',$key->gener)); ?>">

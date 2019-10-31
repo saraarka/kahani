@@ -680,7 +680,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="reportcommpost" action="#">
-                    <textarea name="reportmsg" Placeholder="Why is it inappropriate? Write your reason here..." class="form-control" style="resize:none;"></textarea>
+                    <textarea name="reportmsg" Placeholder="Why is it inappropriate? Write your reason here." class="form-control" style="resize:none;"></textarea>
                     <span class="text-danger reportmsg"></span>
                     <input type="hidden" name="comm_story_id" id="comm_story_id" value="">
                     <input type="hidden" name="posted_byid" id="posted_byid" value=""><br>

@@ -26,14 +26,12 @@ function hasScrolled() {
     if (st > lastScrollTop && st > navbarHeight){
         // Scroll Down
         $('header').removeClass('header').addClass('nav-up');
-        var sheight = window.innerHeight-256;
-        $('#cardv').css('height',sheight+'px');
+        $('.cardv').css('height','calc(100vh - 256px)');
     } else {
         // Scroll Up
         if(st + $(window).height() < $(document).height()) {
             $('header').removeClass('nav-up').addClass('header');
-            var sheight = window.innerHeight-316;
-            $('#cardv').css('height',sheight+'px');
+            $('.cardv').css('height','calc(100vh - 316px)');
         }
     }
     
