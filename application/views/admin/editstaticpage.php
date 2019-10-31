@@ -1,5 +1,6 @@
 <?php $this->load->view('admin/header.php'); ?>
     <div class="main">
+        <h3> Edit static page </h3>
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <?php if(isset($editstaticpage) && ($editstaticpage->num_rows() == 1)){ foreach($editstaticpage->result() as $editrow) { ?>
         <form class="form-horizontal" action="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/updatestaticpage/<?php echo $editrow->id;?>" method="POST" enctype="multipart/form-data">

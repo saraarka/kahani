@@ -1,5 +1,6 @@
 <?php $this->load->view('admin/header.php'); ?>
     <div class="main">
+        <h3> Edit left menu language text </h3>
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <?php if(isset($editleftmenu) && ($editleftmenu->num_rows() == 1)){ foreach($editleftmenu->result() as $leftmenurow){ ?>
             <form class="form-horizontal" action="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/updateleftmenu/<?php echo $leftmenurow->id;?>" method="POST">

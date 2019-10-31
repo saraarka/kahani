@@ -1,5 +1,6 @@
     <?php $this->load->view('admin/header.php'); ?>
     <div class="main">
+        <h3> Landing page type writes </h3>
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <?php if(isset($edittypewrite) && ($edittypewrite->num_rows() > 0 )){ foreach($edittypewrite->result() as $row){ ?>
         <form class="form-horizontal" action="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/edittypewrite/<?php echo $row->id;?>" method="POST">

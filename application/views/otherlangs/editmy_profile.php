@@ -292,7 +292,8 @@
     	        
     	    <div class="settings">
                 <div class="inner-settings">
-                    <h3>GENERAL INFO</h3><hr>
+                    <!--<h3>GENERAL INFO</h3><hr>-->
+                    <span class="community-heading"><b>GENERAL INFO</b></span><hr>
                     <div><label>ABOUT : </label></div>
                     <textarea name="aboutus" id="aboutus" placeholder="Introduce Yourself..."><?php echo $row->aboutus; ?></textarea>
                     <span class="text-danger aboutus"><?php echo form_error('aboutus'); ?></span>

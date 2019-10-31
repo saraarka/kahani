@@ -1,5 +1,6 @@
 <?php $this->load->view('admin/header.php'); ?>
     <div class="main">
+        <h3> Profile menu list </h3>
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <table class="table table-condensed">
             <thead>

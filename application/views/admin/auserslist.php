@@ -1,5 +1,6 @@
     <?php $this->load->view('admin/header.php'); ?>
     <div class="main">
+        <h3> All Users List </h3>
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <h3> Users List 
             <span class="pull-right" id="ausersearchsort">

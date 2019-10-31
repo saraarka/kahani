@@ -1,5 +1,6 @@
 <?php $this->load->view('admin/header.php'); ?>
     <div class="main">
+        <h3> Edit landing page Card </h3>
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <?php if(isset($editlandpage) && ($editlandpage->num_rows() > 0)){ foreach($editlandpage->result() as $editlandrow) { ?>
         <form class="form-horizontal" action="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/updatelandingpage/<?php echo $editlandrow->id;?>" method="POST" enctype="multipart/form-data">

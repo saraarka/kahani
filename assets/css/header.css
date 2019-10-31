@@ -35,7 +35,8 @@ a:active,
 a:focus {
 	outline: none;
 	text-decoration: none;
-	color: #23527c;
+	/*color: #23527c;*/
+	color: #337ab7;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
@@ -856,7 +857,8 @@ a {
 
 a:focus,
 a:hover {
-	color: #23527c;
+	/*color: #23527c;*/
+	color: #337ab7;
 	text-decoration: none
 }
 

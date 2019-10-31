@@ -1,5 +1,6 @@
     <?php $this->load->view('admin/header.php'); ?>
     <div class="main">
+        <h3> Add Landing page Cards </h3>
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <form class="form-horizontal" action="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/addlandingpage" method="POST" enctype="multipart/form-data">
             

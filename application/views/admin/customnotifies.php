@@ -1,5 +1,6 @@
     <?php $this->load->view('admin/header.php'); ?>
     <div class="main">
+        <h3> Admin Notifications </h3>
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <?php if(isset($editgener) && ($editgener->num_rows() > 0)){ foreach($editgener->result() as $editrow) { ?>
         <form class="form-horizontal" action="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/geners/<?php echo $editrow->id;?>" method="POST">

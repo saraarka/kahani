@@ -54,7 +54,7 @@
     							</a>
         						<div>
         							<font class="max-lines">
-        								<a href="<?php echo base_url('series/'.preg_replace("~[^\p{M}\w]+~u", '-', $seriesrow->title).'-'.$seriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $seriesrow->title).'-'.$seriesrow->story_id);?>">
+        								<a href="<?php echo base_url('series/'.preg_replace("~[^\p{M}\w]+~u", '-', $seriesrow->title).'-'.$seriesrow->sid.'/'.preg_replace("~[^\p{M}\w]+~u", '-', $seriesrow->title).'-'.$seriesrow->story_id);?>" style="color: #337ab7;">
         									<?php echo ($seriesrow->title);?>
         								</a>
         							</font> 
@@ -124,7 +124,7 @@
         						    </a>
         						<div>
         							<font class="max-lines">
-        								<a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u", '-', $storyrow->title).'-'.$storyrow->sid);?>">
+        								<a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u", '-', $storyrow->title).'-'.$storyrow->sid);?>" style="color: #337ab7;">
         									<?php echo ($storyrow->title);?>
         								</a>
         							</font> 
@@ -206,7 +206,7 @@
             				</a>	
             				<div>
             				<font class="max-lines">
-            					<a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u", '-', $liferow->title).'-'.$liferow->sid);?>">
+            					<a href="<?php echo base_url('story/'.preg_replace("~[^\p{M}\w]+~u", '-', $liferow->title).'-'.$liferow->sid);?>" style="color: #337ab7;">
             						<?php echo $liferow->title;?>
             					</a>
             				</font> 
@@ -391,29 +391,28 @@
 <!-- Social Popup ---- -->
 <div class="modal fade" id="soc">
 	<div class="modal-dialog">
-		<div class="modal-content socv ">
-			<div class="modal-header" style="padding:8px 15px;">
-				<button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px;margin-bottom:-2px;" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span></button>
-				<h5 class="modal-title text-center" style="color:#808182;">SOCIAL MEDIA SHARE</h5>
+		<div class="modal-content socv">
+			<div class="modal-header">
+				<button type="button" class="close" style="color:#000; opacity:initial; font-size: 23px;" data-dismiss="modal" aria-label="Close">&times;</button>
+				<h5 class="modal-title" style="color:#808182;">SOCIAL MEDIA SHARE</h5>
 			</div>
 			<div class="" style="padding-top:10px;">
-				<div class="row">
-					<div class="col-md-12 pd-5v" style="margin:12px;">
+				<div class="row" style="margin-left: -15px;">
+					<div class="col-md-12 pd-5v" style="padding-bottom:5px;">
 						<a href="javascript:void(0);" class="facebookshare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Facebook</p></a>
+						    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-8px;"/> <p class="socialsharepopupspan">Facebook</p></a>
 					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;">
+					<div class="col-md-12 pd-5v" style="padding-bottom:5px;">
 					    <a href="javascript:void(0);" class="whatsappshare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Whatsapp</p></a>
+						    <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-8px;"/> <p class="socialsharepopupspan">Whatsapp</p></a>
 					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;">
+					<div class="col-md-12 pd-5v" style="padding-bottom:5px;">
 						<a href="javascript:void(0);" class="twittershare socsh">
-						    <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Twitter</p></a>
+						    <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-8px;"/> <p class="socialsharepopupspan">Twitter</p></a>
 					</div>
-					<div class="col-md-12 pd-5v" style="margin:12px;">
+					<div class="col-md-12 pd-5v" style="padding-bottom:5px;">
 						<a href="javascript:void(0);" onclick="copylinkshare('#copylinkshare')" class="socsh">
-						    <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px; height:40px;margin-top:-10px;"/> <p class="socialsharepopupspan">Copy to link</p></a>
+						    <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px; height:40px;margin-top:-8px;"/> <p class="socialsharepopupspan">Copy to link</p></a>
 					    <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">
 					</div>
 				</div>

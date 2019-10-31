@@ -6,6 +6,7 @@
         }
     </style>
     <div class="main">
+        <h3> Default images for writings </h3>
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <?php if(isset($edit_dimages) && ($edit_dimages->num_rows() == 1)) { 
             foreach($edit_dimages->result() as $edit_dimage) { ?>

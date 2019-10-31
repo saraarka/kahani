@@ -38,7 +38,7 @@
     	    </span>
     	    <span class="pull-right" style="width:45%;padding-top:6px;">
     	        <?php if(isset($this->session->userdata['logged_in']['user_id']) && ($this->session->userdata['logged_in']['user_id'] == $followingkey->user_id)){ ?>
-                    <button class="pull-right vjw btn btn-success" onclick="yoursfollow()"> Follow </button>
+                    <button class="pull-right vjw btn btn-success" onclick="yoursfollow()"> FOLLOW </button>
                 <?php } else { ?>
                     <?php if(isset($following) && in_array($followingkey->user_id, $following)) { ?>
                         <button class="pull-right vjw btn btn-primary notloginmodal unfollow<?php echo $followingkey->user_id;?>" onclick="writerunfollow(<?php echo $followingkey->user_id;?>,'<?php echo $followingkey->name;?>')"> FOLLOWING </button>

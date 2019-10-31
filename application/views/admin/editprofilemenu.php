@@ -1,5 +1,6 @@
 <?php $this->load->view('admin/header.php'); ?>
     <div class="main">
+        <h3> Edit profile menu language text </h3>
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <?php if(isset($editprofilemenu) && ($editprofilemenu->num_rows() == 1)){ foreach($editprofilemenu->result() as $editprofile){ ?>
             <form class="form-horizontal" action="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/updateprofilemenu/<?php echo $editprofile->id;?>" method="POST">

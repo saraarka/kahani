@@ -512,14 +512,14 @@ class Admin_model extends CI_model {
 	        $checkexists = $this->db->from('communities')->where('gener',$query[0]->gener)->where('joincomm_lang',$data['joincomm_lang'])->limit(1)->get();
 	        if($checkexists->num_rows() > 0){
 	            $this->session->set_flashdata('msg','<div class="alert alert-danger">Community already existed.</div>');
-                redirect(base_url().'index.php/telugu_admin/communities');
+                redirect(base_url().'index.php/'.$this->uri->segment(1).'/communities');
 	        }else{
 	            $data['gener'] = $query[0]->gener;
 	            return $this->db->insert('communities',$data);
 	        }
 	    }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Gener not found for the Community to add.</div>');
-            redirect(base_url().'index.php/telugu_admin/communities');
+            redirect(base_url().'index.php/'.$this->uri->segment(1).'/communities');
 	    }
 	}
 	public function editcommunity($language, $id){
@@ -532,14 +532,14 @@ class Admin_model extends CI_model {
 	            ->where('joincomm_lang',$data['joincomm_lang'])->limit(1)->get();
 	        if($checkexists->num_rows() > 0){
 	            $this->session->set_flashdata('msg','<div class="alert alert-danger">Community already existed.</div>');
-                redirect(base_url().'index.php/telugu_admin/communities');
+                redirect(base_url().'index.php/'.$this->uri->segment(1).'/communities');
 	        }else{
 	            $data['gener'] = $query[0]->gener;
 	            return $this->db->where('id',$id)->update('communities',$data);
 	        }
 	    }else{
             $this->session->set_flashdata('msg','<div class="alert alert-danger">Gener not found for the Community to add.</div>');
-            redirect(base_url().'index.php/telugu_admin/communities');
+            redirect(base_url().'index.php/'.$this->uri->segment(1).'/communities');
 	    }
 	}
 	public function deletecommunity($id){
@@ -559,12 +559,29 @@ class Admin_model extends CI_model {
 	    return $this->db->where('id', $id)->update('gener', array('gener' => $gener));
 	}
 	public function addgener($gener){
-	    $query = $this->db->from('gener')->where('gener', $gener)->get();
-	    if($query->num_rows() > 0){
-	        return false;
-	    }else{
-	        return $this->db->insert('gener', array('gener' => $gener));
-	    }
+		$query = $this->db->from('gener')->where('gener', $gener)->get();
+		if($query->num_rows() > 0){
+			return false;
+		}else{
+			$this->db->trans_begin();
+			$query = $this->db->select('code')->from('language')->get()->result_array();
+				if(isset($query) && count($query) > 0){
+					foreach ($query as $queryrow) {
+						$commquery = $this->db->from('communities')->where('gener',$gener)->where('joincomm_lang',$queryrow['code'])->get();
+						if($commquery->num_rows() < 1){
+							$this->db->insert('communities', array('gener' => $gener, 'joincomm_lang' => $queryrow['code']));
+						}
+					}
+				}
+				$this->db->insert('gener', array('gener' => $gener));
+			if ($this->db->trans_status() === FALSE){
+				$this->db->trans_rollback();
+				return false;
+			}else{
+				$this->db->trans_commit();
+				return true;
+			}
+		}
 	}
 	public function deletegener($id){
 	    return $this->db->from('gener')->where('id', $id)->delete();

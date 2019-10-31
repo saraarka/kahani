@@ -224,6 +224,7 @@ select{
     margin: 15px;
     padding: 3px 0px;
     color: #fff;
+    cursor: pointer;
 }
 @media screen and (max-width: 1155px){
     .info {

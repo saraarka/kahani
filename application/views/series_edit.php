@@ -98,6 +98,7 @@
                 margin: 15px;
                 padding: 3px 0px;
                 color: #fff;
+                cursor: pointer;
             }
             .imageThumb {
                 width: 293px;
@@ -365,7 +366,11 @@
               color: #3c8dbc;
               outline: none;
             }
+            .upload-own-img-btn label{
+              cursor: pointer;
+            }
             .default-img-save-button{
+              cursor: pointer;
               border: 1px solid transparent;
               height: 30px;
               margin: 10px;
@@ -590,6 +595,7 @@
                 }
             });
         }else{
+            $('.image-loadmore button').html('LOAD MORE');
             $('#snackbar').text('Enter text for Image Search.').addClass('show');
             setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
         }

@@ -1,6 +1,7 @@
 
     <?php $this->load->view('admin/header.php'); ?>
     <div class="main">
+        <h3> Edit home banner(slide) </h3>
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <?php if(isset($editslide) && ($editslide->num_rows() == 1)){ foreach($editslide->result() as $editsliderow){ ?>
         <form class="form-horizontal" action="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/updatehomeslide/<?php echo $editsliderow->id;?>" method="POST" enctype="multipart/form-data">

@@ -1,5 +1,6 @@
     <?php $this->load->view('admin/header.php'); ?>
     <div class="main">
+        <h3> Communities Comment Reports</h3>
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <h3> Communities comments Reports List </h3>
         <table id="tblpagination" class="display table table-condensed table-striped table-hover">

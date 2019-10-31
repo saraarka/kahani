@@ -220,35 +220,34 @@
 <!-- Social Popup ---- -->
 <div class="modal fade" id="soc">
     <div class="modal-dialog">
-        <div class="modal-content socv ">
-            <div class="modal-header" style="padding:8px 15px;">
-                <button type="button" class="close" style="color:#000; opacity:initial; margin-top:0px;" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-                <h5 class="modal-title text-center" style="color:#808182;">SOCIAL MEDIA SHARE</h5>
+        <div class="modal-content socv">
+            <div class="modal-header">
+                <button type="button" class="close" style="color:#000; opacity:initial; font-size: 23px;" data-dismiss="modal" aria-label="Close">&times;</button>
+                <h5 class="modal-title" style="color:#808182;">SOCIAL MEDIA SHARE</h5>
             </div>
             <div class="" style="padding-top:5px;">
                 <div class="row">
-                    <div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+                    <div class="col-md-12 pd-5v" style="padding-bottom:5px;">
                         <a href="javascript:void(0);" class="facebookshare">
-                            <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-10px;"/>
+                            <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-8px;"/>
                             <span class="socialsharepopupspan">Facebook</span>
                         </a>
                     </div>
-                    <div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+                    <div class="col-md-12 pd-5v" style="padding-bottom:5px;">
                         <a href="javascript:void(0);" class="whatsappshare">
-                            <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-10px;"/>
+                            <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-8px;"/>
                             <span class="socialsharepopupspan">Whatsapp</span>
                         </a>
                     </div>
-                    <div class="col-md-12 pd-5v" style="margin:12px;padding-bottom:5px;">
+                    <div class="col-md-12 pd-5v" style="padding-bottom:5px;">
                         <a href="javascript:void(0);" class="twittershare">
-                            <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-10px;"/>
+                            <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-8px;"/>
                             <span class="socialsharepopupspan">Twitter</span>
                         </a>
                     </div>
-                    <div class="col-md-12 pd-5v" style="margin:12px;">
+                    <div class="col-md-12 pd-5v">
                         <a href="javascript:void(0);" onclick="copylinkshare('#copylinkshare')">
-                            <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px; height:40px;margin-top:-10px;"/>
+                            <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px; height:40px;margin-top:-8px;"/>
                             <span class="socialsharepopupspan">Copy to link</span>
                         </a>
                         <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">

@@ -79,26 +79,30 @@
 
 <!-- Social Popup ---- -->
 	<div class="modal fade" id="soc">
-		<div class="modal-dialog" style="width:270px;margin:10px auto;">
+		<div class="modal-dialog">
 			<div class="modal-content socv">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="">
-					<span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Social Media Share</h4>
+					<button type="button" class="close" style="color:#000; opacity:initial;font-size: 23px;" data-dismiss="modal" aria-label="Close">&times;</button>
+					<h5 class="modal-title" style="color:#808182;">SOCIAL MEDIA SHARE</h5>
 				</div>
-				<div class="modal-body" style="padding: 5px 15px;">
+				<div class="" style="padding-top:10px;">
 					<div class="row">
-						<div class="col-md-12 border-bottom">
-							<a class="btn btn-primary btn-social-icon btn-facebook" style="width:45px; height:45px; border-radius: 50%;"><i class="fa fa-facebook" style="font-size: 25px;padding-top: 5px;"></i></a> FACEBOOK
+						<div class="col-md-12 pd-5v" style="padding-bottom:5px;">
+							<a href="javascript:void(0);" class="facebookshare socsh">
+							    <img src="<?php echo base_url();?>assets/svg/fb.svg" style="width:40px; height:40px;margin-top:-8px;"/><p class="socialsharepopupspan">Facebook</p></a>
 						</div>
-						<div class="col-md-12 border-bottom">
-							<a class="btn btn-success btn-social-icon btn-google-plus" style="width:45px; height:45px; border-radius: 50%;"><i class="fa fa-whatsapp"  style="font-size: 25px;padding-top: 5px;"></i></a> WHATSAPP
+						<div class="col-md-12 pd-5v" style="padding-bottom:5px;">
+						    <a href="javascript:void(0);" class="whatsappshare socsh">
+							    <img src="<?php echo base_url();?>assets/svg/wa.svg" style="width:40px; height:40px;margin-top:-8px;"/><p class="socialsharepopupspan">Whatsapp</p></a>
 						</div>
-						<div class="col-md-12 border-bottom">
-							<a class="btn btn-info btn-social-icon btn-twitter" style="width:45px; height:45px; border-radius: 50%;"><i class="fa fa-twitter" style="font-size: 25px;padding-top: 5px;"></i></a> TWITTER
+						<div class="col-md-12 pd-5v" style="padding-bottom:5px;">
+							<a href="javascript:void(0);" class="twittershare socsh">
+							    <img src="<?php echo base_url();?>assets/svg/twitter.svg" style="width:40px; height:40px;margin-top:-8px;"/> <p class="socialsharepopupspan">Twitter</p></a>
 						</div>
-						<div class="col-md-12 border-bottom-none">
-							<a class="btn btn-default btn-social-icon btn-twitter" style="width:45px; height:45px; border-radius: 50%;"><i class="fa fa-link" style="font-size: 25px;padding-top: 5px;"></i></a> COPY LINK
+						<div class="col-md-12 pd-5v" style="">
+							<a href="javascript:void(0);" onclick="copylinkshare('#copylinkshare')" class="socsh">
+							    <img src="<?php echo base_url();?>assets/svg/link.svg" style="width:40px;height:40px;margin-top:-8px;"/> <p class="socialsharepopupspan">Copy to link</p></a>
+						    <input type="hidden" id="copylinkshare" value="<?php echo base_url();?>">
 						</div>
 					</div>
 				</div>

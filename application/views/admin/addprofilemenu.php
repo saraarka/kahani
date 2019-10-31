@@ -1,5 +1,6 @@
 <?php $this->load->view('admin/header.php'); ?>
     <div class="main">
+        <h3> Add Profile menu titles Other languages </h3>
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <form class="form-horizontal" action="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/addprofilemenu" method="POST">
             

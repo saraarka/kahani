@@ -1,5 +1,6 @@
     <?php $this->load->view('admin/header.php'); ?>
     <div class="main">
+        <h3> Blog Edit </h3>
         <center><span><?php echo $this->session->flashdata('msg');?></span></center>
         <?php if(isset($editblog) && ($editblog->num_rows() > 0)){ foreach($editblog->result() as $editblogrow) { ?>
         <form class="form-horizontal" action="<?php echo base_url();?>index.php/<?php echo $this->uri->segment(1);?>/updateblog/<?php echo $editblogrow->id;?>" method="POST" enctype="multipart/form-data">
